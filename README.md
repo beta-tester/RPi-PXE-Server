@@ -39,8 +39,9 @@ and the folowing folder structure
 
 optional for win-pe pxe boot
 ```
-/tftp/boot
-/tftp/sources
+/tftp/pxeboot.0
+/tftp/bootmgr.exe
+/tftp/boot/
 ```
 
 1. run `bash install-pxe-server_pass1.sh` to install necessary packages
