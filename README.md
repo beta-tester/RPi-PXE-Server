@@ -80,3 +80,6 @@ systemrescue-x86.url
 bankix-x86.url
 desinfect-x86.url
 ```
+## note2:
+some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
+if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
