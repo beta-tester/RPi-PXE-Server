@@ -36,10 +36,10 @@ optional for win-pe pxe boot
 /tftp/sources
 ```
 
-1. run **bash install-pxe-server_pass1.sh** to install necessary packages
-2. reboot your RPi
-3. run **bash install-pxe-server_pass2.sh** to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.
-4. reboot your RPi
+1. run `bash install-pxe-server_pass1.sh` to install necessary packages
+2. reboot your RPi with `sudo reboot`
+3. run `bash install-pxe-server_pass2.sh` to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.
+4. reboot your RPi with `sudo reboot`
 
 done.
 ## note:
