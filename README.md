@@ -8,10 +8,10 @@ i did not keeped an eye on network security.
 USE IT AT YOU OWN RISK.
 
 ## what is it good for?
-the scripts installs necessary packages to let your PRi act as a DHCP, TFTP, Samba, NFS, PXE server.
+the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, PXE server.
 and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
-the script can be easely be modified to add additional ISOs or update ISOs if updated ones are available.
+the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
 
 
 ## requirements
@@ -31,13 +31,13 @@ assuming, your Raspberry Pi is running Raspbian Jessie (2016-02-09),
 and has a proper connection to the internet via LAN.
 and your SD card can hold all the iso images,
 and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
-and the folowing folder structure
+and the folowing folder structure on the USB memory stick:
 ```
 /tftp
 /tftp/iso
 ```
 
-optional for win-pe pxe boot
+optional structure for win-pe pxe boot
 ```
 /tftp/pxeboot.0
 /tftp/bootmgr.exe
@@ -70,7 +70,7 @@ bankix-x86.iso        # c't Bankix
 desinfect-x86.iso     # c't desinfect, is not downloadable, you have to get by yourself
 ```
 
-those url files will contain the url of the iso image, where to download, to compare if you have the requested iso already downloaded, to prevent downloading an iso newly, when it is done already.
+the following url files will contain the url of the iso image, where to download, to compare if you have the requested iso already downloaded, to prevent downloading an iso newly, when it is done already.
 ```
 win-pe-x86.url
 ubuntu-x64.url
