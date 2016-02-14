@@ -1,16 +1,19 @@
 # install-pxe-server
 setup a Raspberry Pi as an PXE-Server.
+## what is it good for?
+the scripts installs necessary packages to let your PRi act as a DHCP, TFTP, Samba, NFS, PXE server.
+and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
-
+the script can be easely be modified to add additional ISOs or update ISOs if updated ones are available.
 
 ## requirements
 ### hardware:
-Raspberry Pi (with LAN)
-SD card (big enough to hold entire ISO images of desired Live DVDs)
-USB-Stick (for preloaded iso images)
-working network environment
-### software
-Raspbian Jessie (2016-02-09, https://www.raspberrypi.org/downloads/raspbian/)
+- Raspberry Pi (with LAN)
+- SD card (big enough to hold entire ISO images of desired Live DVDs), (e.g. 64GByte)
+- USB memory stick (for preloaded iso images), (e.g. 64GByte)
+- working network environment with a connection to internet
+### software:
+- Raspbian Jessie (2016-02-09, https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming, your Raspberry Pi is running Raspbian Jessie (2016-02-09),
