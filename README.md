@@ -1,5 +1,12 @@
 # install-pxe-server
 setup a Raspberry Pi as an PXE-Server.
+
+it is a private project i have done for myself.
+
+i did not keeped an eye on network security.
+
+USE IS AT YOU OWN RISK.
+
 ## what is it good for?
 the scripts installs necessary packages to let your PRi act as a DHCP, TFTP, Samba, NFS, PXE server.
 and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
