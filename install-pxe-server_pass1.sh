@@ -11,7 +11,7 @@
 # nonpae,    ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # winpe,     https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 #
-# v2016-02-14
+# v2016-03-17
 
 
 ######################################################################
@@ -80,6 +80,11 @@ sudo apt-get -y install dnsmasq
 ######################################################################
 echo -e "\e[32minstall samba\e[0m";
 sudo apt-get -y install samba;
+
+
+######################################################################
+# fix for systemd dependency cycle
+grep -q nfs-kernel-server /etc/rc.local || sudo sed /etc/rc.local -i -e "s/^exit 0$/sudo service nfs-kernel-server restart &\n\nexit 0/";
 
 
 ######################################################################
