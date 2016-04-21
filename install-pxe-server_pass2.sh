@@ -11,7 +11,7 @@
 # pentoo,    http://www.pentoo.ch/download/
 # sysrescue, http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
 #
-# v2016-02-14
+# v2016-04-21
 
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
