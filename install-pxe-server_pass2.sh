@@ -219,7 +219,7 @@ echo -e "\e[32msetup sys menu for pxe\e[0m";
 [ -f "$DST_ROOT/ldlinux.c32" ]  || sudo ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32   $DST_ROOT/
 [ -f "$DST_ROOT/vesamenu.c32" ] || sudo ln -s /usr/lib/syslinux/modules/bios/vesamenu.c32  $DST_ROOT/
 [ -f "$DST_ROOT/libcom32.c32" ] || sudo ln -s /usr/lib/syslinux/modules/bios/libcom32.c32  $DST_ROOT/
-[ -f "$DST_ROOT/libutil.c32 " ] || sudo ln -s /usr/lib/syslinux/modules/bios/libutil.c32   $DST_ROOT/
+[ -f "$DST_ROOT/libutil.c32" ]  || sudo ln -s /usr/lib/syslinux/modules/bios/libutil.c32   $DST_ROOT/
 [ -f "$DST_ROOT/memdisk" ]      || sudo ln -s /usr/lib/syslinux/memdisk                    $DST_ROOT/
 
 [ -d "$DST_ROOT/pxelinux.cfg" ] || sudo mkdir -p $DST_ROOT/pxelinux.cfg
