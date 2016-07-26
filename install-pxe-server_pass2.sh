@@ -11,7 +11,7 @@
 # pentoo,    http://www.pentoo.ch/download/
 # sysrescue, http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
 #
-# v2016-04-21
+# v2016-07-22
 
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
@@ -38,16 +38,16 @@ IP_SUB=255.255.255.0
 WIN_PE_X86_URL=
 UBUNTU_X64_URL=http://releases.ubuntu.com/15.10/ubuntu-15.10-desktop-amd64.iso
 UBUNTU_X86_URL=http://releases.ubuntu.com/15.10/ubuntu-15.10-desktop-i386.iso
-UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-amd64.iso
-UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-i386.iso
+UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso
+UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-i386.iso
 UBUNTU_NONPAE_URL=ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/8.4.0-live/amd64/iso-hybrid/debian-live-8.4.0-amd64-lxde-desktop.iso
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/8.4.0-live/i386/iso-hybrid/debian-live-8.4.0-i386-lxde-desktop.iso
-GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-14.04.4-desktop-amd64-gnuradio-3.7.9.2.iso
+DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/8.5.0-live/amd64/iso-hybrid/debian-live-8.5.0-amd64-lxde-desktop.iso
+DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/8.5.0-live/i386/iso-hybrid/debian-live-8.5.0-i386-lxde-desktop.iso
+GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-14.04.4-desktop-amd64-gnuradio-3.7.10.iso
 DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 KALI_X64_URL=http://cdimage.kali.org/kali-2016.1/kali-linux-2016.1-amd64.iso
 PENTOO_X64_URL=ftp://mirror.switch.ch/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC4.6.iso
-SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/4.7.2/systemrescuecd-x86-4.7.2.iso
+SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/4.8.0/systemrescuecd-x86-4.8.0.iso
 BANKIX_X86_URL=ftp://ftp.heise.de/pub/ct/projekte/ctbankix/12.04/ctbankix-12.04.7.iso
 DESINFECT_X86_URL=
 
