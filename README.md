@@ -24,7 +24,7 @@ the script can easely be modified to add additional ISOs or update ISOs if updat
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
 ### software:
-- Raspbian Jessie (2016-02-09, https://www.raspberrypi.org/downloads/raspbian/)
+- Raspbian Jessie (2016-09-23, https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming, your Raspberry Pi is running Raspbian Jessie (2016-02-09),
@@ -39,9 +39,9 @@ and the folowing folder structure on the USB memory stick:
 
 optional structure for win-pe pxe boot
 ```
-/tftp/pxeboot.0
 /tftp/bootmgr.exe
 /tftp/boot/
+/tftp/efi/
 ```
 
 1. run `bash install-pxe-server_pass1.sh` to install necessary packages
@@ -91,3 +91,6 @@ desinfect-x86.url
 ## note2:
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
 if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
+
+## note3:
+it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because o lack of hardware for UEFI boot
