@@ -1,17 +1,19 @@
 #!/bin/bash
-# bankix,    http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
-# debian,    http://cdimage.debian.org/debian-cd/
-# deft,      http://www.deftlinux.net/
-# gnuradio,  http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioLiveDVD/
-# kali,      http://www.kali.org/kali-linux-releases/
-# pentoo,    http://www.pentoo.ch/download/
-# sysrescue, http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
 # ubuntu,    http://releases.ubuntu.com/
 #            https://help.ubuntu.com/community/Installation/MinimalCD
-# nonpae,    ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# debian,    http://cdimage.debian.org/debian-cd/
+# gnuradio,  http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioLiveDVD/
+# kali,      http://www.kali.org/kali-linux-releases/
+# deft,      http://www.deftlinux.net/
+# pentoo,    http://www.pentoo.ch/download/
+# sysrescue, http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
+# knoppix,   http://www.knopper.net/knoppix-mirrors/index-en.html
+# tails      https://tails.boum.org/install/download/index.en.html
 # winpe,     https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
+# nonpae,    ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# bankix,    http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
 #
-# v2016-03-17
+# v2016-10-10
 
 
 ######################################################################
@@ -26,14 +28,6 @@ SRC_NFS=$SRC_ROOT$NFS
 DST_ROOT=/srv$TFTP
 DST_ISO=$DST_ROOT$ISO
 DST_NFS=$DST_ROOT$NFS
-IP_LOCAL=$(echo $(hostname -I) | sed 's/ //g')
-IP_LOCAL_=$(echo $IP_LOCAL | grep -E -o "([0-9]{1,3}[\.]){3}")
-IP_LOCAL_0=$(echo $(echo $IP_LOCAL_)0)
-IP_LOCAL_START=$(echo $(echo $IP_LOCAL_)200)
-IP_LOCAL_END=$(echo $(echo $IP_LOCAL_)229)
-IP_LOCAL_255=$(echo $(echo $IP_LOCAL_)255)
-IP_ROUTER=$(grep "nameserver" /etc/resolv.conf | sed -r "s/nameserver([ ]{1,})//g")
-IP_SUB=255.255.255.0
 
 
 ######################################################################
@@ -84,6 +78,7 @@ sudo apt-get -y install samba;
 
 ######################################################################
 # fix for systemd dependency cycle
+echo -e "\e[32mworkaround for systemd dependency cycle\e[0m";
 grep -q nfs-kernel-server /etc/rc.local || sudo sed /etc/rc.local -i -e "s/^exit 0$/sudo service nfs-kernel-server restart &\n\nexit 0/";
 
 
