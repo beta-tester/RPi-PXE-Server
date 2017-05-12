@@ -13,7 +13,7 @@
 # nonpae,    ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # bankix,    http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
 #
-# v2017-02-26
+# v2017-05-12
 
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
@@ -43,18 +43,18 @@ IP_SUB=255.255.255.0
 WIN_PE_X86_URL=
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-amd64.iso
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-i386.iso
-UBUNTU_X64_URL=http://releases.ubuntu.com/yakkety/ubuntu-16.10-desktop-amd64.iso
-UBUNTU_X86_URL=http://releases.ubuntu.com/yakkety/ubuntu-16.10-desktop-i386.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-amd64.iso
+UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 UBUNTU_NONPAE_URL=ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-8.7.1-amd64-lxde-desktop.iso
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-8.7.1-i386-lxde-desktop.iso
-GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-14.04.5-desktop-amd64-gnuradio-3.7.10.1.iso
+DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-8.8.0-amd64-lxde-desktop.iso
+DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-8.8.0-i386-lxde-desktop.iso
+GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
-KALI_X64_URL=http://cdimage.kali.org/kali-2016.2/kali-linux-2016.2-amd64.iso
+KALI_X64_URL=http://cdimage.kali.org/kali-2017.1/kali-linux-2017.1-amd64.iso
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
-SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/4.9.2/systemrescuecd-x86-4.9.2.iso
-TAILS_X86_URL=https://28.dl.amnesia.boum.org/tails/stable/tails-i386-2.10/tails-i386-2.10.iso
-BANKIX_X86_URL=ftp://ftp.heise.de/pub/ct/projekte/ctbankix/12.04/ctbankix-12.04.7.iso
+SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.0/systemrescuecd-x86-5.0.0.iso
+TAILS_X86_URL=https://tails.bgadmin.com/tails/stable/tails-i386-2.12/tails-i386-2.12.iso       
+BANKIX_X86_URL=
 DESINFECT_X86_URL=
 
 WIN_PE_X86=win-pe-x86
