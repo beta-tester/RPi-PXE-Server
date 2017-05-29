@@ -425,7 +425,7 @@ LABEL Tails x86
 [ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$DESINFECT_X86/casper/vmlinuz" ] && sudo sh -c "echo '########################################
 LABEL desinfect x86
     KERNEL $NFS/$DESINFECT_X86/casper/vmlinuz
-    APPEND initrd=$NFS/$DESINFECT_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DESINFECT_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  memtest=4  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
+    APPEND initrd=$NFS/$DESINFECT_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DESINFECT_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  memtest=4  rmdns  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to ct desinfect x86
         de
