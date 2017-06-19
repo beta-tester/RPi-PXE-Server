@@ -411,10 +411,10 @@ LABEL System Rescue x86
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
 
-[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$TAILS_X64/live/vmlinuz2" ] && sudo sh -c "echo '########################################
+[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$TAILS_X64/live/vmlinuz" ] && sudo sh -c "echo '########################################
 LABEL Tails x64
-    KERNEL $NFS/$TAILS_X64/live/vmlinuz2
-    APPEND initrd=$NFS/$TAILS_X64/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$TAILS_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
+    KERNEL $NFS/$TAILS_X64/live/vmlinuz
+    APPEND initrd=$NFS/$TAILS_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$TAILS_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to Tails x64 Live
         k:en, l:de
