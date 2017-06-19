@@ -414,9 +414,9 @@ LABEL System Rescue x86
 [ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$TAILS_X64/live/vmlinuz" ] && sudo sh -c "echo '########################################
 LABEL Tails x64
     KERNEL $NFS/$TAILS_X64/live/vmlinuz
-    APPEND initrd=$NFS/$TAILS_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$TAILS_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
+    APPEND initrd=$NFS/$TAILS_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$TAILS_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de  break
     TEXT HELP
-        Boot to Tails x64 Live
+        Boot to Tails x64 Live (modeprobe r8169; exit)
         k:en, l:de
     ENDTEXT
 
