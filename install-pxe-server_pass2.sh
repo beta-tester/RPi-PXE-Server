@@ -416,7 +416,7 @@ LABEL Tails x64
     KERNEL $NFS/$TAILS_X64/live/vmlinuz
     APPEND initrd=$NFS/$TAILS_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$TAILS_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de  break
     TEXT HELP
-        Boot to Tails x64 Live (modeprobe r8169; exit)
+        Boot to Tails x64 Live (modprobe r8169; exit)
         k:en, l:de
     ENDTEXT
 
