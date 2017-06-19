@@ -50,6 +50,11 @@ optional structure for win-pe pxe boot
 4. reboot your RPi with `sudo reboot`
 
 done.
+
+## update:
+to update your images, update the **install-pxe-server_pass2.sh** file and re-run `bash install-pxe-server_pass2.sh`.
+this will download alle updated iso files.
+
 ## note:
 the script will copy/download/mount following ISOs:
 ```
@@ -66,8 +71,8 @@ deft-x64.iso          # DEFT
 kali-x64.iso          # Kali Linux
 pentoo-x64.iso        # Pentoo Linux
 systemrescue-x86.iso  # System Rescue
-tails-x86             # Tails (not working yet)
-bankix-x86.iso        # c't Bankix
+tails-x64             # Tails (not working yet)
+bankix-x86.iso        # c't Bankix, is not downloadable anymore, you have to get by yourself
 desinfect-x86.iso     # c't desinfect, is not downloadable, you have to get by yourself
 ```
 
@@ -86,7 +91,7 @@ deft-x64.url
 kali-x64.url
 pentoo-x64.url
 systemrescue-x86.url
-tails-x86.url
+tails-x64.url
 bankix-x86.url
 desinfect-x86.url
 ```
@@ -95,4 +100,4 @@ some of the PXE-menu entries has additional parameters, that lets the Live syste
 if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
 
 ## note3:
-it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because o lack of hardware for UEFI boot
+it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because of lack of hardware for UEFI boot
