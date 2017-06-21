@@ -321,10 +321,10 @@ LABEL  Ubuntu non-PAE x86
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
 
-[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$DEBIAN_X64/live/vmlinuz" ] && sudo sh -c "echo '########################################
+[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$DEBIAN_X64/live/vmlinuz-4.9.0-3-amd64" ] && sudo sh -c "echo '########################################
 LABEL Debian x64
-    KERNEL $NFS/$DEBIAN_X64/live/vmlinuz
-    APPEND initrd=$NFS/$DEBIAN_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEBIAN_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
+    KERNEL $NFS/$DEBIAN_X64/live/vmlinuz-4.9.0-3-amd64
+    APPEND initrd=$NFS/$DEBIAN_X64/live/initrd.img-4.9.0-3-amd64  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEBIAN_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     # siehe ...
     # /lib/live/config/0050-locales                 locales=de_DE
     # /lib/live/config/0160-keyboard-configuration  keyboard-layouts=de
@@ -336,10 +336,10 @@ LABEL Debian x64
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
 
-[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$DEBIAN_X86/live/vmlinuz2" ] && sudo sh -c "echo '########################################
+[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686" ] && sudo sh -c "echo '########################################
 LABEL Debian x86
-    KERNEL $NFS/$DEBIAN_X86/live/vmlinuz2
-    APPEND initrd=$NFS/$DEBIAN_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEBIAN_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
+    KERNEL $NFS/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686
+    APPEND initrd=$NFS/$DEBIAN_X86/live/initrd.img-4.9.0-3-686  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEBIAN_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     # siehe ...
     # /lib/live/config/0050-locales                 locales=de_DE
     # /lib/live/config/0160-keyboard-configuration  keyboard-layouts=de
