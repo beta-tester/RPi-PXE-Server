@@ -13,7 +13,7 @@
 # nonpae,    ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # bankix,    http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
 #
-# v2017-06-19
+# v2017-06-21
 
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
@@ -46,8 +46,8 @@ UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-i38
 UBUNTU_X64_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-amd64.iso
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 UBUNTU_NONPAE_URL=ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.0.0-amd64-lxde.iso
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.0.0-i386-lxde.iso
+DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.0.1-amd64-lxde.iso
+DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.0.1-i386-lxde.iso
 GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 KALI_X64_URL=http://cdimage.kali.org/kali-2017.1/kali-linux-2017.1-amd64.iso
