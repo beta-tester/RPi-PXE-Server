@@ -5,7 +5,7 @@ it is a private project i have made for myself.
 
 i did not keeped an eye on network security.
 
-USE IT AT YOU OWN RISK.
+USE IT AT YOUR OWN RISK.
 
 ## what is it good for?
 the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, PXE server.
@@ -27,11 +27,12 @@ optional, if your SD card is too small or you dont want to have all the server c
 - Raspbian Jessie (2016-09-23, https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
-assuming, your Raspberry Pi is running Raspbian Jessie (2016-09-23),
-and has a proper connection to the internet via LAN.
-and your SD card can hold all the iso images,
-and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
-and the folowing folder structure on the USB memory stick:
+assuming,
+- your Raspberry Pi is running Raspbian Jessie (2016-09-23),
+- and has a proper connection to the internet via LAN.
+- and your SD card can hold all the iso images,
+- and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
+- and the folowing folder structure on the USB memory stick:
 ```
 /tftp
 /tftp/iso
@@ -52,8 +53,8 @@ optional structure for win-pe pxe boot
 done.
 
 ## update:
-to update your images, update the **install-pxe-server_pass2.sh** file and re-run `bash install-pxe-server_pass2.sh`.
-this will download alle updated iso files.
+to update your images, update the url in the **install-pxe-server_pass2.sh** file and re-run `bash install-pxe-server_pass2.sh`.
+this will download all updated iso files.
 
 ## note:
 the script will copy/download/mount following ISOs:
