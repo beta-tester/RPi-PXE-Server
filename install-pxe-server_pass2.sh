@@ -1,19 +1,20 @@
 #!/bin/bash
-# ubuntu,    http://releases.ubuntu.com/
-#            https://help.ubuntu.com/community/Installation/MinimalCD
-# debian,    http://cdimage.debian.org/debian-cd/
-# gnuradio,  http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioLiveDVD/
-# kali,      http://www.kali.org/kali-linux-releases/
-# deft,      http://www.deftlinux.net/
-# pentoo,    http://www.pentoo.ch/download/
-# sysrescue, http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
-# knoppix,   http://www.knopper.net/knoppix-mirrors/index-en.html
-# tails      https://tails.boum.org/install/download/openpgp/index.en.html
-# winpe,     https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
-# nonpae,    ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
-# bankix,    http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
+# ubuntu,       http://releases.ubuntu.com/
+#               https://help.ubuntu.com/community/Installation/MinimalCD
+# debian,       http://cdimage.debian.org/debian-cd/
+# gnuradio,     http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioLiveDVD/
+# kali,         http://www.kali.org/kali-linux-releases/
+# deft,         http://www.deftlinux.net/
+# pentoo,       http://www.pentoo.ch/download/
+# sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
+# knoppix,      http://www.knopper.net/knoppix-mirrors/index-en.html
+# tails         https://tails.boum.org/install/download/openpgp/index.en.html
+# winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
+# nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# bankix,       http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
+# raspbian x86, https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/
 #
-# v2017-06-21
+# v2017-06-25
 
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
@@ -56,6 +57,7 @@ SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sy
 TAILS_X64_URL=https://tails.bgadmin.com/tails/stable/tails-amd64-3.0/tails-amd64-3.0.iso
 BANKIX_X86_URL=
 DESINFECT_X86_URL=
+RASPBIAN_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
 
 WIN_PE_X86=win-pe-x86
 UBUNTU_LTS_X64=ubuntu-lts-x64
@@ -73,6 +75,7 @@ SYSTEMRESCTUE_X86=systemrescue-x86
 TAILS_X64=tails-x64
 BANKIX_X86=bankix-x86
 DESINFECT_X86=desinfect-x86
+RASPBIAN_X86=raspbian-x86
 
 
 ######################################################################
@@ -198,6 +201,7 @@ handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
 handle_iso  $TAILS_X64         $TAILS_X64_URL;
 handle_iso  $BANKIX_X86        $BANKIX_X86_URL;
 handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
+handle_iso  $RASPBIAN_X86      $RASPBIAN_X86_URL;
 
 
 ######################################################################
@@ -439,6 +443,21 @@ LABEL bankix x86
     APPEND initrd=$NFS/$BANKIX_X86/casper/pae/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$BANKIX_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to ct bankix Ubuntu x86 Live
+        k:en, l:de
+    ENDTEXT
+
+' >> $DST_ROOT/$1/pxelinux.cfg/$2";
+
+[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$RASPBIAN_X86/live/vmlinuz2" ] && sudo sh -c "echo '########################################
+LABEL Raspbian x86
+    KERNEL $NFS/$RASPBIAN_X86/live/vmlinuz2
+    APPEND initrd=$NFS/$RASPBIAN_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$RASPBIAN_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
+    # siehe ...
+    # /lib/live/config/0050-locales                 locales=de_DE
+    # /lib/live/config/0160-keyboard-configuration  keyboard-layouts=de
+    # /lib/live/config/0070-tzdata                  timezone=Europe/Berlin
+    TEXT HELP
+        Boot to Raspbian x86 Live
         k:en, l:de
     ENDTEXT
 
