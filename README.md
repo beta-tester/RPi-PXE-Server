@@ -75,7 +75,7 @@ systemrescue-x86.iso  # System Rescue
 tails-x64             # Tails (not working yet)
 bankix-x86.iso        # c't Bankix, is not downloadable anymore, you have to get by yourself
 desinfect-x86.iso     # c't desinfect, is not downloadable, you have to get by yourself
-raspbian-x86.iso      # a Raspbian (Raspberry Pi environment) version for x86
+rpdesktop-x86.iso     # Raspberry Pi Desktop for x86 PC
 ```
 
 the following url files will contain the url of the iso image, where to download, to compare if you have the requested iso already downloaded, to prevent downloading an iso newly, when it is done already.
@@ -96,7 +96,7 @@ systemrescue-x86.url
 tails-x64.url
 bankix-x86.url
 desinfect-x86.url
-raspbian-86.url
+rpdesktop-x86.url
 ```
 ## note2:
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
