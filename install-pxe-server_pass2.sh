@@ -450,7 +450,7 @@ LABEL Raspberry Pi Desktop
     APPEND initrd=$NFS/$RPDESKTOP_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$RPDESKTOP_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to Raspberry Pi Desktop
-        k:en, l:de
+        k:de, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
