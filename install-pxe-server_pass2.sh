@@ -12,7 +12,7 @@
 # winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # bankix,       http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
-# raspbian x86, https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/
+# rpdesktop,    https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/
 #
 # v2017-06-25
 
@@ -57,7 +57,7 @@ SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sy
 TAILS_X64_URL=https://tails.bgadmin.com/tails/stable/tails-amd64-3.0/tails-amd64-3.0.iso
 BANKIX_X86_URL=
 DESINFECT_X86_URL=
-RASPBIAN_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
+RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
 
 WIN_PE_X86=win-pe-x86
 UBUNTU_LTS_X64=ubuntu-lts-x64
@@ -75,7 +75,7 @@ SYSTEMRESCTUE_X86=systemrescue-x86
 TAILS_X64=tails-x64
 BANKIX_X86=bankix-x86
 DESINFECT_X86=desinfect-x86
-RASPBIAN_X86=raspbian-x86
+RPDESKTOP_X86=rpdesktop-x86
 
 
 ######################################################################
@@ -201,7 +201,7 @@ handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
 handle_iso  $TAILS_X64         $TAILS_X64_URL;
 handle_iso  $BANKIX_X86        $BANKIX_X86_URL;
 handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
-handle_iso  $RASPBIAN_X86      $RASPBIAN_X86_URL;
+handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86URL;
 
 
 ######################################################################
@@ -444,12 +444,12 @@ LABEL bankix x86
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
 
-[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$RASPBIAN_X86/live/vmlinuz2" ] && sudo sh -c "echo '########################################
-LABEL Raspbian x86
-    KERNEL $NFS/$RASPBIAN_X86/live/vmlinuz2
-    APPEND initrd=$NFS/$RASPBIAN_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$RASPBIAN_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
+[ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$RPDESKTOP_X86/live/vmlinuz2" ] && sudo sh -c "echo '########################################
+LABEL Raspberry Pi Desktop
+    KERNEL $NFS/$RPDESKTOP_X86/live/vmlinuz2
+    APPEND initrd=$NFS/$RPDESKTOP_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$RPDESKTOP_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     TEXT HELP
-        Boot to Raspbian x86 Live
+        Boot to Raspberry Pi Desktop
         k:en, l:de
     ENDTEXT
 
