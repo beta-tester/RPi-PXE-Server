@@ -531,15 +531,25 @@ tftp-root=$DST_ROOT/
 tftp-lowercase
 
 # PXE (enabled)
-pxe-service=x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
-pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux
-pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux
-pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux
-#dhcp-boot=$DST_PXE_BIOS/pxelinux.0
-dhcp-match=set:x86_BIOS, option:client-arch, 0
+# warning: unfortunately, a RPi3 identifies itself as of architecture x86PC (x86PC=0)
+# luckily the RPi3 seems to use always the same UUID 44444444-4444-4444-4444-444444444444
+dhcp-match=set:UUID_RPI3, option:client-machine-id, 00:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44
+dhcp-match=set:ARCH_0, option:client-arch, 0
 dhcp-match=set:x86_UEFI, option:client-arch, 6
 dhcp-match=set:x64_UEFI, option:client-arch, 7
 dhcp-match=set:x64_UEFI, option:client-arch, 9
+
+# test if it is a RPi3 or a regular x86PC
+tag-if=set:ARM_RPI3,tag:ARCH_0,tag:UUID_RPI3
+tag-if=set:x86_BIOS,tag:ARCH_0,tag:!UUID_RPI3
+
+pxe-service=tag:ARM_RPI3,0, "Raspberry Pi Boot   ", bootcode.bin
+pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
+pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux
+pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux
+pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux
+
+dhcp-boot=tag:ARM_RPI3, bootcode.bin
 dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.0
 dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.0
