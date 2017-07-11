@@ -13,7 +13,7 @@ and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
 the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
 
-it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3
+it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see **note4**)
 
 ## requirements
 ### hardware:
@@ -25,11 +25,11 @@ it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
 ### software:
-- Raspbian Jessie (2016-09-23, https://www.raspberrypi.org/downloads/raspbian/)
+- Raspbian Jessie (2017-07-05-raspbian-jessie.img, https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Jessie (2016-09-23),
+- your Raspberry Pi is running Raspbian Jessie (2017-07-05-raspbian-jessie.img),
 - and has a proper connection to the internet via LAN.
 - and your SD card can hold all the iso images,
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
