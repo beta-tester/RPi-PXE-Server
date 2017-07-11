@@ -32,7 +32,8 @@ DST_PXE_BIOS=menu-bios
 DST_PXE_EFI32=menu-efi32
 DST_PXE_EFI64=menu-efi64
 DST_PXE_RPI=rpi-boot
-SN_RPI=12345678
+RPI_CLIENT=rpi-client
+RPI_SN=12345678
 IP_LOCAL=$(echo $(hostname -I) | sed 's/ //g')
 IP_LOCAL_=$(echo $IP_LOCAL | grep -E -o "([0-9]{1,3}[\.]){3}")
 IP_LOCAL_0=$(echo $(echo $IP_LOCAL_)0)
@@ -214,7 +215,7 @@ echo -e "\e[32msetup sys menu for pxe\e[0m";
 # $DST_ROOT/$1/pxelinux.cfg/$2
 
 
-DEFAULT /vesamenu.c32 
+DEFAULT /vesamenu.c32
 TIMEOUT 600
 ONTIMEOUT Boot Local
 PROMPT 0
@@ -516,11 +517,16 @@ handle_pxe_menu  $DST_PXE_EFI64  efidefault;
 ######################################################################
 echo -e "\e[32mcopy rpi stuff\e[0m";
 [ -d "$DST_ROOT/$DST_PXE_RPI" ]               || sudo mkdir -p $DST_ROOT/$DST_PXE_RPI;
-[ -f "$DST_ROOT/$DST_PXE_RPI/bootcode.bin" ]  || sudo wget https://github.com/raspberrypi/firmware/raw/master/boot/bootcode.bin -O $DST_ROOT/$DST_PXE_RPI/bootcode.bin;
-[ -f "$DST_ROOT/$DST_PXE_RPI/start.elf" ]     || sudo wget https://github.com/raspberrypi/firmware/raw/master/boot/start.elf    -O $DST_ROOT/$DST_PXE_RPI/start.elf;
+[ -f "$DST_ROOT/$DST_PXE_RPI/bootcode.bin" ]  || sudo rsync -avr --exclude cmdline.txt /boot/* $DST_ROOT/$DST_PXE_RPI/;
+[ -f "$DST_ROOT/$DST_PXE_RPI/cmdline.txt" ]   || sudo sh -c "echo 'root=/dev/nfs nfsroot=$IP_LOCAL:$DST_NFS/$RPI_CLIENT rw ip=dhcp rootwait elevator=deadline' >> $DST_ROOT/$DST_PXE_RPI/cmdline.txt";
 [ -f "$DST_ROOT/bootcode.bin" ]               || sudo ln -s $DST_ROOT/$DST_PXE_RPI/bootcode.bin  $DST_ROOT/bootcode.bin;
-[ -f "$DST_ROOT/tart.elf" ]                   || sudo ln -s $DST_ROOT/$DST_PXE_RPI/start.elf     $DST_ROOT/start.elf;
-[ -d "$DST_ROOT/$SN_RPI" ]                    || sudo ln -s $DST_ROOT/$DST_PXE_RPI               $DST_ROOT/$SN_RPI;
+[ -d "$DST_ROOT/$RPI_SN" ]                    || sudo ln -s $DST_ROOT/$DST_PXE_RPI               $DST_ROOT/$RPI_SN;
+[ -d "$DST_NFS/$RPI_CLIENT" ]                 || sudo mkdir -p $DST_NFS/$RPI_CLIENT;
+grep -q "$DST_NFS/$RPI_CLIENT" /etc/exports || {
+echo -e "\e[32m($RPI_CLIENT) add nfs folder to exports for pxe\e[0m";
+sudo sh -c "echo '$DST_NFS/$RPI_CLIENT  *(rw,sync,no_subtree_check,no_root_squash)' >> /etc/exports";
+sudo exportfs -a;
+};
 
 ######################################################################
 [ -f /etc/dnsmasq.d/pxeboot ] || {
