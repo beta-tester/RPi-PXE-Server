@@ -518,7 +518,7 @@ handle_pxe_menu  $DST_PXE_EFI64  efidefault;
 echo -e "\e[32mcopy rpi stuff\e[0m";
 [ -d "$DST_ROOT/$DST_PXE_RPI" ]               || sudo mkdir -p $DST_ROOT/$DST_PXE_RPI;
 [ -f "$DST_ROOT/$DST_PXE_RPI/bootcode.bin" ]  || sudo rsync -avr --exclude cmdline.txt /boot/* $DST_ROOT/$DST_PXE_RPI/;
-[ -f "$DST_ROOT/$DST_PXE_RPI/cmdline.txt" ]   || sudo sh -c "echo 'root=/dev/nfs nfsroot=$IP_LOCAL:$DST_NFS/$RPI_CLIENT rw ip=dhcp rootwait elevator=deadline' >> $DST_ROOT/$DST_PXE_RPI/cmdline.txt";
+[ -f "$DST_ROOT/$DST_PXE_RPI/cmdline.txt" ]   || sudo sh -c "echo 'dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/nfs nfsroot=$IP_LOCAL:$DST_NFS/$RPI_CLIENT rw ip=dhcp rootwait elevator=deadline' >> $DST_ROOT/$DST_PXE_RPI/cmdline.txt";
 [ -f "$DST_ROOT/bootcode.bin" ]               || sudo ln -s $DST_ROOT/$DST_PXE_RPI/bootcode.bin  $DST_ROOT/bootcode.bin;
 [ -d "$DST_ROOT/$RPI_SN" ]                    || sudo ln -s $DST_ROOT/$DST_PXE_RPI               $DST_ROOT/$RPI_SN;
 [ -d "$DST_NFS/$RPI_CLIENT" ]                 || sudo mkdir -p $DST_NFS/$RPI_CLIENT;
