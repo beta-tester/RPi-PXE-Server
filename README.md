@@ -13,6 +13,7 @@ and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
 the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
 
+it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3
 
 ## requirements
 ### hardware:
@@ -104,3 +105,10 @@ if you dont like or want, remove those additional parameters just behind the ' -
 
 ## note3:
 it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because of lack of hardware for UEFI boot
+
+## note4: NETWORK BOOTING for Raspberry Pi 3
+the server is prepared for to boot a Raspberry Pi 3 via network.
+but you have to do some additional work beside of the installation script.
+you have to add a bootcode.bin to the tftp folder and other files/folders.<br/>
+see: [Network Booting](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md)<br/>
+see: [Network Boot Your Raspberry Pi](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md)
