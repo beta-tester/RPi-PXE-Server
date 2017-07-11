@@ -543,7 +543,7 @@ dhcp-match=set:x64_UEFI, option:client-arch, 9
 tag-if=set:ARM_RPI3,tag:ARCH_0,tag:UUID_RPI3
 tag-if=set:x86_BIOS,tag:ARCH_0,tag:!UUID_RPI3
 
-pxe-service=tag:ARM_RPI3,0, "Raspberry Pi Boot   ", bootcode.bin
+pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
 pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
 pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux
 pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux
