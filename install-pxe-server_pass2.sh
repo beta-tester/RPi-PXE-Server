@@ -14,7 +14,7 @@
 # bankix,       http://www.heise.de/ct/projekte/Sicheres-Online-Banking-mit-Bankix-284099.html
 # rpdesktop,    https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/
 #
-# v2017-06-25
+# v2017-07-11
 
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
@@ -31,6 +31,8 @@ DST_NFS=$DST_ROOT$NFS
 DST_PXE_BIOS=menu-bios
 DST_PXE_EFI32=menu-efi32
 DST_PXE_EFI64=menu-efi64
+DST_PXE_RPI=rpi-boot
+SN_RPI=12345678
 IP_LOCAL=$(echo $(hostname -I) | sed 's/ //g')
 IP_LOCAL_=$(echo $IP_LOCAL | grep -E -o "([0-9]{1,3}[\.]){3}")
 IP_LOCAL_0=$(echo $(echo $IP_LOCAL_)0)
@@ -54,7 +56,7 @@ DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 KALI_X64_URL=http://cdimage.kali.org/kali-2017.1/kali-linux-2017.1-amd64.iso
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
 SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.2/systemrescuecd-x86-5.0.2.iso
-TAILS_X64_URL=https://tails.bgadmin.com/tails/stable/tails-amd64-3.0/tails-amd64-3.0.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.0.1/tails-amd64-3.0.1.iso
 BANKIX_X86_URL=
 DESINFECT_X86_URL=
 RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
@@ -511,6 +513,14 @@ echo -e "\e[32msetup sys menu files for pxe efi64\e[0m";
 [ -d "$DST_ROOT/$DST_PXE_EFI64/iso" ]          || sudo ln -s $DST_ISO                                      $DST_ROOT/$DST_PXE_EFI64/iso;
 handle_pxe_menu  $DST_PXE_EFI64  efidefault;
 
+######################################################################
+echo -e "\e[32mcopy rpi stuff\e[0m";
+[ -d "$DST_ROOT/$DST_PXE_RPI" ]               || sudo mkdir -p $DST_ROOT/$DST_PXE_RPI;
+[ -f "$DST_ROOT/$DST_PXE_RPI/bootcode.bin" ]  || sudo wget https://github.com/raspberrypi/firmware/raw/master/boot/bootcode.bin -O $DST_ROOT/$DST_PXE_RPI/bootcode.bin;
+[ -f "$DST_ROOT/$DST_PXE_RPI/start.elf" ]     || sudo wget https://github.com/raspberrypi/firmware/raw/master/boot/start.elf    -O $DST_ROOT/$DST_PXE_RPI/start.elf;
+[ -f "$DST_ROOT/bootcode.bin" ]               || sudo ln -s $DST_ROOT/$DST_PXE_RPI/bootcode.bin  $DST_ROOT/bootcode.bin;
+[ -f "$DST_ROOT/tart.elf" ]                   || sudo ln -s $DST_ROOT/$DST_PXE_RPI/start.elf     $DST_ROOT/start.elf;
+[ -d "$DST_ROOT/$SN_RPI" ]                    || sudo ln -s $DST_ROOT/$DST_PXE_RPI               $DST_ROOT/$SN_RPI;
 
 ######################################################################
 [ -f /etc/dnsmasq.d/pxeboot ] || {
@@ -588,18 +598,9 @@ static domain_name_servers=$IP_ROUTER
 
 ######################################################################
 echo -e "\e[32menable port mapping and necessary services\e[0m";
-sudo service nfs-common stop;
-sudo service nfs-kernel-server stop;
-sudo service rpcbind stop;
-sudo update-rc.d rpcbind enable;
-sudo update-rc.d nfs-common enable;
-sudo update-rc.d nfs-kernel-server enable;
-sudo update-rc.d rpcbind defaults;
-sudo service rpcbind restart;
-sudo service nfs-kernel-server restart;
-# fix for systemd dependency cycle
-echo -e "\e[32mworkaround for systemd dependency cycle\e[0m";
-grep -q nfs-kernel-server /etc/rc.local || sudo sed /etc/rc.local -i -e "s/^exit 0$/sudo service nfs-kernel-server restart &\n\nexit 0/";
+sudo systemctl stop nfs-kernel-server nfs-common rpcbind;
+sudo systemctl enable rpcbind nfs-kernel-server;
+sudo systemctl restart rpcbind nfs-kernel-server;
 
 
 ######################################################################
