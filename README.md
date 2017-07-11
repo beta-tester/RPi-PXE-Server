@@ -110,7 +110,7 @@ it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested 
 the server is prepared for to boot a Raspberry Pi 3 via network.
 but you have to do some additional work beside of the installation script.
 you have to add a bootcode.bin to the tftp folder and other files/folders.
-as template, the script will copy the PXE-Servers ```/boot``` files to ```/srv/tftp/rpi-boot``` and creates a ```cmdline.txt``` for network booting.
+as template, the script will copy the PXE-Servers ```/boot``` files to ```/srv/tftp/rpi-boot``` and creates a ```/srv/tftp/rpi-boot/cmdline.txt``` for network booting.
 
 in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN=12345678``` line, change the ```12345678``` to the serial number of the RPi3, that will boot from network. if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
 
