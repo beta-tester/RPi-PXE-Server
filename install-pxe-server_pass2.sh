@@ -16,8 +16,12 @@
 #
 # v2017-07-11
 
+
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
+######################################################################
+RPI_SN=12345678
+RPI_CLIENT=rpi-client
 NFS=/nfs
 TFTP=/tftp
 ISO=/iso
@@ -32,8 +36,7 @@ DST_PXE_BIOS=menu-bios
 DST_PXE_EFI32=menu-efi32
 DST_PXE_EFI64=menu-efi64
 DST_PXE_RPI=rpi-boot
-RPI_CLIENT=rpi-client
-RPI_SN=12345678
+######################################################################
 IP_LOCAL=$(echo $(hostname -I) | sed 's/ //g')
 IP_LOCAL_=$(echo $IP_LOCAL | grep -E -o "([0-9]{1,3}[\.]){3}")
 IP_LOCAL_0=$(echo $(echo $IP_LOCAL_)0)
@@ -42,6 +45,7 @@ IP_LOCAL_END=$(echo $(echo $IP_LOCAL_)229)
 IP_LOCAL_255=$(echo $(echo $IP_LOCAL_)255)
 IP_ROUTER=$(echo $(ip rout | grep default | cut -d' ' -f3))
 IP_SUB=255.255.255.0
+
 
 ######################################################################
 WIN_PE_X86_URL=
@@ -143,6 +147,74 @@ sudo mkdir -p $DST_ISO;
 
 
 ######################################################################
+grep -q eth0 /etc/dhcpcd.conf || {
+echo -e "\e[32msetup dhcpcd.conf\e[0m";
+sudo sh -c "echo '########################################
+interface eth0
+static ip_address=$IP_LOCAL/24
+static routers=$IP_ROUTER
+static domain_name_servers=$IP_ROUTER
+' >> /etc/dhcpcd.conf";
+sudo systemctl daemon-reload;
+sudo systemctl restart dhcpcd.service;
+}
+
+
+######################################################################
+[ -f /etc/dnsmasq.d/pxeboot ] || {
+echo -e "\e[32msetup dnsmasq for pxe\e[0m";
+sudo sh -c "echo '########################################
+#/etc/dnsmasq.d/pxeboot
+
+log-dhcp
+log-queries
+
+# DNS (enabled)
+port=53
+dns-loop-detect
+
+# TFTP (enabled)
+enable-tftp
+tftp-root=$DST_ROOT/
+tftp-lowercase
+
+# PXE (enabled)
+# warning: unfortunately, a RPi3 identifies itself as of architecture x86PC (x86PC=0)
+# luckily the RPi3 seems to use always the same UUID 44444444-4444-4444-4444-444444444444
+dhcp-match=set:UUID_RPI3, option:client-machine-id, 00:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44
+dhcp-match=set:ARCH_0, option:client-arch, 0
+dhcp-match=set:x86_UEFI, option:client-arch, 6
+dhcp-match=set:x64_UEFI, option:client-arch, 7
+dhcp-match=set:x64_UEFI, option:client-arch, 9
+
+# test if it is a RPi3 or a regular x86PC
+tag-if=set:ARM_RPI3,tag:ARCH_0,tag:UUID_RPI3
+tag-if=set:x86_BIOS,tag:ARCH_0,tag:!UUID_RPI3
+
+pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
+pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
+pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux
+pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux
+pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux
+
+dhcp-boot=tag:ARM_RPI3, bootcode.bin
+dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
+dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.0
+dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.0
+
+#dhcp-range=$IP_LOCAL_0, proxy
+
+# do not give IPs that are in pool of DSL routers DHCP
+dhcp-range=$IP_LOCAL_START, $IP_LOCAL_END, $IP_SUB, $IP_LOCAL_255, 1h
+
+# do not handle MACs that will get IP by DSL routers DHCP
+#dhcp-host=11:22:33:44:55:66, ignore # comment
+' >> /etc/dnsmasq.d/pxeboot";
+sudo systemctl restart dnsmasq.service;
+}
+
+
+######################################################################
 grep -q tftp /etc/samba/smb.conf 2> /dev/null || ( \
 echo -e "\e[32msetup samba\e[0m";
 sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
@@ -178,15 +250,10 @@ sudo sh -c "echo '
   force user = root
   force group = root
 ' >> /etc/samba/smb.conf"
-#sudo service samba restart;
+sudo systemctl restart smbd.service;
 )
 
 
-######################################################################
-grep -q max_loop /boot/cmdline.txt 2> /dev/null || {
-	echo -e "\e[32msetup cmdline.txt for more loop devices\e[0m";
-	sudo sed -i '1 s/$/ max_loop=64/' /boot/cmdline.txt;
-}
 ######################################################################
 handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
 handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
@@ -205,6 +272,9 @@ handle_iso  $TAILS_X64         $TAILS_X64_URL;
 handle_iso  $BANKIX_X86        $BANKIX_X86_URL;
 handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
 handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86URL;
+######################################################################
+echo -e "\e[32mbackup new iso images to usb-stick\e[0m";
+sudo rsync -xav $DST_ISO/* $SRC_ISO/
 
 
 ######################################################################
@@ -256,7 +326,6 @@ LABEL Windows PE x86 (PXE)
     PXE /pxeboot.0
     TEXT HELP
         Boot to Windows PE 32bit
-        en
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -268,7 +337,6 @@ LABEL Windows PE x86 (ISO)
     INITRD $ISO/$WIN_PE_X86.iso
     TEXT HELP
         Boot to Windows PE 32bit ISO ~400MB
-        en
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -279,7 +347,6 @@ LABEL Ubuntu LTS x64
     APPEND initrd=$NFS/$UBUNTU_LTS_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$UBUNTU_LTS_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to Ubuntu LTS x64 Live
-        k:de, l:de/en
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -290,7 +357,6 @@ LABEL Ubuntu LTS x86
     APPEND initrd=$NFS/$UBUNTU_LTS_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$UBUNTU_LTS_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to Ubuntu LTS x86 Live
-        k:de, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -301,7 +367,6 @@ LABEL Ubuntu x64
     APPEND initrd=$NFS/$UBUNTU_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$UBUNTU_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to Ubuntu x64 Live
-        k:de, l:de/en
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -312,7 +377,6 @@ LABEL Ubuntu x86
     APPEND initrd=$NFS/$UBUNTU_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$UBUNTU_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to Ubuntu x86 Live
-        k:de, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -323,7 +387,6 @@ LABEL  Ubuntu non-PAE x86
     APPEND initrd=$NFS/$UBUNTU_NONPAE/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$UBUNTU_NONPAE  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to Ubuntu non-PAE x86 Live
-        k:de, l:de/en
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -334,7 +397,6 @@ LABEL Debian x64
     APPEND initrd=$NFS/$DEBIAN_X64/live/initrd.img-4.9.0-3-amd64  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEBIAN_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to Debian x64 Live LXDE
-        k:en, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -343,13 +405,8 @@ LABEL Debian x64
 LABEL Debian x86
     KERNEL $NFS/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686
     APPEND initrd=$NFS/$DEBIAN_X86/live/initrd.img-4.9.0-3-686  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEBIAN_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
-    # siehe ...
-    # /lib/live/config/0050-locales                 locales=de_DE
-    # /lib/live/config/0160-keyboard-configuration  keyboard-layouts=de
-    # /lib/live/config/0070-tzdata                  timezone=Europe/Berlin
     TEXT HELP
         Boot to Debian x86 Live LXDE
-        k:en, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -360,7 +417,6 @@ LABEL GNU Radio x64
     APPEND initrd=$NFS/$GNURADIO_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$GNURADIO_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to GNU Radio x64 Live
-        en, keyboard-layouts=de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -371,7 +427,6 @@ LABEL Kali x64
     APPEND initrd=$NFS/$KALI_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$KALI_X64  boot=live  noconfig=sudo  username=root  hostname=kali  --  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to Kali x64 Live
-        de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -382,7 +437,6 @@ LABEL DEFT x64
     APPEND initrd=$NFS/$DEFT_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DEFT_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  memtest=4  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to DEFT x64 Live
-        de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -393,23 +447,16 @@ LABEL Pentoo x64
     APPEND initrd=$NFS/$PENTOO_X64/isolinux/pentoo.igz  nfsroot=$IP_LOCAL:$DST_NFS/$PENTOO_X64 real_root=/dev/nfs  root=/dev/ram0  init=/linuxrc  aufs  looptype=squashfs  loop=/image.squashfs  cdroot  --  nox  keymap=de
     TEXT HELP
         Boot to Pentoo x64 Live
-	en, keymap=de broken Gentoo
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
 
 [ -f "$DST_ROOT/$1/pxelinux.cfg/$2" ] && [ -f "$DST_NFS/$SYSTEMRESCTUE_X86/isolinux/rescue32" ] && sudo sh -c "echo '########################################
 LABEL System Rescue x86
-    # KERNEL $NFS/$SYSTEMRESCTUE_X86/isolinux/rescue64
     KERNEL $NFS/$SYSTEMRESCTUE_X86/isolinux/rescue32
-    # APPEND initrd=$NFS/$SYSTEMRESCTUE_X86/isolinux/initram.igz  netboot=tftp://$IP_LOCAL$NFS/$SYSTEMRESCTUE_X86/sysrcd.dat  --  setkmap=de  dodhcp
     APPEND initrd=$NFS/$SYSTEMRESCTUE_X86/isolinux/initram.igz  netboot=nfs://$IP_LOCAL:$DST_NFS/$SYSTEMRESCTUE_X86  --  setkmap=de  dodhcp
-    # siehe ...
-    # http://www.sysresccd.org/Sysresccd-manual-en_Booting_the_CD-ROM
-    # http://www.sysresccd.org/Sysresccd-manual-en_PXE_network_booting
     TEXT HELP
         Boot to System Rescue x86 Live
-        de Gentoo
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -420,7 +467,6 @@ LABEL Tails x64
     APPEND initrd=$NFS/$TAILS_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$TAILS_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de  break
     TEXT HELP
         Boot to Tails x64 Live (modprobe r8169; exit)
-        k:en, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -431,7 +477,6 @@ LABEL desinfect x86
     APPEND initrd=$NFS/$DESINFECT_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$DESINFECT_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  memtest=4  rmdns  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to ct desinfect x86
-        de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -442,7 +487,6 @@ LABEL bankix x86
     APPEND initrd=$NFS/$BANKIX_X86/casper/pae/initrd.lz  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$BANKIX_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
     TEXT HELP
         Boot to ct bankix Ubuntu x86 Live
-        k:en, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -453,7 +497,6 @@ LABEL Raspberry Pi Desktop
     APPEND initrd=$NFS/$RPDESKTOP_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_LOCAL:$DST_NFS/$RPDESKTOP_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to Raspberry Pi Desktop
-        k:de, l:de
     ENDTEXT
 
 ' >> $DST_ROOT/$1/pxelinux.cfg/$2";
@@ -514,10 +557,11 @@ echo -e "\e[32msetup sys menu files for pxe efi64\e[0m";
 [ -d "$DST_ROOT/$DST_PXE_EFI64/iso" ]          || sudo ln -s $DST_ISO                                      $DST_ROOT/$DST_PXE_EFI64/iso;
 handle_pxe_menu  $DST_PXE_EFI64  efidefault;
 
+
 ######################################################################
 echo -e "\e[32mcopy rpi stuff\e[0m";
 [ -d "$DST_ROOT/$DST_PXE_RPI" ]               || sudo mkdir -p $DST_ROOT/$DST_PXE_RPI;
-[ -f "$DST_ROOT/$DST_PXE_RPI/bootcode.bin" ]  || sudo rsync -avr --exclude cmdline.txt /boot/* $DST_ROOT/$DST_PXE_RPI/;
+[ -f "$DST_ROOT/$DST_PXE_RPI/bootcode.bin" ]  || sudo rsync -xav --exclude cmdline.txt /boot/* $DST_ROOT/$DST_PXE_RPI/;
 [ -f "$DST_ROOT/$DST_PXE_RPI/cmdline.txt" ]   || sudo sh -c "echo 'dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/nfs nfsroot=$IP_LOCAL:$DST_NFS/$RPI_CLIENT rw ip=dhcp rootwait elevator=deadline' >> $DST_ROOT/$DST_PXE_RPI/cmdline.txt";
 [ -f "$DST_ROOT/bootcode.bin" ]               || sudo ln -s $DST_ROOT/$DST_PXE_RPI/bootcode.bin  $DST_ROOT/bootcode.bin;
 [ -d "$DST_ROOT/$RPI_SN" ]                    || sudo ln -s $DST_ROOT/$DST_PXE_RPI               $DST_ROOT/$RPI_SN;
@@ -527,58 +571,6 @@ echo -e "\e[32m($RPI_CLIENT) add nfs folder to exports for pxe\e[0m";
 sudo sh -c "echo '$DST_NFS/$RPI_CLIENT  *(rw,sync,no_subtree_check,no_root_squash)' >> /etc/exports";
 sudo exportfs -a;
 };
-
-######################################################################
-[ -f /etc/dnsmasq.d/pxeboot ] || {
-echo -e "\e[32msetup dnsmasq for pxe\e[0m";
-sudo sh -c "echo '########################################
-#/etc/dnsmasq.d/pxeboot
-
-log-dhcp
-log-queries
-
-# DNS (enabled)
-port=53
-dns-loop-detect
-
-# TFTP (enabled)
-enable-tftp
-tftp-root=$DST_ROOT/
-tftp-lowercase
-
-# PXE (enabled)
-# warning: unfortunately, a RPi3 identifies itself as of architecture x86PC (x86PC=0)
-# luckily the RPi3 seems to use always the same UUID 44444444-4444-4444-4444-444444444444
-dhcp-match=set:UUID_RPI3, option:client-machine-id, 00:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44
-dhcp-match=set:ARCH_0, option:client-arch, 0
-dhcp-match=set:x86_UEFI, option:client-arch, 6
-dhcp-match=set:x64_UEFI, option:client-arch, 7
-dhcp-match=set:x64_UEFI, option:client-arch, 9
-
-# test if it is a RPi3 or a regular x86PC
-tag-if=set:ARM_RPI3,tag:ARCH_0,tag:UUID_RPI3
-tag-if=set:x86_BIOS,tag:ARCH_0,tag:!UUID_RPI3
-
-pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
-pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
-pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux
-pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux
-pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux
-
-dhcp-boot=tag:ARM_RPI3, bootcode.bin
-dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
-dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.0
-dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.0
-
-#dhcp-range=$IP_LOCAL_0, proxy
-
-# do not give IPs that are in pool of DSL routers DHCP
-dhcp-range=$IP_LOCAL_START, $IP_LOCAL_END, $IP_SUB, $IP_LOCAL_255, 1h
-
-# do not handle MACs that will get IP by DSL routers DHCP
-#dhcp-host=11:22:33:44:55:66, ignore # comment
-' >> /etc/dnsmasq.d/pxeboot";
-}
 
 
 ######################################################################
@@ -591,24 +583,6 @@ dhcp-range=$IP_LOCAL_START, $IP_LOCAL_END, $IP_SUB, $IP_LOCAL_255, 1h
 
 
 ######################################################################
-grep -q eth0 /etc/dhcpcd.conf || {
-echo -e "\e[32msetup dhcpcd.conf\e[0m";
-sudo sh -c "echo '########################################
-interface eth0
-static ip_address=$IP_LOCAL/24
-static routers=$IP_ROUTER
-static domain_name_servers=$IP_ROUTER
-' >> /etc/dhcpcd.conf";
-}
-
-
-######################################################################
-echo -e "\e[32menable port mapping and necessary services\e[0m";
-sudo systemctl stop nfs-kernel-server nfs-common rpcbind;
-sudo systemctl enable rpcbind nfs-kernel-server;
-sudo systemctl restart rpcbind nfs-kernel-server;
-
-
-######################################################################
+sync
 echo -e "\e[32mDone.\e[0m";
-echo -e "\e[32mPlease reboot\e[0m";
+echo -e "\e[1;31mPlease reboot\e[0m";
