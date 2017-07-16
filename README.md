@@ -15,6 +15,21 @@ the script can easely be modified to add additional ISOs or update ISOs if updat
 
 it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see **note4**)
 
+### overview schematic:
+```
+      ╔══════════╗   ╔═══╗       ╔══════╗╔═════════╗
+WAN───╢DSL router╟───╢ s ║       ║PXE-  ╠╣USB-stick║
+      ╚══════════╝   ║ w ║       ║server║╚═════════╝
+                     ║ i ║       ║      ║
+       ╔══════╗      ║ t ╟───eth0╢      ║
+       ║ RPi3 ╟──────╢ c ║       ║      ║
+       ╚══════╝   ┌──╢ h ╟──┐    ║      ║
+                  │  ╚═══╝  │    ╚══════╝
+               ╔══╧══╗   ╔══╧══╗
+               ║ PC1 ║   ║ PC2 ║
+               ╚═════╝   ╚═════╝
+```
+
 ## requirements
 ### hardware:
 - Raspberry Pi (with LAN)
@@ -25,11 +40,11 @@ it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see *
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
 ### software:
-- Raspbian Jessie (2017-07-05-raspbian-jessie.img, https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspbian Jessie** or **Raspbina Jessie Lite** (2017-07-05), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Jessie (2017-07-05-raspbian-jessie.img),
+- your Raspberry Pi is running Raspbian Jessie (or Lite) from 2017-07-05,
 - and has a proper connection to the internet via LAN.
 - and your SD card can hold all the iso images,
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
