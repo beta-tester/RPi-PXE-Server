@@ -10,7 +10,7 @@ echo -e "\e[32madd usb-stick to fstab\e[0m";
 [ -d "%SRC_MOUNT/" ] || sudo mkdir -p $SRC_MOUNT;
 sudo sh -c "echo '
 ## inserted by install-server.sh
-LABEL=PXE-Server  $SRC_MOUNT  auto  defaults,noatime,auto,x-systemd.automount  0  0
+LABEL=PXE-Server  $SRC_MOUNT  auto  nofail,noatime,auto,x-systemd.automount  0  0
 ' >> /etc/fstab"
 sudo mount -a;
 )
