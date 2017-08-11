@@ -1,16 +1,22 @@
-#!/bin/bash
+#!/bin/sh
+######################################################################
+# 2017-08-11
+#bridge#
+
+
 ######################################################################
 echo -e "\e[32msetup variables\e[0m";
 SRC_MOUNT=/media/server
 
 
 ######################################################################
-grep Server /etc/fstab > /dev/null || ( \
+## optional
+grep mod_install_server /etc/fstab > /dev/null || ( \
 echo -e "\e[32madd usb-stick to fstab\e[0m";
 [ -d "%SRC_MOUNT/" ] || sudo mkdir -p $SRC_MOUNT;
 sudo sh -c "echo '
-## inserted by install-server.sh
-LABEL=PXE-Server  $SRC_MOUNT  auto  nofail,noatime,auto,x-systemd.automount  0  0
+## mod_install_server
+LABEL=PXE-Server  $SRC_MOUNT  auto  noatime,nofail,auto,x-systemd.automount,x-systemd.device-timeout=5,x-systemd.mount-timeout=5  0  0
 ' >> /etc/fstab"
 sudo mount -a;
 )
@@ -63,13 +69,23 @@ sudo apt-get -y install rsync;
 
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
-sudo apt-get -y install pxelinux syslinux-common
+sudo apt-get -y install pxelinux syslinux-common;
 
 
 ######################################################################
-# fix for systemd dependency cycle
-echo -e "\e[32mworkaround for systemd dependency cycle\e[0m";
-grep -q nfs-kernel-server /etc/rc.local || sudo sed /etc/rc.local -i -e "s/^exit 0$/sudo systemctl restart nfs-kernel-server.service \&\n\nexit 0\n/";
+#bridge#echo -e "\e[32minstall network bridge\e[0m";
+#bridge#sudo apt-get -y install bridge-utils hostapd dnsmasq iptables iptables-persistent
+
+
+######################################################################
+######################################################################
+
+
+######################################################################
+## optional
+#bridge#echo -e "\e[32minstall wireshark\e[0m";
+#bridge#sudo apt-get -y install wireshark
+#bridge#sudo usermod -a -G wireshark $USER
 
 
 ######################################################################
