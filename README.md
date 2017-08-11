@@ -45,20 +45,30 @@ optional, if your SD card is too small or you dont want to have all the server c
 ## installation:
 assuming,
 - your Raspberry Pi is running Raspbian Jessie (or Lite) from 2017-07-05,
-- and has a proper connection to the internet via LAN.
-- and your SD card can hold all the iso images,
+- and has a proper connection to the internet via LAN (eth0).
+- and your SD card can hold all the iso images (41GB when you use unmodified script),
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
 - and the folowing folder structure on the USB memory stick:
 ```
-/tftp
-/tftp/iso
+.
+└── backup
+    ├── img
+    └── iso
+    
+mkdir -p /backup/img
+mkdir -p /backup/iso
 ```
 
 optional structure for win-pe pxe boot
 ```
-/tftp/bootmgr.exe
-/tftp/boot/
-/tftp/efi/
+.
+└── backup
+    └── tftp
+        ├── boot
+        └── efi
+
+mkdir -p /backup/tftp/boot
+mkdir -p /backup/tftp/efi
 ```
 
 1. run `bash install-pxe-server_pass1.sh` to install necessary packages
@@ -89,8 +99,9 @@ kali-x64.iso          # Kali Linux
 pentoo-x64.iso        # Pentoo Linux
 systemrescue-x86.iso  # System Rescue
 tails-x64             # Tails (not working yet)
-bankix-x86.iso        # c't Bankix, is not downloadable anymore, you have to get by yourself
 desinfect-x86.iso     # c't desinfect, is not downloadable, you have to get by yourself
+tinycore-x86.iso      # tiny core ~16MB minimal linux.
+tinycore-x64.iso      # tiny core ~16MB minimal linux.
 rpdesktop-x86.iso     # Raspberry Pi Desktop for x86 PC
 ```
 
@@ -110,10 +121,55 @@ kali-x64.url
 pentoo-x64.url
 systemrescue-x86.url
 tails-x64.url
-bankix-x86.url
 desinfect-x86.url
+tinycore-x86.url
+tinycore-x64.url
 rpdesktop-x86.url
 ```
+
+there is a complete new section, that contains download and mount options dor disk images, that contains partitions.
+```
+e.g.
+RPD_LITE=rpi-raspbian-lite
+
+RPD_LITE_OFFSET_BOOT=8192
+RPD_LITE_SIZE_BOOT=85405
+
+RPD_LITE_OFFSET_ROOT=94208
+RPD_LITE_SIZE_ROOT=3276162
+```
+
+**if you don't want some iso images getting downloaded and mounted, you can comment out lines
+e.g.:**
+```
+######################################################################
+# handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
+handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
+handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
+# handle_iso  $UBUNTU_X64        $UBUNTU_X64_URL;
+# handle_iso  $UBUNTU_X86        $UBUNTU_X86_URL;
+# handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
+# handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
+# handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
+# handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
+# handle_iso  $DEFT_X64          $DEFT_X64_URL;
+# handle_iso  $KALI_X64          $KALI_X64_URL;
+# handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
+# handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
+# handle_iso  $TAILS_X64         $TAILS_X64_URL;
+# handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
+handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
+handle_iso  $TINYCORE_x86      $TINYCORE_x86_URL;
+handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
+```
+**same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
+e.g.:**
+```
+######################################################################
+handle_zip_img  $RPD_LITE  $RPD_LITE_URL  $RPD_LITE_OFFSET_BOOT  $RPD_LITE_SIZE_BOOT  $RPD_LITE_OFFSET_ROOT  $RPD_LITE_SIZE_ROOT;
+# handle_zip_img  $RPD_FULL  $RPD_FULL_URL  $RPD_FULL_OFFSET_BOOT  $RPD_FULL_SIZE_BOOT  $RPD_FULL_OFFSET_ROOT  $RPD_FULL_SIZE_ROOT;
+```
+
 ## note2:
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
 if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
@@ -123,13 +179,9 @@ it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested 
 
 ## note4: NETWORK BOOTING for Raspberry Pi 3
 the server is prepared for to boot a Raspberry Pi 3 via network.
-but you have to do some additional work beside of the installation script.
-you have to add a bootcode.bin to the tftp folder and other files/folders.
-as template, the script will copy the PXE-Servers ```/boot``` files to ```/srv/tftp/rpi-boot``` and creates a ```/srv/tftp/rpi-boot/cmdline.txt``` for network booting.
-
 in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN=12345678``` line, change the ```12345678``` to the serial number of the RPi3, that will boot from network. if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
 
-a folder ```/srv/tftp/nfs/rpi-client``` will be created, but keept emtpy. you have to fill that folder with the operating system for the RPi3.
+the script will download Raspbian-Jessie-Lite and prepare it for the RPi3 withthe given serial number.
 
 by default, a RPi3 is not enabled for network booting. you have to enable it once.
 
