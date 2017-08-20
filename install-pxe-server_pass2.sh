@@ -993,10 +993,9 @@ network={
     #ssid=<ssid>
     #psk=<pks>
 
-    # sudo iwlist wlan0 scan
+    # sudo iwlist wlan0 scan  [essid <SSID>]
     #bssid=<mac>
 
-    #
     scan_ssid=1
     key_mgmt=WPA-PSK
 }
@@ -1016,6 +1015,7 @@ wpa_passphrase <SSID> <PASSWORD>
 sudo iwlist wlan0 scan
 sudo raspi-config
 ' > $DST_ROOT/home/pi/.bash_history";
+                sudo chown 1000:1000 $DST_ROOT/home/pi/.bash_history;
             fi
         fi
 
