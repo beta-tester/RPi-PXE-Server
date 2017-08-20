@@ -763,10 +763,6 @@ handle_iso() {
 handle_zip_img() {
     # $1 : short name
     # $2 : download ulr
-    # $3 : mount offset /boot
-    # $4 : mount size /boot
-    # $5 : mount offset /root
-    # $6 : mount size /root
     ##############################################################
     local NAME=$1
     local URL=$2
