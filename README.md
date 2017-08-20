@@ -161,8 +161,8 @@ handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
 e.g.:**
 ```
 ######################################################################
-handle_zip_img  $RPD_LITE  $RPD_LITE_URL  $RPD_LITE_OFFSET_BOOT  $RPD_LITE_SIZE_BOOT  $RPD_LITE_OFFSET_ROOT  $RPD_LITE_SIZE_ROOT;
-# handle_zip_img  $RPD_FULL  $RPD_FULL_URL  $RPD_FULL_OFFSET_BOOT  $RPD_FULL_SIZE_BOOT  $RPD_FULL_OFFSET_ROOT  $RPD_FULL_SIZE_ROOT;
+handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
+# handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ```
 
 ## note2:
