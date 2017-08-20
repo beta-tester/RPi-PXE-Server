@@ -960,7 +960,7 @@ cec_osd_name=NetBoot
         ##################################################################
         if (echo $FLAGS | grep -q ssh); then
             echo -e "\e[36m    add ssh file\e[0m";
-            if [ -d "$DST_BOOT/ssh" ]; then sudo touch $DST_BOOT/ssh; fi
+            sudo touch $DST_BOOT/ssh;
         fi
 
         ##################################################################
