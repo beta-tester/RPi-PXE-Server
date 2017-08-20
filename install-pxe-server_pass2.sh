@@ -989,16 +989,16 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-        # wpa_passphrase <SSID> <PASSWORD>
-        ssid=<ssid>
-        psk=<pks>
+    # wpa_passphrase <SSID> <PASSWORD>
+    #ssid=<ssid>
+    #psk=<pks>
 
-        # sudo iwlist wlan0 scan
-        bssid=<mac>
+    # sudo iwlist wlan0 scan
+    #bssid=<mac>
 
-        #
-        scan_ssid=1
-        key_mgmt=WPA-PSK
+    #
+    scan_ssid=1
+    key_mgmt=WPA-PSK
 }
 ' > $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf";
             fi
@@ -1006,15 +1006,15 @@ network={
             ##############################################################
             if (echo $FLAGS | grep -q history); then
                 echo -e "\e[36m    add .bash_history file\e[0m";
-                sudo sh -c "echo 'sudo raspi-config
-sudo iwlist wlan0 scan
-wpa_passphrase <SSID> <PASSWORD>
-sudp nano /etc/wpa_supplicant/wpa_supplicant.conf
-sudo reboot
-sudo ip route del default dev eth0
-ip route
+                sudo sh -c "echo 'sudo poweroff
 sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y --purge autoremove && sudo apt-get -y autoclean && sync && echo Done.
-sudo poweroff
+ip route
+sudo ip route del default dev eth0
+sudo reboot
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_passphrase <SSID> <PASSWORD>
+sudo iwlist wlan0 scan
+sudo raspi-config
 ' > $DST_ROOT/home/pi/.bash_history";
             fi
         fi
