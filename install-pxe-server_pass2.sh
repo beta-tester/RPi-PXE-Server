@@ -40,7 +40,7 @@ echo -e "\e[36msetup variables\e[0m";
 ##  and other variables...
 ######################################################################
 ######################################################################
-RPI_SN0=795835ba
+RPI_SN0=12345678
 RPI_SN0_BOOT=rpi-$RPI_SN0-boot
 RPI_SN0_ROOT=rpi-$RPI_SN0-root
 ######################################################################
@@ -1174,9 +1174,9 @@ handle_pxe
 ##  you dont want to download/mount/export
 ######################################################################
 ######################################################################
-handle_zip_img  $PI_CORE   $PI_CORE_URL   $PI_CORE_OFFSET_BOOT   $PI_CORE_SIZE_BOOT   $PI_CORE_OFFSET_ROOT   $PI_CORE_SIZE_ROOT;
-#handle_zip_img  $RPD_LITE  $RPD_LITE_URL  $RPD_LITE_OFFSET_BOOT  $RPD_LITE_SIZE_BOOT  $RPD_LITE_OFFSET_ROOT  $RPD_LITE_SIZE_ROOT;
-#handle_zip_img  $RPD_FULL  $RPD_FULL_URL  $RPD_FULL_OFFSET_BOOT  $RPD_FULL_SIZE_BOOT  $RPD_FULL_OFFSET_ROOT  $RPD_FULL_SIZE_ROOT;
+handle_zip_img  $PI_CORE   $PI_CORE_URL;
+#handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
+#handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ######################################################################
 ######################################################################
 ## comment out those entries,
