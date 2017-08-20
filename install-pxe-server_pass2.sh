@@ -51,13 +51,13 @@ IP_ETH0=$(ip -4 address show dev $INTERFACE_ETH0 | grep -o -E '(([0-9]{1,3}[\.])
 IP_ETH0_=$(echo $IP_ETH0 | grep -E -o "([0-9]{1,3}[\.]){3}")
 IP_ETH0_0=$(echo $(echo $IP_ETH0_)0)
 IP_ETH0_START=$(echo $(echo $IP_ETH0_)200)
-IP_ETH0_END=$(echo $(echo $IP_ETH0_)249)
-IP_ETH0_ROUTER=$(echo $(ip rout | grep default | cut -d' ' -f3))
+IP_ETH0_END=$(echo $(echo $IP_ETH0_)250)
+IP_ETH0_ROUTER=$(echo $(ip rout show dev $INTERFACE_ETH0 | grep default | cut -d' ' -f3))
 IP_ETH0_DNS=$IP_ETH0_ROUTER
 IP_ETH0_MASK=255.255.255.0
 IP_BR0=192.168.250.1
-IP_BR0_START=192.168.250.150
-IP_BR0_END=192.168.250.199
+IP_BR0_START=192.168.250.200
+IP_BR0_END=192.168.250.250
 IP_BR0_MASK=255.255.255.0
 ######################################################################
 ISO=/iso
