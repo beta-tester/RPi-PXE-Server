@@ -1,6 +1,12 @@
 #!/bin/sh
+
 ######################################################################
-# 2017-08-11
+#
+# v2017-08-19
+#
+# known issues:
+#
+
 #bridge#
 
 
@@ -13,7 +19,7 @@ SRC_MOUNT=/media/server
 ## optional
 grep mod_install_server /etc/fstab > /dev/null || ( \
 echo -e "\e[32madd usb-stick to fstab\e[0m";
-[ -d "%SRC_MOUNT/" ] || sudo mkdir -p $SRC_MOUNT;
+[ -d "$SRC_MOUNT/" ] || sudo mkdir -p $SRC_MOUNT;
 sudo sh -c "echo '
 ## mod_install_server
 LABEL=PXE-Server  $SRC_MOUNT  auto  noatime,nofail,auto,x-systemd.automount,x-systemd.device-timeout=5,x-systemd.mount-timeout=5  0  0
@@ -30,6 +36,13 @@ grep -q max_loop /boot/cmdline.txt 2> /dev/null || {
 
 
 ######################################################################
+grep -q net.ifnames /boot/cmdline.txt 2> /dev/null || {
+	echo -e "\e[32msetup cmdline.txt for old style network interface names\e[0m";
+	sudo sed -i '1 s/$/ net.ifnames=0/' /boot/cmdline.txt;
+}
+
+
+######################################################################
 sudo sync \
 && echo -e "\e[32mupdate...\e[0m" && sudo apt-get -y update \
 && echo -e "\e[32mupgrade...\e[0m" && sudo apt-get -y upgrade \
@@ -42,12 +55,13 @@ sudo sync \
 ######################################################################
 echo -e "\e[32minstall nfs-kernel-server for pxe\e[0m";
 sudo apt-get -y install nfs-kernel-server;
-######################################################################
-echo -e "\e[32menable port mapping and necessary services\e[0m";
-sudo systemctl enable rpcbind.service;
-sudo systemctl restart rpcbind.service;
 sudo systemctl enable nfs-kernel-server.service;
 sudo systemctl restart nfs-kernel-server.service;
+
+######################################################################
+echo -e "\e[32menable port mapping\e[0m";
+sudo systemctl enable rpcbind.service;
+sudo systemctl restart rpcbind.service;
 
 
 ######################################################################
@@ -75,10 +89,6 @@ sudo apt-get -y install pxelinux syslinux-common;
 ######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
 #bridge#sudo apt-get -y install bridge-utils hostapd dnsmasq iptables iptables-persistent
-
-
-######################################################################
-######################################################################
 
 
 ######################################################################
