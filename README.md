@@ -18,9 +18,9 @@ it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see *
 ### overview schematic:
 ```
       ╔══════════╗   ╔═══╗       ╔══════╗╔═════════╗
-WAN───╢DSL router╟───╢ s ║       ║PXE-  ╠╣USB-stick║
-      ╚══════════╝   ║ w ║       ║server║╚═════════╝
-                     ║ i ║       ║      ║
+WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
+      ╚══════════╝   ║ w ║       ║PXE-  ║╚═════════╝
+                     ║ i ║       ║server║
        ╔══════╗      ║ t ╟───eth0╢      ║
        ║ RPi3 ╟──────╢ c ║       ║      ║
        ╚══════╝   ┌──╢ h ╟──┐    ║      ║
@@ -127,16 +127,11 @@ tinycore-x64.url
 rpdesktop-x86.url
 ```
 
-there is a complete new section, that contains download and mount options dor disk images, that contains partitions.
+there is a complete new section, that contains download url for disk images, that contains partitions.
 ```
 e.g.
 RPD_LITE=rpi-raspbian-lite
-
-RPD_LITE_OFFSET_BOOT=8192
-RPD_LITE_SIZE_BOOT=85405
-
-RPD_LITE_OFFSET_ROOT=94208
-RPD_LITE_SIZE_ROOT=3276162
+RPD_LITE_URL=https://.../...zip
 ```
 
 **if you don't want some iso images getting downloaded and mounted, you can comment out lines
