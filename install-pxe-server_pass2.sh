@@ -667,7 +667,7 @@ LABEL tiny core x86
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2" ]; then
-        echo  -e "\e[36m    add add $RPDESKTOP_X86\e[0m";
+        echo  -e "\e[36m    add $RPDESKTOP_X86\e[0m";
         sudo sh -c "echo '########################################
 LABEL Raspberry Pi Desktop
     KERNEL $NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2
@@ -886,7 +886,7 @@ handle_zip_img() {
 ######################################################################
 handle_network_booting() {
     # $1 : short name
-    # $2 : flags (redo,bootcode,cmdline,config,ssh,root,fstab)
+    # $2 : flags (redo,bootcode,cmdline,config,ssh,root,fstab,wpa,history)
     ##############################################################
     local NAME=$1
     local FLAGS=$2
@@ -912,7 +912,9 @@ handle_network_booting() {
     ######################################################################
     if (echo $FLAGS | grep -q redo) \
     || ! grep -q $(cat $DST_IMG/$FILE_URL)  $DST_BOOT/$FILE_URL 2> /dev/null; then
+        echo -e "\e[36m    delete old boot files\e[0m";
         sudo rm -rf $DST_BOOT/*;
+        echo -e "\e[36m    delete old root files\e[0m";
         sudo rm -rf $DST_ROOT/*;
 
         ##################################################################
@@ -924,7 +926,7 @@ handle_network_booting() {
         ##################################################################
         if (echo $FLAGS | grep -q cmdline); then
             echo -e "\e[36m    add cmdline file\e[0m";
-            sudo sh -c "echo 'dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 plymouth.ignore-serial-consoles root=/dev/nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT rootwait rw ip=dhcp elevator=deadline' > $DST_BOOT/cmdline.txt";
+            sudo sh -c "echo 'dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 plymouth.ignore-serial-consoles root=/dev/nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT rootwait rw ip=dhcp net.ifnames=0 elevator=deadline' > $DST_BOOT/cmdline.txt";
         fi
 
         ##################################################################
@@ -933,7 +935,7 @@ handle_network_booting() {
             sudo sh -c "echo '########################################
 dtparam=audio=on
 
-#max_usb_current=1
+max_usb_current=1
 #force_turbo=1
 
 disable_overscan=1
@@ -977,6 +979,44 @@ $IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_BOOT  /boot  nfs   defaults,nofail,noatime  0  2
 $IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT  /      nfs   defaults,nofail,noatime  0  1
 ' > $DST_ROOT/etc/fstab";
             fi
+
+            ##############################################################
+            if (echo $FLAGS | grep -q wpa); then
+                echo -e "\e[36m    add wpa_supplicant file\e[0m";
+                sudo sh -c "echo '########################################
+country=DE
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+        # wpa_passphrase <SSID> <PASSWORD>
+        ssid=<ssid>
+        psk=<pks>
+
+        # sudo iwlist wlan0 scan
+        bssid=<mac>
+
+        #
+        scan_ssid=1
+        key_mgmt=WPA-PSK
+}
+' > $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf";
+            fi
+
+            ##############################################################
+            if (echo $FLAGS | grep -q history); then
+                echo -e "\e[36m    add .bash_history file\e[0m";
+                sudo sh -c "echo 'sudo raspi-config
+sudo iwlist wlan0 scan
+wpa_passphrase <SSID> <PASSWORD>
+sudp nano /etc/wpa_supplicant/wpa_supplicant.conf
+sudo reboot
+sudo ip route del default dev eth0
+ip route
+sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y --purge autoremove && sudo apt-get -y autoclean && sync && echo Done.
+sudo poweroff
+' > $DST_ROOT/home/pi/.bash_history";
+            fi
         fi
 
         ##################################################################
@@ -1004,14 +1044,14 @@ $IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT  /      nfs   defaults,nofail,noatime  0  1
     ######################################################################
     if (echo $FLAGS | grep -q bootcode); then
         if [ -f "$DST_BOOT/bootcode.bin" ]; then
-            echo -e "\e[36m    copy bootcode.bin for RPi3 NETWORK BOOTING\e[0m";
+            echo -e "\e[36m    copy bootcode.bin for RPi3 network booting\e[0m";
             sudo cp $DST_BOOT/bootcode.bin $DST_TFTP_ETH0/bootcode.bin;
         fi
     fi
 
     ######################################################################
     if ! [ -f "$DST_TFTP_ETH0/bootcode.bin" ]; then
-        echo -e "\e[36m    download bootcode.bin for RPi3 NETWORK BOOTING\e[0m";
+        echo -e "\e[36m    download bootcode.bin for RPi3 network booting\e[0m";
         sudo wget -O $DST_TFTP_ETH0/bootcode.bin  https://github.com/raspberrypi/firmware/raw/boot/bootcode.bin;
     fi
 }
@@ -1180,8 +1220,8 @@ handle_zip_img  $PI_CORE   $PI_CORE_URL;
 ######################################################################
 ######################################################################
 handle_network_booting  $PI_CORE  bootcode,config
-#handle_network_booting  $RPD_LITE  bootcode,cmdline,config,root,fstab
-#handle_network_booting  $RPD_FULL  bootcode,cmdline,config,root,fstab
+#handle_network_booting  $RPD_LITE  bootcode,cmdline,config,root,fstab,wpa,history
+#handle_network_booting  $RPD_FULL  bootcode,cmdline,config,root,fstab,wpa,history
 
 
 ######################################################################
