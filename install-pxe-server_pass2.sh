@@ -188,13 +188,14 @@ handle_dhcpcd() {
         ######################################################################
         grep -q $INTERFACE_ETH0 /etc/dhcpcd.conf || {
         echo -e "\e[36m    setup dhcpcd.conf\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> /etc/dhcpcd.conf
+########################################
 ## mod_install_server
 interface $INTERFACE_ETH0
 static ip_address=$IP_ETH0/24
 static routers=$IP_ETH0_ROUTER
 static domain_name_servers=$IP_ETH0_ROUTER
-' >> /etc/dhcpcd.conf";
+EOF";
         sudo systemctl daemon-reload;
         sudo systemctl restart dhcpcd.service;
         }
@@ -203,7 +204,8 @@ static domain_name_servers=$IP_ETH0_ROUTER
         ######################################################################
         grep -q mod_install_server /etc/network/interfaces || {
         echo -e "\e[36m    setup networking, disable dhcpcd\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  > /etc/network/interfaces
+########################################
 # interfaces(5) file used by ifup(8) and ifdown(8)
 
 # Please note that this file is written to be used with dhcpcd
@@ -245,7 +247,7 @@ iface $INTERFACE_ETH0 inet static
 #bridge#        bridge_stp off       # disable Spanning Tree Protocol
 #bridge#        bridge_waitport 0    # no delay before a port becomes available
 #bridge#        bridge_fd 0          # no forwarding delay
-' > /etc/network/interfaces";
+EOF";
 
         echo "nameserver $IP_ETH0_DNS" | sudo tee -a /etc/resolv.conf
         sudo chattr +i /etc/resolv.conf
@@ -264,7 +266,8 @@ handle_dnsmasq() {
     ######################################################################
     [ -f /etc/dnsmasq.d/pxe-server ] || {
     echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
-    sudo sh -c "echo '########################################
+    sudo sh -c "cat << EOF  >> /etc/dnsmasq.d/pxe-server
+########################################
 #/etc/dnsmasq.d/pxeboot
 
 ## mod_install_server
@@ -314,7 +317,7 @@ dhcp-boot=tag:ARM_RPI3, bootcode.bin
 dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.0
 dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.0
-' >> /etc/dnsmasq.d/pxe-server";
+EOF";
     sudo systemctl restart dnsmasq.service;
     }
 }
@@ -328,7 +331,8 @@ handle_samba() {
     grep -q mod_install_server /etc/samba/smb.conf 2> /dev/null || ( \
     echo -e "\e[36m    setup samba\e[0m";
     sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
-    sudo sh -c "echo '########################################
+    sudo sh -c "cat << EOF  >> /etc/samba/smb.conf
+########################################
 ## mod_install_server
 
 [srv]
@@ -360,7 +364,7 @@ handle_samba() {
     force directory mask = 0755
     force user = root
     force group = root
-' >> /etc/samba/smb.conf"
+EOF"
     sudo systemctl restart smbd.service;
     )
 }
@@ -377,7 +381,8 @@ handle_pxe_menu() {
     echo -e "\e[36m    setup sys menu for pxe\e[0m";
     if ! [ -d "$DST_TFTP_ETH0/$1/pxelinux.cfg" ]; then sudo mkdir -p $DST_TFTP_ETH0/$1/pxelinux.cfg; fi
     if [ -d "$DST_TFTP_ETH0/$1/pxelinux.cfg" ]; then
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 # $FILE_MENU
 
 # http://www.syslinux.org/wiki/index.php?title=Menu
@@ -404,27 +409,27 @@ LABEL Boot Local
     TEXT HELP
         Boot to local hard disk
     ENDTEXT
-
-' > $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_TFTP_ETH0/$1/pxeboot.0" ]; then
         echo  -e "\e[36m    add $WIN_PE_X86 (PXE)\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Windows PE x86 (PXE)
     PXE /pxeboot.0
     TEXT HELP
         Boot to Windows PE 32bit
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_ISO/$WIN_PE_X86.iso" ]; then
         echo  -e "\e[36m    add $WIN_PE_X86 (ISO)\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Windows PE x86 (ISO)
     KERNEL /memdisk
     APPEND iso
@@ -432,14 +437,14 @@ LABEL Windows PE x86 (ISO)
     TEXT HELP
         Boot to Windows PE 32bit ISO ~400MB
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz.efi" ]; then
         echo  -e "\e[36m    add $UBUNTU_LTS_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Ubuntu LTS x64
     KERNEL $NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -447,14 +452,14 @@ LABEL Ubuntu LTS x64
         Boot to Ubuntu LTS x64 Live
         User: ubuntu
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_LTS_X86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Ubuntu LTS x86
     KERNEL $NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$UBUNTU_LTS_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -462,14 +467,14 @@ LABEL Ubuntu LTS x86
         Boot to Ubuntu LTS x86 Live
         User: ubuntu
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi" ]; then
         echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Ubuntu x64
     KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -477,14 +482,14 @@ LABEL Ubuntu x64
         Boot to Ubuntu x64 Live
         User: ubuntu
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_X86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Ubuntu x86
     KERNEL $NFS_ETH0/$UBUNTU_X86/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$UBUNTU_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -492,14 +497,14 @@ LABEL Ubuntu x86
         Boot to Ubuntu x86 Live
         User: ubuntu
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_NONPAE\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL  Ubuntu non-PAE x86
     KERNEL $NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$UBUNTU_NONPAE/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_NONPAE  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -507,14 +512,14 @@ LABEL  Ubuntu non-PAE x86
         Boot to Ubuntu non-PAE x86 Live
         User: ubuntu
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-4.9.0-3-amd64" ]; then
         echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Debian x64
     KERNEL $NFS_ETH0/$DEBIAN_X64/live/vmlinuz-4.9.0-3-amd64
     APPEND initrd=$NFS_ETH0/$DEBIAN_X64/live/initrd.img-4.9.0-3-amd64  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64  boot=live  config  --  locales=de_DE  keyboard-layouts=de
@@ -522,14 +527,14 @@ LABEL Debian x64
         Boot to Debian x64 Live LXDE
         User: user, Password: live
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686" ]; then
         echo  -e "\e[36m    add $DEBIAN_X86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Debian x86
     KERNEL $NFS_ETH0/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686
     APPEND initrd=$NFS_ETH0/$DEBIAN_X86/live/initrd.img-4.9.0-3-686  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
@@ -537,14 +542,14 @@ LABEL Debian x86
         Boot to Debian x86 Live LXDE
         User: user, Password: live
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi" ]; then
         echo  -e "\e[36m    add $GNURADIO_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL GNU Radio x64
     KERNEL $NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$GNURADIO_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$GNURADIO_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE  locales=de_DE  keyboard-layouts=de
@@ -552,14 +557,14 @@ LABEL GNU Radio x64
         Boot to GNU Radio x64 Live
         User: ubuntu
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$KALI_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $KALI_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Kali x64
     KERNEL $NFS_ETH0/$KALI_X64/live/vmlinuz
     APPEND initrd=$NFS_ETH0/$KALI_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64  boot=live  noconfig=sudo  username=root  hostname=kali  --  locales=de_DE  keyboard-layouts=de
@@ -567,14 +572,14 @@ LABEL Kali x64
         Boot to Kali x64 Live
         User: root, Password: toor
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEFT_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $DEFT_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL DEFT x64
     KERNEL $NFS_ETH0/$DEFT_X64/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$DEFT_X64/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64  file=/cdrom/preseed/ubuntu.seed  boot=casper  memtest=4  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -582,14 +587,14 @@ LABEL DEFT x64
         Boot to DEFT x64 Live
         User: root, Password: toor
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PENTOO_X64/isolinux/pentoo" ]; then
         echo  -e "\e[36m    add $PENTOO_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Pentoo x64
     KERNEL $NFS_ETH0/$PENTOO_X64/isolinux/pentoo
     APPEND initrd=$NFS_ETH0/$PENTOO_X64/isolinux/pentoo.igz  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 real_root=/dev/nfs  root=/dev/ram0  init=/linuxrc  aufs  looptype=squashfs  loop=/image.squashfs  cdroot  nox  --  keymap=de
@@ -597,14 +602,14 @@ LABEL Pentoo x64
         Boot to Pentoo x64 Live
         User: pentoo
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$SYSTEMRESCTUE_X86/isolinux/rescue32" ]; then
         echo  -e "\e[36m    add $SYSTEMRESCTUE_X86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL System Rescue x86
     KERNEL $NFS_ETH0/$SYSTEMRESCTUE_X86/isolinux/rescue32
     APPEND initrd=$NFS_ETH0/$SYSTEMRESCTUE_X86/isolinux/initram.igz  netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCTUE_X86  dodhcp  --  setkmap=de
@@ -612,28 +617,28 @@ LABEL System Rescue x86
         Boot to System Rescue x86 Live
         User: root
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $TAILS_X64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Tails x64
     KERNEL $NFS_ETH0/$TAILS_X64/live/vmlinuz
     APPEND initrd=$NFS_ETH0/$TAILS_X64/live/initrd.img  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64  boot=live  config  --  break  locales=de_DE  keyboard-layouts=de
     TEXT HELP
         Boot to Tails x64 Live (modprobe r8169; exit)
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DESINFECT_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $DESINFECT_X86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL desinfect x86
     KERNEL $NFS_ETH0/$DESINFECT_X86/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$DESINFECT_X86/casper/initrd.lz  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X86  file=/cdrom/preseed/ubuntu.seed  boot=casper  memtest=4  rmdns  --  debian-installer/language=de  console-setup/layoutcode?=de  locale=de_DE
@@ -641,14 +646,14 @@ LABEL desinfect x86
         Boot to ct desinfect x86
         User: desinfect
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$TINYCORE_x64/boot/vmlinuz64" ]; then
         echo  -e "\e[36m    add $TINYCORE_x64\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL tiny core x64
     KERNEL $NFS_ETH0/$TINYCORE_x64/boot/vmlinuz64
     APPEND initrd=$NFS_ETH0/$TINYCORE_x64/boot/corepure64.gz  loglevel=3  cde  waitusb=5  __vga=791  --  lang=de  kmap=de
@@ -656,14 +661,14 @@ LABEL tiny core x64
         Boot to tiny core x64
         User: tc
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$TINYCORE_x86/boot/vmlinuz" ]; then
         echo  -e "\e[36m    add $TINYCORE_x86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL tiny core x86
     KERNEL $NFS_ETH0/$TINYCORE_x86/boot/vmlinuz
     APPEND initrd=$NFS_ETH0/$TINYCORE_x86/boot/core.gz  loglevel=3  cde  waitusb=5  __vga=791  --  lang=de  kmap=de
@@ -671,14 +676,14 @@ LABEL tiny core x86
         Boot to tiny core x86
         User: tc
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2" ]; then
         echo  -e "\e[36m    add $RPDESKTOP_X86\e[0m";
-        sudo sh -c "echo '########################################
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
 LABEL Raspberry Pi Desktop
     KERNEL $NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2
     APPEND initrd=$NFS_ETH0/$RPDESKTOP_X86/live/initrd2.img  netboot=nfs  nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPDESKTOP_X86  boot=live  config  --  locales=de_DE  keyboard-layouts=de
@@ -686,8 +691,7 @@ LABEL Raspberry Pi Desktop
         Boot to Raspberry Pi Desktop
         User: pi, Password: raspberry
     ENDTEXT
-
-' >> $FILE_MENU";
+EOF";
     fi
 }
 
@@ -942,7 +946,8 @@ handle_network_booting() {
         ##################################################################
         if (echo $FLAGS | grep -q config); then
             echo -e "\e[36m    add config file\e[0m";
-            sudo sh -c "echo '########################################
+            sudo sh -c "cat << EOF  > $DST_BOOT/config.txt
+########################################
 dtparam=audio=on
 
 max_usb_current=1
@@ -964,7 +969,7 @@ cec_osd_name=NetBoot
 #max_framebuffer_width=3840
 #max_framebuffer_height=2160
 #hdmi_pixel_freq_limit=400000000
-' > $DST_BOOT/config.txt";
+EOF";
         fi
 
         ##################################################################
@@ -983,17 +988,19 @@ cec_osd_name=NetBoot
             ##############################################################
             if (echo $FLAGS | grep -q fstab); then
                 echo -e "\e[36m    add fstab file\e[0m";
-                sudo sh -c "echo '########################################
+                sudo sh -c "cat << EOF  > $DST_ROOT/etc/fstab
+########################################
 proc  /proc  proc  defaults  0  0
 $IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_BOOT  /boot  nfs   defaults,nofail,noatime  0  2
 $IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT  /      nfs   defaults,nofail,noatime  0  1
-' > $DST_ROOT/etc/fstab";
+EOF";
             fi
 
             ##############################################################
             if (echo $FLAGS | grep -q wpa); then
                 echo -e "\e[36m    add wpa_supplicant file\e[0m";
-                sudo sh -c "echo '########################################
+                sudo sh -c "cat << EOF  > $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf
+########################################
 country=DE
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
@@ -1003,28 +1010,29 @@ network={
     #ssid=<ssid>
     #psk=<pks>
 
-    # sudo iwlist wlan0 scan  [essid <SSID>]
+    # sudo iwlist wlan0 scan  [essid <SSID>] 
     #bssid=<mac>
 
     scan_ssid=1
     key_mgmt=WPA-PSK
 }
-' > $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf";
+EOF";
             fi
 
             ##############################################################
             if (echo $FLAGS | grep -q history); then
                 echo -e "\e[36m    add .bash_history file\e[0m";
-                sudo sh -c "echo 'sudo poweroff
+                sudo sh -c "cat << EOF  > $DST_ROOT/home/pi/.bash_history
+sudo poweroff
 sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y --purge autoremove && sudo apt-get -y autoclean && sync && echo Done.
 ip route
 sudo ip route del default dev eth0
 sudo reboot
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 wpa_passphrase <SSID> <PASSWORD>
-sudo iwlist wlan0 scan
+sudo iwlist wlan0 scan  [essid <SSID>]
 sudo raspi-config
-' > $DST_ROOT/home/pi/.bash_history";
+EOF";
                 sudo chown 1000:1000 $DST_ROOT/home/pi/.bash_history;
             fi
         fi
@@ -1054,14 +1062,14 @@ sudo raspi-config
     ######################################################################
     if (echo $FLAGS | grep -q bootcode); then
         if [ -f "$DST_BOOT/bootcode.bin" ]; then
-            echo -e "\e[36m    copy bootcode.bin for RPi3 network booting\e[0m";
+            echo -e "\e[36m    copy bootcode.bin for RPi3 NETWORK BOOTING\e[0m";
             sudo cp $DST_BOOT/bootcode.bin $DST_TFTP_ETH0/bootcode.bin;
         fi
     fi
 
     ######################################################################
     if ! [ -f "$DST_TFTP_ETH0/bootcode.bin" ]; then
-        echo -e "\e[36m    download bootcode.bin for RPi3 network booting\e[0m";
+        echo -e "\e[36m    download bootcode.bin for RPi3 NETWORK BOOTING\e[0m";
         sudo wget -O $DST_TFTP_ETH0/bootcode.bin  https://github.com/raspberrypi/firmware/raw/boot/bootcode.bin;
     fi
 }
@@ -1144,12 +1152,13 @@ handle_optional() {
     ## network bridge
     #bridge#grep -q mod_install_server /etc/sysctrl.conf 2> /dev/null || {
     #bridge#echo -e "\e[36m    setup sysctrl for bridging\e[0m";
-    #bridge#sudo sh -c "echo '########################################
+    #bridge#sudo sh -c "cat << EOF  >> /etc/sysctl.conf
+#bridge#########################################
 #bridge### mod_install_server
 #bridge#net.ipv4.ip_forward=1
 #bridge#net.ipv6.conf.all.forwarding=1
 #bridge##net.ipv6.conf.all.disable_ipv6 = 1
-#bridge#' >> /etc/sysctl.conf";
+#bridge#EOF";
     #bridge#}
 
 
