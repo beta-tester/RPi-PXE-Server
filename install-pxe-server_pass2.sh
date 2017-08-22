@@ -86,6 +86,16 @@ echo -e "$IP_ETH0 \e[36mis used as primary IP address for PXE\e[0m";
 echo -e "$RPI_SN0 \e[36mis used as SN for RPi3 network booting\e[0m";
 echo
 
+if [ "$IP_ETH0" == "" ]; then
+    echo -e "\e[1;31mIP address not found. please check your ethernet cable.\e[0m";
+    exit 1
+fi
+
+if [ "$IP_ETH0_ROUTER" == "" ]; then
+    echo -e "\e[1;31mrouter IP address not found. please check your router settings.\e[0m";
+    exit 1
+fi
+
 
 ######################################################################
 ######################################################################
