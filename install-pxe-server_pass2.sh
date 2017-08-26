@@ -20,7 +20,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2017-08-19
+# v2017-08-26
 #
 # known issues:
 #
@@ -141,7 +141,7 @@ PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
-SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.3/systemrescuecd-x86-5.0.3.iso
+SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.4/systemrescuecd-x86-5.0.4.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.1/tails-amd64-3.1.iso
@@ -940,7 +940,7 @@ handle_network_booting() {
         ##################################################################
         if (echo $FLAGS | grep -q cmdline); then
             echo -e "\e[36m    add cmdline file\e[0m";
-            sudo sh -c "echo 'dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 plymouth.ignore-serial-consoles root=/dev/nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT rootwait rw ip=dhcp net.ifnames=0 elevator=deadline' > $DST_BOOT/cmdline.txt";
+            sudo sh -c "echo 'dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 plymouth.ignore-serial-consoles root=/dev/nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT,vers=3 rw ip=dhcp rootwait net.ifnames=0 elevator=deadline' > $DST_BOOT/cmdline.txt";
         fi
 
         ##################################################################
@@ -957,7 +957,6 @@ disable_overscan=1
 hdmi_force_hotplug=1
 config_hdmi_boost=4
 hdmi_drive=2
-hdmi_ignore_cec_init=1
 cec_osd_name=NetBoot
 
 ########################################
@@ -1201,22 +1200,22 @@ handle_dhcpcd
 ##  you don't want to download/mount/export/install for PXE boot
 ######################################################################
 ######################################################################
-handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
-handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
-handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
+## handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
+# handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
+# handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64        $UBUNTU_X64_URL;
-handle_iso  $UBUNTU_X86        $UBUNTU_X86_URL;
-handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
+# handle_iso  $UBUNTU_X86        $UBUNTU_X86_URL;
+## handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
-handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
-handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
-handle_iso  $DEFT_X64          $DEFT_X64_URL;
-handle_iso  $KALI_X64          $KALI_X64_URL;
-handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
-handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
-handle_iso  $TAILS_X64         $TAILS_X64_URL;
-handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
+# handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
+# handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
+# handle_iso  $DEFT_X64          $DEFT_X64_URL;
+# handle_iso  $KALI_X64          $KALI_X64_URL;
+# handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
+# handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
+## handle_iso  $TAILS_X64         $TAILS_X64_URL;
+## handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
+# handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
 handle_iso  $TINYCORE_x86      $TINYCORE_x86_URL;
 handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
 ######################################################################
@@ -1229,8 +1228,8 @@ handle_pxe
 ##  you dont want to download/mount/export
 ######################################################################
 ######################################################################
-handle_zip_img  $PI_CORE   $PI_CORE_URL;
-#handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
+#handle_zip_img  $PI_CORE   $PI_CORE_URL;
+handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
 #handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ######################################################################
 ######################################################################
@@ -1238,8 +1237,8 @@ handle_zip_img  $PI_CORE   $PI_CORE_URL;
 ##  you dont want to have as RPi3 network booting
 ######################################################################
 ######################################################################
-handle_network_booting  $PI_CORE  bootcode,config
-#handle_network_booting  $RPD_LITE  bootcode,cmdline,config,ssh,root,fstab,wpa,history
+#handle_network_booting  $PI_CORE  bootcode,config
+handle_network_booting  $RPD_LITE  bootcode,cmdline,config,ssh,root,fstab,wpa,history
 #handle_network_booting  $RPD_FULL  bootcode,cmdline,config,ssh,root,fstab,wpa,history
 
 
