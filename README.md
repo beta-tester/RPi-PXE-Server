@@ -40,11 +40,11 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
 ### software:
-- **Raspbian Jessie** or **Raspbina Jessie Lite** (2017-07-05), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspbian Stretch** or **Raspbina Stretch Lite** (2017-08-16), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Jessie (or Lite) from 2017-07-05,
+- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2017-08-16,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (41GB when you use unmodified script),
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
@@ -139,8 +139,8 @@ e.g.:**
 ```
 ######################################################################
 # handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
-handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
-handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
+# handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
+# handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
 # handle_iso  $UBUNTU_X64        $UBUNTU_X64_URL;
 # handle_iso  $UBUNTU_X86        $UBUNTU_X86_URL;
 # handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
@@ -176,7 +176,7 @@ it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested 
 the server is prepared for to boot a Raspberry Pi 3 via network.
 in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN=12345678``` line, change the ```12345678``` to the serial number of the RPi3, that will boot from network. if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
 
-the script will download Raspbian-Jessie-Lite and prepare it for the RPi3 withthe given serial number.
+the script will download Raspbian-Stretch-Lite and prepare it for the RPi3 with the given serial number.
 
 by default, a RPi3 is not enabled for network booting. you have to enable it once.
 
