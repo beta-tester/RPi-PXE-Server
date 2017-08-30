@@ -997,7 +997,7 @@ EOF";
 
             ##############################################################
             if (echo $FLAGS | grep -q wpa); then
-                echo -e "\e[36m    add wpa_supplicant file\e[0m";
+                echo -e "\e[36m    add wpa_supplicant template file\e[0m";
                 sudo sh -c "cat << EOF  > $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf
 ########################################
 country=DE
@@ -1016,6 +1016,10 @@ network={
     key_mgmt=WPA-PSK
 }
 EOF";
+                if [ -f "$SRC_MOUNT/wpa_supplicant.conf" ]; then
+                    echo -e "\e[36m    add wpa_supplicant file from backup\e[0m";
+                    sudo rsync -xa --info=progress2 $SRC_MOUNT/wpa_supplicant.conf  $DST_ROOT/etc/wpa_supplicant/
+                fi
             fi
 
             ##############################################################
