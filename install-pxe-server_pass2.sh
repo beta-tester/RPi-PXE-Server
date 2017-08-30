@@ -1069,7 +1069,7 @@ EOF";
     ######################################################################
     if ! [ -f "$DST_TFTP_ETH0/bootcode.bin" ]; then
         echo -e "\e[36m    download bootcode.bin for RPi3 NETWORK BOOTING\e[0m";
-        sudo wget -O $DST_TFTP_ETH0/bootcode.bin  https://github.com/raspberrypi/firmware/raw/boot/bootcode.bin;
+        sudo wget -O $DST_TFTP_ETH0/bootcode.bin  https://github.com/raspberrypi/firmware/raw/stable/boot/bootcode.bin;
     fi
 }
 
