@@ -381,7 +381,7 @@ handle_pxe_menu() {
     echo -e "\e[36m    setup sys menu for pxe\e[0m";
     if ! [ -d "$DST_TFTP_ETH0/$1/pxelinux.cfg" ]; then sudo mkdir -p $DST_TFTP_ETH0/$1/pxelinux.cfg; fi
     if [ -d "$DST_TFTP_ETH0/$1/pxelinux.cfg" ]; then
-        sudo sh -c "cat << EOF  >> $FILE_MENU
+        sudo sh -c "cat << EOF  > $FILE_MENU
 ########################################
 # $FILE_MENU
 
