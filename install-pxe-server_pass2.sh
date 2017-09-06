@@ -20,7 +20,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2017-08-26
+# v2017-09-03
 #
 # known issues:
 #
@@ -143,20 +143,23 @@ PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pe
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.4/systemrescuecd-x86-5.0.4.iso
 
-TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.1/tails-amd64-3.1.iso
-
 DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
-TINYCORE_x86=tinycore-x86
-TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-current.iso
-
 TINYCORE_x64=tinycore-x64
-TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-current.iso
+TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.1.iso
+
+TINYCORE_x86=tinycore-x86
+TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.1.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
+
+FEDORA_X64=fedora-x64
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-26-1.5.iso
+
+TAILS_X64=tails-x64
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.1/tails-amd64-3.1.iso
 
 
 ######################################################################
@@ -648,7 +651,7 @@ EOF";
 # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
 LABEL tiny core x64
     KERNEL $NFS_ETH0/$TINYCORE_x64/boot/vmlinuz64
-    APPEND initrd=$NFS_ETH0/$TINYCORE_x64/boot/corepure64.gz nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_x64 tce=/mnt/nfs/cde ro waitusb=5 vga=791 loglevel=3 -- lang=C.UTF-8
+    APPEND initrd=$NFS_ETH0/$TINYCORE_x64/boot/corepure64.gz nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_x64 tce=/mnt/nfs/cde ro waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
     TEXT HELP
         Boot to tiny core x64
         User: tc
@@ -664,7 +667,7 @@ EOF";
 # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
 LABEL tiny core x86
     KERNEL $NFS_ETH0/$TINYCORE_x86/boot/vmlinuz
-    APPEND initrd=$NFS_ETH0/$TINYCORE_x86/boot/core.gz nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_x86 tce=/mnt/nfs/cde ro waitusb=5 vga=791 loglevel=3 -- lang=C.UTF-8
+    APPEND initrd=$NFS_ETH0/$TINYCORE_x86/boot/core.gz nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_x86 tce=/mnt/nfs/cde ro waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
     TEXT HELP
         Boot to tiny core x86
         User: tc
