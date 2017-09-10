@@ -20,7 +20,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2017-09-03
+# v2017-09-10
 #
 # known issues:
 #
@@ -141,16 +141,16 @@ PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
-SYSTEMRESCTUE_X86_URL=http://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.4/systemrescuecd-x86-5.0.4.iso
+SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.1.0/systemrescuecd-x86-5.1.0.iso
 
 DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
 TINYCORE_x64=tinycore-x64
-TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.1.iso
+TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.1.1.iso
 
 TINYCORE_x86=tinycore-x86
-TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.1.iso
+TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.1.1.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
@@ -175,10 +175,10 @@ PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-08-17/2017-08-16-raspbian-stretch-lite.zip
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-09-08/2017-09-07-raspbian-stretch-lite.zip
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-08-17/2017-08-16-raspbian-stretch.zip
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-09-08/2017-09-07-raspbian-stretch.zip
 
 
 ######################################################################
