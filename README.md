@@ -98,11 +98,12 @@ deft-x64.iso          # DEFT
 kali-x64.iso          # Kali Linux
 pentoo-x64.iso        # Pentoo Linux
 systemrescue-x86.iso  # System Rescue
-tails-x64             # Tails (not working yet)
 desinfect-x86.iso     # c't desinfect, is not downloadable, you have to get by yourself
 tinycore-x86.iso      # tiny core ~16MB minimal linux.
 tinycore-x64.iso      # tiny core ~16MB minimal linux.
 rpdesktop-x86.iso     # Raspberry Pi Desktop for x86 PC
+clonezilla-x64.iso    # clonezilla
+clonezilla-x86.iso
 ```
 
 the following url files will contain the url of the iso image, where to download, to compare if you have the requested iso already downloaded, to prevent downloading an iso newly, when it is done already.
@@ -120,11 +121,12 @@ deft-x64.url
 kali-x64.url
 pentoo-x64.url
 systemrescue-x86.url
-tails-x64.url
 desinfect-x86.url
 tinycore-x86.url
 tinycore-x64.url
 rpdesktop-x86.url
+clonezilla-x64.url
+clonezilla-x86.url
 ```
 
 there is a complete new section, that contains download url for disk images, that contains partitions.
@@ -151,11 +153,11 @@ e.g.:**
 # handle_iso  $KALI_X64          $KALI_X64_URL;
 # handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
 # handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
-# handle_iso  $TAILS_X64         $TAILS_X64_URL;
 # handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
 handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
 handle_iso  $TINYCORE_x86      $TINYCORE_x86_URL;
 handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
+...
 ```
 **same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
 e.g.:**
