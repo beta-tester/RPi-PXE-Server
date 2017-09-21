@@ -19,8 +19,9 @@
 # rpi-raspbian  http://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
+# clonezilla    http://clonezilla.org/
 #
-# v2017-09-10
+# v2017-09-21
 #
 # known issues:
 #
@@ -154,6 +155,12 @@ TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.1.1.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
+
+CLONEZILLA_X64=clonezilla-x64
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
+
+CLONEZILLA_X86=clonezilla-x86
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-i686.iso
 
 FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-26-1.5.iso
@@ -691,6 +698,36 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $CLONEZILLA_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Clonezilla x64
+    KERNEL $NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz
+    APPEND initrd=$NFS_ETH0/$CLONEZILLA_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X64 boot=live config username=user union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=de_DE keyboard-layouts=de
+    TEXT HELP
+        Boot to Clonezilla x64
+        User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $CLONEZILLA_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Clonezilla x86
+    KERNEL $NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz
+    APPEND initrd=$NFS_ETH0/$CLONEZILLA_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X86 boot=live config username=user union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=de_DE keyboard-layouts=de
+    TEXT HELP
+        Boot to Clonezilla x86
+        User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
         echo  -e "\e[36m    add $FEDORA_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -1220,10 +1257,15 @@ handle_dnsmasq
 handle_samba
 handle_optional
 handle_dhcpcd
-######################################################################
-######################################################################
-######################################################################
-######################################################################
+
+
+##########################################################################
+# ###########    ###########    ###########    ###########    ###########
+#  #########      #########      #########      #########      #########
+#   #######        #######        #######        #######        #######
+#    #####          #####          #####          #####          #####
+#     ###            ###            ###            ###            ###
+#      #              #              #              #              #
 
 
 ######################################################################
@@ -1245,11 +1287,14 @@ handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
 # handle_iso  $KALI_X64          $KALI_X64_URL;
 # handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
 # handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
-## handle_iso  $TAILS_X64         $TAILS_X64_URL;
 ## handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
 # handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
 handle_iso  $TINYCORE_x86      $TINYCORE_x86_URL;
 handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
+#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
+handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
+## handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
+## handle_iso  $TAILS_X64          $TAILS_X64_URL;
 ######################################################################
 handle_pxe
 
@@ -1274,10 +1319,13 @@ handle_network_booting  $RPD_LITE  bootcode,cmdline,config,ssh,root,fstab,wpa,hi
 #handle_network_booting  $RPD_FULL  bootcode,cmdline,config,ssh,root,fstab,wpa,history
 
 
-######################################################################
-######################################################################
-######################################################################
-######################################################################
+#      #              #              #              #              #
+#     ###            ###            ###            ###            ###
+#    #####          #####          #####          #####          #####
+#   #######        #######        #######        #######        #######
+#  #########      #########      #########      #########      #########
+# ###########    ###########    ###########    ###########    ###########
+##########################################################################
 
 
 ######################################################################
