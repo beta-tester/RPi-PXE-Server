@@ -118,7 +118,7 @@ UBUNTU_X64=ubuntu-x64
 UBUNTU_X64_URL=http://releases.ubuntu.com/17.10/ubuntu-17.10-desktop-amd64.iso
 
 UBUNTU_X86=ubuntu-x86
-UBUNTU_X86_URL=http://releases.ubuntu.com/17.10/ubuntu-17.10-desktop-i386.iso
+UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
