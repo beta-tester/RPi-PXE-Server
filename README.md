@@ -50,26 +50,27 @@ assuming,
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
 - and the folowing folder structure on the USB memory stick:
 ```
-.
+<mount_point>
 └── backup
     ├── img
     └── iso
     
-mkdir -p /backup/img
-mkdir -p /backup/iso
+mkdir -p <mount_point>/backup/img
+mkdir -p <mount_point>/backup/iso
 ```
 
 optional structure for win-pe pxe boot
 ```
-.
+<mount_point>
 └── backup
     └── tftp
         ├── boot
         └── efi
 
-mkdir -p /backup/tftp/boot
-mkdir -p /backup/tftp/efi
+mkdir -p <mount_point>/backup/tftp/boot
+mkdir -p <mount_point>/backup/tftp/efi
 ```
+replace **<mount_point>** with the path, where you mounted your USB stick.
 
 1. run `bash install-pxe-server_pass1.sh` to install necessary packages
 2. reboot your RPi with `sudo reboot`
