@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-10-19
+# v2017-11-05
 #
 # known issues:
 #
@@ -142,7 +142,7 @@ PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
-SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.1.1/systemrescuecd-x86-5.1.1.iso
+SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.1.2/systemrescuecd-x86-5.1.2.iso
 
 DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
