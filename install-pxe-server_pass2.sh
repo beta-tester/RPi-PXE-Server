@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-11-05
+# v2017-11-10
 #
 # known issues:
 #
@@ -148,10 +148,10 @@ DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
 TINYCORE_x64=tinycore-x64
-TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.2.iso
+TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.2.1.iso
 
 TINYCORE_x86=tinycore-x86
-TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.2.iso
+TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.2.1.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
