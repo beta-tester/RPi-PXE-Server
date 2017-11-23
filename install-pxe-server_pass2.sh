@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-11-10
+# v2017-11-23
 #
 # known issues:
 #
@@ -136,7 +136,7 @@ DEFT_X64=deft-x64
 DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=http://cdimage.kali.org/kali-2017.2/kali-linux-2017.2-amd64.iso
+KALI_X64_URL=http://cdimage.kali.org/kali-2017.3/kali-linux-2017.3-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
