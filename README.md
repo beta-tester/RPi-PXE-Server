@@ -72,7 +72,7 @@ mkdir -p <mount_point>/backup/tftp/efi
 ```
 replace **<mount_point>** with the path, where you mounted your USB stick.
 
-1. run `bash install-pxe-server_pass1.sh` to install necessary packages
+1. run `bash install-pxe-server_pass1.sh` to install necessary packages (use *_bash_* ... and do not run it with *_sudo_* in front)
 2. reboot your RPi with `sudo reboot`
 3. run `bash install-pxe-server_pass2.sh` to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.
 4. reboot your RPi with `sudo reboot`
@@ -82,6 +82,30 @@ done.
 ## update:
 to update your images, update the url in the **install-pxe-server_pass2.sh** file and re-run `bash install-pxe-server_pass2.sh`.
 this will download all updated iso files.
+
+## modification on the script
+what you should know, when you make modification to the script...
+there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
+1. the ISO or NSF path relative to the TFTP root path.
+2. the ISO or NFS path relative to the pxe boot menu root path.
+3. the ISO or NFS path repative to the nfs root path.
+```
+/
+└── srv
+    ├── tftp  (TFTP root)
+    |   ├── iso (only a symbolic link to ISO files)
+    |   └── nfs (only a symbolic link to NFS files)
+    |    
+    ├── menu-bios  (PXE boot menu root for BIOS)
+    |   ├── iso (only a symbolic link to ISO files)
+    |   └── nfs (only a symbolic link to NFS files)
+    |   
+    ├── iso (the real physical location of ISO files)
+    └── nfs (the real physical location of NFS files or mountpoints)
+```
+if you make any changes to your script or file scructure on disk, keep in track to changes you made and adapt everything to match.
+pxe menu entries to file structure on disk.
+
 
 ## note:
 the script will copy/download/mount following ISOs:
