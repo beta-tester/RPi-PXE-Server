@@ -72,7 +72,8 @@ mkdir -p <mount_point>/backup/tftp/efi
 ```
 replace **<mount_point>** with the path, where you mounted your USB stick.
 
-1. run `bash install-pxe-server_pass1.sh` to install necessary packages (use *_bash_* ... and do not run it with *_sudo_* in front)
+1. run `bash install-pxe-server_pass1.sh` to install necessary packages<br />
+(use *_bash_* and do not run it from *_sudo_*)
 2. reboot your RPi with `sudo reboot`
 3. run `bash install-pxe-server_pass2.sh` to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.
 4. reboot your RPi with `sudo reboot`
@@ -84,24 +85,27 @@ to update your images, update the url in the **install-pxe-server_pass2.sh** fil
 this will download all updated iso files.
 
 ## modification on the script
-what you should know, when you make modification to the script...
+what you should know, when you make modification to the script...<br />
 there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
-1. the ISO or NSF path relative to the TFTP root path.
-2. the ISO or NFS path relative to the pxe boot menu root path.
-3. the ISO or NFS path repative to the nfs root path.
+1. the ISO or NSF path relative to the TFTP root path.<br />
+(on disk `/srv/tftp/iso`, `/srv/tftp/nfs` as symbolik link).
+2. the ISO or NFS path relative to the pxe boot menu root path<br />
+(on disk `/srv/tftp/menu-bios/iso`, `/srv/tftp/menu-bios/iso` as symbolic link).
+3. the ISO or NFS path repative to the nfs root path<br />
+(on disk `/srv/iso`, `/srv/nfs`).
 ```
 /
 └── srv
-    ├── tftp  (TFTP root)
-    |   ├── iso (only a symbolic link to ISO files)
-    |   └── nfs (only a symbolic link to NFS files)
-    |    
-    ├── menu-bios  (PXE boot menu root for BIOS)
-    |   ├── iso (only a symbolic link to ISO files)
-    |   └── nfs (only a symbolic link to NFS files)
-    |   
     ├── iso (the real physical location of ISO files)
-    └── nfs (the real physical location of NFS files or mountpoints)
+    ├── nfs (the real physical location of NFS files or mountpoints)
+    | 
+    └── tftp  (TFTP root)
+        ├── iso (only a symbolic link to ISO files)
+        ├── nfs (only a symbolic link to NFS files)
+        |
+        └── menu-bios  (PXE boot menu root for BIOS)
+            ├── iso (only a symbolic link to ISO files)
+            └── nfs (only a symbolic link to NFS files)
 ```
 if you make any changes to your script or file scructure on disk, keep in track to changes you made and adapt everything to match.
 pxe menu entries to file structure on disk.
