@@ -96,16 +96,16 @@ there are three importent locations for the pxe boot and the pxe menu that must 
 ```
 /
 └── srv
-    ├── iso (the real physical location of ISO files)
-    ├── nfs (the real physical location of NFS files or mountpoints)
+    ├── iso    (the real physical location of ISO files)
+    ├── nfs    (the real physical location of NFS files or mountpoints)
     | 
-    └── tftp  (TFTP root)
-        ├── iso (only a symbolic link to ISO files)
-        ├── nfs (only a symbolic link to NFS files)
+    └── tftp       (TFTP root)
+        ├── iso    (only a symbolic link to ISO files)
+        ├── nfs    (only a symbolic link to NFS files)
         |
         └── menu-bios  (PXE boot menu root for BIOS)
-            ├── iso (only a symbolic link to ISO files)
-            └── nfs (only a symbolic link to NFS files)
+            ├── iso    (only a symbolic link to ISO files)
+            └── nfs    (only a symbolic link to NFS files)
 ```
 if you make any changes to your script or file stcructure on disk, keep in track to changes you made and adapt everything to match.
 pxe menu entries to file structure on disk.
