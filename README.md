@@ -84,7 +84,7 @@ done.
 to update your images, update the url in the **install-pxe-server_pass2.sh** file and re-run `bash install-pxe-server_pass2.sh`.
 this will download all updated iso files.
 
-## modification on the script
+## modifying the script:
 what you should know, when you make modification to the script...<br />
 there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
 1. the ISO or NSF path relative to the TFTP root path.<br />
