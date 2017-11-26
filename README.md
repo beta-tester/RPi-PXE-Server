@@ -107,8 +107,11 @@ there are three importent locations for the pxe boot and the pxe menu that must 
             ├── iso (only a symbolic link to ISO files)
             └── nfs (only a symbolic link to NFS files)
 ```
-if you make any changes to your script or file scructure on disk, keep in track to changes you made and adapt everything to match.
+if you make any changes to your script or file stcructure on disk, keep in track to changes you made and adapt everything to match.
 pxe menu entries to file structure on disk.
+
+what the root of TFTP and PXE boot menu are, is defined in the dnsmasq configuration file `/etc/dnsmasq.d/pxe-server`.<br />
+the root for NFS are defined in `/etc/exports`.
 
 
 ## note:
