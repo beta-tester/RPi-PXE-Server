@@ -75,7 +75,8 @@ replace **<mount_point>** with the path, where you mounted your USB stick.
 1. run `bash install-pxe-server_pass1.sh` to install necessary packages<br />
 (use **_bash_** and do not run it from **_sudo_**)
 2. reboot your RPi with `sudo reboot`
-3. run `bash install-pxe-server_pass2.sh` to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.
+3. run `bash install-pxe-server_pass2.sh` to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.<br />
+(use **_bash_** and do not run it from **_sudo_**)
 4. reboot your RPi with `sudo reboot`
 
 done.
