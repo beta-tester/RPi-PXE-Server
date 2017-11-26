@@ -5,7 +5,7 @@ it is a private project i have made for myself.
 
 i did not keeped an eye on network security.
 
-USE IT AT YOUR OWN RISK.
+**USE IT AT YOUR OWN RISK.**
 
 ## what is it good for?
 the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, PXE server.
@@ -108,10 +108,10 @@ there are three importent locations for the pxe boot and the pxe menu that must 
             ├── iso    (only a symbolic link to ISO files)
             └── nfs    (only a symbolic link to NFS files)
 ```
-if you make any changes to your script or file stcructure on disk, keep in track to changes you made and adapt everything to match.
+if you make any changes to your script and/or file stcructure on disk, keep an eye to changes you made and adapt everything to match
 pxe menu entries to file structure on disk.
 
-what the root of TFTP and PXE boot menu are, is defined in the dnsmasq configuration file `/etc/dnsmasq.d/pxe-server`.<br />
+what the root of TFTP and PXE boot menu are, is defined in the **_dnsmasq_** configuration file `/etc/dnsmasq.d/pxe-server`.<br />
 the root for NFS are defined in `/etc/exports`.
 
 
