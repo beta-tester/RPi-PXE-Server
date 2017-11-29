@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ######################################################################
 # ubuntu,       http://releases.ubuntu.com/
@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-11-23
+# v2017-11-28
 #
 # known issues:
 #
