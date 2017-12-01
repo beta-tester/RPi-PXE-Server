@@ -157,7 +157,7 @@ TINYCORE_x86=tinycore-x86
 TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.2.1.iso
 
 RPDESKTOP_X86=rpdesktop-x86
-RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-06-23/2017-06-22-rpd-x86-jessie.iso
+RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
 
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
