@@ -185,10 +185,10 @@ PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-09-08/2017-09-07-raspbian-stretch-lite.zip
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/2017-11-29-raspbian-stretch-lite.zip
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-09-08/2017-09-07-raspbian-stretch.zip
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-12-01/2017-11-29-raspbian-stretch.zip
 
 
 ######################################################################
@@ -984,6 +984,11 @@ handle_network_booting() {
     local FILE_URL=$NAME.url
     ##############################################################
     echo -e "\e[32mhandle_network_booting(\e[0m$NAME\e[32m)\e[0m";
+    if [ "$RPI_SN0" == "" ] \
+    || [ "$RPI_SN0" == "12345678" ]; then
+        echo -e "\e[31mskipping: no serial number setted.\e[0m";
+        return 1;
+    fi
     sudo exportfs -u *:$DST_BOOT 2> /dev/null;
     sudo exportfs -u *:$DST_ROOT 2> /dev/null;
 
