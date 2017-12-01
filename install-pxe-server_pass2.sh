@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-11-28
+# v2017-12-01
 #
 # known issues:
 #
@@ -65,11 +65,12 @@ ISO=/iso
 IMG=/img
 TFTP_ETH0=/tftp
 NFS_ETH0=/nfs
-SRC_MOUNT=/media/server/backup
-SRC_ISO=$SRC_MOUNT$ISO
-SRC_IMG=$SRC_MOUNT$IMG
-SRC_TFTP_ETH0=$SRC_MOUNT$TFTP_ETH0
-SRC_NFS_ETH0=$SRC_MOUNT$NFS_ETH0
+SRC_MOUNT=/media/server
+SRC_BACKUP=$SRC_MOUNT/backup
+SRC_ISO=$SRC_BACKUP$ISO
+SRC_IMG=$SRC_BACKUP$IMG
+SRC_TFTP_ETH0=$SRC_BACKUP$TFTP_ETH0
+SRC_NFS_ETH0=$SRC_BACKUP$NFS_ETH0
 DST_ROOT=/srv
 DST_ISO=$DST_ROOT$ISO
 DST_IMG=$DST_ROOT$IMG
@@ -97,6 +98,8 @@ if [ "$IP_ETH0_ROUTER" == "" ]; then
     exit 1
 fi
 
+sudo umount -f $SRC_MOUNT
+sudo mount $SRC_MOUNT
 
 ######################################################################
 ######################################################################
@@ -1084,9 +1087,9 @@ network={
     key_mgmt=WPA-PSK
 }
 EOF";
-                if [ -f "$SRC_MOUNT/wpa_supplicant.conf" ]; then
+                if [ -f "$SRC_BACKUP/wpa_supplicant.conf" ]; then
                     echo -e "\e[36m    add wpa_supplicant file from backup\e[0m";
-                    sudo rsync -xa --info=progress2 $SRC_MOUNT/wpa_supplicant.conf  $DST_ROOT/etc/wpa_supplicant/
+                    sudo rsync -xa --info=progress2 $SRC_BACKUP/wpa_supplicant.conf  $DST_ROOT/etc/wpa_supplicant/
                 fi
             fi
 
@@ -1151,11 +1154,13 @@ handle_pxe() {
     echo -e "\e[32mhandle_pxe()\e[0m";
 
     ######################################################################
-    echo -e "\e[36m    copy win-pe stuff\e[0m";
     [ -d "$DST_TFTP_ETH0/$DST_PXE_BIOS" ]            || sudo mkdir -p $DST_TFTP_ETH0/$DST_PXE_BIOS;
-    [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxeboot.0" ]  || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/pxeboot.0    $DST_TFTP_ETH0/$DST_PXE_BIOS/;
-    [ -f "$DST_TFTP_ETH0/bootmgr.exe" ]              || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/bootmgr.exe  $DST_TFTP_ETH0/;
-    [ -d "$DST_TFTP_ETH0/boot" ]                     || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/boot         $DST_TFTP_ETH0/;
+    if [ -d "$SRC_TFTP_ETH0" ]; then
+        echo -e "\e[36m    copy win-pe stuff\e[0m";
+        [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxeboot.0" ]  || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/pxeboot.0    $DST_TFTP_ETH0/$DST_PXE_BIOS/;
+        [ -f "$DST_TFTP_ETH0/bootmgr.exe" ]              || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/bootmgr.exe  $DST_TFTP_ETH0/;
+        [ -d "$DST_TFTP_ETH0/boot" ]                     || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/boot         $DST_TFTP_ETH0/;
+    fi
     [ -h "$DST_TFTP_ETH0/sources" ]                  || sudo ln -s $DST_NFS_ETH0/$WIN_PE_X86/sources/  $DST_TFTP_ETH0/sources;
     #for SRC in `find /srv/tftp/Boot -depth`
     #do
@@ -1332,11 +1337,15 @@ handle_network_booting  $RPD_LITE  bootcode,cmdline,config,ssh,root,fstab,wpa,hi
 
 
 ######################################################################
-echo -e "\e[32mbackup new iso images to usb-stick\e[0m";
-sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/
+if [ -d "$SRC_ISO" ]; then
+    echo -e "\e[32mbackup new iso images to usb-stick\e[0m";
+    sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/
+fi
 ######################################################################
-echo -e "\e[32mbackup new images to usb-stick\e[0m";
-sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/
+if [ -d "$SRC_IMG" ]; then
+    echo -e "\e[32mbackup new images to usb-stick\e[0m";
+    sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/
+fi
 ######################################################################
 sync
 echo -e "\e[32mDone.\e[0m";
