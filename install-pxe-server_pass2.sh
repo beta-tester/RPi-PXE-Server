@@ -169,7 +169,7 @@ FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-26-1.5.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.2/tails-amd64-3.2.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.3/tails-amd64-3.3.iso
 
 
 ######################################################################
