@@ -986,7 +986,7 @@ handle_network_booting() {
     echo -e "\e[32mhandle_network_booting(\e[0m$NAME\e[32m)\e[0m";
     if [ "$RPI_SN0" == "" ] \
     || [ "$RPI_SN0" == "12345678" ]; then
-        echo -e "\e[31mskipping: no serial number setted.\e[0m";
+        echo -e "\e[36m    skipped: no serial number setted at RPI_SN0.\e[0m";
         return 1;
     fi
     sudo exportfs -u *:$DST_BOOT 2> /dev/null;
