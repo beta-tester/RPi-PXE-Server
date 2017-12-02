@@ -906,7 +906,7 @@ handle_iso() {
     echo -e "\e[32mhandle_iso(\e[0m$1\e[32m)\e[0m";
     ######################################################################
     # $1 : short name
-    # $2 : download ulr
+    # $2 : download url
     ######################################################################
     local NAME=$1
     local URL=$2
@@ -985,7 +985,7 @@ handle_zip_img() {
     echo -e "\e[32mhandle_zip_img(\e[0m$1\e[32m)\e[0m";
     ######################################################################
     # $1 : short name
-    # $2 : download ulr
+    # $2 : download url
     ######################################################################
     local NAME=$1
     local URL=$2
@@ -1133,19 +1133,25 @@ max_usb_current=1
 disable_overscan=1
 hdmi_force_hotplug=1
 config_hdmi_boost=4
-hdmi_drive=2
-#hdmi_ignore_cec_init=1
 cec_osd_name=NetBoot
 
-########################################
-##4k@15Hz custom DMT - mode
-#gpu_mem=128
+#########################################
+# standard resolution
+hdmi_drive=2
+
+#########################################
+##4k@24Hz or 25Hz custom DMT - mode
+#hdmi_ignore_edid=0xa5000080
 #hdmi_group=2
 #hdmi_mode=87
-#hdmi_cvt 3840 2160 15
+#hdmi_pixel_freq_limit=400000000
+#hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 24 0 211190000 3
+##hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 25 0 220430000 3
+#gpu_mem=128
+#framebuffer_width=3840
+#framebuffer_height=2160
 #max_framebuffer_width=3840
 #max_framebuffer_height=2160
-#hdmi_pixel_freq_limit=400000000
 EOF";
         fi
 
@@ -1220,7 +1226,7 @@ handle_rpi_pxe_classic() {
     echo -e "\e[32mhandle_rpi_pxe_classic(\e[0m$1\e[32m)\e[0m";
     ######################################################################
     # $1 : short name
-    # S2 : serial number
+    # $2 : serial number
     # $3 : flags (redo,bootcode,cmdline,config,ssh,root,fstab,wpa,history)
     ######################################################################
     local NAME=$1
