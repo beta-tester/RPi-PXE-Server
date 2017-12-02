@@ -1032,6 +1032,8 @@ max_usb_current=1
 disable_overscan=1
 hdmi_force_hotplug=1
 config_hdmi_boost=4
+
+#hdmi_ignore_cec_init=1
 cec_osd_name=NetBoot
 
 #########################################
