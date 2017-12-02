@@ -2,12 +2,23 @@
 
 ######################################################################
 #
-# v2017-11-28
+# v2017-12-01
 #
 # known issues:
 #
 
 #bridge#
+
+
+######################################################################
+# disable screensaver on console
+echo -e "\e[36m    disable term screensaver temporary\e[0m";
+setterm -blank 0 -powerdown 0 2> /dev/null;
+xset s off 2> /dev/null;
+echo -e "\e[36m    done.\e[0m";
+echo -e "\e[36m    disable X screensaver temporary\e[0m";
+xset -dpms 2> /dev/null;
+echo -e "\e[36m    done.\e[0m";
 
 
 ######################################################################
@@ -48,9 +59,9 @@ sudo sync \
 && echo -e "\e[32mupgrade...\e[0m" && sudo apt-get -y upgrade \
 && echo -e "\e[32mautoremove...\e[0m" && sudo apt-get -y --purge autoremove \
 && echo -e "\e[32mautoclean...\e[0m" && sudo apt-get autoclean \
+&& sudo sync \
 && echo -e "\e[32mDone.\e[0m" \
-&& sudo sync
-
+;
 
 ######################################################################
 echo -e "\e[32minstall nfs-kernel-server for pxe\e[0m";
@@ -87,15 +98,127 @@ sudo apt-get -y install pxelinux syslinux-common;
 
 
 ######################################################################
+#echo -e "\e[32minstall mergerfs\e[0m";
+#sudo apt-get -y install fuse mergerfs;
+
+
+######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
 #bridge#sudo apt-get -y install bridge-utils hostapd dnsmasq iptables iptables-persistent
 
 
 ######################################################################
+echo -e "\e[32minstall network NAT\e[0m";
+sudo apt-get -y install iptables iptables-persistent
+
+
+######################################################################
+$(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
+sudo apt-get -y install chrony;
+sudo systemctl enable chronyd.service;
+sudo systemctl restart chronyd.service;
+}
+
+######################################################################
+######################################################################
+
+
+######################################################################
 ## optional
-#bridge#echo -e "\e[32minstall wireshark\e[0m";
-#bridge#sudo apt-get -y install wireshark
-#bridge#sudo usermod -a -G wireshark $USER
+echo -e "\e[32minstall wireshark\e[0m";
+sudo apt-get -y install wireshark
+sudo usermod -a -G wireshark $USER
+
+#sudo apt-get -y --auto-remove purge avahi-daemon
+sudo systemctl stop avahi-daemon.service
+sudo systemctl disable avahi-daemon.service
+
+
+######################################################################
+## optional
+grep -q mod_install_server /etc/rc.local 2> /dev/null || {
+echo -e "\e[32m... disable screensaver\e[0m";
+sudo sed /etc/rc.local -i -e "s/^exit 0$/########################################\n## mod_install_server\nsetterm -blank 0 -powerdown 0;\n\nexit 0/"
+sudo sh -c "echo '########################################
+## mod_install_server
+setterm -blank 0 -powerdown 0;
+xset s off;
+xset -dpms;
+' >> /etc/X11/Xsession.d/40x11-common_xsessionrc";
+}
+
+
+######################################################################
+## optional
+grep -q logo.nologo /boot/cmdline.txt 2> /dev/null || {
+echo -e "\e[32msetup cmdline.txt for no logo\e[0m";
+sudo sed -i '1 s/$/ logo.nologo/' /boot/cmdline.txt;
+}
+
+
+######################################################################
+## optional
+echo -e "\e[32mchange hostname\e[0m";
+sudo sh -c "echo pxe-server > /etc/hostname"
+sudo sed -i "s/127.0.1.1.*$(hostname)/127.0.1.1\tpxe-server/g" /etc/hosts
+
+
+######################################################################
+## optional
+grep -q mod_install_server /boot/config.txt 2> /dev/null || {
+echo -e "\e[32msetup /boot/config.txt\e[0m";
+sudo sed /boot/config.txt -i -e 's/^max_usb_current=/\#max_usb_current=/g'
+sudo sed /boot/config.txt -i -e 's/^force_turbo=/\#force_turbo=/g'
+sudo sed /boot/config.txt -i -e 's/^disable_overscan=/\#disable_overscan=/g'
+sudo sed /boot/config.txt -i -e 's/^hdmi_force_hotplug=/\#hdmi_force_hotplug=/g'
+sudo sed /boot/config.txt -i -e 's/^config_hdmi_boost=/\#config_hdmi_boost=/g'
+sudo sed /boot/config.txt -i -e 's/^hdmi_drive=/\#hdmi_drive=/g'
+sudo sed /boot/config.txt -i -e 's/^cec_osd_name=/\#cec_osd_name=/g'
+sudo sh -c "echo '########################################
+## mod_install_server
+[pi2]
+total_mem=1024
+
+[pi3]
+total_mem=1024
+
+[all]
+max_usb_current=1
+force_turbo=1
+
+disable_overscan=1
+config_hdmi_boost=4
+hdmi_force_hotplug=1
+hdmi_drive=2
+hdmi_ignore_cec_init=1
+cec_osd_name=PXE-Server
+' >> /boot/config.txt"
+}
+
+
+######################################################################
+## optional
+grep -q mod_install_server /etc/rc.local 2> /dev/null || {
+echo -e "\e[32mdisable screensaver\e[0m";
+sudo sed /etc/rc.local -i -e 's/^exit 0$/\########################################\n## mod_install_server\nsetterm -blank 0 -powerdown 0;\n\nexit 0/'
+sudo sh -c "echo '########################################
+## mod_install_server
+setterm -blank 0 -powerdown 0;
+xset s off;
+xset -dpms;
+' >> /etc/X11/Xsession.d/40x11-common_xsessionrc";
+}
+
+
+######################################################################
+## optional
+[ -f /etc/ssh/mod_install_server ] || {
+echo -e "\e[32mcopy predefined ssh keys\e[0m";
+sudo touch /etc/ssh/mod_install_server
+sudo rsync -xa --info=progress2 $SRC_MOUNT/backup/ssh/* /etc/ssh/
+sudo chmod 0600 /etc/ssh/*key
+sudo ssh-keygen -A
+}
 
 
 ######################################################################
