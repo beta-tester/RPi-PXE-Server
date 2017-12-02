@@ -1032,18 +1032,25 @@ max_usb_current=1
 disable_overscan=1
 hdmi_force_hotplug=1
 config_hdmi_boost=4
-hdmi_drive=2
 cec_osd_name=NetBoot
 
-########################################
-##4k@15Hz custom DMT - mode
-#gpu_mem=128
+#########################################
+# standard resolution
+hdmi_drive=2
+
+#########################################
+##4k@24Hz or 25Hz custom DMT - mode
+#hdmi_ignore_edid=0xa5000080
 #hdmi_group=2
 #hdmi_mode=87
-#hdmi_cvt 3840 2160 15
+#hdmi_pixel_freq_limit=400000000
+#hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 24 0 211190000 3
+##hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 25 0 220430000 3
+#gpu_mem=128
+#framebuffer_width=3840
+#framebuffer_height=2160
 #max_framebuffer_width=3840
 #max_framebuffer_height=2160
-#hdmi_pixel_freq_limit=400000000
 EOF";
         fi
 
