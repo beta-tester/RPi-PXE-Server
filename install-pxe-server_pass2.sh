@@ -925,6 +925,7 @@ handle_iso() {
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
     sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
+    if [ "$3" == "bindfs" ]; then sudo umount -f $DST_NFS_ETH0/$NAME-original 2> /dev/null; fi
 
     if [ "$URL" == "" ]; then
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
@@ -978,7 +979,7 @@ handle_iso() {
             echo -e "\e[36m    add iso image to fstab\e[0m";
         if [ "$3" == "bindfs" ]; then
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME-original  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
-                sudo sh -c "echo '$DST_NFS_ETH0/$NAME-original  $DST_NFS_ETH0/$NAME  bindfs  ro,auto,force-user=root,force-group=root,parms=a+rX  0  11' >> /etc/fstab";
+                sudo sh -c "echo '$DST_NFS_ETH0/$NAME-original  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
         else
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
         fi
@@ -990,6 +991,7 @@ handle_iso() {
             sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$FSID)' >> /etc/exports";
         fi
 
+        if [ "$3" == "bindfs" ]; then sudo mount $DST_NFS_ETH0/$NAME-original; fi
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
     else
@@ -1452,9 +1454,9 @@ handle_rpi_pxe_overlay() {
     ######################################################################
     if ! grep -q "$DST_NFS_BOOT" /etc/fstab; then
         echo -e "\e[36m    add image-boot to fstab\e[0m";
-        sudo sh -c "echo '$SRC_BOOT  $DST_LOWER_BOOT  bindfs  ro,noauto  0  12' >> /etc/fstab";
+        sudo sh -c "echo '$SRC_BOOT  $DST_LOWER_BOOT  fuse.bindfs  ro,noauto  0  12' >> /etc/fstab";
         sudo sh -c "echo 'overlay  $DST_MERGED_BOOT  overlay  rw,noauto,lowerdir=$DST_LOWER_BOOT,upperdir=$DST_UPPER_BOOT,workdir=$DST_WORK_BOOT  0  13' >> /etc/fstab";
-        sudo sh -c "echo '$DST_MERGED_BOOT  $DST_NFS_BOOT  bindfs  rw,noauto  0  14' >> /etc/fstab";
+        sudo sh -c "echo '$DST_MERGED_BOOT  $DST_NFS_BOOT  fuse.bindfs  rw,noauto  0  14' >> /etc/fstab";
     fi
 
     ######################################################################
@@ -1462,7 +1464,7 @@ handle_rpi_pxe_overlay() {
         if ! grep -q "$DST_NFS_ROOT" /etc/fstab; then
             echo -e "\e[36m    add image-root to fstab\e[0m";
             sudo sh -c "echo 'overlay  $DST_MERGED_ROOT  overlay  rw,lowerdir=$DST_LOWER_ROOT,upperdir=$DST_UPPER_ROOT,workdir=$DST_WORK_ROOT  0  13' >> /etc/fstab";
-            sudo sh -c "echo '$DST_MERGED_ROOT  $DST_NFS_ROOT  bindfs  rw,noauto  0  14' >> /etc/fstab";
+            sudo sh -c "echo '$DST_MERGED_ROOT  $DST_NFS_ROOT  fuse.bindfs  rw,noauto  0  14' >> /etc/fstab";
         fi
     fi
 
