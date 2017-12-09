@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-12-01
+# v2017-12-09
 #
 # known issues:
 #
@@ -55,17 +55,17 @@ grep -q net.ifnames /boot/cmdline.txt 2> /dev/null || {
 
 ######################################################################
 sudo sync \
-&& echo -e "\e[32mupdate...\e[0m" && sudo apt-get -y update \
-&& echo -e "\e[32mupgrade...\e[0m" && sudo apt-get -y upgrade \
-&& echo -e "\e[32mautoremove...\e[0m" && sudo apt-get -y --purge autoremove \
-&& echo -e "\e[32mautoclean...\e[0m" && sudo apt-get autoclean \
+&& echo -e "\e[32mupdate...\e[0m" && sudo apt update \
+&& echo -e "\e[32mupgrade...\e[0m" && sudo apt upgrade -y \
+&& echo -e "\e[32mautoremove...\e[0m" && sudo apt autoremove -y --purge \
+&& echo -e "\e[32mautoclean...\e[0m" && sudo apt autoclean \
 && sudo sync \
 && echo -e "\e[32mDone.\e[0m" \
 ;
 
 ######################################################################
 echo -e "\e[32minstall nfs-kernel-server for pxe\e[0m";
-sudo apt-get -y install nfs-kernel-server;
+sudo apt install -y nfs-kernel-server;
 sudo systemctl enable nfs-kernel-server.service;
 sudo systemctl restart nfs-kernel-server.service;
 
@@ -77,44 +77,49 @@ sudo systemctl restart rpcbind.service;
 
 ######################################################################
 echo -e "\e[32minstall dnsmasq for pxe\e[0m";
-sudo apt-get -y install dnsmasq
+sudo apt install -y dnsmasq
 sudo systemctl enable dnsmasq.service;
 sudo systemctl restart dnsmasq.service;
 
 
 ######################################################################
 echo -e "\e[32minstall samba\e[0m";
-sudo apt-get -y install samba;
+sudo apt install -y samba;
 
 
 ######################################################################
 echo -e "\e[32minstall rsync\e[0m";
-sudo apt-get -y install rsync;
+sudo apt install -y rsync;
 
 
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
-sudo apt-get -y install pxelinux syslinux-common;
+sudo apt install -y pxelinux syslinux-common;
 
 
 ######################################################################
-#echo -e "\e[32minstall mergerfs\e[0m";
-#sudo apt-get -y install fuse mergerfs;
+echo -e "\e[32minstall apt-cacher-ng\e[0m";
+sudo apt install -y apt-cacher-ng;
+
+
+######################################################################
+echo -e "\e[32minstall bindfs\e[0m";
+sudo apt install -y fuse bindfs;
 
 
 ######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
-#bridge#sudo apt-get -y install bridge-utils hostapd dnsmasq iptables iptables-persistent
+#bridge#sudo apt install -y bridge-utils hostapd dnsmasq iptables iptables-persistent
 
 
 ######################################################################
 echo -e "\e[32minstall network NAT\e[0m";
-sudo apt-get -y install iptables iptables-persistent
+sudo apt install -y iptables iptables-persistent
 
 
 ######################################################################
 $(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
-sudo apt-get -y install chrony;
+sudo apt install -y chrony;
 sudo systemctl enable chronyd.service;
 sudo systemctl restart chronyd.service;
 }
@@ -126,10 +131,10 @@ sudo systemctl restart chronyd.service;
 ######################################################################
 ## optional
 echo -e "\e[32minstall wireshark\e[0m";
-sudo apt-get -y install wireshark
+sudo apt install -y wireshark
 sudo usermod -a -G wireshark $USER
 
-#sudo apt-get -y --auto-remove purge avahi-daemon
+#sudo apt purge -y --auto-remove avahi-daemon
 sudo systemctl stop avahi-daemon.service
 sudo systemctl disable avahi-daemon.service
 
