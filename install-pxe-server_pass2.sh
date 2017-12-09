@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-12-09
+# v2017-12-10
 #
 # known issues:
 #
@@ -330,10 +330,8 @@ dhcp-option=$INTERFACE_ETH0, option:tftp-server, $IP_ETH0
 #bridge#dhcp-option=$INTERFACE_BR0, option:tftp-server, $IP_BR0
 
 # Time Server
-dhcp-option=$INTERFACE_ETH0, option:nfs-server, $IP_ETH0
-dhcp-option=$INTERFACE_ETH0, option:4, $IP_ETH0
-dhcp-option=$INTERFACE_ETH1, option:nfs-server, $IP_ETH1
-dhcp-option=$INTERFACE_ETH1, option:4, $IP_ETH1
+dhcp-option=$INTERFACE_ETH0, option:ntp-server, $IP_ETH0
+dhcp-option=$INTERFACE_ETH1, option:ntp-server, $IP_ETH1
 
 # DHCP
 # do not give IPs that are in pool of DSL routers DHCP
@@ -970,7 +968,7 @@ handle_iso() {
         fi
 
         if ! [ -d "$DST_NFS_ETH0/$NAME-original" ]; then
-        if grep -q "$3" == "bindfs"; then
+        if [ "$3" == "bindfs" ]; then
                 echo -e "\e[36m    create nfs folder\e[0m";
                 sudo mkdir -p $DST_NFS_ETH0/$NAME-original;
         fi
@@ -978,7 +976,7 @@ handle_iso() {
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
             echo -e "\e[36m    add iso image to fstab\e[0m";
-        if grep -q "$3" == "bindfs"; then
+        if [ "$3" == "bindfs" ]; then
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME-original  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
                 sudo sh -c "echo '$DST_NFS_ETH0/$NAME-original  $DST_NFS_ETH0/$NAME  bindfs  ro,auto,force-user=root,force-group=root,parms=a+rX  0  11' >> /etc/fstab";
         else
@@ -1250,16 +1248,16 @@ EOF";
                 sudo chown 1000:1000 $DST_CUSTOM_ROOT/home/pi/.bash_history;
             fi
 
-        ##################################################################
-        if (echo $FLAGS | grep -q apt); then
-            ##############################################################
-            if [ -f "$DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy" ]; then
-                echo -e "\e[36m    add apt proxy file\e[0m";
-                sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy
-Acquire::http::Proxy "http://$IP_ETH0:3142";
+            ##################################################################
+            if (echo $FLAGS | grep -q apt); then
+                ##############################################################
+                if [ -f "$DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy" ]; then
+                    echo -e "\e[36m    add apt proxy file\e[0m";
+                    sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy
+Acquire::http::Proxy \"http://$IP_ETH0:3142\";
 EOF";
+                fi
             fi
-
         fi
     fi
 }
