@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-12-01
+# v2017-12-09
 #
 # known issues:
 #
@@ -86,6 +86,7 @@ DST_PXE_EFI64=menu-efi64
 KERNEL_MAJOR=$(cat /proc/version | awk '{print $3}' | awk -F . '{print $1}')
 KERNEL_MINOR=$(cat /proc/version | awk '{print $3}' | awk -F . '{print $2}')
 KERNEL_VER=$((KERNEL_MAJOR*100 + KERNEL_MINOR))
+FSID=10000
 
 echo
 echo -e "$KERNEL_MAJOR.$KERNEL_MINOR \e[36mis kernel version\e[0m";
@@ -327,6 +328,12 @@ dhcp-option=$INTERFACE_ETH0, option:tftp-server, $IP_ETH0
 #nat#dhcp-option=$INTERFACE_ETH1, option:tftp-server, $IP_ETH1
 #bridge#tftp-root=$DST_TFTP_BR0/, $INTERFACE_BR0
 #bridge#dhcp-option=$INTERFACE_BR0, option:tftp-server, $IP_BR0
+
+# Time Server
+dhcp-option=$INTERFACE_ETH0, option:nfs-server, $IP_ETH0
+dhcp-option=$INTERFACE_ETH0, option:4, $IP_ETH0
+dhcp-option=$INTERFACE_ETH1, option:nfs-server, $IP_ETH1
+dhcp-option=$INTERFACE_ETH1, option:4, $IP_ETH1
 
 # DHCP
 # do not give IPs that are in pool of DSL routers DHCP
@@ -907,6 +914,7 @@ handle_iso() {
     ######################################################################
     # $1 : short name
     # $2 : download url
+    # $3 : optional bindfs
     ######################################################################
     local NAME=$1
     local URL=$2
@@ -936,19 +944,19 @@ handle_iso() {
         && grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
         && ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
         then
-	        echo -e "\e[36m    copy iso from usb-stick\e[0m";
-	        sudo rm -f $DST_ISO/$FILE_URL;
-	        sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_ISO  $DST_ISO;
-	        sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL  $DST_ISO;
+            echo -e "\e[36m    copy iso from usb-stick\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_ISO  $DST_ISO;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL  $DST_ISO;
         fi
 
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
         then
-	        echo -e "\e[36m    download iso image\e[0m";
-	        sudo rm -f $DST_ISO/$FILE_URL;
-	        sudo rm -f $DST_ISO/$FILE_ISO;
-	        sudo wget -O $DST_ISO/$FILE_ISO  $URL;
+            echo -e "\e[36m    download iso image\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rm -f $DST_ISO/$FILE_ISO;
+            sudo wget -O $DST_ISO/$FILE_ISO  $URL;
 
             sudo sh -c "echo '$URL' > $DST_ISO/$FILE_URL";
             sudo touch -r $DST_ISO/$FILE_ISO  $DST_ISO/$FILE_URL;
@@ -961,14 +969,27 @@ handle_iso() {
             sudo mkdir -p $DST_NFS_ETH0/$NAME;
         fi
 
+        if ! [ -d "$DST_NFS_ETH0/$NAME-original" ]; then
+        if grep -q "$3" == "bindfs"; then
+                echo -e "\e[36m    create nfs folder\e[0m";
+                sudo mkdir -p $DST_NFS_ETH0/$NAME-original;
+        fi
+        fi
+
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
             echo -e "\e[36m    add iso image to fstab\e[0m";
-            sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
+        if grep -q "$3" == "bindfs"; then
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME-original  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
+                sudo sh -c "echo '$DST_NFS_ETH0/$NAME-original  $DST_NFS_ETH0/$NAME  bindfs  ro,auto,force-user=root,force-group=root,parms=a+rX  0  11' >> /etc/fstab";
+        else
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
+        fi
         fi
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/exports; then
             echo -e "\e[36m    add nfs folder to exports\e[0m";
-            sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            FSID=$(($FSID + 1))
+            sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$FSID)' >> /etc/exports";
         fi
 
         sudo mount $DST_NFS_ETH0/$NAME;
@@ -1010,42 +1031,42 @@ handle_zip_img() {
     sudo umount -f $DST_NFS_ROOT 2> /dev/null;
 
     if [ "$URL" == "" ]; then
-	    if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-	    && [ -f "$SRC_IMG/$FILE_IMG" ] \
-	    && [ -f "$SRC_IMG/$FILE_URL" ]; \
-	    then
-		    echo -e "\e[36m    copy img from usb-stick\e[0m";
-		    sudo rm -f $FILE_IMG/$FILE_URL;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
-	    fi
+        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_URL" ]; \
+        then
+            echo -e "\e[36m    copy img from usb-stick\e[0m";
+            sudo rm -f $FILE_IMG/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
+        fi
     else
-	    if [ -f "$SRC_IMG/$FILE_IMG" ] \
-	    && [ -f "$SRC_IMG/$FILE_URL" ] \
-	    && grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
-	    && ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
-	    then
-		    echo -e "\e[36m    copy img from usb-stick\e[0m";
-		    sudo rm -f $FILE_IMG/$FILE_URL;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
-	    fi
+        if [ -f "$SRC_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_URL" ] \
+        && grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
+        && ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        then
+            echo -e "\e[36m    copy img from usb-stick\e[0m";
+            sudo rm -f $FILE_IMG/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
+        fi
 
-	    if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-	    || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
-	    then
-		    echo -e "\e[36m    download image\e[0m";
-		    sudo rm -f $DST_IMG/$FILE_IMG;
-		    sudo rm -f $DST_IMG/$FILE_URL;
-		    sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
-		    echo -e "\e[36m    extract image\e[0m";
-		    sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
-		    sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
-		    sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
+        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        then
+            echo -e "\e[36m    download image\e[0m";
+            sudo rm -f $DST_IMG/$FILE_IMG;
+            sudo rm -f $DST_IMG/$FILE_URL;
+            sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
+            echo -e "\e[36m    extract image\e[0m";
+            sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
+            sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
+            sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
 
             sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
             sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
-	    fi
+        fi
     fi
 
     if [ -f "$DST_IMG/$FILE_IMG" ]; then
@@ -1060,34 +1081,36 @@ handle_zip_img() {
 
         ## boot
         if ! [ -d "$DST_NFS_BOOT" ]; then
-	        echo -e "\e[36m    create image-boot folder\e[0m";
-	        sudo mkdir -p $DST_NFS_BOOT;
+            echo -e "\e[36m    create image-boot folder\e[0m";
+            sudo mkdir -p $DST_NFS_BOOT;
         fi
 
         if ! grep -q "$DST_NFS_BOOT" /etc/fstab; then
-	        echo -e "\e[36m    add image-boot to fstab\e[0m";
-	        sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_NFS_BOOT  auto  ro,nofail,auto,loop,offset=$OFFSET_BOOT,sizelimit=$SIZE_BOOT  0  11' >> /etc/fstab";
+            echo -e "\e[36m    add image-boot to fstab\e[0m";
+            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_NFS_BOOT  auto  ro,nofail,auto,loop,offset=$OFFSET_BOOT,sizelimit=$SIZE_BOOT  0  11' >> /etc/fstab";
         fi
 
         if ! grep -q "$DST_NFS_BOOT" /etc/exports; then
-	        echo -e "\e[36m    add image-boot folder to exports\e[0m";
-	        sudo sh -c "echo '$DST_NFS_BOOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            echo -e "\e[36m    add image-boot folder to exports\e[0m";
+            FSID=$(($FSID + 1))
+            sudo sh -c "echo '$DST_NFS_BOOT  *(ro,async,no_subtree_check,root_squash,mp,fsid=$FSID)' >> /etc/exports";
         fi
 
         ## root
         if ! [ -d "$DST_NFS_ROOT" ]; then
-	        echo -e "\e[36m    create image-root folder\e[0m";
-	        sudo mkdir -p $DST_NFS_ROOT;
+            echo -e "\e[36m    create image-root folder\e[0m";
+            sudo mkdir -p $DST_NFS_ROOT;
         fi
 
         if ! grep -q "$DST_NFS_ROOT" /etc/fstab; then
-	        echo -e "\e[36m    add image-root to fstab\e[0m";
+            echo -e "\e[36m    add image-root to fstab\e[0m";
             sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_NFS_ROOT  auto  ro,nofail,auto,loop,offset=$OFFSET_ROOT,sizelimit=$SIZE_ROOT  0  11' >> /etc/fstab";
         fi
 
         if ! grep -q "$DST_NFS_ROOT" /etc/exports; then
-	        echo -e "\e[36m    add image-root folder to exports\e[0m";
-	        sudo sh -c "echo '$DST_NFS_ROOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            echo -e "\e[36m    add image-root folder to exports\e[0m";
+            FSID=$(($FSID + 1))
+            sudo sh -c "echo '$DST_NFS_ROOT  *(ro,async,no_subtree_check,root_squash,mp,fsid=$FSID)' >> /etc/exports";
         fi
 
         sudo mount $DST_NFS_BOOT;
@@ -1226,6 +1249,17 @@ sudo raspi-config
 EOF";
                 sudo chown 1000:1000 $DST_CUSTOM_ROOT/home/pi/.bash_history;
             fi
+
+        ##################################################################
+        if (echo $FLAGS | grep -q apt); then
+            ##############################################################
+            if [ -f "$DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy" ]; then
+                echo -e "\e[36m    add apt proxy file\e[0m";
+                sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy
+Acquire::http::Proxy "http://$IP_ETH0:3142";
+EOF";
+            fi
+
         fi
     fi
 }
@@ -1344,13 +1378,14 @@ handle_rpi_pxe_overlay() {
     local DST_NFS_ROOT=$DST_NFS_ETH0/$DST_SN_ROOT
     local FILE_URL=$NAME.url
     ######################################################################
-    local DST_LOWER=/srv/_lo
     local DST_LOWER_BOOT=/srv/_lo/$NAME_BOOT
-    local DST_LOWER_ROOT=/srv/_lo/$NAME_ROOT
+    local DST_LOWER_ROOT=$SRC_ROOT
     local DST_UPPER_BOOT=/srv/_up/$DST_SN_BOOT
     local DST_UPPER_ROOT=/srv/_up/$DST_SN_ROOT
     local DST_WORK_BOOT=/srv/_wk/$DST_SN_BOOT
     local DST_WORK_ROOT=/srv/_wk/$DST_SN_ROOT
+    local DST_MERGED_BOOT=/srv/_mg/$DST_SN_BOOT
+    local DST_MERGED_ROOT=/srv/_mg/$DST_SN_ROOT
     ######################################################################
     local DST_CUSTOM_BOOT=$DST_NFS_BOOT
     local DST_CUSTOM_ROOT=$DST_NFS_ROOT
@@ -1358,40 +1393,12 @@ handle_rpi_pxe_overlay() {
 
     sudo exportfs -vu *:$DST_NFS_BOOT 2> /dev/null;
     sudo umount -vf $DST_NFS_BOOT 2> /dev/null;
+    sudo umount -vf $DST_MERGED_BOOT 2> /dev/null;
+    sudo umount -vf $DST_LOWER_BOOT 2> /dev/null;
 
     sudo exportfs -vu *:$DST_NFS_ROOT 2> /dev/null;
     sudo umount -vf $DST_NFS_ROOT 2> /dev/null;
-
-
-    ######################################################################
-    # NOTE: this folders will maybe shared by other overlayfs as lowerdir.
-    if ! grep -q $(cat $DST_IMG/$FILE_URL)  $DST_LOWER/$FILE_URL 2> /dev/null; then
-        echo -e "\e[36m    delete old lowerdir files\e[0m";
-        sudo rm -rf $DST_LOWER_BOOT;
-        sudo rm -rf $DST_LOWER_ROOT;
-        local FLAGS=$FLAGS,redo
-    fi
-    ######################################################################
-    # WORKAROUND: overlayFS can't handle FAT32 file-system,
-    # so copy files to a lowerdir, instead of using the FAT32 partition
-    # NOTE: this folder will maybe shared by other overlayfs as lowerdir.
-    if ! [ -d "$DST_LOWER_BOOT" ]; then
-        echo -e "\e[36m    copy boot files to lowerdir\e[0m";
-        sudo mkdir -p $DST_LOWER_BOOT;
-        sudo rsync -xa --info=progress2 $SRC_BOOT/*  $DST_LOWER_BOOT/
-    fi
-    ######################################################################
-    # WORKAROUND: overlayFS can't handle disk image mount correctly at boot time,
-    # so copy files to a lowerdir, instead of using disk image partition
-    # NOTE: this folder will maybe shared by other overlayfs as lowerdir.
-    if ! [ -d "$DST_LOWER_ROOT" ] \
-    && (echo $FLAGS | grep -q root); then
-        echo -e "\e[36m    copy root files to lowerdir\e[0m";
-        sudo mkdir -p $DST_LOWER_ROOT;
-        sudo rsync -xa --info=progress2 $SRC_ROOT/*  $DST_LOWER_ROOT/
-    fi
-    ######################################################################
-    sudo cp $DST_IMG/$FILE_URL $DST_LOWER/$FILE_URL;
+    sudo umount -vf $DST_MERGED_ROOT 2> /dev/null;
 
 
     ######################################################################
@@ -1401,10 +1408,13 @@ handle_rpi_pxe_overlay() {
         sudo rm -rf $DST_NFS_BOOT;
         sudo rm -rf $DST_UPPER_BOOT;
         sudo rm -rf $DST_WORK_BOOT;
+        sudo rm -rf $DST_MERGED_BOOT;
+        sudo rm -rf $DST_LOWER_BOOT;
         echo -e "\e[36m    delete old root files\e[0m";
         sudo rm -rf $DST_NFS_ROOT;
         sudo rm -rf $DST_UPPER_ROOT;
         sudo rm -rf $DST_WORK_ROOT;
+        sudo rm -rf $DST_MERGED_BOOT;
         sudo sed /etc/fstab -i -e "/$DST_SN_BOOT/d"
         sudo sed /etc/fstab -i -e "/$DST_SN_ROOT/d"
         sudo sed /etc/exports -i -e "/$DST_SN_BOOT/d"
@@ -1416,27 +1426,45 @@ handle_rpi_pxe_overlay() {
     if ! [ -d "$DST_NFS_BOOT" ]; then sudo mkdir -p $DST_NFS_BOOT; fi
     if ! [ -d "$DST_UPPER_BOOT" ]; then sudo mkdir -p $DST_UPPER_BOOT; fi
     if ! [ -d "$DST_WORK_BOOT" ]; then sudo mkdir -p $DST_WORK_BOOT; fi
+    if ! [ -d "$DST_MERGED_BOOT" ]; then sudo mkdir -p $DST_MERGED_BOOT; fi
+    if ! [ -d "$DST_LOWER_BOOT" ]; then sudo mkdir -p $DST_LOWER_BOOT; fi
     ######################################################################
     if (echo $FLAGS | grep -q root); then
         if ! [ -d "$DST_NFS_ROOT" ]; then sudo mkdir -p $DST_NFS_ROOT; fi
         if ! [ -d "$DST_UPPER_ROOT" ]; then sudo mkdir -p $DST_UPPER_ROOT; fi
         if ! [ -d "$DST_WORK_ROOT" ]; then sudo mkdir -p $DST_WORK_ROOT; fi
+        if ! [ -d "$DST_MERGED_ROOT" ]; then sudo mkdir -p $DST_MERGED_ROOT; fi
     fi
 
+    ######################################################################
+    if ! [ -f "/etc/mount-delayed.sh" ]; then sudo touch /etc/mount-delayed.sh; sudo chmod 0755 /etc/mount-delayed.sh; fi
+    if ! grep -q "mount-delayed.sh" /etc/rc.local; then
+        sudo sed /etc/rc.local -i -e 's/^exit 0$/\########################################\n## workaround\n/etc/mount-delayed.sh;\n\nexit 0/'
+    fi
+    sudo sed /etc/mount-delayed.sh -i -e "/$DST_SN_BOOT/d"
+    sudo sh -c "echo 'mount $DST_LOWER_BOOT' >> /etc/mount-delayed.sh";
+    sudo sh -c "echo 'mount $DST_MERGED_BOOT' >> /etc/mount-delayed.sh";
+    sudo sh -c "echo 'mount $DST_NFS_BOOT' >> /etc/mount-delayed.sh";
+    sudo sed /etc/mount-delayed.sh -i -e "/$DST_SN_ROOT/d"
+    if (echo $FLAGS | grep -q root); then
+        sudo sh -c "echo 'mount $DST_MERGED_ROOT' >> /etc/mount-delayed.sh";
+        sudo sh -c "echo 'mount $DST_NFS_ROOT' >> /etc/mount-delayed.sh";
+    fi
 
     ######################################################################
     if ! grep -q "$DST_NFS_BOOT" /etc/fstab; then
         echo -e "\e[36m    add image-boot to fstab\e[0m";
-        sudo sh -c "echo 'overlay  $DST_NFS_BOOT  overlay  rw,lowerdir=$DST_LOWER_BOOT,upperdir=$DST_UPPER_BOOT,workdir=$DST_WORK_BOOT  0  12' >> /etc/fstab";
-        #sudo sh -c "echo 'overlay  $DST_NFS_BOOT  overlay  rw,lowerdir=$DST_LOWER_BOOT,upperdir=$DST_UPPER_BOOT,workdir=$DST_WORK_BOOT,redirect_dir=off,index=off  0  12' >> /etc/fstab";
+        sudo sh -c "echo '$SRC_BOOT  $DST_LOWER_BOOT  bindfs  ro,noauto  0  12' >> /etc/fstab";
+        sudo sh -c "echo 'overlay  $DST_MERGED_BOOT  overlay  rw,noauto,lowerdir=$DST_LOWER_BOOT,upperdir=$DST_UPPER_BOOT,workdir=$DST_WORK_BOOT  0  13' >> /etc/fstab";
+        sudo sh -c "echo '$DST_MERGED_BOOT  $DST_NFS_BOOT  bindfs  rw,noauto  0  14' >> /etc/fstab";
     fi
 
     ######################################################################
     if (echo $FLAGS | grep -q root); then
         if ! grep -q "$DST_NFS_ROOT" /etc/fstab; then
             echo -e "\e[36m    add image-root to fstab\e[0m";
-            sudo sh -c "echo 'overlay  $DST_NFS_ROOT  overlay  rw,lowerdir=$DST_LOWER_ROOT,upperdir=$DST_UPPER_ROOT,workdir=$DST_WORK_ROOT  0  12' >> /etc/fstab";
-            #sudo sh -c "echo 'overlay  $DST_NFS_ROOT  overlay  rw,lowerdir=$DST_LOWER_ROOT,upperdir=$DST_UPPER_ROOT,workdir=$DST_WORK_ROOT,redirect_dir=off,index=off  0  12' >> /etc/fstab";
+            sudo sh -c "echo 'overlay  $DST_MERGED_ROOT  overlay  rw,lowerdir=$DST_LOWER_ROOT,upperdir=$DST_UPPER_ROOT,workdir=$DST_WORK_ROOT  0  13' >> /etc/fstab";
+            sudo sh -c "echo '$DST_MERGED_ROOT  $DST_NFS_ROOT  bindfs  rw,noauto  0  14' >> /etc/fstab";
         fi
     fi
 
@@ -1445,8 +1473,13 @@ handle_rpi_pxe_overlay() {
     if ! [ -h "$DST_TFTP_ETH0/$SN" ]; then sudo ln -s $DST_NFS_BOOT/  $DST_TFTP_ETH0/$SN; fi
 
     ######################################################################
+    sudo mount -v $DST_LOWER_BOOT;
+    sudo mount -v $DST_MERGED_BOOT;
     sudo mount -v $DST_NFS_BOOT;
-    if (echo $FLAGS | grep -q root); then sudo mount -v $DST_NFS_ROOT; fi
+    if (echo $FLAGS | grep -q root); then
+        sudo mount -v $DST_MERGED_ROOT;
+        sudo mount -v $DST_NFS_ROOT;
+    fi
 
     ######################################################################
     handle_rpi_pxe_customization $DST_CUSTOM_BOOT $DST_CUSTOM_ROOT $FLAGS;
@@ -1486,11 +1519,15 @@ handle_rpi_pxe() {
     fi
 
     if [ $(($KERNEL_VER < 413)) != 0 ]; then
-        handle_rpi_pxe_classic  $1 $2 $3;
+        # handle_rpi_pxe_classic  $1 $2 $3;
+        # overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
+        handle_rpi_pxe_overlay  $1 $2 $3;
     else
-        handle_rpi_pxe_classic  $1 $2 $3;
         # overlayFS is still not able to export via nfs
-        # handle_rpi_pxe_overlay  $1 $2 $3;
+        #handle_rpi_pxe_classic  $1 $2 $3;
+
+        # overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
+        handle_rpi_pxe_overlay  $1 $2 $3;
     fi
 }
 
@@ -1508,26 +1545,83 @@ handle_optional() {
 
 
     ######################################################################
-    ## network bridge
+    ## network nat
     grep -q mod_install_server /etc/sysctrl.conf 2> /dev/null || {
-    echo -e "\e[36m    setup sysctrl for bridging\e[0m";
+    echo -e "\e[36m    setup sysctrl for nat\e[0m";
     sudo sh -c "cat << EOF  >> /etc/sysctl.conf
 ########################################
 ## mod_install_server
 net.ipv4.ip_forward=1
-net.ipv6.conf.all.forwarding=1
-#net.ipv6.conf.all.disable_ipv6 = 1
+#net.ipv6.conf.all.forwarding=1
+net.ipv6.conf.all.disable_ipv6 = 1
 EOF";
     }
 
 
     ######################################################################
-    ## network bridge
+    ## network nat
     sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
-    echo -e "\e[36m    setup iptables for bridging\e[0m";
+    echo -e "\e[36m    setup iptables for nat\e[0m";
     sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE
     sudo dpkg-reconfigure iptables-persistent
     }
+
+
+    ######################################################################
+    ## chrony
+    grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
+    echo -e "\e[36m    setup chrony\e[0m";
+    sudo sh -c "cat << EOF  > /etc/chrony/chrony.conf
+########################################
+## mod_install_server
+
+# Welcome to the chrony configuration file. See chrony.conf(5) for more
+# information about usuable directives.
+server  ptbtime1.ptb.de  iburst
+server  ptbtime2.ptb.de  iburst
+server  ptbtime3.ptb.de  iburst
+server  ntp1.oma.be  iburst
+server  ntp2.oma.be  iburst
+server  ntp.certum.pl  iburst
+server  ntp1.sp.se  iburst
+server  ntp2.sp.se  iburst
+
+server  char-ntp-pool.charite.de
+server  isis.uni-paderborn.de
+
+pool  de.pool.ntp.org  iburst
+
+# This directive specify the location of the file containing ID/key pairs for
+# NTP authentication.
+keyfile /etc/chrony/chrony.keys
+
+# This directive specify the file into which chronyd will store the rate
+# information.
+driftfile /var/lib/chrony/chrony.drift
+
+# Uncomment the following line to turn logging on.
+#log tracking measurements statistics
+
+# Log files location.
+logdir /var/log/chrony
+
+# Stop bad estimates upsetting machine clock.
+maxupdateskew 100.0
+
+# This directive tells 'chronyd' to parse the 'adjtime' file to find out if the
+# real-time clock keeps local time or UTC. It overrides the 'rtconutc' directive.
+hwclockfile /etc/adjtime
+
+# This directive enables kernel synchronisation (every 11 minutes) of the
+# real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
+rtcsync
+
+# Step the system clock instead of slewing it if the adjustment is larger than
+# one second, but only in the first three clock updates.
+makestep 1 3
+EOF";
+    }
+
 }
 
 
@@ -1569,7 +1663,7 @@ handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
 handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
 handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
 handle_iso  $DEFT_X64           $DEFT_X64_URL;
-handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL;
+handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          bindfs;
 handle_iso  $KALI_X64           $KALI_X64_URL;
 handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
 handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
@@ -1602,8 +1696,8 @@ handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ##########################################################################
 ##########################################################################
 #handle_rpi_pxe  $PI_CORE  $RPI_SN0  bootcode,config,root;
-#handle_rpi_pxe  $RPD_LITE  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history;
-handle_rpi_pxe  $RPD_FULL  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history;
+#handle_rpi_pxe  $RPD_LITE  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
+handle_rpi_pxe  $RPD_FULL  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
 
 
 #      #              #              #              #              #
