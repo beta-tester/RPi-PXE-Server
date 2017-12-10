@@ -247,6 +247,8 @@ sudo touch /etc/ssh/mod_install_server
 sudo rsync -xa --info=progress2 $SRC_MOUNT/backup/ssh/* /etc/ssh/
 sudo chmod 0600 /etc/ssh/*key
 sudo ssh-keygen -A
+sudo systemctl disable regenerate_ssh_host_keys.service
+# sudo rm -f /etc/systemd/system/multi-user.target.wants/regenerate_ssh_host_keys.service
 }
 
 
