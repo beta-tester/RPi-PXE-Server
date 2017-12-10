@@ -86,9 +86,13 @@ DST_PXE_EFI64=menu-efi64
 KERNEL_MAJOR=$(cat /proc/version | awk '{print $3}' | awk -F . '{print $1}')
 KERNEL_MINOR=$(cat /proc/version | awk '{print $3}' | awk -F . '{print $2}')
 KERNEL_VER=$((KERNEL_MAJOR*100 + KERNEL_MINOR))
+FSID=$(cat ~/.config/fsid)
+[ "$FSID" == "" ] && {
 FSID=10000
+}
 
 echo
+echo -e "$FSID \e[36mfsid\e[0m";
 echo -e "$KERNEL_MAJOR.$KERNEL_MINOR \e[36mis kernel version\e[0m";
 echo -e "$INTERFACE_ETH0 \e[36mis used as primary networkadapter for PXE\e[0m";
 echo -e "$IP_ETH0 \e[36mis used as primary IP address for PXE\e[0m";
@@ -1439,7 +1443,7 @@ handle_rpi_pxe_overlay() {
     ######################################################################
     if ! [ -f "/etc/mount-delayed.sh" ]; then sudo touch /etc/mount-delayed.sh; sudo chmod 0755 /etc/mount-delayed.sh; fi
     if ! grep -q "mount-delayed.sh" /etc/rc.local; then
-        sudo sed /etc/rc.local -i -e 's/^exit 0$/\########################################\n## workaround\n/etc/mount-delayed.sh;\n\nexit 0/'
+        sudo sed /etc/rc.local -i -e "s/^exit 0$/\########################################\n## workaround\n\/etc\/mount-delayed.sh;\n\nexit 0/"
     fi
     sudo sed /etc/mount-delayed.sh -i -e "/$DST_SN_BOOT/d"
     sudo sh -c "echo 'mount $DST_LOWER_BOOT' >> /etc/mount-delayed.sh";
@@ -1487,7 +1491,8 @@ handle_rpi_pxe_overlay() {
     ######################################################################
     if ! grep -q "$DST_NFS_BOOT" /etc/exports; then
         echo -e "\e[36m    add $DST_NFS_BOOT to exports\e[0m";
-        sudo sh -c "echo '$DST_NFS_BOOT  *(rw,sync,no_subtree_check,no_root_squash)' >> /etc/exports";
+        FSID=$(($FSID + 1))
+        sudo sh -c "echo '$DST_NFS_BOOT  *(rw,sync,no_subtree_check,no_root_squash,mp,fsid=$FSID)' >> /etc/exports";
     fi
     sudo exportfs -v *:$DST_NFS_BOOT;
 
@@ -1495,7 +1500,8 @@ handle_rpi_pxe_overlay() {
     if (echo $FLAGS | grep -q root); then
         if ! grep -q "$DST_NFS_ROOT" /etc/exports; then
             echo -e "\e[36m    add $DST_NFS_ROOT to exports\e[0m";
-            sudo sh -c "echo '$DST_NFS_ROOT  *(rw,sync,no_subtree_check,no_root_squash)' >> /etc/exports";
+            FSID=$(($FSID + 1))
+            sudo sh -c "echo '$DST_NFS_ROOT  *(rw,sync,no_subtree_check,no_root_squash,mp,fsid=$FSID)' >> /etc/exports";
         fi
         sudo exportfs -v *:$DST_NFS_ROOT;
     else
@@ -1720,6 +1726,7 @@ if [ -d "$SRC_IMG" ]; then
     sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/
 fi
 ##########################################################################
+echo $FSID > ~/.config/fsid
 sync
 echo -e "\e[32mDone.\e[0m";
 echo -e "\e[1;31mPlease reboot\e[0m";
