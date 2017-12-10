@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-12-09
+# v2017-12-10
 #
 # known issues:
 #
@@ -172,32 +172,45 @@ sudo sed -i "s/127.0.1.1.*$(hostname)/127.0.1.1\tpxe-server/g" /etc/hosts
 ## optional
 grep -q mod_install_server /boot/config.txt 2> /dev/null || {
 echo -e "\e[32msetup /boot/config.txt\e[0m";
-sudo sed /boot/config.txt -i -e 's/^max_usb_current=/\#max_usb_current=/g'
-sudo sed /boot/config.txt -i -e 's/^force_turbo=/\#force_turbo=/g'
-sudo sed /boot/config.txt -i -e 's/^disable_overscan=/\#disable_overscan=/g'
-sudo sed /boot/config.txt -i -e 's/^hdmi_force_hotplug=/\#hdmi_force_hotplug=/g'
-sudo sed /boot/config.txt -i -e 's/^config_hdmi_boost=/\#config_hdmi_boost=/g'
-sudo sed /boot/config.txt -i -e 's/^hdmi_drive=/\#hdmi_drive=/g'
-sudo sed /boot/config.txt -i -e 's/^cec_osd_name=/\#cec_osd_name=/g'
 sudo sh -c "echo '########################################
 ## mod_install_server
-[pi2]
-total_mem=1024
+dtparam=audio=on
 
-[pi3]
-total_mem=1024
-
-[all]
 max_usb_current=1
-force_turbo=1
+#force_turbo=1
 
 disable_overscan=1
-config_hdmi_boost=4
 hdmi_force_hotplug=1
-hdmi_drive=2
-hdmi_ignore_cec_init=1
+config_hdmi_boost=4
+
+#hdmi_ignore_cec_init=1
 cec_osd_name=PXE-Server
-' >> /boot/config.txt"
+
+#########################################
+# standard resolution
+hdmi_drive=2
+
+#########################################
+# custom resolution
+# 4k@24Hz or 25Hz custom DMT - mode
+#gpu_mem=128
+#hdmi_group=2
+#hdmi_mode=87
+#hdmi_pixel_freq_limit=400000000
+#max_framebuffer_width=3840
+#max_framebuffer_height=2160
+#
+#    #### implicit timing ####
+#    hdmi_cvt 3840 2160 24
+#    #hdmi_cvt 3840 2160 25
+#
+#    #### explicit timing ####
+#    #hdmi_ignore_edid=0xa5000080
+#    #hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 24 0 211190000 3
+#    ##hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 25 0 220430000 3
+#    #framebuffer_width=3840
+#    #framebuffer_height=2160
+' > /boot/config.txt"
 }
 
 
