@@ -322,15 +322,19 @@ interface=$INTERFACE_ETH1
 enable-tftp
 tftp-lowercase
 tftp-root=$DST_TFTP_ETH0/, $INTERFACE_ETH0
-dhcp-option=$INTERFACE_ETH0, option:tftp-server, $IP_ETH0
+dhcp-option=$INTERFACE_ETH0, option:tftp-server, 0.0.0.0
 #nat#tftp-root=$DST_TFTP_ETH1/, $INTERFACE_ETH1
-#nat#dhcp-option=$INTERFACE_ETH1, option:tftp-server, $IP_ETH1
+#nat#dhcp-option=$INTERFACE_ETH1, option:tftp-server, 0.0.0.0
 #bridge#tftp-root=$DST_TFTP_BR0/, $INTERFACE_BR0
-#bridge#dhcp-option=$INTERFACE_BR0, option:tftp-server, $IP_BR0
+#bridge#dhcp-option=$INTERFACE_BR0, option:tftp-server, 0.0.0.0
+
+#
+dhcp-option=eth1, option:nis-domain, test-nis
+dhcp-option=eth1, option:domain-name, test-domain.local
 
 # Time Server
-dhcp-option=$INTERFACE_ETH0, option:ntp-server, $IP_ETH0
-dhcp-option=$INTERFACE_ETH1, option:ntp-server, $IP_ETH1
+dhcp-option=$INTERFACE_ETH0, option:ntp-server, 0.0.0.0
+dhcp-option=$INTERFACE_ETH1, option:ntp-server, 0.0.0.0
 
 # DHCP
 # do not give IPs that are in pool of DSL routers DHCP
