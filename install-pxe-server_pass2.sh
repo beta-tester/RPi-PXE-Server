@@ -1101,6 +1101,7 @@ handle_iso() {
     local URL=$2
     local FILE_URL=$NAME.url
     local FILE_ISO=$NAME.iso
+    local DST_ORIGINAL=/srv/tmp/original/$NAME
     ######################################################################
 
     if ! [ -d "$DST_ISO/" ]; then sudo mkdir -p $DST_ISO/; fi
@@ -1108,7 +1109,7 @@ handle_iso() {
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
     sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
-    if [ "$3" == "bindfs" ]; then sudo umount -f $DST_NFS_ETH0/$NAME-original 2> /dev/null; fi
+    if [ "$3" == "bindfs" ]; then sudo umount -f $DST_ORIGINAL 2> /dev/null; fi
 
     if [ "$URL" == "" ]; then
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
@@ -1151,18 +1152,18 @@ handle_iso() {
             sudo mkdir -p $DST_NFS_ETH0/$NAME;
         fi
 
-        if ! [ -d "$DST_NFS_ETH0/$NAME-original" ]; then
+        if ! [ -d "$DST_ORIGINAL" ]; then
         if [ "$3" == "bindfs" ]; then
                 echo -e "\e[36m    create nfs folder\e[0m";
-                sudo mkdir -p $DST_NFS_ETH0/$NAME-original;
+                sudo mkdir -p $DST_ORIGINAL;
         fi
         fi
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
             echo -e "\e[36m    add iso image to fstab\e[0m";
         if [ "$3" == "bindfs" ]; then
-                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME-original  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
-                sudo sh -c "echo '$DST_NFS_ETH0/$NAME-original  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_ORIGINAL  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
+                sudo sh -c "echo '$DST_ORIGINAL  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
         else
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
         fi
@@ -1173,7 +1174,7 @@ handle_iso() {
             sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
         fi
 
-        if [ "$3" == "bindfs" ]; then sudo mount $DST_NFS_ETH0/$NAME-original; fi
+        if [ "$3" == "bindfs" ]; then sudo mount $DST_ORIGINAL; fi
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
     else
@@ -1559,14 +1560,14 @@ handle_rpi_pxe_overlay() {
     local DST_NFS_ROOT=$DST_NFS_ETH0/$DST_SN_ROOT
     local FILE_URL=$NAME.url
     ######################################################################
-    local DST_LOWER_BOOT=/srv/_lo/$NAME_BOOT
+    local DST_LOWER_BOOT=/srv/tmp/lower/$NAME_BOOT
     local DST_LOWER_ROOT=$SRC_ROOT
-    local DST_UPPER_BOOT=/srv/_up/$DST_SN_BOOT
-    local DST_UPPER_ROOT=/srv/_up/$DST_SN_ROOT
-    local DST_WORK_BOOT=/srv/_wk/$DST_SN_BOOT
-    local DST_WORK_ROOT=/srv/_wk/$DST_SN_ROOT
-    local DST_MERGED_BOOT=/srv/_mg/$DST_SN_BOOT
-    local DST_MERGED_ROOT=/srv/_mg/$DST_SN_ROOT
+    local DST_UPPER_BOOT=/srv/tmp/upper/$DST_SN_BOOT
+    local DST_UPPER_ROOT=/srv/tmp/upper/$DST_SN_ROOT
+    local DST_WORK_BOOT=/srv/tmp/work/$DST_SN_BOOT
+    local DST_WORK_ROOT=/srv/tmp/work/$DST_SN_ROOT
+    local DST_MERGED_BOOT=/srv/tmp/merged/$DST_SN_BOOT
+    local DST_MERGED_ROOT=/srv/tmp/merged/$DST_SN_ROOT
     ######################################################################
     local DST_CUSTOM_BOOT=$DST_NFS_BOOT
     local DST_CUSTOM_ROOT=$DST_NFS_ROOT
