@@ -41,25 +41,36 @@ sudo mount -a;
 
 ######################################################################
 grep -q max_loop /boot/cmdline.txt 2> /dev/null || {
-	echo -e "\e[32msetup cmdline.txt for more loop devices\e[0m";
-	sudo sed -i '1 s/$/ max_loop=64/' /boot/cmdline.txt;
+    echo -e "\e[32msetup cmdline.txt for more loop devices\e[0m";
+    sudo sed -i '1 s/$/ max_loop=64/' /boot/cmdline.txt;
 }
-
 
 ######################################################################
 grep -q net.ifnames /boot/cmdline.txt 2> /dev/null || {
-	echo -e "\e[32msetup cmdline.txt for old style network interface names\e[0m";
-	sudo sed -i '1 s/$/ net.ifnames=0/' /boot/cmdline.txt;
+    echo -e "\e[32msetup cmdline.txt for old style network interface names\e[0m";
+    sudo sed -i '1 s/$/ net.ifnames=0/' /boot/cmdline.txt;
+}
+
+######################################################################
+grep -q quiet /boot/cmdline.txt 2> /dev/null && {
+    echo -e "\e[32msetup cmdline.txt for more boot output\e[0m";
+    sudo sed -i '1 s/ quiet//' /boot/cmdline.txt;
+}
+
+######################################################################
+grep -q splash /boot/cmdline.txt 2> /dev/null && {
+    echo -e "\e[32msetup cmdline.txt for no splash screen\e[0m";
+    sudo sed -i '1 s/ splash//' /boot/cmdline.txt;
 }
 
 
 ######################################################################
-sudo sync \
+echo -e "\e[32msync...\e[0m" && sudo sync \
 && echo -e "\e[32mupdate...\e[0m" && sudo apt update \
 && echo -e "\e[32mupgrade...\e[0m" && sudo apt upgrade -y \
 && echo -e "\e[32mautoremove...\e[0m" && sudo apt autoremove -y --purge \
 && echo -e "\e[32mautoclean...\e[0m" && sudo apt autoclean \
-&& sudo sync \
+&& echo -e "\e[32msync...\e[0m" && sudo sync \
 && echo -e "\e[32mDone.\e[0m" \
 ;
 
