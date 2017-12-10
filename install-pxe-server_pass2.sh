@@ -1486,6 +1486,7 @@ handle_rpi_pxe_overlay() {
     fi
 
     ######################################################################
+    sudo cp $DST_IMG/$FILE_URL  $DST_CUSTOM_BOOT/$FILE_URL;
     handle_rpi_pxe_customization $DST_CUSTOM_BOOT $DST_CUSTOM_ROOT $FLAGS;
 
     ######################################################################
@@ -1552,7 +1553,7 @@ handle_optional() {
 
     ######################################################################
     ## network nat
-    grep -q mod_install_server /etc/sysctrl.conf 2> /dev/null || {
+    grep -q mod_install_server /etc/sysctl.conf 2> /dev/null || {
     echo -e "\e[36m    setup sysctrl for nat\e[0m";
     sudo sh -c "cat << EOF  >> /etc/sysctl.conf
 ########################################
