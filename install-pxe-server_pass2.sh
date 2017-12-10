@@ -1205,9 +1205,10 @@ EOF";
                 sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/etc/fstab
 ########################################
 proc  /proc  proc  defaults  0  0
-$IP_ETH0:$DST_NFS_ROOT  /      nfs   defaults,nofail,noatime  0  1
-$IP_ETH0:$DST_NFS_BOOT  /boot  nfs   defaults,nofail,noatime  0  2
+$IP_ETH0:$DST_NFS_ROOT  /      nfs   defaults,noatime  0  1
+$IP_ETH0:$DST_NFS_BOOT  /boot  nfs   defaults,noatime  0  2
 EOF";
+                sudo rm $DST_CUSTOM_ROOT/etc/init.d/resize2fs_once;
             fi
 
             ##############################################################
@@ -1242,7 +1243,8 @@ EOF";
                 echo -e "\e[36m    add .bash_history file\e[0m";
                 sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/home/pi/.bash_history
 sudo poweroff
-sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y --purge autoremove && sudo apt-get -y autoclean && sync && echo Done.
+sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove -y --purge && sudo apt autoclean -y && sync && echo Done.
+sudo nano /etc/resolv.conf
 ip route
 sudo ip route del default dev eth0
 sudo reboot
@@ -1257,7 +1259,7 @@ EOF";
             ##################################################################
             if (echo $FLAGS | grep -q apt); then
                 ##############################################################
-                if [ -f "$DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy" ]; then
+                if ! [ -f "$DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy" ]; then
                     echo -e "\e[36m    add apt proxy file\e[0m";
                     sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/etc/apt/apt.conf.d/01proxy
 Acquire::http::Proxy \"http://$IP_ETH0:3142\";
@@ -1302,7 +1304,7 @@ handle_rpi_pxe_classic() {
 
     ######################################################################
     if (echo $FLAGS | grep -q redo) \
-    || ! grep -q $(cat $DST_IMG/$FILE_URL)  $DST_UPPER_BOOT/$FILE_URL 2> /dev/null; then
+    || ! grep -q $(cat $DST_IMG/$FILE_URL)  $DST_NFS_BOOT/$FILE_URL 2> /dev/null; then
         echo -e "\e[36m    delete old boot files\e[0m";
         sudo rm -rf $DST_NFS_BOOT;
         echo -e "\e[36m    delete old root files\e[0m";
@@ -1328,12 +1330,11 @@ handle_rpi_pxe_classic() {
         sudo rsync -xa --info=progress2 $SRC_ROOT/*  $DST_NFS_ROOT/
     fi
 
-    sudo cp $DST_IMG/$FILE_URL $DST_LOWER/$FILE_URL;
-
     ######################################################################
     if ! [ -h "$DST_TFTP_ETH0/$SN" ]; then sudo ln -s $DST_NFS_BOOT/  $DST_TFTP_ETH0/$SN; fi
 
     ######################################################################
+    sudo cp $DST_IMG/$FILE_URL $DST_CUSTOM_BOOT/$FILE_URL;
     handle_rpi_pxe_customization $DST_CUSTOM_BOOT $DST_CUSTOM_ROOT $FLAGS;
 
     ######################################################################
@@ -1395,14 +1396,14 @@ handle_rpi_pxe_overlay() {
     local DST_CUSTOM_ROOT=$DST_NFS_ROOT
     ######################################################################
 
-    sudo exportfs -vu *:$DST_NFS_BOOT 2> /dev/null;
-    sudo umount -vf $DST_NFS_BOOT 2> /dev/null;
-    sudo umount -vf $DST_MERGED_BOOT 2> /dev/null;
-    sudo umount -vf $DST_LOWER_BOOT 2> /dev/null;
+    sudo exportfs -u *:$DST_NFS_BOOT 2> /dev/null;
+    sudo umount -f $DST_NFS_BOOT 2> /dev/null;
+    sudo umount -f $DST_MERGED_BOOT 2> /dev/null;
+    sudo umount -f $DST_LOWER_BOOT 2> /dev/null;
 
-    sudo exportfs -vu *:$DST_NFS_ROOT 2> /dev/null;
-    sudo umount -vf $DST_NFS_ROOT 2> /dev/null;
-    sudo umount -vf $DST_MERGED_ROOT 2> /dev/null;
+    sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
+    sudo umount -f $DST_NFS_ROOT 2> /dev/null;
+    sudo umount -f $DST_MERGED_ROOT 2> /dev/null;
 
 
     ######################################################################
@@ -1474,19 +1475,19 @@ handle_rpi_pxe_overlay() {
 
 
     ######################################################################
-    if ! [ -h "$DST_TFTP_ETH0/$SN" ]; then sudo ln -s $DST_NFS_BOOT/  $DST_TFTP_ETH0/$SN; fi
-
-    ######################################################################
-    sudo mount -v $DST_LOWER_BOOT;
-    sudo mount -v $DST_MERGED_BOOT;
-    sudo mount -v $DST_NFS_BOOT;
+    sudo mount $DST_LOWER_BOOT;
+    sudo mount $DST_MERGED_BOOT;
+    sudo mount $DST_NFS_BOOT;
     if (echo $FLAGS | grep -q root); then
-        sudo mount -v $DST_MERGED_ROOT;
-        sudo mount -v $DST_NFS_ROOT;
+        sudo mount $DST_MERGED_ROOT;
+        sudo mount $DST_NFS_ROOT;
     fi
 
     ######################################################################
-    sudo cp $DST_IMG/$FILE_URL  $DST_CUSTOM_BOOT/$FILE_URL;
+    if ! [ -h "$DST_TFTP_ETH0/$SN" ]; then sudo ln -s $DST_NFS_BOOT/  $DST_TFTP_ETH0/$SN; fi
+
+    ######################################################################
+    sudo cp $DST_IMG/$FILE_URL $DST_CUSTOM_BOOT/$FILE_URL;
     handle_rpi_pxe_customization $DST_CUSTOM_BOOT $DST_CUSTOM_ROOT $FLAGS;
 
     ######################################################################
@@ -1495,7 +1496,7 @@ handle_rpi_pxe_overlay() {
         FSID=$(($FSID + 1))
         sudo sh -c "echo '$DST_NFS_BOOT  *(rw,sync,no_subtree_check,no_root_squash,mp,fsid=$FSID)' >> /etc/exports";
     fi
-    sudo exportfs -v *:$DST_NFS_BOOT;
+    sudo exportfs *:$DST_NFS_BOOT;
 
     ######################################################################
     if (echo $FLAGS | grep -q root); then
@@ -1504,7 +1505,7 @@ handle_rpi_pxe_overlay() {
             FSID=$(($FSID + 1))
             sudo sh -c "echo '$DST_NFS_ROOT  *(rw,sync,no_subtree_check,no_root_squash,mp,fsid=$FSID)' >> /etc/exports";
         fi
-        sudo exportfs -v *:$DST_NFS_ROOT;
+        sudo exportfs *:$DST_NFS_ROOT;
     else
         sudo sed /etc/fstab   -i -e "/$DST_SN_ROOT/d"
         sudo sed /etc/exports -i -e "/$DST_SN_ROOT/d"
