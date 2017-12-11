@@ -40,11 +40,11 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
 ### software:
-- **Raspbian Stretch** or **Raspbina Stretch Lite** (2017-08-16), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspbian Stretch** or **Raspbina Stretch Lite** (2017-11-29), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2017-08-16,
+- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2017-11-29,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (41GB when you use unmodified script),
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
@@ -113,8 +113,74 @@ pxe menu entries to file structure on disk.
 
 what the root of TFTP and PXE boot menu are, is defined in the **_dnsmasq_** configuration file `/etc/dnsmasq.d/pxe-server`.<br />
 the root for NFS are defined in `/etc/exports`.
-
-
+## mount scenarios for pxe boot:
+### direct readonly mounting content of ISO:
+e.g. ubuntu-lts-x64 iso image<br />
+no problems. pxe boot job can access to required content.
+```
+╔═════════════╗
+║iso-file     ║
+║             ║
+║ ┌───────────╨─┐
+║ │mount loop   │
+║ │             │
+║ │             ├───┤nfs*
+║ │             │
+║ └───────────╥─┘
+╚═════════════╝
+```
+### readonly mounting content of ISO and modify users, and permissions by bindfs:
+e.g. deftz-x64 iso image<br />
+the pxe boot job can not access to the file vmlinuz because of too restictive file permissions on file system.<br />
+mounting by bindfs with some parameters will map users, groups and permissions, so that the pxe boot job can access all the required files.
+```
+╔═════════════╗
+║iso-file     ║
+║             ║
+║ ┌───────────╨─┐ ┌─────────────┐
+║ │mount loop   │ │mount bindfs │
+║ │  pxe can't  │ │  prepare to │
+║ │  access     ├─┼  pxe        ├───┤nfs*
+║ └───────────╥─┘ └─────────────┘
+╚═════════════╝
+```
+### mounting content of disk image and make content read/writalbe by overlayfs:
+e.g. rpi-raspbian-full<br />
+this disk image contains two partitions. the first is the boot partition and the second is the root parition.
+to make the images read/writable, there is an overlayfs putted on top.<br />
+(lowerdir is the readonly source, upperdir is the writable difference, workdir is an temporarily workfolder for internal use. the mergeddir is the sum of lower + upper. write access happens only on the upperdir with white-out and write-on-modify capability)<br />
+but unfortunately overlayfs can't get exported directly for nfs. so putting a bindfs on top of the overlayfs makes it possible to get exported for nfs.<br />
+and another issue is, overlayfs can't handle **vfat** partitions as source (lowerdir). putting bindfs between makes overlayfs happy.
+```
+╔═════════════╗
+║img-file     ║
+║             ║
+║ ┌───────────╨─┐ ┌─────────────┐ ┌─────────────────┐   ┌─────────────┐
+║ │mount loop   │ │mount bindfs │ │mount overlayfs  │   │mount bindfs │
+║ │  vfat       │ │  prepare to │ ├───────┐ ┌───────┴─┐ │  prepage to │
+║ │  boot       ├─┼  overlayfs  ├─┼ lower │ │merged   ├─┼  export nfs ├───┤nfs*
+║ │             │ └─────────────┘ ├───────┘ └───────┬─┘ └─────────────┘
+║ │             │                 │         ┌───────┴─┐
+║ │  vfat       │                 │         │upper    ├─┤diff*
+║ │  can't be   │                 │can't be └───────┬─┘
+║ │  handled    │                 │handled  ┌───────┴─┐
+║ │  by         │                 │by       │work     ├─┤tmp*
+║ │  overlayfs  │                 │exportfs └───────┬─┘
+║ └───────────╥─┘                 └─────────────────┘
+║ ┌───────────╨─┐                 ┌─────────────────┐   ┌─────────────┐
+║ │mount loop   │                 │mount overlayfs  │   │mount bindfs │
+║ │  ext4       │                 ├───────┐ ┌───────┴─┐ │  prepare to │
+║ │  root       ├─────────────────┼ lower │ │merged   ├─┼  export nfs ├───┤nfs*
+║ │             │                 ├───────┘ └───────┬─┘ └─────────────┘
+║ │             │                 │         ┌───────┴─┐
+║ │             │                 │         │upper    ├─┤diff*
+║ │             │                 │can't be └───────┬─┘
+║ │             │                 │handled  ┌───────┴─┐
+║ │             │                 │by       │work     ├─┤tmp*
+║ │             │                 │exportfs └───────┬─┘
+║ └───────────╥─┘                 └─────────────────┘
+╚═════════════╝
+```
 ## note:
 the script will copy/download/mount following ISOs:
 ```
