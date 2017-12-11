@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-12-01
+# v2017-12-11
 #
 # known issues:
 #
@@ -127,10 +127,10 @@ UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.2.0-amd64-lxde.iso
+DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.3.0-amd64-lxde.iso
 
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.2.0-i386-lxde.iso
+DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.3.0-i386-lxde.iso
 
 GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
