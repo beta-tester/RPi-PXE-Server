@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-12-10
+# v2017-12-15
 #
 # known issues:
 #
@@ -142,7 +142,7 @@ sudo systemctl restart chronyd.service;
 ######################################################################
 ## optional
 echo -e "\e[32minstall wireshark\e[0m";
-sudo apt install -y wireshark
+sudo apt install -y wireshark tshark xterm
 sudo usermod -a -G wireshark $USER
 
 #sudo apt purge -y --auto-remove avahi-daemon
