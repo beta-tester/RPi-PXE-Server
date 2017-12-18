@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-12-11
+# v2017-12-18
 #
 # known issues:
 #
@@ -1750,7 +1750,7 @@ EOF";
     sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
     echo -e "\e[36m    setup iptables for nat\e[0m";
     sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE
-    sudo dpkg-reconfigure iptables-persistent
+    sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
 
 
