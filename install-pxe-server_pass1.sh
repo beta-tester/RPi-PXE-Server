@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-12-15
+# v2017-12-18
 #
 # known issues:
 #
@@ -74,11 +74,18 @@ echo -e "\e[32msync...\e[0m" && sudo sync \
 && echo -e "\e[32mDone.\e[0m" \
 ;
 
+
+######################################################################
+echo -e "\e[32minstall debconf-utils\e[0m";
+sudo apt install -y debconf-utils;
+
+
 ######################################################################
 echo -e "\e[32minstall nfs-kernel-server for pxe\e[0m";
 sudo apt install -y nfs-kernel-server;
 sudo systemctl enable nfs-kernel-server.service;
 sudo systemctl restart nfs-kernel-server.service;
+
 
 ######################################################################
 echo -e "\e[32menable port mapping\e[0m";
@@ -124,12 +131,15 @@ sudo apt install -y fuse bindfs;
 
 
 ######################################################################
-echo -e "\e[32minstall network NAT\e[0m";
+echo -e "\e[32minstall iptables for network address translation (NAT)\e[0m";
+echo "iptables-persistent     iptables-persistent/autosave_v4 boolean true" | sudo debconf-set-selections;
+echo "iptables-persistent     iptables-persistent/autosave_v6 boolean true" | sudo debconf-set-selections;
 sudo apt install -y iptables iptables-persistent
 
 
 ######################################################################
 $(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
+echo -e "\e[32minstall chrony as ntp client and ntp server\e[0m";
 sudo apt install -y chrony;
 sudo systemctl enable chronyd.service;
 sudo systemctl restart chronyd.service;
@@ -142,6 +152,7 @@ sudo systemctl restart chronyd.service;
 ######################################################################
 ## optional
 echo -e "\e[32minstall wireshark\e[0m";
+echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
 sudo apt install -y wireshark tshark
 sudo usermod -a -G wireshark $USER
 
