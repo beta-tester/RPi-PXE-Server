@@ -420,6 +420,9 @@ bind interfaces only = yes
 ############ Misc ############
    usershare allow guests = yes
 
+# https://www.samba.org/samba/security/CVE-2017-14746.html
+server min protocol = SMB2
+
 #======================= Share Definitions =======================
 [srv]
     path = $DST_ROOT
