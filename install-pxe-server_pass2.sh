@@ -617,13 +617,13 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-4.9.0-3-amd64" ]; then
+    && [ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-4.9.0-4-amd64" ]; then
         echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Debian x64
-    KERNEL $NFS_ETH0/$DEBIAN_X64/live/vmlinuz-4.9.0-3-amd64
-    APPEND initrd=$NFS_ETH0/$DEBIAN_X64/live/initrd.img-4.9.0-3-amd64 netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de utc=no timezone=Europe/Berlin
+    KERNEL $NFS_ETH0/$DEBIAN_X64/live/vmlinuz-4.9.0-4-amd64
+    APPEND initrd=$NFS_ETH0/$DEBIAN_X64/live/initrd.img-4.9.0-4-amd64 netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Debian x64 Live LXDE
         User: user, Password: live
@@ -632,13 +632,13 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686" ]; then
+    && [ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz-4.9.0-4-686" ]; then
         echo  -e "\e[36m    add $DEBIAN_X86\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Debian x86
-    KERNEL $NFS_ETH0/$DEBIAN_X86/live/vmlinuz-4.9.0-3-686
-    APPEND initrd=$NFS_ETH0/$DEBIAN_X86/live/initrd.img-4.9.0-3-686 netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de utc=no timezone=Europe/Berlin
+    KERNEL $NFS_ETH0/$DEBIAN_X86/live/vmlinuz-4.9.0-4-686
+    APPEND initrd=$NFS_ETH0/$DEBIAN_X86/live/initrd.img-4.9.0-4-686 netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Debian x86 Live LXDE
         User: user, Password: live
