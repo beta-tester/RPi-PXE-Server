@@ -1611,7 +1611,7 @@ handle_optional() {
 ## mod_install_server
 net.ipv4.ip_forward=1
 #net.ipv6.conf.all.forwarding=1
-net.ipv6.conf.all.disable_ipv6 = 1
+#net.ipv6.conf.all.disable_ipv6 = 1
 EOF";
     }
 
