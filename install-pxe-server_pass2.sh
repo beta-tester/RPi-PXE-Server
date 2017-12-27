@@ -1692,7 +1692,6 @@ handle_optional() {
 ## mod_install_server
 net.ipv4.ip_forward=1
 #net.ipv6.conf.all.forwarding=1
-#net.ipv6.conf.all.disable_ipv6 = 1
 EOF";
     }
 
@@ -1702,13 +1701,6 @@ EOF";
     sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
     echo -e "\e[36m    setup iptables for nat\e[0m";
     sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE
-
-    sudo iptables -A FORWARD -i $INTERFACE_ETH0 -o $INTERFACE_ETH1 -m state --state RELATED,ESTABLISHED -j ACCEPT
-    sudo iptables -A FORWARD -i $INTERFACE_ETH1 -o $INTERFACE_ETH0 -j ACCEPT
-
-    sudo iptables -A FORWARD -i $INTERFACE_ETH0 -o $INTERFACE_WLAN0 -m state --state RELATED,ESTABLISHED -j ACCEPT
-    sudo iptables -A FORWARD -i $INTERFACE_WLAN0 -o $INTERFACE_ETH0 -j ACCEPT
-
     sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
 
