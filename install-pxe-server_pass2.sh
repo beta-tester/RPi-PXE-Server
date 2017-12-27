@@ -281,7 +281,6 @@ DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"
 EOF";
     }
 
-    sudo systemctl enable hostapd.service;
     sudo systemctl restart hostapd.service;
 }
 
