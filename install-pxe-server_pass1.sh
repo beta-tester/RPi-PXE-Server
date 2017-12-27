@@ -156,18 +156,19 @@ sudo systemctl restart chronyd.service;
 
 ######################################################################
 ## optional
-echo -e "\e[32minstall wireshark\e[0m";
+echo -e "\e[32minstall tshark\e[0m";
 echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
-sudo apt install -y wireshark tshark
+sudo apt install -y tshark
 sudo usermod -a -G wireshark $USER
 
 echo -e "\e[32minstall other useful stuff\e[0m";
 sudo apt install -y xterm transmission-gtk
 
 echo -e "\e[32mreduce annoying networktraffic\e[0m";
-#sudo apt purge -y --auto-remove avahi-daemon
 sudo systemctl stop avahi-daemon.service
 sudo systemctl disable avahi-daemon.service
+sudo systemctl stop minissdpd.service
+sudo systemctl disable minissdpd.service
 
 
 ######################################################################
