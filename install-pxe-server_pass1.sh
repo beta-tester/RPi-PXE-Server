@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-12-18
+# v2017-12-27
 #
 # known issues:
 #
@@ -126,8 +126,13 @@ sudo apt install -y fuse bindfs;
 
 
 ######################################################################
+echo -e "\e[32minstall wlan access point\e[0m";
+sudo apt install -y hostapd
+
+
+######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
-#bridge#sudo apt install -y bridge-utils hostapd dnsmasq iptables iptables-persistent
+#bridge#sudo apt install -y bridge-utils
 
 
 ######################################################################
@@ -256,7 +261,7 @@ xset -dpms;
 
 ######################################################################
 ## optional
-[ -f /etc/ssh/mod_install_server ] || {
+[ -f /etc/ssh/mod_install_server ] && [ -d $SRC_MOUNT/backup/ssh/ ] || {
 echo -e "\e[32mcopy predefined ssh keys\e[0m";
 sudo touch /etc/ssh/mod_install_server
 sudo rsync -xa --info=progress2 $SRC_MOUNT/backup/ssh/* /etc/ssh/
