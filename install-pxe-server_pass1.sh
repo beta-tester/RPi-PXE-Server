@@ -261,7 +261,7 @@ xset -dpms;
 
 ######################################################################
 ## optional
-[ -f /etc/ssh/mod_install_server ] && [ -d $SRC_MOUNT/backup/ssh/ ] || {
+[ -f /etc/ssh/mod_install_server ] || [ -d $SRC_MOUNT/backup/ssh/ ] || {
 echo -e "\e[32mcopy predefined ssh keys\e[0m";
 sudo touch /etc/ssh/mod_install_server
 sudo rsync -xa --info=progress2 $SRC_MOUNT/backup/ssh/* /etc/ssh/
