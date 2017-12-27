@@ -21,7 +21,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-12-24
+# v2017-12-27
 #
 # known issues:
 #
@@ -48,6 +48,7 @@ RPI_SN3=--------
 ##########################################################################
 INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net)
 INTERFACE_ETH1=eth1
+INTERFACE_WLAN0=wlan0
 ##########################################################################
 IP_ETH0=$(ip -4 address show dev $INTERFACE_ETH0 | grep -o -E '(([0-9]{1,3}[\.]){3}[0-9]{1,3})' | sed '1!d')
 IP_ETH0_=$(echo $IP_ETH0 | grep -o -E '([0-9]{1,3}[\.]){3}')
@@ -60,8 +61,13 @@ IP_ETH0_MASK=255.255.255.0
 ##########################################################################
 IP_ETH1=192.168.250.1
 IP_ETH1_START=192.168.250.100
-IP_ETH1_END=192.168.250.100
+IP_ETH1_END=192.168.250.110
 IP_ETH1_MASK=255.255.255.0
+##########################################################################
+IP_WLAN0=192.168.251.1
+IP_WLAN0_START=192.168.251.100
+IP_WLAN0_END=192.168.251.110
+IP_WLAN0_MASK=255.255.255.0
 ##########################################################################
 ISO=/iso
 IMG=/img
@@ -316,31 +322,43 @@ log-dhcp
 # interface selection
 interface=$INTERFACE_ETH0
 interface=$INTERFACE_ETH1
-#bridge#interface=$INTERFACE_BR0
+interface=$INTERFACE_WLAN0
+
+#
+bind-interfaces
+domain-needed
+bogus-priv
 
 # TFTP_ETH0 (enabled)
 enable-tftp
 tftp-lowercase
 tftp-root=$DST_TFTP_ETH0/, $INTERFACE_ETH0
 dhcp-option=$INTERFACE_ETH0, option:tftp-server, 0.0.0.0
-#nat#tftp-root=$DST_TFTP_ETH1/, $INTERFACE_ETH1
-#nat#dhcp-option=$INTERFACE_ETH1, option:tftp-server, 0.0.0.0
-#bridge#tftp-root=$DST_TFTP_BR0/, $INTERFACE_BR0
-#bridge#dhcp-option=$INTERFACE_BR0, option:tftp-server, 0.0.0.0
 
 #
-dhcp-option=eth1, option:nis-domain, test-nis
-dhcp-option=eth1, option:domain-name, test-domain.local
+dhcp-option=$INTERFACE_ETH1, option:nis-domain, eth-nis
+dhcp-option=$INTERFACE_ETH1, option:domain-name, eth-domain.local
+dhcp-option=$INTERFACE_WLAN0, option:nis-domain, wlan-nis
+dhcp-option=$INTERFACE_WLAN0, option:domain-name, wlan-domain.local
 
 # Time Server
 dhcp-option=$INTERFACE_ETH0, option:ntp-server, 0.0.0.0
 dhcp-option=$INTERFACE_ETH1, option:ntp-server, 0.0.0.0
+dhcp-option=$INTERFACE_WLAN0, option:ntp-server, 0.0.0.0
 
 # DHCP
 # do not give IPs that are in pool of DSL routers DHCP
 dhcp-range=$INTERFACE_ETH0, $IP_ETH0_START, $IP_ETH0_END, 24h
 dhcp-range=$INTERFACE_ETH1, $IP_ETH1_START, $IP_ETH1_END, 24h
-#bridge#dhcp-range=$INTERFACE_BR0, $IP_BR0_START, $IP_BR0_END, 24h
+dhcp-range=$INTERFACE_WLAN0, $IP_WLAN0_START, $IP_WLAN0_END, 24h
+
+# some examples for pre-defined static IPs by MAC or by name
+#dhcp-host=$INTERFACE_ETH0, 11:11:11:11:11:11,  192.168.0.100
+#dhcp-host=$INTERFACE_ETH0, MySmartHome, 192.168.0.101
+#dhcp-host=$INTERFACE_ETH1, 22:22:22:22:22:22,  192.168.250.100
+#dhcp-host=$INTERFACE_ETH1, MySmartTV, 192.168.250.101
+#dhcp-host=$INTERFACE_WLAN0, 33:33:33:33:33:33, 192.168.251.100
+#dhcp-host=$INTERFACE_WLAN0, MySmartPhone, 192.168.251.101
 
 # DNS (enabled)
 port=53
@@ -1603,6 +1621,13 @@ EOF";
     sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
     echo -e "\e[36m    setup iptables for nat\e[0m";
     sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE
+
+    sudo iptables -A FORWARD -i $INTERFACE_ETH0 -o $INTERFACE_ETH1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+    sudo iptables -A FORWARD -i $INTERFACE_ETH1 -o $INTERFACE_ETH0 -j ACCEPT
+
+    sudo iptables -A FORWARD -i $INTERFACE_ETH0 -o $INTERFACE_WLAN0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+    sudo iptables -A FORWARD -i $INTERFACE_WLAN0 -o $INTERFACE_ETH0 -j ACCEPT
+
     sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
 
