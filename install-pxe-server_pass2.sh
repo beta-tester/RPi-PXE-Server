@@ -69,6 +69,15 @@ IP_WLAN0_START=192.168.251.100
 IP_WLAN0_END=192.168.251.110
 IP_WLAN0_MASK=255.255.255.0
 ##########################################################################
+DRIVER_WLAN0=nl80211
+COUNTRY_WLAN0=DE
+PASSWORD_WLAN0=p@ssw0rd
+SSID_WLAN0=wlan0@domain.local
+INTERFACE_WLAN0X=wlan0x
+PASSWORD_WLAN0X=p@ssw0rd
+SSID_WLAN0X=wlan0x@domain.local
+
+##########################################################################
 ISO=/iso
 IMG=/img
 TFTP_ETH0=/tftp
@@ -209,6 +218,74 @@ RPD_FULL=rpi-raspbian-full
 RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-12-01/2017-11-29-raspbian-stretch.zip
 
 
+
+
+##########################################################################
+handle_hostapd() {
+    echo -e "\e[32mhandle_hostapd()\e[0m";
+
+    ######################################################################
+    grep -q mod_install_server /etc/hostapd/hostapd.conf || {
+    echo -e "\e[36m    setup hostapd.conf for wlan access point\e[0m";
+    sudo sh -c "cat << EOF  > /etc/hostapd/hostapd.conf
+########################################
+#/etc/hostapd/hostapd.conf
+## mod_install_server
+interface=$INTERFACE_WLAN0
+driver=$DRIVER_WLAN0
+
+country_code=$COUNTRY_WLAN0
+ieee80211d=1
+
+hw_mode=g
+ieee80211n=1
+channel=7
+
+wmm_enabled=1
+
+##
+ssid=$SSID_WLAN0
+ignore_broadcast_ssid=0
+macaddr_acl=0
+auth_algs=1
+wpa=2
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+#wpa_passphrase=$PASSWORD_WLAN0
+wpa_psk=$(wpa_passphrase $SSID_WLAN0 PASSWORD_WLAN0 | grep '[[:blank:]]psk' | cut -d = -f2)
+
+## optional: create virtual wlan adapter
+#bss=$INTERFACE_WLAN0X
+#ssid=$SSID_WLAN0X
+#ignore_broadcast_ssid=0
+#macaddr_acl=0
+#auth_algs=1
+#wpa=2
+#wpa_key_mgmt=WPA-PSK
+#wpa_pairwise=TKIP
+#rsn_pairwise=CCMP
+##wpa_passphrase=$PASSWORD_WLAN0X
+#wpa_psk=$(wpa_passphrase $SSID_WLAN0X PASSWORD_WLAN0X | grep '[[:blank:]]psk' | cut -d = -f2)
+EOF";
+    }
+
+    ######################################################################
+    grep -q mod_install_server /etc/default/hostapd || {
+    echo -e "\e[36m    setup hostapd for wlan access point\e[0m";
+    sudo sh -c "cat << EOF  > /etc/default/hostapd
+########################################
+#/etc/default/hostapd
+## mod_install_server
+DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"
+EOF";
+    }
+
+    sudo systemctl enable hostapd.service;
+    sudo systemctl restart hostapd.service;
+}
+
+
 ##########################################################################
 handle_dhcpcd() {
     echo -e "\e[32mhandle_dhcpcd()\e[0m";
@@ -234,10 +311,10 @@ static routers=$IP_ETH1_ROUTER
 static domain_name_servers=$IP_ETH1_ROUTER
 
 ########################################
-#bridge#interface $INTERFACE_BR0
-#bridge#static ip_address=$IP_BR0/24
-#bridge#static routers=$IP_BR0_ROUTER
-#bridge#static domain_name_servers=$IP_BR0_ROUTER
+interface $INTERFACE_WLAN0
+static ip_address=$IP_WLAN0/24
+static routers=$IP_WLAN0_ROUTER
+static domain_name_servers=$IP_WLAN0_ROUTER
 EOF";
         sudo systemctl daemon-reload;
         sudo systemctl restart dhcpcd.service;
@@ -282,6 +359,13 @@ iface $INTERFACE_ETH1 inet static
     gateway $IP_ETH1_ROUTER
     hwaddress 88:88:88:11:11:11
 
+auto $INTERFACE_WLAN0
+iface $INTERFACE_WLAN0 inet static
+    address $IP_WLAN0
+    netmask $IP_WLAN0_MASK
+    gateway $IP_WLAN0_ROUTER
+    hwaddress 88:88:88:22:22:22
+
 #bridge#auto br0
 #bridge#iface br0 inet static
 #bridge#    bridge_ports eth1 wlan0 wlan1
@@ -313,7 +397,6 @@ handle_dnsmasq() {
     sudo sh -c "cat << EOF  >> /etc/dnsmasq.d/pxe-server
 ########################################
 #/etc/dnsmasq.d/pxeboot
-
 ## mod_install_server
 
 log-dhcp
@@ -325,7 +408,7 @@ interface=$INTERFACE_ETH1
 interface=$INTERFACE_WLAN0
 
 #
-bind-interfaces
+bind-dynamic
 domain-needed
 bogus-priv
 
@@ -404,7 +487,6 @@ handle_samba() {
     sudo sh -c "cat << EOF  > /etc/samba/smb.conf
 ########################################
 ## mod_install_server
-
 #======================= Global Settings =======================
 [global]
 
@@ -1268,7 +1350,7 @@ EOF";
                 echo -e "\e[36m    add wpa_supplicant template file\e[0m";
                 sudo sh -c "cat << EOF  > $DST_CUSTOM_ROOT/etc/wpa_supplicant/wpa_supplicant.conf
 ########################################
-country=DE
+country=$COUNTRY_WLAN0
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
@@ -1641,7 +1723,7 @@ EOF";
 ## mod_install_server
 allow
 
-#server  stratum1  iburst  minpoll 5  maxpoll 5
+#server  stratum1.domain.local  iburst  minpoll 5  maxpoll 5
 server  ptbtime1.ptb.de  iburst
 server  ptbtime2.ptb.de  iburst
 server  ptbtime3.ptb.de  iburst
@@ -1676,10 +1758,11 @@ sudo mkdir -p $DST_TFTP_ETH0;
 sudo mkdir -p $DST_NFS_ETH0;
 
 ##########################################################################
+handle_hostapd;
+handle_dhcpcd;
 handle_dnsmasq;
 handle_samba;
 handle_optional;
-handle_dhcpcd;
 
 
 ##########################################################################
