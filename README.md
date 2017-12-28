@@ -20,9 +20,9 @@ it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see *
       ╔══════════╗   ╔═══╗       ╔══════╗╔═════════╗
 WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
       ╚══════════╝   ║ w ║       ║PXE-  ║╚═════════╝
-                     ║ i ║       ║server║
-       ╔══════╗      ║ t ╟───eth0╢──┐   ║
-       ║ RPi3 ╟──────╢ c ║       ║  │NAT║       ╔═══════════════════════╗
+                     ║ i ║       ║server║        ╔═══════════════════════╗
+       ╔══════╗      ║ t ╟───eth0╢──┬───╟wlan0───╢ PC3 IP:192.168.251.100║
+       ║ RPi3 ╟──────╢ c ║       ║  │NAT║       ╔╩══════════════════════╗╝
        ╚══════╝   ┌──╢ h ╟──┐    ║  └───╟eth1───╢ PC3 IP:192.168.250.100║
                   │  ╚═══╝  │    ╚══════╝       ╚═══════════════════════╝
                ╔══╧══╗   ╔══╧══╗
@@ -36,6 +36,8 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 - SD card (big enough to hold entire ISO images of desired Live DVDs), (e.g. 64GByte)
 - USB memory stick (for preloaded iso images), (e.g. 64GByte)
 - working network environment with a connection to internet
+- optional: second ethernet interface (via USB)
+- optional: built-in WLAN interface (as that one of RPi3, or an external one via USB)
 
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
