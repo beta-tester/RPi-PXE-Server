@@ -21,7 +21,7 @@ it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see *
 WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
       ╚══════════╝   ║ w ║       ║PXE-  ║╚═════════╝
                      ║ i ║       ║server║        ╔═══════════════════════╗
-       ╔══════╗      ║ t ╟───eth0╢──┬───╟wlan0───╢ PC3 IP:192.168.251.100║
+       ╔══════╗      ║ t ╟───eth0╢──┬───╟wlan0───╢ PC4 IP:192.168.251.100║
        ║ RPi3 ╟──────╢ c ║       ║  │NAT║       ╔╩══════════════════════╗╝
        ╚══════╝   ┌──╢ h ╟──┐    ║  └───╟eth1───╢ PC3 IP:192.168.250.100║
                   │  ╚═══╝  │    ╚══════╝       ╚═══════════════════════╝
