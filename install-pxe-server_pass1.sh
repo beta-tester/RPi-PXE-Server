@@ -156,13 +156,17 @@ sudo systemctl restart chronyd.service;
 
 ######################################################################
 ######################################################################
+echo -e "\e[32minstall real-vnc-server\e[0m";
+sudo apt install -y realvnc-vnc-server
+sudo systemctl enable vncserver-x11-serviced.service;
+sudo systemctl restart vncserver-x11-serviced.service;
 
 
 ######################################################################
 ## optional
-echo -e "\e[32minstall tshark\e[0m";
+echo -e "\e[32minstall wireshark\e[0m";
 echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
-sudo apt install -y tshark
+sudo apt install -y tshark wireshark
 sudo usermod -a -G wireshark $USER
 
 echo -e "\e[32minstall other useful stuff\e[0m";
@@ -266,7 +270,7 @@ xset -dpms;
 
 ######################################################################
 ## optional
-[ -f /etc/ssh/mod_install_server ] || [ -d $SRC_MOUNT/backup/ssh/ ] && {
+! [ -f /etc/ssh/mod_install_server ] && [ -d $SRC_MOUNT/backup/ssh/ ] && {
 echo -e "\e[32mcopy predefined ssh keys\e[0m";
 sudo touch /etc/ssh/mod_install_server
 sudo rsync -xa --info=progress2 $SRC_MOUNT/backup/ssh/* /etc/ssh/
