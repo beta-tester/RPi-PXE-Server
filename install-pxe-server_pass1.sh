@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-12-28
+# v2017-12-29
 #
 # known issues:
 #
@@ -160,6 +160,12 @@ echo -e "\e[32minstall real-vnc-server\e[0m";
 sudo apt install -y realvnc-vnc-server
 sudo systemctl enable vncserver-x11-serviced.service;
 sudo systemctl restart vncserver-x11-serviced.service;
+
+[ -f $SRC_MOUNT/backup/vncserver-x11 ] && {
+    echo -e "\e[32msetup real-vnc-server\e[0m";
+    sudo rsync -xa --info=progress2 $SRC_MOUNT/backup/vncserver-x11 /root/.vnc/config.d/
+    sudo systemctl restart vncserver-x11-serviced.service;
+}
 
 
 ######################################################################
