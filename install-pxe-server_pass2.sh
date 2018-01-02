@@ -1115,7 +1115,7 @@ handle_iso() {
     ######################################################################
     # $1 : short name
     # $2 : download url
-    # $3 : optional bindfs
+    # $3 : optional/additional mount flags
     ######################################################################
     local NAME=$1
     local URL=$2
@@ -1173,10 +1173,10 @@ handle_iso() {
         fi
 
         if ! [ -d "$DST_ORIGINAL" ]; then
-        if [ "$3" == "bindfs" ]; then
+            if [ "$3" == "bindfs" ]; then
                 echo -e "\e[36m    create nfs folder\e[0m";
                 sudo mkdir -p $DST_ORIGINAL;
-        fi
+            fi
         fi
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
@@ -1185,7 +1185,7 @@ handle_iso() {
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_ORIGINAL  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
                 sudo sh -c "echo '$DST_ORIGINAL  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
         else
-                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$3  0  10' >> /etc/fstab";
         fi
         fi
 
@@ -1849,7 +1849,7 @@ handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
 handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
 handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
 handle_iso  $DEFT_X64           $DEFT_X64_URL;
-handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          bindfs;
+handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
 handle_iso  $KALI_X64           $KALI_X64_URL;
 handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
 handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
