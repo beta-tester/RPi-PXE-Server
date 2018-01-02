@@ -771,7 +771,7 @@ EOF";
 ########################################
 LABEL Parrot Lite x86
     KERNEL /nfs/$PARROT_LITE_X86/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_HOME_X86 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    APPEND initrd=/nfs/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X86 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Parrot Lite x86 Live (Home/Workstation)
         User: user, Password: live
