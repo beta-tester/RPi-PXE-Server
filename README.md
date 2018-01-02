@@ -209,7 +209,15 @@ it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested 
 
 ## note4: NETWORK BOOTING for Raspberry Pi 3
 the server is prepared for to boot a Raspberry Pi 3 via network.
-in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN=12345678``` line, change the ```12345678``` to the serial number of the RPi3, that will boot from network. if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
+in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN=12345678``` line, change the ```12345678``` to the serial number of the RPi3, that will boot from network.<br />
+skip the leading '00000000'. take only the last 8 digits!<br />
+e.g.
+```
+pi@raspberry-$ cat /proc/cpuinfo | grep Serial
+Serial          : 00000000fedcba98
+```
+then take ```RPI_SN=fedcba98```.<br />
+if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
 
 the script will download Raspbian-Stretch-Lite and prepare it for the RPi3 with the given serial number.
 
