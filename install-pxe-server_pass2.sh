@@ -41,7 +41,7 @@ echo -e "\e[36msetup variables\e[0m";
 ##  and other variables...
 ######################################################################
 ######################################################################
-RPI_SN0=12345678
+RPI_SN0=--------
 RPI_SN0_BOOT=rpi-$RPI_SN0-boot
 RPI_SN0_ROOT=rpi-$RPI_SN0-root
 ######################################################################
@@ -989,7 +989,7 @@ handle_network_booting() {
     ##############################################################
     echo -e "\e[32mhandle_network_booting(\e[0m$NAME\e[32m)\e[0m";
     if [ "$RPI_SN0" == "" ] \
-    || [ "$RPI_SN0" == "12345678" ]; then
+    || [ "$RPI_SN0" == "--------" ]; then
         echo -e "\e[36m    skipped: no serial number setted at RPI_SN0.\e[0m";
         return 1;
     fi
