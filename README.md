@@ -214,9 +214,9 @@ skip the leading '00000000'. take only the last 8 digits!<br />
 e.g.
 ```
 pi@raspberry-$ cat /proc/cpuinfo | grep Serial
-Serial          : 00000000fedcba98
+Serial          : 0000000087654321
 ```
-then take ```RPI_SN=fedcba98```.<br />
+then take ```RPI_SN=87654321```.<br />
 if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
 
 the script will download Raspbian-Stretch-Lite and prepare it for the RPi3 with the given serial number.
