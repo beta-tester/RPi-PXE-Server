@@ -591,7 +591,7 @@ handle_pxe_menu() {
 
 # http://www.syslinux.org/wiki/index.php?title=Menu
 
-DEFAULT /vesamenu.c32
+DEFAULT vesamenu.c32
 TIMEOUT 600
 ONTIMEOUT Boot Local
 PROMPT 0
@@ -609,7 +609,7 @@ menu color help 1;37;40 #FFFFFFFF *
 menu helpmsgrow 26
 
 LABEL Boot Local
-    localboot 0
+    LOCALBOOT 0
     TEXT HELP
         Boot to local hard disk
     ENDTEXT
@@ -617,12 +617,12 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_TFTP_ETH0/$1/pxeboot.0" ]; then
+    && [ -f "$DST_TFTP_ETH0/$1/pxeboot.n12" ]; then
         echo  -e "\e[36m    add $WIN_PE_X86 (PXE)\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Windows PE x86 (PXE)
-    PXE /pxeboot.0
+    PXE pxeboot.n12
     TEXT HELP
         Boot to Windows PE 32bit
     ENDTEXT
@@ -635,7 +635,7 @@ EOF";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Windows PE x86 (ISO)
-    KERNEL /memdisk
+    KERNEL memdisk
     APPEND iso
     INITRD $ISO/$WIN_PE_X86.iso
     TEXT HELP
@@ -1055,9 +1055,9 @@ handle_pxe() {
     [ -d "$DST_TFTP_ETH0/$DST_PXE_BIOS" ]            || sudo mkdir -p $DST_TFTP_ETH0/$DST_PXE_BIOS;
     if [ -d "$SRC_TFTP_ETH0" ]; then
         echo -e "\e[36m    copy win-pe stuff\e[0m";
-        [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxeboot.0" ]  || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/pxeboot.0    $DST_TFTP_ETH0/$DST_PXE_BIOS/;
-        [ -f "$DST_TFTP_ETH0/bootmgr.exe" ]              || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/bootmgr.exe  $DST_TFTP_ETH0/;
-        [ -d "$DST_TFTP_ETH0/boot" ]                     || sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/boot         $DST_TFTP_ETH0/;
+        if ! [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxeboot.n12" ] && [ -f "$SRC_TFTP_ETH0/pxeboot.n12" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/pxeboot.n12  $DST_TFTP_ETH0/$DST_PXE_BIOS/; fi
+        if ! [ -f "$DST_TFTP_ETH0/bootmgr.exe" ] && [ -f "$SRC_TFTP_ETH0/bootmgr.exe" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/bootmgr.exe  $DST_TFTP_ETH0/; fi
+        if ! [ -d "$DST_TFTP_ETH0/boot" ] && [ -d "$SRC_TFTP_ETH0/boot" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/boot  $DST_TFTP_ETH0/; fi
     fi
     [ -h "$DST_TFTP_ETH0/sources" ]                  || sudo ln -s $DST_NFS_ETH0/$WIN_PE_X86/sources/  $DST_TFTP_ETH0/sources;
     #for SRC in `find /srv/tftp/Boot -depth`
