@@ -4,6 +4,7 @@
 # ubuntu,       http://releases.ubuntu.com/
 #               https://help.ubuntu.com/community/Installation/MinimalCD
 # debian,       http://cdimage.debian.org/debian-cd/
+# parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
 # kali,         http://www.kali.org/kali-linux-releases/
 # deft,         http://www.deftlinux.net/
@@ -21,7 +22,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2017-12-24
+# v2018-01-02
 #
 # known issues:
 #
@@ -113,24 +114,31 @@ WIN_PE_X86_URL=
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-desktop-amd64.iso
-
 UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-desktop-i386.iso
 
 UBUNTU_X64=ubuntu-x64
 UBUNTU_X64_URL=http://releases.ubuntu.com/17.10/ubuntu-17.10-desktop-amd64.iso
-
 UBUNTU_X86=ubuntu-x86
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
+DEBIAN_KVER=4.9.0-4
 DEBIAN_X64=debian-x64
 DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.3.0-amd64-lxde.iso
-DEBIAN_KVER=4.9.0-4
 DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.3.0-i386-lxde.iso
+
+PARROT_LITE_X64=parrot-lite-x64
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-home-3.10.1_amd64.iso
+PARROT_LITE_X86=parrot-lite-x86
+PARROT_LITE_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-home-3.10.1_i386.iso
+PARROT_FULL_X64=parrot-full-x64
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-security-3.10.1_amd64.iso
+PARROT_FULL_X86=parrot-full-x86
+PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-security-3.10.1_i386.iso
 
 GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
@@ -152,7 +160,6 @@ DESINFECT_X86_URL=
 
 TINYCORE_x64=tinycore-x64
 TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.2.1.iso
-
 TINYCORE_x86=tinycore-x86
 TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.2.1.iso
 
@@ -161,7 +168,6 @@ RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-
 
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
-
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-i686.iso
 
@@ -564,6 +570,66 @@ LABEL Debian x86
     APPEND initrd=$NFS_ETH0/$DEBIAN_X86/live/initrd.img-$DEBIAN_KVER-686 netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Debian x86 Live LXDE
+        User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $PARROT_LITE_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Parrot Lite x64
+    KERNEL /nfs/$PARROT_LITE_X64/live/vmlinuz
+    APPEND initrd=/nfs/$PARROT_LITE_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    TEXT HELP
+        Boot to Parrot Lite x64 Live (Home/Workstation)
+        User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$PARROT_LITE_X86/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $PARROT_LITE_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Parrot Lite x86
+    KERNEL /nfs/$PARROT_LITE_X86/live/vmlinuz
+    APPEND initrd=/nfs/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_HOME_X86 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    TEXT HELP
+        Boot to Parrot Lite x86 Live (Home/Workstation)
+        User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $PARROT_FULL_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Parrot Full x64
+    KERNEL /nfs/$PARROT_FULL_X64/live/vmlinuz
+    APPEND initrd=/nfs/$PARROT_FULL_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    TEXT HELP
+        Boot to Parrot Full x64 Live (Security)
+        User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X86/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $PARROT_FULL_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Parrot Full x86
+    KERNEL /nfs/$PARROT_FULL_X86/live/vmlinuz
+    APPEND initrd=/nfs/$PARROT_FULL_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X86 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    TEXT HELP
+        Boot to Parrot Full x86 Live (Security)
         User: user, Password: live
     ENDTEXT
 EOF";
@@ -988,8 +1054,7 @@ handle_network_booting() {
     local FILE_URL=$NAME.url
     ##############################################################
     echo -e "\e[32mhandle_network_booting(\e[0m$NAME\e[32m)\e[0m";
-    if [ "$RPI_SN0" == "" ] \
-    || [ "$RPI_SN0" == "--------" ]; then
+    if [ "$RPI_SN0" == "--------" ]; then
         echo -e "\e[36m    skipped: no serial number setted at RPI_SN0.\e[0m";
         return 1;
     fi
@@ -1315,6 +1380,10 @@ handle_iso  $UBUNTU_X64        $UBUNTU_X64_URL;
 ## handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
 # handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
+handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+# handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+# handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
+# handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
 # handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
 # handle_iso  $DEFT_X64          $DEFT_X64_URL;
 # handle_iso  $KALI_X64          $KALI_X64_URL;
