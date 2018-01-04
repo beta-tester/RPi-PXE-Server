@@ -131,28 +131,14 @@ no problems. pxe boot job can access to required content.
 ║ └───────────╥─┘
 ╚═════════════╝
 ```
-### readonly mounting content of ISO and modify users, and permissions by bindfs:
-e.g. deftz-x64 iso image<br />
-the pxe boot job can not access to the file vmlinuz because of too restictive file permissions on file system.<br />
-mounting by bindfs with some parameters will map users, groups and permissions, so that the pxe boot job can access all the required files.
-```
-╔═════════════╗
-║iso-file     ║
-║             ║
-║ ┌───────────╨─┐ ┌─────────────┐
-║ │mount loop   │ │mount bindfs │
-║ │  pxe can't  │ │  prepare to │
-║ │  access     ├─┼  pxe        ├───┤nfs*
-║ └───────────╥─┘ └─────────────┘
-╚═════════════╝
-```
 ### mounting content of disk image and make content read/writalbe by overlayfs:
 e.g. rpi-raspbian-full<br />
 this disk image contains two partitions. the first is the boot partition and the second is the root parition.
 to make the images read/writable, there is an overlayfs putted on top.<br />
 (lowerdir is the readonly source, upperdir is the writable difference, workdir is an temporarily workfolder for internal use. the mergeddir is the sum of lower + upper. write access happens only on the upperdir with white-out and write-on-modify capability)<br />
 but unfortunately overlayfs can't get exported directly for nfs. so putting a bindfs on top of the overlayfs makes it possible to get exported for nfs.<br />
-and another issue is, overlayfs can't handle **vfat** partitions as source (lowerdir). putting bindfs between makes overlayfs happy.
+and another issue is, overlayfs can't handle **vfat** partitions as source (lowerdir). putting bindfs between makes overlayfs happy.<br />
+**note: this overlayfs+bindfs construction does NOT work reliably - data loss!**
 ```
 ╔═════════════╗
 ║img-file     ║
@@ -194,8 +180,13 @@ ubuntu-x86.iso
 ubuntu-nopae.iso      # an old Ubuntu with non-PAE for old PCs
 debian-x64.iso        # Debian
 debian-x86.iso
+parrot-lite-x64.iso   # Parrot Security + Home/Workstation
+parrot-lite-x86.iso
+parrot-full-x64.iso
+parrot-full-x86.iso
 gnuradio-x64.iso      # GNU Radio
 deft-x64.iso          # DEFT
+deftz-x64.iso
 kali-x64.iso          # Kali Linux
 pentoo-x64.iso        # Pentoo Linux
 systemrescue-x86.iso  # System Rescue
@@ -217,8 +208,13 @@ ubuntu-x86.url
 ubuntu-nopae.url
 debian-x64.url
 debian-x86.url
+parrot-lite-x64.url
+parrot-lite-x86.url
+parrot-full-x64.url
+parrot-full-x86.url
 gnuradio-x64.url
 deft-x64.url
+deftz-x64.url
 kali-x64.url
 pentoo-x64.url
 systemrescue-x86.url
@@ -241,23 +237,30 @@ RPD_LITE_URL=https://.../...zip
 e.g.:**
 ```
 ######################################################################
-# handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
-# handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
-# handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
-# handle_iso  $UBUNTU_X64        $UBUNTU_X64_URL;
-# handle_iso  $UBUNTU_X86        $UBUNTU_X86_URL;
-# handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
-# handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
-# handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
-# handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
-# handle_iso  $DEFT_X64          $DEFT_X64_URL;
-# handle_iso  $KALI_X64          $KALI_X64_URL;
-# handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
-# handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
-# handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
-handle_iso  $TINYCORE_x86      $TINYCORE_x86_URL;
-handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
+# handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
+# handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
+# handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
+# handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
+# handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
+# handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
+# handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
+# handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
+# handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+# handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+# handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
+# handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
+# handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
+# handle_iso  $DEFT_X64           $DEFT_X64_URL;
+# handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
+# handle_iso  $KALI_X64           $KALI_X64_URL;
+# handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
+# handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
+# handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
+handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL;
+handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL;
+handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
+# handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
+# handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
 ...
 ```
 **same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
