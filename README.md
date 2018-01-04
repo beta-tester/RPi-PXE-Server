@@ -126,6 +126,10 @@ ubuntu-x86.iso
 ubuntu-nopae.iso      # an old Ubuntu with non-PAE for old PCs
 debian-x64.iso        # Debian
 debian-x86.iso
+parrot-lite-x64.iso   # Parrot Security + Home/Workstation
+parrot-lite-x86.iso
+parrot-full-x64.iso
+parrot-full-x86.iso
 gnuradio-x64.iso      # GNU Radio
 deft-x64.iso          # DEFT
 kali-x64.iso          # Kali Linux
@@ -149,6 +153,10 @@ ubuntu-x86.url
 ubuntu-nopae.url
 debian-x64.url
 debian-x86.url
+parrot-lite-x64.url
+parrot-lite-x86.url
+parrot-full-x64.url
+parrot-full-x86.url
 gnuradio-x64.url
 deft-x64.url
 kali-x64.url
@@ -181,6 +189,10 @@ e.g.:**
 # handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
 # handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
 # handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
+# handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+# handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+# handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
+# handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
 # handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
 # handle_iso  $DEFT_X64          $DEFT_X64_URL;
 # handle_iso  $KALI_X64          $KALI_X64_URL;
