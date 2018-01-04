@@ -25,7 +25,9 @@
 # v2018-01-02
 #
 # known issues:
-#
+#    overlayfs can not get exported via nfs
+#    overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
+#    note: this overlayfs+bindfs construction does NOT work reliably - data loss!
 
 
 ##########################################################################
@@ -1722,15 +1724,17 @@ handle_rpi_pxe() {
     fi
 
     if [ $(($KERNEL_VER < 413)) != 0 ]; then
-        # handle_rpi_pxe_classic  $1 $2 $3;
+        handle_rpi_pxe_classic  $1 $2 $3;
         # overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
-        handle_rpi_pxe_overlay  $1 $2 $3;
+        # note: this construction does NOT work reliably - data loss!
+        #handle_rpi_pxe_overlay  $1 $2 $3;
     else
         # overlayFS is still not able to export via nfs
-        #handle_rpi_pxe_classic  $1 $2 $3;
+        handle_rpi_pxe_classic  $1 $2 $3;
 
         # overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
-        handle_rpi_pxe_overlay  $1 $2 $3;
+        # note: this construction does NOT work reliably - data loss!
+        #handle_rpi_pxe_overlay  $1 $2 $3;
     fi
 }
 
