@@ -11,7 +11,9 @@
 # pentoo,       http://www.pentoo.ch/download/
 # sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
 # knoppix,      http://www.knopper.net/knoppix-mirrors/index-en.html
-# tails         https://tails.boum.org/install/download/openpgp/index.en.html
+# tails,        https://tails.boum.org/install/download/openpgp/index.en.html
+# centos,       https://www.centos.org/download/
+# fedora,       https://getfedora.org/en/workstation/download/
 # winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # tinycore,     http://tinycorelinux.net/downloads.html
@@ -1000,10 +1002,25 @@ EOF";
 ########################################
 ## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
 ##       https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-installation-server-setup
+##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
 ## NOT WORKING
 LABEL CentOS x64
     KERNEL $NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz0
-    APPEND initrd=$NFS_ETH0/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 rootfstype=auto ro rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
+    #APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 rootfstype=auto ro rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
+
+# dracut: FATAL: Don't know how to handle 'root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64';
+    #APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
+
+# dracut: FATAL: Don't know how to handle 'root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img';
+    #APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
+
+# mount.nfs: mountpoint /sysroot is not a directory
+    #APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
+
+# Warning: Could not boot.
+    # Warning: /dev/mapper/live-rw does not exist
+    # Starting Dracut Emergency Shell
+    APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
     TEXT HELP
         Boot to CentOS LiveGNOME
         User: liveuser
