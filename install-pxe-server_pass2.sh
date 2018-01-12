@@ -22,7 +22,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2018-01-02
+# v2018-01-12
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -139,7 +139,7 @@ UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-desktop-i386.iso
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/17.10/ubuntu-17.10-desktop-amd64.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.iso
 UBUNTU_X86=ubuntu-x86
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
@@ -196,10 +196,10 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-i686.iso
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-26-1.5.iso
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.3/tails-amd64-3.3.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.4/tails-amd64-3.4.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1708.iso
