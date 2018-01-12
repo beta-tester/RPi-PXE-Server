@@ -1858,27 +1858,27 @@ handle_optional;
 ##########################################################################
 handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
 handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
-handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
+#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
-handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
-handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
-handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
-handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
-handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
-handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
+#handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
+#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
+#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
+#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
 handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
 handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
-handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
-handle_iso  $DEFT_X64           $DEFT_X64_URL;
-handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
-handle_iso  $KALI_X64           $KALI_X64_URL;
-handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
-handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
+#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
+#handle_iso  $DEFT_X64           $DEFT_X64_URL;
+#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
+#handle_iso  $KALI_X64           $KALI_X64_URL;
+#handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
+#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
 handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL;
+#handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL;
 handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL;
 handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
-handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
+#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
 handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
 handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
@@ -1893,9 +1893,9 @@ handle_pxe;
 ##  you don't want to download, mount, export
 ##########################################################################
 ##########################################################################
-handle_zip_img  $PI_CORE   $PI_CORE_URL;
-handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
-handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
+#handle_zip_img  $PI_CORE   $PI_CORE_URL;
+#handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
+#handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ##########################################################################
 ##########################################################################
 ## comment out those entries,
@@ -1904,7 +1904,7 @@ handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ##########################################################################
 #handle_rpi_pxe  $PI_CORE  $RPI_SN0  bootcode,config,root;
 #handle_rpi_pxe  $RPD_LITE  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
-handle_rpi_pxe  $RPD_FULL  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
+#handle_rpi_pxe  $RPD_FULL  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
 
 
 #      #              #              #              #              #
