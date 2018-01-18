@@ -24,7 +24,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2018-01-12
+# v2018-01-18
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -1200,12 +1200,12 @@ handle_iso() {
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
             echo -e "\e[36m    add iso image to fstab\e[0m";
-        if [ "$3" == "bindfs" ]; then
+            if [ "$3" == "bindfs" ]; then
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_ORIGINAL  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
                 sudo sh -c "echo '$DST_ORIGINAL  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
-        else
+            else
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$3  0  10' >> /etc/fstab";
-        fi
+            fi
         fi
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/exports; then
@@ -1216,6 +1216,15 @@ handle_iso() {
         if [ "$3" == "bindfs" ]; then sudo mount $DST_ORIGINAL; fi
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
+
+        if [ -d "/var/www/html" ]; then
+            if ! [ -h "/var/www/html/$FILE_ISO" ]; then
+                sudo ln -s $DST_ISO/$FILE_ISO /var/www/html/$FILE_ISO
+            fi
+            if ! [ -h "/var/www/html/$NAME" ]; then
+                sudo ln -s $DST_NFS_ETH0/$NAME/ /var/www/html/$NAME
+            fi
+        fi
     else
         sudo sed /etc/fstab   -i -e "/$NAME/d"
         sudo sed /etc/exports -i -e "/$NAME/d"
