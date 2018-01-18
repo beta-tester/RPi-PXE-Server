@@ -1034,12 +1034,11 @@ EOF";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 ## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
-## NOT WORKING
+##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
+##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
 LABEL Fedora x64
-    KERNEL $NFS_ETH0/$FEDORA_X64/images/pxeboot/vmlinuz
-#    APPEND initrd=$NFS_ETH0/$FEDORA_X64/images/pxeboot/initrd.img root=$IP_ETH0:$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
-    APPEND initrd=$NFS_ETH0/$FEDORA_X64/images/pxeboot/initrd.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$FEDORA_X64,vers=3 root-path=/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
-#    APPEND initrd=$NFS_ETH0/$FEDORA_X64/images/pxeboot/initrd.img root=live:tftp://$IP_ETH0/menu-bios/nfs/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
+    KERNEL $NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
+    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
     TEXT HELP
         Boot to Fedora Workstation Live
         User: liveuser
