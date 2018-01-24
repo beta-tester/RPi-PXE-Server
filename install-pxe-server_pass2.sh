@@ -24,7 +24,7 @@
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # clonezilla    http://clonezilla.org/
 #
-# v2018-01-18
+# v2018-01-24
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -201,7 +201,7 @@ FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.4/tails-amd64-3.4.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.5/tails-amd64-3.5.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1708.iso
