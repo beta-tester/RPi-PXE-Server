@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ##########################################################################
+# winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # ubuntu,       http://releases.ubuntu.com/
-#               https://help.ubuntu.com/community/Installation/MinimalCD
 # debian,       http://cdimage.debian.org/debian-cd/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
@@ -10,21 +10,19 @@
 # deft,         http://www.deftlinux.net/
 # pentoo,       http://www.pentoo.ch/download/
 # sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
-# knoppix,      http://www.knopper.net/knoppix-mirrors/index-en.html
-# tails,        https://tails.boum.org/install/download/openpgp/index.en.html
-# centos,       https://www.centos.org/download/
-# fedora,       https://getfedora.org/en/workstation/download/
-# winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
-# nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# clonezilla    http://clonezilla.org/
 # tinycore,     http://tinycorelinux.net/downloads.html
 # rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/ (https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/)
+# fedora,       https://getfedora.org/en/workstation/download/
+# nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# tails,        https://tails.boum.org/install/download/openpgp/index.en.html
+# centos,       https://www.centos.org/download/
 #
 # rpi-raspbian  http://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
-# clonezilla    http://clonezilla.org/
 #
-# v2018-02-05
+# v2018-02-10
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -173,7 +171,7 @@ DEFTZ_X64=deftz-x64
 DEFTZ_X64_URL=http://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=http://cdimage.kali.org/kali-2017.3/kali-linux-2017.3-amd64.iso
+KALI_X64_URL=http://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
@@ -1879,7 +1877,7 @@ handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
 #handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
 #handle_iso  $DEFT_X64           $DEFT_X64_URL;
 #handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
-#handle_iso  $KALI_X64           $KALI_X64_URL;
+handle_iso  $KALI_X64           $KALI_X64_URL;
 #handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
 #handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
 handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
