@@ -1,8 +1,8 @@
 #!/bin/bash
 
-######################################################################
+##########################################################################
+# winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # ubuntu,       http://releases.ubuntu.com/
-#               https://help.ubuntu.com/community/Installation/MinimalCD
 # debian,       http://cdimage.debian.org/debian-cd/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
@@ -10,20 +10,20 @@
 # deft,         http://www.deftlinux.net/
 # pentoo,       http://www.pentoo.ch/download/
 # sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
-# knoppix,      http://www.knopper.net/knoppix-mirrors/index-en.html
-# tails         https://tails.boum.org/install/download/openpgp/index.en.html
-# winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
-# nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# clonezilla    http://clonezilla.org/
 # tinycore,     http://tinycorelinux.net/downloads.html
-# rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/ (https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/)
+# rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/
+# fedora,       https://getfedora.org/en/workstation/download/
+# nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
+# tails,        https://tails.boum.org/install/download/openpgp/index.en.html
+# centos,       https://www.centos.org/download/
 #
 # rpi-raspbian  http://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
-# clonezilla    http://clonezilla.org/
 #
-# v2018-02-05
-#
+# v2018-02-10
+
 # known issues:
 #
 
@@ -140,14 +140,14 @@ PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-secur
 PARROT_FULL_X86=parrot-full-x86
 PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-security-3.10.1_i386.iso
 
+KALI_X64=kali-x64
+KALI_X64_URL=http://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
+
 GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 DEFT_X64=deft-x64
 DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
-
-KALI_X64=kali-x64
-KALI_X64_URL=http://cdimage.kali.org/kali-2017.3/kali-linux-2017.3-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
@@ -166,13 +166,13 @@ TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.2.1.iso
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
 
+FEDORA_X64=fedora-x64
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
+
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-i686.iso
-
-FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.5/tails-amd64-3.5.iso
