@@ -150,7 +150,7 @@ DEFT_X64=deft-x64
 DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
+PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC5.7.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.0/systemrescuecd-x86-5.2.0.iso
