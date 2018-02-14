@@ -174,7 +174,7 @@ KALI_X64=kali-x64
 KALI_X64_URL=http://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2015.0_RC5.iso
+PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_default/pentoo-amd64-default-2018.0_RC5.7.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.0/systemrescuecd-x86-5.2.0.iso
