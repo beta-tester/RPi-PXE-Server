@@ -22,7 +22,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-02-10
+# v2018-02-14
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -153,13 +153,13 @@ DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.3.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-home-3.10.1_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_amd64.iso
 PARROT_LITE_X86=parrot-lite-x86
-PARROT_LITE_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-home-3.10.1_i386.iso
+PARROT_LITE_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_i386.iso
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-security-3.10.1_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-security-3.11_amd64.iso
 PARROT_FULL_X86=parrot-full-x86
-PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.10.1/Parrot-security-3.10.1_i386.iso
+PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-security-3.11_i386.iso
 
 GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
