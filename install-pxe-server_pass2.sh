@@ -758,7 +758,7 @@ EOF";
 ########################################
 LABEL Parrot Lite x64
     KERNEL /nfs/$PARROT_LITE_X64/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_LITE_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    APPEND initrd=/nfs/$PARROT_LITE_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de pkeys=de setxkbmap=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Parrot Lite x64 Live (Home/Workstation)
         User: user, Password: live
@@ -773,7 +773,7 @@ EOF";
 ########################################
 LABEL Parrot Lite x86
     KERNEL /nfs/$PARROT_LITE_X86/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X86 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    APPEND initrd=/nfs/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X86 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de pkeys=de setxkbmap=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Parrot Lite x86 Live (Home/Workstation)
         User: user, Password: live
@@ -788,7 +788,7 @@ EOF";
 ########################################
 LABEL Parrot Full x64
     KERNEL /nfs/$PARROT_FULL_X64/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_FULL_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    APPEND initrd=/nfs/$PARROT_FULL_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de pkeys=de setxkbmap=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Parrot Full x64 Live (Security)
         User: user, Password: live
@@ -803,7 +803,7 @@ EOF";
 ########################################
 LABEL Parrot Full x86
     KERNEL /nfs/$PARROT_FULL_X86/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_FULL_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X86 ro boot=live config -- locales=de_DE.UTF-8 utc=no timezone=Europe/Berlin
+    APPEND initrd=/nfs/$PARROT_FULL_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X86 ro boot=live config -- locales=de_DE.UTF-8 keyboard-layouts=de pkeys=de setxkbmap=de utc=no timezone=Europe/Berlin
     TEXT HELP
         Boot to Parrot Full x86 Live (Security)
         User: user, Password: live
