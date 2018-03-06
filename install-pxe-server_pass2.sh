@@ -12,7 +12,7 @@
 # sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
 # clonezilla    http://clonezilla.org/
 # tinycore,     http://tinycorelinux.net/downloads.html
-# rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/ (https://www.raspberrypi.org/blog/a-raspbian-desktop-update-with-some-new-programming-tools/)
+# rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/
 # fedora,       https://getfedora.org/en/workstation/download/
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # tails,        https://tails.boum.org/install/download/openpgp/index.en.html
@@ -22,12 +22,13 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-02-14
+# v2018-03-06
 #
 # known issues:
 #    overlayfs can not get exported via nfs
 #    overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
 #    note: this overlayfs+bindfs construction does NOT work reliably - data loss!
+#    solution: maybe linux kernel 4.16
 
 
 ##########################################################################
@@ -134,9 +135,9 @@ WIN_PE_X86=win-pe-x86
 WIN_PE_X86_URL=
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-amd64.iso
 UBUNTU_LTS_X86=ubuntu-lts-x86
-UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-desktop-i386.iso
+UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-i386.iso
 
 UBUNTU_X64=ubuntu-x64
 UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.iso
@@ -183,9 +184,9 @@ DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
 TINYCORE_x64=tinycore-x64
-TINYCORE_x64_URL=http://tinycorelinux.net/8.x/x86_64/release/TinyCorePure64-8.2.1.iso
+TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-9.0.iso
 TINYCORE_x86=tinycore-x86
-TINYCORE_x86_URL=http://tinycorelinux.net/8.x/x86/release/TinyCore-8.2.1.iso
+TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-9.0.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
