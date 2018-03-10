@@ -144,6 +144,9 @@ UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.i
 UBUNTU_X86=ubuntu-x86
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
+UBUNTU_DAILY_X64=ubuntu-daily-x64
+UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/current/bionic-desktop-amd64.iso
+
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
@@ -708,6 +711,21 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+        echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Ubuntu x64 Daily-Live
+    KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi
+    APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper --
+    TEXT HELP
+        Boot to Ubuntu x64 Daily-Live
+        User: ubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_NONPAE\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -1172,6 +1190,7 @@ handle_iso() {
 
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
+        || [ "$3" == "daily-live" ]
         then
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f $DST_ISO/$FILE_URL;
@@ -1201,6 +1220,8 @@ handle_iso() {
             if [ "$3" == "bindfs" ]; then
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_ORIGINAL  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
                 sudo sh -c "echo '$DST_ORIGINAL  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
+            else if [ "$3" == "daily-live" ]; then
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$4  0  10' >> /etc/fstab";
             else
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$3  0  10' >> /etc/fstab";
             fi
@@ -1868,6 +1889,7 @@ handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
 #handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
 #handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
+handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   daily-live;
 #handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
 #handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
 #handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
