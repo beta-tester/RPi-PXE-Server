@@ -3,6 +3,7 @@
 ##########################################################################
 # winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # ubuntu,       http://releases.ubuntu.com/
+#               http://cdimage.ubuntu.com/daily-live/current/
 # debian,       http://cdimage.debian.org/debian-cd/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
