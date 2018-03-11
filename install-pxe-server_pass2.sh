@@ -1146,6 +1146,42 @@ handle_pxe() {
 
 
 ##########################################################################
+compare_last_modification_time() {
+    python3 - << EOF "$1" "$2"
+import sys
+import os
+import urllib.request
+import time
+
+try:
+    str_time = '%Y-%m-%d %H:%M:%S'
+    str_stdout = '{} := ''{}'''
+
+    arg_file = sys.argv[1]
+    stat_file = os.stat(arg_file)
+    time_file = time.gmtime(stat_file.st_mtime)
+
+    arg_url = sys.argv[2]
+    conn_url = urllib.request.urlopen(arg_url)
+    time_url = time.strptime(conn_url.headers['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
+
+    print(str_stdout.format(time.strftime(str_time, time_file), arg_file))
+    print(str_stdout.format(time.strftime(str_time, time_url), arg_url))
+    if time_url <= time_file:
+        print('file is up to date')
+        exit_code = 0
+    else:
+        print('url is newer')
+        exit_code = 1
+except:
+    exit_code = 1
+
+sys.exit(exit_code)
+EOF
+}
+
+
+##########################################################################
 handle_iso() {
     echo -e "\e[32mhandle_iso(\e[0m$1\e[32m)\e[0m";
     ######################################################################
@@ -1191,7 +1227,7 @@ handle_iso() {
 
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
-        || [ "$3" == "daily-live" ]; \
+        || [ "$3" == "daily-live" && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL ]; \
         then
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f $DST_ISO/$FILE_URL;
