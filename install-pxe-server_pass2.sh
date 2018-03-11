@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-06
+# v2018-03-11
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -146,16 +146,16 @@ UBUNTU_X86=ubuntu-x86
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/current/bionic-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
 
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
-DEBIAN_KVER=4.9.0-4
+DEBIAN_KVER=4.9.0-6
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.3.0-amd64-lxde.iso
+DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.3.0-i386-lxde.iso
+DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_amd64.iso
@@ -1014,6 +1014,24 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
+        echo  -e "\e[36m    add $FEDORA_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
+##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
+##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
+LABEL Fedora x64
+    KERNEL $NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
+    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
+    TEXT HELP
+        Boot to Fedora Workstation Live
+        User: liveuser
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz0" ]; then
         echo  -e "\e[36m    add $CENTOS_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -1041,24 +1059,6 @@ LABEL CentOS x64
     APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
     TEXT HELP
         Boot to CentOS LiveGNOME
-        User: liveuser
-    ENDTEXT
-EOF";
-    fi
-
-    if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
-        echo  -e "\e[36m    add $FEDORA_X64\e[0m";
-        sudo sh -c "cat << EOF  >> $FILE_MENU
-########################################
-## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
-##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
-##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
-LABEL Fedora x64
-    KERNEL $NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
-    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
-    TEXT HELP
-        Boot to Fedora Workstation Live
         User: liveuser
     ENDTEXT
 EOF";
