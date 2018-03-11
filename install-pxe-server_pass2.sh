@@ -1227,7 +1227,7 @@ handle_iso() {
 
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
-        || [ "$3" == "daily-live" && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL ]; \
+        || ([ "$3" == "daily-live" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
         then
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f $DST_ISO/$FILE_URL;
