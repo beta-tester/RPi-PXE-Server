@@ -22,7 +22,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-06
+# v2018-03-11
 #
 # known issues:
 #
@@ -125,11 +125,11 @@ UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
-DEBIAN_KVER=4.9.0-4
+DEBIAN_KVER=4.9.0-6
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.3.0-amd64-lxde.iso
+DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.3.0-i386-lxde.iso
+DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_amd64.iso
