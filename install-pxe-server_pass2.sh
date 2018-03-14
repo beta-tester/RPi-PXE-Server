@@ -4,26 +4,26 @@
 # winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # ubuntu,       http://releases.ubuntu.com/
 #               http://cdimage.ubuntu.com/daily-live/current/
-# debian,       http://cdimage.debian.org/debian-cd/
+# debian,       https://cdimage.debian.org/debian-cd/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
-# kali,         http://www.kali.org/kali-linux-releases/
+# kali,         https://www.kali.org/kali-linux-releases/
 # deft,         http://www.deftlinux.net/
 # pentoo,       http://www.pentoo.ch/download/
-# sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
+# sysrescue,    https://sourceforge.net/projects/systemrescuecd/ (https://www.sysresccd.org/Download/)
 # clonezilla    http://clonezilla.org/
 # tinycore,     http://tinycorelinux.net/downloads.html
-# rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/
+# rpdesktop,    https://downloads.raspberrypi.org/rpd_x86/images/
 # fedora,       https://getfedora.org/en/workstation/download/
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # tails,        https://tails.boum.org/install/download/openpgp/index.en.html
 # centos,       https://www.centos.org/download/
 #
-# rpi-raspbian  http://downloads.raspberrypi.org/raspbian/images/
+# rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-11
+# v2018-03-14
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -153,9 +153,9 @@ UBUNTU_NONPAE_URL=
 
 DEBIAN_KVER=4.9.0-6
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_amd64.iso
@@ -167,16 +167,16 @@ PARROT_FULL_X86=parrot-full-x86
 PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-security-3.11_i386.iso
 
 GNURADIO_X64=gnuradio-x64
-GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
+GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 DEFT_X64=deft-x64
-DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
+DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 
 DEFTZ_X64=deftz-x64
-DEFTZ_X64_URL=http://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
+DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=http://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC5.7.iso
@@ -193,7 +193,7 @@ TINYCORE_x86=tinycore-x86
 TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-9.0.iso
 
 RPDESKTOP_X86=rpdesktop-x86
-RPDESKTOP_X86_URL=http://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
+RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
 
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
@@ -223,10 +223,10 @@ PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/2017-11-29-raspbian-stretch-lite.zip
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-03-14/2018-03-13-raspbian-stretch-lite.zip
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-12-01/2017-11-29-raspbian-stretch.zip
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-03-14/2018-03-13-raspbian-stretch.zip
 
 
 
