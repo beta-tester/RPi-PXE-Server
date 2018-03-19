@@ -179,7 +179,7 @@ KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC5.7.iso
+PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/latest-iso-symlinks/pentoo-amd64-hardened.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.1/systemrescuecd-x86-5.2.1.iso
@@ -188,9 +188,9 @@ DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
 TINYCORE_x64=tinycore-x64
-TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-9.0.iso
+TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-current.iso
 TINYCORE_x86=tinycore-x86
-TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-9.0.iso
+TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-current.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
@@ -204,7 +204,7 @@ FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.5/tails-amd64-3.5.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.1/tails-amd64-3.6.1.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1708.iso
@@ -1227,7 +1227,7 @@ handle_iso() {
 
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
-        || ([ "$3" == "daily-live" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
+        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
         then
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f $DST_ISO/$FILE_URL;
@@ -1258,7 +1258,7 @@ handle_iso() {
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_ORIGINAL  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
                 sudo sh -c "echo '$DST_ORIGINAL  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
             else
-                if [ "$3" == "daily-live" ]; then
+                if [ "$3" == "timestamping" ]; then
                     sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$4  0  10' >> /etc/fstab";
                 else
                     sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$3  0  10' >> /etc/fstab";
@@ -1928,7 +1928,7 @@ handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
 #handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
 #handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
-handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   daily-live;
+handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
 #handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
 #handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
 #handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
@@ -1940,11 +1940,11 @@ handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
 #handle_iso  $DEFT_X64           $DEFT_X64_URL;
 #handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
 handle_iso  $KALI_X64           $KALI_X64_URL;
-handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
+handle_iso  $PENTOO_X64         $PENTOO_X64_URL    timestamping;
 #handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
 handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
-#handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL;
-handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL;
+handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
+handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
 handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
 #handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
