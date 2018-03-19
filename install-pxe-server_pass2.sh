@@ -1155,7 +1155,7 @@ import time
 
 try:
     str_time = '%Y-%m-%d %H:%M:%S'
-    str_stdout = '{} := ''{}'''
+    str_stdout = '--{}--  ''{}'''
 
     arg_file = sys.argv[1]
     stat_file = os.stat(arg_file)
