@@ -40,7 +40,7 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
 
 ### software:
-- **Raspbian Stretch** or **Raspbina Stretch Lite** (2017-08-16), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspbian Stretch** or **Raspbina Stretch Lite** (2018-03-13), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
