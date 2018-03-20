@@ -44,7 +44,7 @@ optional, if your SD card is too small or you dont want to have all the server c
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2017-08-16,
+- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2018-03-13,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (41GB when you use unmodified script),
 - and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
@@ -141,6 +141,7 @@ tinycore-x64.iso      # tiny core ~16MB minimal linux.
 rpdesktop-x86.iso     # Raspberry Pi Desktop for x86 PC
 clonezilla-x64.iso    # clonezilla
 clonezilla-x86.iso
+...
 ```
 
 the following url files will contain the url of the iso image, where to download, to compare if you have the requested iso already downloaded, to prevent downloading an iso newly, when it is done already.
@@ -168,6 +169,7 @@ tinycore-x64.url
 rpdesktop-x86.url
 clonezilla-x64.url
 clonezilla-x86.url
+...
 ```
 
 there is a complete new section, that contains download url for disk images, that contains partitions.
