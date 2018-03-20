@@ -541,6 +541,21 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+        echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL Ubuntu x64 Daily-Live
+    KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi
+    APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper --
+    TEXT HELP
+        Boot to Ubuntu x64 Daily-Live
+        User: ubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_NONPAE\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -685,6 +700,21 @@ LABEL DEFT x64
     APPEND initrd=$NFS_ETH0/$DEFT_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to DEFT x64 Live
+        User: root, Password: toor
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $DEFTZ_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL DEFT Zero x64
+    KERNEL $NFS_ETH0/$DEFTZ_X64/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$DEFTZ_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to DEFT Zero x64 Live
         User: root, Password: toor
     ENDTEXT
 EOF";
