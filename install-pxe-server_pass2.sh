@@ -3,26 +3,27 @@
 ##########################################################################
 # winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
 # ubuntu,       http://releases.ubuntu.com/
-# debian,       http://cdimage.debian.org/debian-cd/
+#               http://cdimage.ubuntu.com/daily-live/current/
+# debian,       https://cdimage.debian.org/debian-cd/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
-# kali,         http://www.kali.org/kali-linux-releases/
+# kali,         https://www.kali.org/kali-linux-releases/
 # deft,         http://www.deftlinux.net/
 # pentoo,       http://www.pentoo.ch/download/
-# sysrescue,    http://sourceforge.net/projects/systemrescuecd/ (http://www.sysresccd.org/Download/)
+# sysrescue,    https://sourceforge.net/projects/systemrescuecd/ (https://www.sysresccd.org/Download/)
 # clonezilla    http://clonezilla.org/
 # tinycore,     http://tinycorelinux.net/downloads.html
-# rpdesktop,    http://downloads.raspberrypi.org/rpd_x86/images/
+# rpdesktop,    https://downloads.raspberrypi.org/rpd_x86/images/
 # fedora,       https://getfedora.org/en/workstation/download/
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # tails,        https://tails.boum.org/install/download/openpgp/index.en.html
 # centos,       https://www.centos.org/download/
 #
-# rpi-raspbian  http://downloads.raspberrypi.org/raspbian/images/
+# rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-11
+# v2018-03-20
 #
 # known issues:
 #
@@ -122,14 +123,17 @@ UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.i
 UBUNTU_X86=ubuntu-x86
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
+UBUNTU_DAILY_X64=ubuntu-daily-x64
+UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
+
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
 DEBIAN_KVER=4.9.0-6
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_amd64.iso
@@ -140,17 +144,20 @@ PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-securit
 PARROT_FULL_X86=parrot-full-x86
 PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-security-3.11_i386.iso
 
-KALI_X64=kali-x64
-KALI_X64_URL=http://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
-
 GNURADIO_X64=gnuradio-x64
-GNURADIO_X64_URL=http://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
+GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 DEFT_X64=deft-x64
-DEFT_X64_URL=http://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
+DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
+
+DEFTZ_X64=deftz-x64
+DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
+
+KALI_X64=kali-x64
+KALI_X64_URL=https://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC5.7.iso
+PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/latest-iso-symlinks/pentoo-amd64-hardened.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.1/systemrescuecd-x86-5.2.1.iso
@@ -159,23 +166,26 @@ DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
 TINYCORE_x64=tinycore-x64
-TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-9.0.iso
+TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-current.iso
 TINYCORE_x86=tinycore-x86
-TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-9.0.iso
+TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-current.iso
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
-
-FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
 
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-i686.iso
 
+FEDORA_X64=fedora-x64
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
+
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.5/tails-amd64-3.5.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.1/tails-amd64-3.6.1.iso
+
+CENTOS_X64=centos-x64
+CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1708.iso
 
 
 ######################################################################
@@ -191,10 +201,10 @@ PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/2017-11-29-raspbian-stretch-lite.zip
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-03-14/2018-03-13-raspbian-stretch-lite.zip
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-12-01/2017-11-29-raspbian-stretch.zip
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-03-14/2018-03-13-raspbian-stretch.zip
 
 
 ######################################################################
@@ -404,7 +414,7 @@ handle_pxe_menu() {
     ######################################################################
     ## INFO:
     ## The entry before -- means that it will be used by the live system / the installer
-    ## The entry after -- means that it will be carried to and used by the installed system 
+    ## The entry after -- means that it will be carried to and used by the installed system
     ## https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/admin-guide/kernel-parameters.txt
     ######################################################################
     echo -e "\e[32mhandle_pxe_menu(\e[0m$1\e[32m)\e[0m";
@@ -837,17 +847,57 @@ EOF";
 }
 
 
-######################################################################
+##########################################################################
+compare_last_modification_time() {
+    python3 - << EOF "$1" "$2"
+import sys
+import os
+import urllib.request
+import time
+
+try:
+    str_time = '%Y-%m-%d %H:%M:%S'
+    str_stdout = '--{}--  ''{}'''
+
+    arg_file = sys.argv[1]
+    stat_file = os.stat(arg_file)
+    time_file = time.gmtime(stat_file.st_mtime)
+
+    arg_url = sys.argv[2]
+    conn_url = urllib.request.urlopen(arg_url)
+    time_url = time.strptime(conn_url.headers['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
+
+    print(str_stdout.format(time.strftime(str_time, time_file), arg_file))
+    print(str_stdout.format(time.strftime(str_time, time_url), arg_url))
+    if time_url <= time_file:
+        print('file is up to date')
+        exit_code = 0
+    else:
+        print('url is newer')
+        exit_code = 1
+except:
+    exit_code = 1
+
+sys.exit(exit_code)
+EOF
+}
+
+
+##########################################################################
 handle_iso() {
+    echo -e "\e[32mhandle_iso(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
     # $1 : short name
     # $2 : download url
-    ##############################################################
+    # $3 : optional/additional mount flags
+    ######################################################################
     local NAME=$1
     local URL=$2
     local FILE_URL=$NAME.url
     local FILE_ISO=$NAME.iso
-    ##############################################################
-    echo -e "\e[32mhandle_iso(\e[0m$NAME\e[32m)\e[0m";
+    local DST_ORIGINAL=/srv/tmp/original/$NAME
+    ######################################################################
+
     if ! [ -d "$DST_ISO/" ]; then sudo mkdir -p $DST_ISO/; fi
     if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
 
@@ -870,19 +920,20 @@ handle_iso() {
         && grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
         && ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
         then
-	        echo -e "\e[36m    copy iso from usb-stick\e[0m";
-	        sudo rm -f $DST_ISO/$FILE_URL;
-	        sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_ISO  $DST_ISO;
-	        sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL  $DST_ISO;
+            echo -e "\e[36m    copy iso from usb-stick\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_ISO  $DST_ISO;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL  $DST_ISO;
         fi
 
         if ! [ -f "$DST_ISO/$FILE_ISO" ] \
-        || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
+        || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
+        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
         then
-	        echo -e "\e[36m    download iso image\e[0m";
-	        sudo rm -f $DST_ISO/$FILE_URL;
-	        sudo rm -f $DST_ISO/$FILE_ISO;
-	        sudo wget -O $DST_ISO/$FILE_ISO  $URL;
+            echo -e "\e[36m    download iso image\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rm -f $DST_ISO/$FILE_ISO;
+            sudo wget -O $DST_ISO/$FILE_ISO  $URL;
 
             sudo sh -c "echo '$URL' > $DST_ISO/$FILE_URL";
             sudo touch -r $DST_ISO/$FILE_ISO  $DST_ISO/$FILE_URL;
@@ -897,16 +948,29 @@ handle_iso() {
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
             echo -e "\e[36m    add iso image to fstab\e[0m";
-            sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop  0  0' >> /etc/fstab";
+            if [ "$3" == "timestamping" ]; then
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$4  0  10' >> /etc/fstab";
+            else
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$3  0  10' >> /etc/fstab";
+            fi
         fi
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/exports; then
             echo -e "\e[36m    add nfs folder to exports\e[0m";
-            sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
         fi
 
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
+
+        if [ -d "/var/www/html" ]; then
+            if ! [ -h "/var/www/html/$FILE_ISO" ]; then
+                sudo ln -s $DST_ISO/$FILE_ISO /var/www/html/$FILE_ISO
+            fi
+            if ! [ -h "/var/www/html/$NAME" ]; then
+                sudo ln -s $DST_NFS_ETH0/$NAME/ /var/www/html/$NAME
+            fi
+        fi
     else
         sudo sed /etc/fstab   -i -e "/$NAME/d"
         sudo sed /etc/exports -i -e "/$NAME/d"
@@ -942,42 +1006,42 @@ handle_zip_img() {
     sudo umount -f $DST_ROOT 2> /dev/null;
 
     if [ "$URL" == "" ]; then
-	    if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-	    && [ -f "$SRC_IMG/$FILE_IMG" ] \
-	    && [ -f "$SRC_IMG/$FILE_URL" ]; \
-	    then
-		    echo -e "\e[36m    copy img from usb-stick\e[0m";
-		    sudo rm -f $FILE_IMG/$FILE_URL;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
-	    fi
+        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_URL" ]; \
+        then
+            echo -e "\e[36m    copy img from usb-stick\e[0m";
+            sudo rm -f $FILE_IMG/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
+        fi
     else
-	    if [ -f "$SRC_IMG/$FILE_IMG" ] \
-	    && [ -f "$SRC_IMG/$FILE_URL" ] \
-	    && grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
-	    && ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
-	    then
-		    echo -e "\e[36m    copy img from usb-stick\e[0m";
-		    sudo rm -f $FILE_IMG/$FILE_URL;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
-		    sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
-	    fi
+        if [ -f "$SRC_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_URL" ] \
+        && grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
+        && ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        then
+            echo -e "\e[36m    copy img from usb-stick\e[0m";
+            sudo rm -f $FILE_IMG/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
+        fi
 
-	    if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-	    || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
-	    then
-		    echo -e "\e[36m    download image\e[0m";
-		    sudo rm -f $DST_IMG/$FILE_IMG;
-		    sudo rm -f $DST_IMG/$FILE_URL;
-		    sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
-		    echo -e "\e[36m    extract image\e[0m";
-		    sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
-		    sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
-		    sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
+        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        then
+            echo -e "\e[36m    download image\e[0m";
+            sudo rm -f $DST_IMG/$FILE_IMG;
+            sudo rm -f $DST_IMG/$FILE_URL;
+            sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
+            echo -e "\e[36m    extract image\e[0m";
+            sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
+            sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
+            sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
 
             sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
             sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
-	    fi
+        fi
     fi
 
     if [ -f "$DST_IMG/$FILE_IMG" ]; then
@@ -992,34 +1056,34 @@ handle_zip_img() {
 
         ## boot
         if ! [ -d "$DST_BOOT" ]; then
-	        echo -e "\e[36m    create image-boot folder\e[0m";
-	        sudo mkdir -p $DST_BOOT;
+            echo -e "\e[36m    create image-boot folder\e[0m";
+            sudo mkdir -p $DST_BOOT;
         fi
 
         if ! grep -q "$DST_BOOT" /etc/fstab; then
-	        echo -e "\e[36m    add image-boot to fstab\e[0m";
-	        sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_BOOT  auto  ro,nofail,auto,loop,offset=$OFFSET_BOOT,sizelimit=$SIZE_BOOT  0  0' >> /etc/fstab";
+            echo -e "\e[36m    add image-boot to fstab\e[0m";
+            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_BOOT  auto  ro,nofail,auto,loop,offset=$OFFSET_BOOT,sizelimit=$SIZE_BOOT  0  0' >> /etc/fstab";
         fi
 
         if ! grep -q "$DST_BOOT" /etc/exports; then
-	        echo -e "\e[36m    add image-boot folder to exports\e[0m";
-	        sudo sh -c "echo '$DST_BOOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            echo -e "\e[36m    add image-boot folder to exports\e[0m";
+            sudo sh -c "echo '$DST_BOOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
         fi
 
         ## root
         if ! [ -d "$DST_ROOT" ]; then
-	        echo -e "\e[36m    create image-root folder\e[0m";
-	        sudo mkdir -p $DST_ROOT;
+            echo -e "\e[36m    create image-root folder\e[0m";
+            sudo mkdir -p $DST_ROOT;
         fi
 
         if ! grep -q "$DST_ROOT" /etc/fstab; then
-	        echo -e "\e[36m    add image-root to fstab\e[0m";
+            echo -e "\e[36m    add image-root to fstab\e[0m";
             sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_ROOT  auto  ro,nofail,auto,loop,offset=$OFFSET_ROOT,sizelimit=$SIZE_ROOT  0  0' >> /etc/fstab";
         fi
 
         if ! grep -q "$DST_ROOT" /etc/exports; then
-	        echo -e "\e[36m    add image-root folder to exports\e[0m";
-	        sudo sh -c "echo '$DST_ROOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            echo -e "\e[36m    add image-root folder to exports\e[0m";
+            sudo sh -c "echo '$DST_ROOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
         fi
 
         sudo mount $DST_BOOT;
@@ -1170,7 +1234,7 @@ network={
     #ssid=<ssid>
     #psk=<pks>
 
-    # sudo iwlist wlan0 scan  [essid <SSID>] 
+    # sudo iwlist wlan0 scan  [essid <SSID>]
     #bssid=<mac>
 
     scan_ssid=1
@@ -1372,31 +1436,34 @@ handle_dhcpcd
 ##  you don't want to download/mount/export/install for PXE boot
 ######################################################################
 ######################################################################
-## handle_iso  $WIN_PE_X86        $WIN_PE_X86_URL;
-# handle_iso  $UBUNTU_LTS_X64    $UBUNTU_LTS_X64_URL;
-# handle_iso  $UBUNTU_LTS_X86    $UBUNTU_LTS_X86_URL;
-handle_iso  $UBUNTU_X64        $UBUNTU_X64_URL;
-# handle_iso  $UBUNTU_X86        $UBUNTU_X86_URL;
-## handle_iso  $UBUNTU_NONPAE     $UBUNTU_NONPAE_URL;
-handle_iso  $DEBIAN_X64        $DEBIAN_X64_URL;
-# handle_iso  $DEBIAN_X86        $DEBIAN_X86_URL;
-handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
-# handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
-# handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
-# handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
-# handle_iso  $GNURADIO_X64      $GNURADIO_X64_URL;
-# handle_iso  $DEFT_X64          $DEFT_X64_URL;
-# handle_iso  $KALI_X64          $KALI_X64_URL;
-# handle_iso  $PENTOO_X64        $PENTOO_X64_URL;
-# handle_iso  $SYSTEMRESCTUE_X86 $SYSTEMRESCTUE_X86_URL;
-## handle_iso  $DESINFECT_X86     $DESINFECT_X86_URL;
-# handle_iso  $TINYCORE_x64      $TINYCORE_x64_URL;
-handle_iso  $TINYCORE_x86      $TINYCORE_x86_URL;
-handle_iso  $RPDESKTOP_X86     $RPDESKTOP_X86_URL;
+##handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
+handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
+#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
+handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
+#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
+#handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
+#handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
+#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
+#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
+#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+#handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
+#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
+#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
+#handle_iso  $DEFT_X64           $DEFT_X64_URL;
+#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
+#handle_iso  $KALI_X64           $KALI_X64_URL;
+#handle_iso  $PENTOO_X64         $PENTOO_X64_URL         timestamping;
+#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
+##handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
+handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
+handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
+handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
 #handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
-handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
-## handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
-## handle_iso  $TAILS_X64          $TAILS_X64_URL;
+#handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
+#handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
+##handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
+##handle_iso  $TAILS_X64          $TAILS_X64_URL;
 ######################################################################
 handle_pxe
 
