@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2017-11-28
+# v2018-03-20
 #
 # known issues:
 #
@@ -44,17 +44,18 @@ grep -q net.ifnames /boot/cmdline.txt 2> /dev/null || {
 
 ######################################################################
 sudo sync \
-&& echo -e "\e[32mupdate...\e[0m" && sudo apt-get -y update \
-&& echo -e "\e[32mupgrade...\e[0m" && sudo apt-get -y upgrade \
-&& echo -e "\e[32mautoremove...\e[0m" && sudo apt-get -y --purge autoremove \
-&& echo -e "\e[32mautoclean...\e[0m" && sudo apt-get autoclean \
+&& echo -e "\e[32mupdate...\e[0m" && sudo apt update -y \
+&& echo -e "\e[32mupgrade...\e[0m" && sudo apt upgrade -y \
+&& echo -e "\e[32mautoremove...\e[0m" && sudo apt autoremove -y --purge \
+&& echo -e "\e[32mautoclean...\e[0m" && sudo apt autoclean \
+&& sudo sync \
 && echo -e "\e[32mDone.\e[0m" \
-&& sudo sync
+;
 
 
 ######################################################################
 echo -e "\e[32minstall nfs-kernel-server for pxe\e[0m";
-sudo apt-get -y install nfs-kernel-server;
+sudo apt install -y nfs-kernel-server;
 sudo systemctl enable nfs-kernel-server.service;
 sudo systemctl restart nfs-kernel-server.service;
 
@@ -66,35 +67,40 @@ sudo systemctl restart rpcbind.service;
 
 ######################################################################
 echo -e "\e[32minstall dnsmasq for pxe\e[0m";
-sudo apt-get -y install dnsmasq
+sudo apt install -y dnsmasq
 sudo systemctl enable dnsmasq.service;
 sudo systemctl restart dnsmasq.service;
 
 
 ######################################################################
 echo -e "\e[32minstall samba\e[0m";
-sudo apt-get -y install samba;
+sudo apt install -y samba;
 
 
 ######################################################################
 echo -e "\e[32minstall rsync\e[0m";
-sudo apt-get -y install rsync;
+sudo apt install -y rsync;
+
+
+######################################################################
+echo -e "\e[32minstall uuid\e[0m";
+sudo apt install -y uuid;
 
 
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
-sudo apt-get -y install pxelinux syslinux-common;
+sudo apt install -y pxelinux syslinux-common;
 
 
 ######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
-#bridge#sudo apt-get -y install bridge-utils hostapd dnsmasq iptables iptables-persistent
+#bridge#sudo apt install -y bridge-utils hostapd dnsmasq iptables iptables-persistent
 
 
 ######################################################################
 ## optional
 #bridge#echo -e "\e[32minstall wireshark\e[0m";
-#bridge#sudo apt-get -y install wireshark
+#bridge#sudo apt install -y wireshark
 #bridge#sudo usermod -a -G wireshark $USER
 
 
