@@ -88,6 +88,20 @@ sudo apt install -y uuid;
 
 
 ######################################################################
+echo -e "\e[32minstall lighttpd\e[0m";
+sudo apt install -y lighttpd;
+sudo sh -c "cat << EOF  >> /etc/lighttpd/lighttpd.conf
+########################################
+## mod_install_server
+dir-listing.activate = \"enable\" 
+dir-listing.external-css = \"\"
+dir-listing.external-js = \"\"
+dir-listing.set-footer = \"&nbsp;<br />\"
+EOF";
+sudo rm /var/www/html/index.lighttpd.html
+
+
+######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
 sudo apt install -y pxelinux syslinux-common;
 
