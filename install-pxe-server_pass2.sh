@@ -1023,7 +1023,7 @@ EOF";
 ##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
 LABEL Fedora x64
     KERNEL $NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
-    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
+    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0$NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
     TEXT HELP
         Boot to Fedora Workstation Live
         User: liveuser
@@ -1056,7 +1056,9 @@ LABEL CentOS x64
 # Warning: Could not boot.
     # Warning: /dev/mapper/live-rw does not exist
     # Starting Dracut Emergency Shell
-    APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
+    #APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
+
+    APPEND initrd=$NFS_ETH0/$CENTOS_X64/isolinux/initrd.img root=live:http://$IP_ETH0$NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
     TEXT HELP
         Boot to CentOS LiveGNOME
         User: liveuser
@@ -1275,14 +1277,14 @@ handle_iso() {
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
 
-        if [ -d "/var/www/html" ]; then
-            if ! [ -h "/var/www/html/$FILE_ISO" ]; then
-                sudo ln -s $DST_ISO/$FILE_ISO /var/www/html/$FILE_ISO
-            fi
-            if ! [ -h "/var/www/html/$NAME" ]; then
-                sudo ln -s $DST_NFS_ETH0/$NAME/ /var/www/html/$NAME
-            fi
-        fi
+        #if [ -d "/var/www/html" ]; then
+        #    if ! [ -h "/var/www/html/$FILE_ISO" ]; then
+        #        sudo ln -s $DST_ISO/$FILE_ISO /var/www/html/$FILE_ISO
+        #    fi
+        #    if ! [ -h "/var/www/html/$NAME" ]; then
+        #        sudo ln -s $DST_NFS_ETH0/$NAME/ /var/www/html/$NAME
+        #    fi
+        #fi
     else
         sudo sed /etc/fstab   -i -e "/$NAME/d"
         sudo sed /etc/exports -i -e "/$NAME/d"
@@ -1899,6 +1901,14 @@ sudo mkdir -p $DST_ISO;
 sudo mkdir -p $DST_IMG;
 sudo mkdir -p $DST_TFTP_ETH0;
 sudo mkdir -p $DST_NFS_ETH0;
+
+##########################################################################
+if [ -d "/var/www/html" ]; then
+    sudo ln -s $DST_ISO      /var/www/html$ISO;
+    sudo ln -s $DST_IMG      /var/www/html$IMG;
+    sudo ln -s $DST_NFS_ETH0 /var/www/html$NFS_ETH0;
+fi
+
 
 ##########################################################################
 handle_hostapd;
