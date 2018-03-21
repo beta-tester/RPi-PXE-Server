@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-20
+# v2018-03-21
 #
 # known issues:
 #
@@ -852,7 +852,7 @@ EOF";
 ##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
 LABEL Fedora x64
     KERNEL $NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
-    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
+    APPEND initrd=$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img root=live:http://$IP_ETH0$NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1-nodeadkeys locale.LANG=de_DE.UTF-8
     TEXT HELP
         Boot to Fedora Workstation Live
         User: liveuser
@@ -886,9 +886,6 @@ import urllib.request
 import time
 
 try:
-    str_time = '%Y-%m-%d %H:%M:%S'
-    str_stdout = '--{}--  ''{}'''
-
     arg_file = sys.argv[1]
     stat_file = os.stat(arg_file)
     time_file = time.gmtime(stat_file.st_mtime)
@@ -897,13 +894,9 @@ try:
     conn_url = urllib.request.urlopen(arg_url)
     time_url = time.strptime(conn_url.headers['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
 
-    print(str_stdout.format(time.strftime(str_time, time_file), arg_file))
-    print(str_stdout.format(time.strftime(str_time, time_url), arg_url))
     if time_url <= time_file:
-        print('file is up to date')
         exit_code = 0
     else:
-        print('url is newer')
         exit_code = 1
 except:
     exit_code = 1
@@ -992,15 +985,6 @@ handle_iso() {
 
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
-
-        if [ -d "/var/www/html" ]; then
-            if ! [ -h "/var/www/html/$FILE_ISO" ]; then
-                sudo ln -s $DST_ISO/$FILE_ISO /var/www/html/$FILE_ISO
-            fi
-            if ! [ -h "/var/www/html/$NAME" ]; then
-                sudo ln -s $DST_NFS_ETH0/$NAME/ /var/www/html/$NAME
-            fi
-        fi
     else
         sudo sed /etc/fstab   -i -e "/$NAME/d"
         sudo sed /etc/exports -i -e "/$NAME/d"
@@ -1443,6 +1427,13 @@ sudo mkdir -p $DST_ISO;
 sudo mkdir -p $DST_IMG;
 sudo mkdir -p $DST_TFTP_ETH0;
 sudo mkdir -p $DST_NFS_ETH0;
+
+##########################################################################
+if [ -d "/var/www/html" ]; then
+    [ -h "/var/www/html$ISO" ]      || sudo ln -s $DST_ISO      /var/www/html$ISO;
+    [ -h "/var/www/html$IMG" ]      || sudo ln -s $DST_IMG      /var/www/html$IMG;
+    [ -h "/var/www/html$NFS_ETH0" ] || sudo ln -s $DST_NFS_ETH0 /var/www/html$NFS_ETH0;
+fi
 
 ######################################################################
 handle_dnsmasq
