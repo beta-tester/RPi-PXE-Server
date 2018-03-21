@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2018-03-20
+# v2018-03-21
 #
 # known issues:
 #
@@ -87,7 +87,7 @@ echo -e "\e[32minstall uuid\e[0m";
 sudo apt install -y uuid;
 
 
-######################################################################
+#####################################################################
 echo -e "\e[32minstall lighttpd\e[0m";
 sudo apt install -y lighttpd;
 sudo sh -c "cat << EOF  >> /etc/lighttpd/lighttpd.conf
@@ -97,6 +97,7 @@ dir-listing.activate = \"enable\"
 dir-listing.external-css = \"\"
 dir-listing.external-js = \"\"
 dir-listing.set-footer = \"&nbsp;<br />\"
+dir-listing.exclude = ( \"[.]*\.url\" )
 EOF";
 sudo rm /var/www/html/index.lighttpd.html
 
