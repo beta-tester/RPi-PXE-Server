@@ -129,6 +129,7 @@ dir-listing.activate = \"enable\"
 dir-listing.external-css = \"\"
 dir-listing.external-js = \"\"
 dir-listing.set-footer = \"&nbsp;<br />\"
+dir-listing.exclude = ( \"[.]*\.url\" )
 EOF";
 sudo rm /var/www/html/index.lighttpd.html
 
