@@ -1156,9 +1156,6 @@ import urllib.request
 import time
 
 try:
-    str_time = '%Y-%m-%d %H:%M:%S'
-    str_stdout = '--{}--  ''{}'''
-
     arg_file = sys.argv[1]
     stat_file = os.stat(arg_file)
     time_file = time.gmtime(stat_file.st_mtime)
@@ -1167,13 +1164,9 @@ try:
     conn_url = urllib.request.urlopen(arg_url)
     time_url = time.strptime(conn_url.headers['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
 
-    print(str_stdout.format(time.strftime(str_time, time_file), arg_file))
-    print(str_stdout.format(time.strftime(str_time, time_url), arg_url))
     if time_url <= time_file:
-        print('file is up to date')
         exit_code = 0
     else:
-        print('url is newer')
         exit_code = 1
 except:
     exit_code = 1
@@ -1904,9 +1897,9 @@ sudo mkdir -p $DST_NFS_ETH0;
 
 ##########################################################################
 if [ -d "/var/www/html" ]; then
-    sudo ln -s $DST_ISO      /var/www/html$ISO;
-    sudo ln -s $DST_IMG      /var/www/html$IMG;
-    sudo ln -s $DST_NFS_ETH0 /var/www/html$NFS_ETH0;
+    [ -h "/var/www/html$ISO" ]      || sudo ln -s $DST_ISO      /var/www/html$ISO;
+    [ -h "/var/www/html$IMG" ]      || sudo ln -s $DST_IMG      /var/www/html$IMG;
+    [ -h "/var/www/html$NFS_ETH0" ] || sudo ln -s $DST_NFS_ETH0 /var/www/html$NFS_ETH0;
 fi
 
 
