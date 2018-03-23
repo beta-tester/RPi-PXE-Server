@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2018-03-21
+# v2018-03-23
 #
 # known issues:
 #
@@ -100,6 +100,17 @@ dir-listing.set-footer = \"&nbsp;<br />\"
 dir-listing.exclude = ( \"[.]*\.url\" )
 EOF";
 sudo rm /var/www/html/index.lighttpd.html
+
+
+######################################################################
+echo -e "\e[32mdisablentp\e[0m";
+sudo systemctl stop ntp.service 1>/dev/null 2>/dev/null;
+sudo systemctl disable ntp.service 1>/dev/null 2>/dev/null;
+
+echo -e "\e[32minstall chrony as ntp client and ntp server\e[0m";
+sudo apt install -y chrony;
+sudo systemctl enable chronyd.service;
+sudo systemctl restart chronyd.service;
 
 
 ######################################################################
