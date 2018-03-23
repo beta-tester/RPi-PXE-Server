@@ -103,7 +103,7 @@ sudo rm /var/www/html/index.lighttpd.html
 
 
 ######################################################################
-echo -e "\e[32mdisablentp\e[0m";
+echo -e "\e[32mdisable ntp\e[0m";
 sudo systemctl stop ntp.service 1>/dev/null 2>/dev/null;
 sudo systemctl disable ntp.service 1>/dev/null 2>/dev/null;
 
