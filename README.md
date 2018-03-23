@@ -8,7 +8,7 @@ i did not keeped an eye on network security.
 **USE IT AT YOUR OWN RISK.**
 
 ## what is it good for?
-the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, PXE server.
+the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, HTML, Time, PXE server.
 and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
 the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
@@ -89,32 +89,42 @@ this will download all updated iso files.
 
 ## modifying the script:
 what you should know, when you make modification to the script...<br />
-there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
+there are four importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
 1. the ISO or NSF path relative to the TFTP root path.<br />
 (on disk `/srv/tftp/iso`, `/srv/tftp/nfs` as symbolik link).
 2. the ISO or NFS path relative to the pxe boot menu root path<br />
 (on disk `/srv/tftp/menu-bios/iso`, `/srv/tftp/menu-bios/iso` as symbolic link).
 3. the ISO or NFS path repative to the nfs root path<br />
-(on disk `/srv/iso`, `/srv/nfs`).
+(on disk `/srv/iso`, `/srv/nfs`).<br />
+4. the ISO, IMG or NFS path located at /var/www/html<br />
+(on disk /var/www/html/iso, /var/www/html/img, /var/www/html/nfs).
 ```
 /
-└── srv
-    ├── iso    (the real physical location of ISO files)
-    ├── nfs    (the real physical location of NFS files or mountpoints)
-    | 
-    └── tftp       (TFTP root)
-        ├── iso    (only a symbolic link to ISO files)
-        ├── nfs    (only a symbolic link to NFS files)
-        |
-        └── menu-bios  (PXE boot menu root for BIOS)
-            ├── iso    (only a symbolic link to ISO files)
-            └── nfs    (only a symbolic link to NFS files)
+├── srv
+|   ├── iso    (the real physical location of ISO files)
+|   ├── nfs    (the real physical location of NFS files or mountpoints)
+|   | 
+|   └── tftp       (TFTP root)
+|       ├── iso    (only a symbolic link to ISO files)
+|       ├── nfs    (only a symbolic link to NFS files)
+|       |
+|       └── menu-bios  (PXE boot menu root for BIOS)
+|           ├── iso    (only a symbolic link to ISO files)
+|           └── nfs    (only a symbolic link to NFS files)
+|
+└── var
+    └── www
+        └── html     (HTML root)
+            ├── img  (only a symbolic link to IMG files)
+            ├── iso  (only a symbolic link to ISO files)
+            └── nfs  (only a symbolic link to NFS files)
 ```
 if you make any changes to your script and/or file stcructure on disk, keep an eye to changes you made and adapt everything to match
 pxe menu entries to file structure on disk.
 
 what the root of TFTP and PXE boot menu are, is defined in the **_dnsmasq_** configuration file `/etc/dnsmasq.d/pxe-server`.<br />
-the root for NFS are defined in `/etc/exports`.
+the root for NFS is defined in `/etc/exports`.<br />
+the root for HTML is defined in the **_lighttpd_** configuration file `/etc/lighttpd/lighttpd.conf`.
 ## mount scenarios for pxe boot:
 ### direct readonly mounting content of ISO:
 e.g. ubuntu-lts-x64 iso image<br />
@@ -239,30 +249,32 @@ RPD_LITE_URL=https://.../...zip
 e.g.:**
 ```
 ######################################################################
-# handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
-# handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
-# handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
-# handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
-# handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
-# handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
-# handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
-# handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
-# handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
-# handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
-# handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
-# handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
-# handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
-# handle_iso  $DEFT_X64           $DEFT_X64_URL;
-# handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
-# handle_iso  $KALI_X64           $KALI_X64_URL;
-# handle_iso  $PENTOO_X64         $PENTOO_X64_URL;
-# handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
-# handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL;
-handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL;
+##handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
+#handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
+#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
+#handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
+#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
+#handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
+##handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
+#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
+#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
+#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+#handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
+#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
+#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
+#handle_iso  $DEFT_X64           $DEFT_X64_URL;
+#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
+#handle_iso  $KALI_X64           $KALI_X64_URL;
+#handle_iso  $PENTOO_X64         $PENTOO_X64_URL         timestamping;
+#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
+##handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
+handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
+handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
 handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
-# handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
-# handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
+#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
+#handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
+#handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
 ...
 ```
 **same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
