@@ -410,10 +410,13 @@ EOF"
 
 
 handle_chrony() {
+    echo -e "\e[32mhandle_chrony()\e[0m";
+
+    ######################################################################
     grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
-    echo -e "\e[36m    setup chrony\e[0m";
-    sudo systemctl stop chronyd.service;
-    sudo sh -c "cat << EOF  > /etc/chrony/chrony.conf
+        echo -e "\e[36m    setup chrony\e[0m";
+        sudo systemctl stop chronyd.service;
+        sudo sh -c "cat << EOF  > /etc/chrony/chrony.conf
 ########################################
 ## mod_install_server
 allow
@@ -441,6 +444,7 @@ hwclockfile /etc/adjtime
 rtcsync
 makestep 1 3
 EOF";
+        sudo systemctl restart chronyd.service;
     }
 }
 
