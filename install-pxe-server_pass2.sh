@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-21
+# v2018-03-23
 #
 # known issues:
 #
@@ -308,6 +308,10 @@ log-queries
 interface=$INTERFACE_ETH0
 #bridge#interface=$INTERFACE_BR0
 
+# NTP Server
+dhcp-option=$INTERFACE_ETH0, option:ntp-server, 0.0.0.0
+#bridge#dhcp-option=$INTERFACE_BR0, option:ntp-server, 0.0.0.0
+
 # TFTP_ETH0 (enabled)
 enable-tftp
 tftp-lowercase
@@ -402,6 +406,42 @@ server min protocol = SMB2
 EOF"
     sudo systemctl restart smbd.service;
     )
+}
+
+
+handle_chrony() {
+    grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
+    echo -e "\e[36m    setup chrony\e[0m";
+    sudo systemctl stop chronyd.service;
+    sudo sh -c "cat << EOF  > /etc/chrony/chrony.conf
+########################################
+## mod_install_server
+allow
+
+server  ptbtime1.ptb.de  iburst
+server  ptbtime2.ptb.de  iburst
+server  ptbtime3.ptb.de  iburst
+server  char-ntp-pool.charite.de
+server  isis.uni-paderborn.de
+server  ntp1.rrze.uni-erlangen.de  iburst
+server  ntp2.rrze.uni-erlangen.de  iburst
+server  ntp3.rrze.uni-erlangen.de  iburst
+server  ntp1.oma.be  iburst
+server  ntp2.oma.be  iburst
+server  ntp.certum.pl  iburst
+server  ntp1.sp.se  iburst
+
+pool  europe.pool.ntp.org  iburst
+
+keyfile /etc/chrony/chrony.keys
+driftfile /var/lib/chrony/chrony.drift
+logdir /var/log/chrony
+maxupdateskew 100.0
+hwclockfile /etc/adjtime
+rtcsync
+makestep 1 3
+EOF";
+    }
 }
 
 
@@ -1440,6 +1480,7 @@ handle_dnsmasq
 handle_samba
 handle_optional
 handle_dhcpcd
+handle_chrony
 
 
 ##########################################################################
