@@ -8,7 +8,7 @@ i did not keeped an eye on network security.
 **USE IT AT YOUR OWN RISK.**
 
 ## what is it good for?
-the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, HTML, PXE server.
+the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, HTML, NTP, PXE server.
 and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
 the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
@@ -99,6 +99,7 @@ there are four importent locations for the pxe boot and the pxe menu that must f
 ```
 /
 ├── srv
+|   ├── img    (the real physical location of IMG files)
 |   ├── iso    (the real physical location of ISO files)
 |   ├── nfs    (the real physical location of NFS files or mountpoints)
 |   | 
