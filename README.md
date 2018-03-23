@@ -87,14 +87,12 @@ this will download all updated iso files.
 
 ## modifying the script:
 what you should know, when you make modification to the script...<br />
-there are four importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
-1. the ISO or NSF path relative to the TFTP root path.<br />
-(on disk `/srv/tftp/iso`, `/srv/tftp/nfs` as symbolik link).
-2. the ISO or NFS path relative to the pxe boot menu root path<br />
+there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
+1. the ISO or NFS path relative to the pxe boot menu root path<br />
 (on disk `/srv/tftp/menu-bios/iso`, `/srv/tftp/menu-bios/iso` as symbolic link).
-3. the ISO or NFS path repative to the nfs root path<br />
+2. the ISO or NFS path repative to the nfs root path<br />
 (on disk `/srv/iso`, `/srv/nfs`).
-4. the ISO, IMG or NFS path located at /var/www/html<br />
+3. the ISO, IMG or NFS path located at /var/www/html<br />
 (on disk `/var/www/html/iso`, `/var/www/html/img`, `/var/www/html/nfs`).
 ```
 /
@@ -104,8 +102,6 @@ there are four importent locations for the pxe boot and the pxe menu that must f
 |   ├── nfs    (the real physical location of NFS files or mountpoints)
 |   | 
 |   └── tftp       (TFTP root)
-|       ├── iso    (only a symbolic link to ISO files)
-|       ├── nfs    (only a symbolic link to NFS files)
 |       |
 |       └── menu-bios  (PXE boot menu root for BIOS)
 |           ├── iso    (only a symbolic link to ISO files)
