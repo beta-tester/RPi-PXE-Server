@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-03-31
+# v2018-04-01
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -223,10 +223,10 @@ PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-03-14/2018-03-13-raspbian-stretch-lite.zip
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-03-14/2018-03-13-raspbian-stretch.zip
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_latest
 
 
 
@@ -1337,19 +1337,21 @@ handle_zip_img() {
         fi
 
         if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null \
+        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_IMG/$FILE_URL $URL); \
         then
             echo -e "\e[36m    download image\e[0m";
             sudo rm -f $DST_IMG/$FILE_IMG;
             sudo rm -f $DST_IMG/$FILE_URL;
             sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
+
+            sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
+            sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
+
             echo -e "\e[36m    extract image\e[0m";
             sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
             sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
             sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
-
-            sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
-            sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
         fi
     fi
 
@@ -1965,8 +1967,8 @@ handle_pxe;
 ##########################################################################
 ##########################################################################
 #handle_zip_img  $PI_CORE   $PI_CORE_URL;
-#handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
-#handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
+#handle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
+#handle_zip_img  $RPD_FULL  $RPD_FULL_URL  timestamping;
 ##########################################################################
 ##########################################################################
 ## comment out those entries,
