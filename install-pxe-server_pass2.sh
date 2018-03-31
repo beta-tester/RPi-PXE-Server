@@ -1346,7 +1346,7 @@ handle_zip_img() {
             sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
 
             sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
-            sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
+            sudo touch -r $DST_IMG/RAW_FILENAME_ZIP  $DST_IMG/$FILE_URL;
 
             echo -e "\e[36m    extract image\e[0m";
             sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
@@ -1940,7 +1940,7 @@ handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
 #handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
 #handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
 handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
-handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
+#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
 #handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
 #handle_iso  $DEFT_X64           $DEFT_X64_URL;
 #handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
@@ -1953,8 +1953,8 @@ handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
 handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
 #handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
-handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
 handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
+handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
 handle_iso  $TAILS_X64          $TAILS_X64_URL;
 ##########################################################################
 handle_pxe;
