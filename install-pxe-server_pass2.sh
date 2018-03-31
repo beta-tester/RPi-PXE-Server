@@ -1346,7 +1346,7 @@ handle_zip_img() {
             sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
 
             sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
-            sudo touch -r $DST_IMG/RAW_FILENAME_ZIP  $DST_IMG/$FILE_URL;
+            sudo touch -r $DST_IMG/$RAW_FILENAME_ZIP  $DST_IMG/$FILE_URL;
 
             echo -e "\e[36m    extract image\e[0m";
             sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
