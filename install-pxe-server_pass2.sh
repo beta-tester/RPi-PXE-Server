@@ -1295,7 +1295,6 @@ handle_zip_img() {
     local NAME=$1
     local URL=$2
     local RAW_FILENAME=$(basename $URL .zip)
-    local RAW_FILENAME_IMG=$RAW_FILENAME.img
     local RAW_FILENAME_ZIP=$RAW_FILENAME.zip
     local NAME_BOOT=$NAME-boot
     local NAME_ROOT=$NAME-root
@@ -1349,9 +1348,11 @@ handle_zip_img() {
             sudo touch -r $DST_IMG/$RAW_FILENAME_ZIP  $DST_IMG/$FILE_URL;
 
             echo -e "\e[36m    extract image\e[0m";
-            sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
+            sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG > /tmp/output.tmp;
             sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
+            local RAW_FILENAME_IMG=$(grep 'inflating' /tmp/output.tmp | cut -d':' -f2 | xargs basename)
             sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
+            rm /tmp/output.tmp
         fi
     fi
 
