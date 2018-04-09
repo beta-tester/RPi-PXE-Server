@@ -141,12 +141,22 @@ UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-i386.iso
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04-beta2-desktop-amd64.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.iso
 UBUNTU_X86=ubuntu-x86
 UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
+
+
+LUBUNTU_X64=lubuntu-x64
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-amd64.iso
+LUBUNTU_X86=lubuntu-x86
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-i386.iso
+
+LUBUNTU_DAILY_X64=lubuntu-daily-x64
+LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/bionic-desktop-amd64.iso
+
 
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
@@ -725,6 +735,53 @@ LABEL Ubuntu x64 Daily-Live
     ENDTEXT
 EOF";
     fi
+
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL lubuntu x64
+    KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to lubuntu x64 Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL lubuntu x86
+    KERNEL $NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to lubuntu x86 Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL lubuntu x64 Daily-Live
+    KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to lubuntu x64 Daily-Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
@@ -1935,6 +1992,11 @@ handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
 handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
 #handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
 handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
+
+handle_iso  $LUBUNTU_X64         $LUBUNTU_X64_URL;
+#handle_iso  $LUBUNTU_X86         $LUBUNTU_X86_URL;
+handle_iso  $LUBUNTU_DAILY_X64   $LUBUNTU_DAILY_X64_URL   timestamping;
+
 #handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
 #handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
 #handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
@@ -1947,7 +2009,7 @@ handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
 #handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
 handle_iso  $KALI_X64           $KALI_X64_URL;
 handle_iso  $PENTOO_X64         $PENTOO_X64_URL    timestamping;
-#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
+handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
 handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
 handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
 handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
@@ -1955,8 +2017,8 @@ handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
 #handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
 handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
-handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
-handle_iso  $TAILS_X64          $TAILS_X64_URL;
+#handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
+#handle_iso  $TAILS_X64          $TAILS_X64_URL;
 ##########################################################################
 handle_pxe;
 
