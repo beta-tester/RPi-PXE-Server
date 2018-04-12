@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-04-03
+# v2018-04-12
 #
 # known issues:
 #
@@ -126,6 +126,16 @@ UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
 
+
+LUBUNTU_X64=lubuntu-x64
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-amd64.iso
+LUBUNTU_X86=lubuntu-x86
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-i386.iso
+
+LUBUNTU_DAILY_X64=lubuntu-daily-x64
+LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/bionic-desktop-amd64.iso
+
+
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
@@ -174,9 +184,9 @@ RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2017-12-01/2017-11-16-rpd-x86-stretch.iso
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.2-31/clonezilla-live-2.5.2-31-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-i686.iso
 
 FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
@@ -598,6 +608,53 @@ LABEL Ubuntu x64 Daily-Live
     ENDTEXT
 EOF";
     fi
+
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL lubuntu x64
+    KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to lubuntu x64 Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL lubuntu x86
+    KERNEL $NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to lubuntu x86 Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL lubuntu x64 Daily-Live
+    KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    TEXT HELP
+        Boot to lubuntu x64 Daily-Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
 
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
@@ -1508,6 +1565,9 @@ handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
 #handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
 #handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
 #handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
+#handle_iso  $LUBUNTU_X64         $LUBUNTU_X64_URL;
+#handle_iso  $LUBUNTU_X86         $LUBUNTU_X86_URL;
+#handle_iso  $LUBUNTU_DAILY_X64   $LUBUNTU_DAILY_X64_URL   timestamping;
 ##handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
 #handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
 #handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
