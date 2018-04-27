@@ -690,12 +690,12 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Ubuntu x64
-    KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi
+    KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         NFSBOOT BROKEN:
@@ -723,12 +723,12 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Ubuntu x64 Daily-Live
-    KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi
+    KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         NFSBOOT BROKEN:
@@ -742,12 +742,12 @@ EOF";
 
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL lubuntu x64
-    KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi
+    KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         NFSBOOT BROKEN:
@@ -778,12 +778,12 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL lubuntu x64 Daily-Live
-    KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi
+    KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         NFSBOOT BROKEN:
