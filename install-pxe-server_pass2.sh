@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-04-12
+# v2018-04-27
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -141,18 +141,16 @@ UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-i386.iso
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.iso
-UBUNTU_X86=ubuntu-x86
-UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
 
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-amd64.iso
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-amd64.iso
 LUBUNTU_X86=lubuntu-x86
-LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-i386.iso
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-i386.iso
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
 LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/bionic-desktop-amd64.iso
@@ -700,8 +698,11 @@ LABEL Ubuntu x64
     KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
-        Boot to Ubuntu x64 Live
-        User: ubuntu
+        NFSBOOT BROKEN:
+        on emergency console type: systemctl mask tmp.mount
+        then hit [Ctrl]+[D]
+#        Boot to Ubuntu x64 Live
+#        User: ubuntu
     ENDTEXT
 EOF";
     fi
@@ -730,8 +731,11 @@ LABEL Ubuntu x64 Daily-Live
     KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
-        Boot to Ubuntu x64 Daily-Live
-        User: ubuntu
+        NFSBOOT BROKEN:
+        on emergency console type: systemctl mask tmp.mount
+        then hit [Ctrl]+[D]
+#        Boot to Ubuntu x64 Daily-Live
+#        User: ubuntu
     ENDTEXT
 EOF";
     fi
@@ -746,8 +750,11 @@ LABEL lubuntu x64
     KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
-        Boot to lubuntu x64 Live
-        User: lubuntu
+        NFSBOOT BROKEN:
+        on emergency console type: systemctl mask tmp.mount
+        then hit [Ctrl]+[D]
+#        Boot to lubuntu x64 Live
+#        User: lubuntu
     ENDTEXT
 EOF";
     fi
@@ -761,8 +768,11 @@ LABEL lubuntu x86
     KERNEL $NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
     APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
-        Boot to lubuntu x86 Live
-        User: lubuntu
+        NFSBOOT BROKEN:
+        on emergency console type: systemctl mask tmp.mount
+        then hit [Ctrl]+[D]
+#        Boot to lubuntu x86 Live
+#        User: lubuntu
     ENDTEXT
 EOF";
     fi
@@ -776,8 +786,11 @@ LABEL lubuntu x64 Daily-Live
     KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi
     APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
-        Boot to lubuntu x64 Daily-Live
-        User: lubuntu
+        NFSBOOT BROKEN:
+        on emergency console type: systemctl mask tmp.mount
+        then hit [Ctrl]+[D]
+#        Boot to lubuntu x64 Daily-Live
+#        User: lubuntu
     ENDTEXT
 EOF";
     fi
