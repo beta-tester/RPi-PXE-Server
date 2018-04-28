@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-04-28
+# v2018-04-29
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -209,7 +209,8 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-i686.iso
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
+#FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
+FEDORA_X64_URL=http://dl.fedoraproject.org/pub/alt/stage/28_RC-1.1/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.2/tails-amd64-3.6.2.iso
@@ -696,7 +697,7 @@ EOF";
 ########################################
 LABEL Ubuntu x64
     KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
-    APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to Ubuntu x64 Live
         User: ubuntu
@@ -726,7 +727,7 @@ EOF";
 ########################################
 LABEL Ubuntu x64 Daily-Live
     KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
-    APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to Ubuntu x64 Daily-Live
         User: ubuntu
@@ -742,7 +743,7 @@ EOF";
 ########################################
 LABEL lubuntu x64
     KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
-    APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to lubuntu x64 Live
         User: lubuntu
@@ -757,7 +758,7 @@ EOF";
 ########################################
 LABEL lubuntu x86
     KERNEL $NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
-    APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to lubuntu x86 Live
         User: lubuntu
@@ -772,7 +773,7 @@ EOF";
 ########################################
 LABEL lubuntu x64 Daily-Live
     KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
-    APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to lubuntu x64 Daily-Live
         User: lubuntu
