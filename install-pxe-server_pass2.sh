@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-04-26
+# v2018-04-29
 #
 # known issues:
 #
@@ -109,7 +109,7 @@ sudo mount $SRC_MOUNT
 ## note:
 ##  update the url, if iso is outdated
 ######################################################################
-######################################################################
+##########################################################################
 WIN_PE_X86=win-pe-x86
 WIN_PE_X86_URL=
 
@@ -119,18 +119,16 @@ UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-i386.iso
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/17.10.1/ubuntu-17.10.1-desktop-amd64.iso
-UBUNTU_X86=ubuntu-x86
-UBUNTU_X86_URL=http://releases.ubuntu.com/17.04/ubuntu-17.04-desktop-i386.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
 
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-amd64.iso
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-amd64.iso
 LUBUNTU_X86=lubuntu-x86
-LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/17.10.1/release/lubuntu-17.10.1-desktop-i386.iso
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-i386.iso
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
 LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/bionic-desktop-amd64.iso
@@ -189,7 +187,8 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-i686.iso
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
+#FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
+FEDORA_X64_URL=http://dl.fedoraproject.org/pub/alt/stage/28_RC-1.1/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.2/tails-amd64-3.6.2.iso
@@ -198,26 +197,28 @@ CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1708.iso
 
 
-######################################################################
-######################################################################
+##########################################################################
+##########################################################################
 ## url to zip files,
 ##  that contains disk images
-##  for raspbarry pi 3 network booting
+##  for raspbarry pi 3 pxe network booting
 ## note:
 ##  update the url, if disk image is outdated
-######################################################################
-######################################################################
+##########################################################################
+##########################################################################
 PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-04-19/2018-04-18-raspbian-stretch-lite.zip
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-04-19/2018-04-18-raspbian-stretch.zip
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_latest
 
 
-######################################################################
+
+
+##########################################################################
 handle_dhcpcd() {
     echo -e "\e[32mhandle_dhcpcd()\e[0m";
 
@@ -565,13 +566,13 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Ubuntu x64
-    KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz.efi
-    APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    KERNEL $NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to Ubuntu x64 Live
         User: ubuntu
@@ -595,13 +596,13 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Ubuntu x64 Daily-Live
-    KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz.efi
-    APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper --
+    KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to Ubuntu x64 Daily-Live
         User: ubuntu
@@ -611,13 +612,13 @@ EOF";
 
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL lubuntu x64
-    KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz.efi
-    APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    KERNEL $NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to lubuntu x64 Live
         User: lubuntu
@@ -632,7 +633,7 @@ EOF";
 ########################################
 LABEL lubuntu x86
     KERNEL $NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
-    APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to lubuntu x86 Live
         User: lubuntu
@@ -641,13 +642,13 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL lubuntu x64 Daily-Live
-    KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz.efi
-    APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
+    KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
+    APPEND initrd=$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=de console-setup/layoutcode=de keyboard-configuration/layoutcode=de keyboard-configuration/variant=German
     TEXT HELP
         Boot to lubuntu x64 Daily-Live
         User: lubuntu
