@@ -473,19 +473,28 @@ dhcp-match=set:ARCH_0, option:client-arch, 0
 dhcp-match=set:x86_UEFI, option:client-arch, 6
 dhcp-match=set:x64_UEFI, option:client-arch, 7
 dhcp-match=set:x64_UEFI, option:client-arch, 9
+dhcp-match=set:iPXE, option:user-class, iPXE
 
 # test if it is a RPi3 or a regular x86PC
 tag-if=set:ARM_RPI3, tag:ARCH_0, tag:UUID_RPI3
-tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3
+tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3, tag:!iPXE
+tag-if=set:x86_iPXE, tag:ARCH_0, tag:!UUID_RPI3, tag:iPXE
+tag-if=set:UEFI_iPXE, tag:!ARCH_0, tag:!UUID_RPI3, tag:iPXE
 
 pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
 pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
+pxe-service=tag:x86_iPXE,x86PC, \"iPXE Boot Menu (iPXE 00:00)\", undionly.kpxe
+pxe-service=tag:UEFI_iPXE,x86PC, \"iPXE Boot Menu (iPXE UEFI)\", ipxe.efi
 pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux
 pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux
 pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux
 
 dhcp-boot=tag:ARM_RPI3, bootcode.bin
 dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
+#dhcp-boot=tag:x86_iPXE, http://my.web.server/real_boot_script.php
+dhcp-boot=tag:x86_iPXE, undionly.kpxe
+dhcp-boot=tag:UEFI_iPXE, ipxe.efi
+dhcp-option=iPXE, 175, 8:1:1
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.0
 dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.0
 EOF";
@@ -1199,6 +1208,27 @@ handle_pxe() {
     #[ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/nfs" ]          || sudo ln -s $DST_NFS_ETH0/                                $DST_TFTP_ETH0/$DST_PXE_EFI64/nfs;
     #[ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/iso" ]          || sudo ln -s $DST_ISO/                                     $DST_TFTP_ETH0/$DST_PXE_EFI64/iso;
     #handle_pxe_menu  $DST_PXE_EFI64  efidefault;
+}
+
+
+##########################################################################
+handle_ipxe() {
+    echo -e "\e[32mhandle_ipxe()\e[0m";
+
+    ######################################################################
+    # http://ipxe.org/docs
+    # http://ipxe.org/howto/chainloading
+
+    ######################################################################
+    if [ -d "$SRC_TFTP_ETH0" ]; then
+        echo -e "\e[36m    copy iPXE stuff\e[0m";
+        if ! [ -f "$DST_TFTP_ETH0/undionly.kpxe" ] && [ -f "$SRC_TFTP_ETH0/undionly.kpxe" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/undionly.kpxe  $DST_TFTP_ETH0/; fi
+        if ! [ -f "$DST_TFTP_ETH0/ipxe.efi" ] && [ -f "$SRC_TFTP_ETH0/ipxe.efi" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/ipxe.efi  $DST_TFTP_ETH0/; fi
+    else
+        echo -e "\e[36m    download iPXE stuff\e[0m";
+        sudo wget -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
+        sudo wget -O $DST_TFTP_ETH0/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
+    fi
 }
 
 
@@ -2019,6 +2049,7 @@ handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
 #handle_iso  $TAILS_X64          $TAILS_X64_URL;
 ##########################################################################
 handle_pxe;
+handle_ipxe;
 
 
 ##########################################################################
