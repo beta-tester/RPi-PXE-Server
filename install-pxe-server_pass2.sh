@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-04-29
+# v2018-05-02
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -184,7 +184,7 @@ DEFTZ_X64=deftz-x64
 DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/kali-2018.1/kali-linux-2018.1-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/kali-2018.2/kali-linux-2018.2-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=http://mirror.switch.ch/ftp/mirror/pentoo/latest-iso-symlinks/pentoo-amd64-hardened.iso
@@ -209,8 +209,7 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-i686.iso
 
 FEDORA_X64=fedora-x64
-#FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso
-FEDORA_X64_URL=http://dl.fedoraproject.org/pub/alt/stage/28_RC-1.1/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.2/tails-amd64-3.6.2.iso
