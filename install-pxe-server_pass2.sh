@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-05-02
+# v2018-05-04
 #
 # known issues:
 #
@@ -122,7 +122,7 @@ UBUNTU_X64=ubuntu-x64
 UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/bionic-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/cosmic-desktop-amd64.iso
 
 
 LUBUNTU_X64=lubuntu-x64
@@ -131,7 +131,7 @@ LUBUNTU_X86=lubuntu-x86
 LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-i386.iso
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/bionic-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/cosmic-desktop-amd64.iso
 
 
 UBUNTU_NONPAE=ubuntu-nopae
