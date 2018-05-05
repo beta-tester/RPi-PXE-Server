@@ -231,6 +231,16 @@ handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
 if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
 
+to easily change the language to your favorite ones, there are variables on the top part of the script.
+```
+CUSTOM_LANG=de
+CUSTOM_LANG_LONG=de_DE
+CUSTOM_LANG_UPPER=DE
+CUSTOM_LANG_WRITTEN=German
+CUSTOM_LANG_EXT=de-latin1-nodeadkeys
+CUSTOM_TIMEZONE=Europe/Berlin
+```
+
 ## note3:
 it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because of lack of hardware for UEFI boot
 
