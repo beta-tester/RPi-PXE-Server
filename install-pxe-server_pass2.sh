@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-05-05
+# v2018-05-11
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -222,7 +222,7 @@ TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.2/tails-amd64-3.6.2.iso
 
 CENTOS_X64=centos-x64
-CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1708.iso
+CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1804.iso
 
 
 ##########################################################################
@@ -848,8 +848,8 @@ EOF";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Parrot Lite x64
-    KERNEL /nfs/$PARROT_LITE_X64/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_LITE_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    KERNEL $NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz
+    APPEND initrd=$NFS_ETH0/$PARROT_LITE_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
     TEXT HELP
         Boot to Parrot Lite x64 Live (Home/Workstation)
         User: user, Password: live
@@ -863,8 +863,8 @@ EOF";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Parrot Lite x86
-    KERNEL /nfs/$PARROT_LITE_X86/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X86 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    KERNEL $NFS_ETH0/$PARROT_LITE_X86/live/vmlinuz
+    APPEND initrd=$NFS_ETH0/$PARROT_LITE_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X86 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
     TEXT HELP
         Boot to Parrot Lite x86 Live (Home/Workstation)
         User: user, Password: live
@@ -878,8 +878,8 @@ EOF";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Parrot Full x64
-    KERNEL /nfs/$PARROT_FULL_X64/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_FULL_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    KERNEL $NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz
+    APPEND initrd=$NFS_ETH0/$PARROT_FULL_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
     TEXT HELP
         Boot to Parrot Full x64 Live (Security)
         User: user, Password: live
@@ -893,8 +893,8 @@ EOF";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL Parrot Full x86
-    KERNEL /nfs/$PARROT_FULL_X86/live/vmlinuz
-    APPEND initrd=/nfs/$PARROT_FULL_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X86 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    KERNEL $NFS_ETH0/$PARROT_FULL_X86/live/vmlinuz
+    APPEND initrd=$NFS_ETH0/$PARROT_FULL_X86/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X86 ro boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
     TEXT HELP
         Boot to Parrot Full x86 Live (Security)
         User: user, Password: live
@@ -1129,7 +1129,7 @@ LABEL CentOS x64
     # Starting Dracut Emergency Shell
     #APPEND initrd=/nfs/$CENTOS_X64/isolinux/initrd0.img root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 root-path=/LiveOS/squashfs.img rootfstype=squashfs ro rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10
 
-    APPEND initrd=$NFS_ETH0/$CENTOS_X64/isolinux/initrd.img root=live:http://$IP_ETH0$NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+    APPEND initrd=$NFS_ETH0/$CENTOS_X64/isolinux/initrd0.img root=live:http://$IP_ETH0$NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
     TEXT HELP
         Boot to CentOS LiveGNOME
         User: liveuser
@@ -1147,7 +1147,7 @@ EOF";
 LABEL Tails x64
     KERNEL $NFS_ETH0/$TAILS_X64/live/vmlinuz
 #    APPEND initrd=$NFS_ETH0/$TAILS_X64/live/initrd.img netboot=nfs nfsroot=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64 ro boot=live config loglevel=7 -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
-    APPEND initrd=$NFS_ETH0/$TAILS_X64/live/initrd.img fetch=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable nopersistent noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 splash nox11autologin module=Tails quiet
+    APPEND initrd=$NFS_ETH0/$TAILS_X64/live/initrd.img fetch=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable nopersistent noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 nox11autologin module=Tails
     TEXT HELP
         Boot to Tails x64 Live (modprobe r8169; exit)
     ENDTEXT
@@ -2052,8 +2052,8 @@ handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
 #handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
 handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
-#handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
-#handle_iso  $TAILS_X64          $TAILS_X64_URL;
+##handle_iso  $CENTOS_X64         $CENTOS_X64_URL;
+##handle_iso  $TAILS_X64          $TAILS_X64_URL;
 ##########################################################################
 handle_pxe;
 handle_ipxe;
