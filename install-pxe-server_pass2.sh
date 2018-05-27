@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-05-14
+# v2018-05-27
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -173,13 +173,13 @@ DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.0.1/Parrot-home-4.0.1_amd64.iso
 PARROT_LITE_X86=parrot-lite-x86
-PARROT_LITE_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-home-3.11_i386.iso
+PARROT_LITE_X86_URL=https://cdimage.parrotsec.org/parrot/iso/4.0.1/Parrot-home-4.0.1_i386.iso
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-security-3.11_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.0.1/Parrot-security-4.0.1_amd64.iso
 PARROT_FULL_X86=parrot-full-x86
-PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/3.11/Parrot-security-3.11_i386.iso
+PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/4.0.1/Parrot-security-4.0.1_i386.iso
 
 GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
@@ -201,6 +201,8 @@ SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/s
 
 DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
+DESINFECT_X64=desinfect-x64
+DESINFECT_X64_URL=
 
 TINYCORE_x64=tinycore-x64
 TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-current.iso
@@ -1058,6 +1060,23 @@ LABEL $DESINFECT_X86
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to ct desinfect x86
+        User: desinfect
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$DESINFECT_X64/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $DESINFECT_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $DESINFECT_X64
+    MENU LABEL desinfect x64
+    KERNEL $NFS_ETH0/$DESINFECT_X64/casper/vmlinuz
+    INITRD $NFS_ETH0/$DESINFECT_X64/casper/initrd.lz
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+    TEXT HELP
+        Boot to ct desinfect x64
         User: desinfect
     ENDTEXT
 EOF";
