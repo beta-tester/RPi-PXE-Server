@@ -364,7 +364,7 @@ pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux
 dhcp-boot=tag:ARM_RPI3, bootcode.bin
 dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.0
-dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.0
+dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.efi
 EOF";
     sudo systemctl restart dnsmasq.service;
     }
