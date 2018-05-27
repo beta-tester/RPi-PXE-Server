@@ -115,7 +115,7 @@ sudo systemctl restart chronyd.service;
 
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
-sudo apt install -y pxelinux syslinux-common;
+sudo apt install -y pxelinux syslinux-common syslinux-efi;
 
 
 ######################################################################
