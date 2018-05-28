@@ -116,7 +116,11 @@ sudo systemctl restart chronyd.service;
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
 sudo apt install -y pxelinux syslinux-common syslinux-efi;
-
+echo -e "\e[32m update the 64bit efi file and ldlinux.e64 to 6.04-pre1 due to bugs\e[0m";
+wget https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/Testing/6.04/syslinux-6.04-pre1.tar.gz /home/pi/;
+sudo tar -x -v -C /usr/lib/SYSLINUX.EFI/efi64/ -f /home/pi/syslinux-6.04-pre1.tar.gz --strip-components=3 syslinux-6.04-pre1/efi64/efi/syslinux.efi;
+sudo tar -x -v -C /usr/lib/syslinux/modules/efi64/ -f /home/pi/syslinux-6.04-pre1.tar.gz --strip-components=5 syslinux-6.04-pre1/efi64/com32/elflink/ldlinux/ldlinux.e64;
+sudo rm /home/pi/syslinux-6.04-pre1.tar.gz;
 
 ######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
