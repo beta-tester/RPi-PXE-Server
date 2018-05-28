@@ -1679,8 +1679,8 @@ handle_pxe
 ######################################################################
 ######################################################################
 #handle_zip_img  $PI_CORE   $PI_CORE_URL;
-handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
-#handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
+handle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
+#handle_zip_img  $RPD_FULL  $RPD_FULL_URL  timestamping;
 ######################################################################
 ######################################################################
 ## comment out those entries,
