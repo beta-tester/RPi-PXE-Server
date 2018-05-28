@@ -1166,32 +1166,33 @@ handle_iso() {
 }
 
 
-######################################################################
+##########################################################################
 handle_zip_img() {
+    echo -e "\e[32mhandle_zip_img(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
     # $1 : short name
     # $2 : download url
-    ##############################################################
+    ######################################################################
     local NAME=$1
     local URL=$2
     local RAW_FILENAME=$(basename $URL .zip)
-    local RAW_FILENAME_IMG=$RAW_FILENAME.img
     local RAW_FILENAME_ZIP=$RAW_FILENAME.zip
     local NAME_BOOT=$NAME-boot
     local NAME_ROOT=$NAME-root
-    local DST_BOOT=$DST_NFS_ETH0/$NAME_BOOT
-    local DST_ROOT=$DST_NFS_ETH0/$NAME_ROOT
+    local DST_NFS_BOOT=$DST_NFS_ETH0/$NAME_BOOT
+    local DST_NFS_ROOT=$DST_NFS_ETH0/$NAME_ROOT
     local FILE_URL=$NAME.url
     local FILE_IMG=$NAME.img
-    ##############################################################
-    echo -e "\e[32mhandle_zip_img(\e[0m$NAME\e[32m)\e[0m";
+    ######################################################################
+
     if ! [ -d "$DST_IMG/" ]; then sudo mkdir -p $DST_IMG/; fi
     if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
 
-    sudo exportfs -u *:$DST_BOOT 2> /dev/null;
-    sudo umount -f $DST_BOOT 2> /dev/null;
+    sudo exportfs -u *:$DST_NFS_BOOT 2> /dev/null;
+    sudo umount -f $DST_NFS_BOOT 2> /dev/null;
 
-    sudo exportfs -u *:$DST_ROOT 2> /dev/null;
-    sudo umount -f $DST_ROOT 2> /dev/null;
+    sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
+    sudo umount -f $DST_NFS_ROOT 2> /dev/null;
 
     if [ "$URL" == "" ]; then
         if ! [ -f "$DST_IMG/$FILE_IMG" ] \
@@ -1216,19 +1217,23 @@ handle_zip_img() {
         fi
 
         if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null \
+        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_IMG/$FILE_URL $URL); \
         then
             echo -e "\e[36m    download image\e[0m";
             sudo rm -f $DST_IMG/$FILE_IMG;
             sudo rm -f $DST_IMG/$FILE_URL;
             sudo wget -O $DST_IMG/$RAW_FILENAME_ZIP  $URL;
-            echo -e "\e[36m    extract image\e[0m";
-            sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG;
-            sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
-            sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
 
             sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
-            sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
+            sudo touch -r $DST_IMG/$RAW_FILENAME_ZIP  $DST_IMG/$FILE_URL;
+
+            echo -e "\e[36m    extract image\e[0m";
+            sudo unzip $DST_IMG/$RAW_FILENAME_ZIP  -d $DST_IMG > /tmp/output.tmp;
+            sudo rm -f $DST_IMG/$RAW_FILENAME_ZIP;
+            local RAW_FILENAME_IMG=$(grep 'inflating' /tmp/output.tmp | cut -d':' -f2 | xargs basename)
+            sudo mv $DST_IMG/$RAW_FILENAME_IMG  $DST_IMG/$FILE_IMG;
+            rm /tmp/output.tmp
         fi
     fi
 
@@ -1243,42 +1248,42 @@ handle_zip_img() {
         sudo sed /etc/fstab   -i -e "/$NAME_ROOT/d"
 
         ## boot
-        if ! [ -d "$DST_BOOT" ]; then
+        if ! [ -d "$DST_NFS_BOOT" ]; then
             echo -e "\e[36m    create image-boot folder\e[0m";
-            sudo mkdir -p $DST_BOOT;
+            sudo mkdir -p $DST_NFS_BOOT;
         fi
 
-        if ! grep -q "$DST_BOOT" /etc/fstab; then
+        if ! grep -q "$DST_NFS_BOOT" /etc/fstab; then
             echo -e "\e[36m    add image-boot to fstab\e[0m";
-            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_BOOT  auto  ro,nofail,auto,loop,offset=$OFFSET_BOOT,sizelimit=$SIZE_BOOT  0  0' >> /etc/fstab";
+            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_NFS_BOOT  auto  ro,nofail,auto,loop,offset=$OFFSET_BOOT,sizelimit=$SIZE_BOOT  0  11' >> /etc/fstab";
         fi
 
-        if ! grep -q "$DST_BOOT" /etc/exports; then
+        if ! grep -q "$DST_NFS_BOOT" /etc/exports; then
             echo -e "\e[36m    add image-boot folder to exports\e[0m";
-            sudo sh -c "echo '$DST_BOOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            sudo sh -c "echo '$DST_NFS_BOOT  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
         fi
 
         ## root
-        if ! [ -d "$DST_ROOT" ]; then
+        if ! [ -d "$DST_NFS_ROOT" ]; then
             echo -e "\e[36m    create image-root folder\e[0m";
-            sudo mkdir -p $DST_ROOT;
+            sudo mkdir -p $DST_NFS_ROOT;
         fi
 
-        if ! grep -q "$DST_ROOT" /etc/fstab; then
+        if ! grep -q "$DST_NFS_ROOT" /etc/fstab; then
             echo -e "\e[36m    add image-root to fstab\e[0m";
-            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_ROOT  auto  ro,nofail,auto,loop,offset=$OFFSET_ROOT,sizelimit=$SIZE_ROOT  0  0' >> /etc/fstab";
+            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_NFS_ROOT  auto  ro,nofail,auto,loop,offset=$OFFSET_ROOT,sizelimit=$SIZE_ROOT  0  11' >> /etc/fstab";
         fi
 
-        if ! grep -q "$DST_ROOT" /etc/exports; then
+        if ! grep -q "$DST_NFS_ROOT" /etc/exports; then
             echo -e "\e[36m    add image-root folder to exports\e[0m";
-            sudo sh -c "echo '$DST_ROOT  *(ro,async,no_subtree_check,root_squash,mp)' >> /etc/exports";
+            sudo sh -c "echo '$DST_NFS_ROOT  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
         fi
 
-        sudo mount $DST_BOOT;
-        sudo exportfs *:$DST_BOOT;
+        sudo mount $DST_NFS_BOOT;
+        sudo exportfs *:$DST_NFS_BOOT;
 
-        sudo mount $DST_ROOT;
-        sudo exportfs *:$DST_ROOT;
+        sudo mount $DST_NFS_ROOT;
+        sudo exportfs *:$DST_NFS_ROOT;
     else
         ## boot
         sudo sed /etc/fstab   -i -e "/$NAME_BOOT/d"
