@@ -116,11 +116,27 @@ sudo systemctl restart chronyd.service;
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
 sudo apt install -y pxelinux syslinux-common syslinux-efi;
+
+sudo wget -O /tmp/syslinux-6.04-pre1.tar.xz https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/Testing/6.04/syslinux-6.04-pre1.tar.xz;
+
+echo -e "\e[32m update the 32bit efi file and ldlinux.e32 to 6.04-pre1 due to bugs\e[0m";
+sudo tar -x -v -C /usr/lib/SYSLINUX.EFI/efi32/ -f /tmp/syslinux-6.04-pre1.tar.xz --strip-components=3 syslinux-6.04-pre1/efi32/efi/syslinux.efi;
+sudo chown root:root /usr/lib/SYSLINUX.EFI/efi32/syslinux.efi;
+sudo chmod 644 /usr/lib/SYSLINUX.EFI/efi32/syslinux.efi;
+sudo tar -x -v -C /usr/lib/syslinux/modules/efi32/ -f /tmp/syslinux-6.04-pre1.tar.xz --strip-components=5 syslinux-6.04-pre1/efi32/com32/elflink/ldlinux/ldlinux.e32;
+sudo chown root:root /usr/lib/syslinux/modules/efi32/ldlinux.e32;
+sudo chmod 644 /usr/lib/syslinux/modules/efi32/ldlinux.e32;
+
 echo -e "\e[32m update the 64bit efi file and ldlinux.e64 to 6.04-pre1 due to bugs\e[0m";
-wget https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/Testing/6.04/syslinux-6.04-pre1.tar.gz /home/pi/;
-sudo tar -x -v -C /usr/lib/SYSLINUX.EFI/efi64/ -f /home/pi/syslinux-6.04-pre1.tar.gz --strip-components=3 syslinux-6.04-pre1/efi64/efi/syslinux.efi;
-sudo tar -x -v -C /usr/lib/syslinux/modules/efi64/ -f /home/pi/syslinux-6.04-pre1.tar.gz --strip-components=5 syslinux-6.04-pre1/efi64/com32/elflink/ldlinux/ldlinux.e64;
-sudo rm /home/pi/syslinux-6.04-pre1.tar.gz;
+sudo tar -x -v -C /usr/lib/SYSLINUX.EFI/efi64/ -f /tmp/syslinux-6.04-pre1.tar.xz --strip-components=3 syslinux-6.04-pre1/efi64/efi/syslinux.efi;
+sudo chown root:root /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi;
+sudo chmod 644 /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi;
+sudo tar -x -v -C /usr/lib/syslinux/modules/efi64/ -f /tmp/syslinux-6.04-pre1.tar.xz --strip-components=5 syslinux-6.04-pre1/efi64/com32/elflink/ldlinux/ldlinux.e64;
+sudo chown root:root /usr/lib/syslinux/modules/efi64/ldlinux.e64;
+sudo chmod 644 /usr/lib/syslinux/modules/efi64/ldlinux.e64;
+
+sudo rm /tmp/syslinux-6.04-pre1.tar.xz;
+
 
 ######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
