@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-05-27
+# v2018-06-05
 #
 # known issues:
 #
@@ -356,13 +356,13 @@ tag-if=set:ARM_RPI3, tag:ARCH_0, tag:UUID_RPI3
 tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3
 
 pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
-pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/pxelinux
+pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/lpxelinux
 pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux.efi
 pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux.efi
 pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux.efi
 
 dhcp-boot=tag:ARM_RPI3, bootcode.bin
-dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/pxelinux.0
+dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/lpxelinux.0
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.efi
 dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.efi
 EOF";
@@ -485,8 +485,8 @@ handle_pxe_menu() {
 # http://www.syslinux.org/wiki/index.php?title=Menu
 
 DEFAULT vesamenu.c32
-TIMEOUT 600
-ONTIMEOUT localboot
+#TIMEOUT 600
+#ONTIMEOUT localboot
 PROMPT 0
 NOESCAPE 1
 ALLOWOPTIONS 1
@@ -509,13 +509,6 @@ LABEL reboot
 LABEL poweroff
     MENU LABEL Power Off
     COM32 poweroff.c32
-########################################
-LABEL localboot
-    MENU LABEL Local Boot
-    LOCALBOOT 0
-    TEXT HELP
-        Boot to local hard disk
-    ENDTEXT
 EOF";
     fi
 
@@ -1522,7 +1515,7 @@ handle_pxe() {
     ######################################################################
     echo -e "\e[36m    setup sys menu files for pxe bios\e[0m";
     [ -d "$DST_TFTP_ETH0/$DST_PXE_BIOS" ]              || sudo mkdir -p $DST_TFTP_ETH0/$DST_PXE_BIOS;
-    [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxelinux.0" ]   || sudo ln -s /usr/lib/PXELINUX/pxelinux.0                 $DST_TFTP_ETH0/$DST_PXE_BIOS/pxelinux.0;
+    [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/lpxelinux.0" ]  || sudo ln -s /usr/lib/PXELINUX/lpxelinux.0                $DST_TFTP_ETH0/$DST_PXE_BIOS/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/ldlinux.c32" ]  || sudo ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32   $DST_TFTP_ETH0/$DST_PXE_BIOS/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/vesamenu.c32" ] || sudo ln -s /usr/lib/syslinux/modules/bios/vesamenu.c32  $DST_TFTP_ETH0/$DST_PXE_BIOS/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/libcom32.c32" ] || sudo ln -s /usr/lib/syslinux/modules/bios/libcom32.c32  $DST_TFTP_ETH0/$DST_PXE_BIOS/;
@@ -1537,7 +1530,7 @@ handle_pxe() {
     ######################################################################
     echo -e "\e[36m    setup sys menu files for pxe efi32\e[0m";
     [ -d "$DST_TFTP_ETH0/$DST_PXE_EFI32" ]              || sudo mkdir -p $DST_TFTP_ETH0/$DST_PXE_EFI32;
-    [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/syslinux.efi" ] || sudo ln -s /usr/lib/SYSLINUX.EFI/efi32/syslinux.efi      $DST_TFTP_ETH0/$DST_PXE_EFI32/syslinux.efi;
+    [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/syslinux.efi" ] || sudo ln -s /usr/lib/SYSLINUX.EFI/efi32/syslinux.efi      $DST_TFTP_ETH0/$DST_PXE_EFI32/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/ldlinux.e32" ]  || sudo ln -s /usr/lib/syslinux/modules/efi32/ldlinux.e32   $DST_TFTP_ETH0/$DST_PXE_EFI32/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/vesamenu.c32" ] || sudo ln -s /usr/lib/syslinux/modules/efi32/vesamenu.c32  $DST_TFTP_ETH0/$DST_PXE_EFI32/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/libcom32.c32" ] || sudo ln -s /usr/lib/syslinux/modules/efi32/libcom32.c32  $DST_TFTP_ETH0/$DST_PXE_EFI32/;
@@ -1551,7 +1544,7 @@ handle_pxe() {
     ######################################################################
     echo -e "\e[36m    setup sys menu files for pxe efi64\e[0m";
     [ -d "$DST_TFTP_ETH0/$DST_PXE_EFI64" ]              || sudo mkdir -p $DST_TFTP_ETH0/$DST_PXE_EFI64;
-    [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/syslinux.efi" ] || sudo ln -s /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi      $DST_TFTP_ETH0/$DST_PXE_EFI64/syslinux.efi;
+    [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/syslinux.efi" ] || sudo ln -s /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi      $DST_TFTP_ETH0/$DST_PXE_EFI64/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/ldlinux.e64" ]  || sudo ln -s /usr/lib/syslinux/modules/efi64/ldlinux.e64   $DST_TFTP_ETH0/$DST_PXE_EFI64/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/vesamenu.c32" ] || sudo ln -s /usr/lib/syslinux/modules/efi64/vesamenu.c32  $DST_TFTP_ETH0/$DST_PXE_EFI64/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/libcom32.c32" ] || sudo ln -s /usr/lib/syslinux/modules/efi64/libcom32.c32  $DST_TFTP_ETH0/$DST_PXE_EFI64/;
