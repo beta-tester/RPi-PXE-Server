@@ -625,8 +625,8 @@ handle_pxe_menu() {
 # http://www.syslinux.org/wiki/index.php?title=Menu
 
 DEFAULT vesamenu.c32
-TIMEOUT 600
-ONTIMEOUT localboot
+#TIMEOUT 600
+#ONTIMEOUT localboot
 PROMPT 0
 NOESCAPE 1
 ALLOWOPTIONS 1
@@ -649,13 +649,6 @@ LABEL reboot
 LABEL poweroff
     MENU LABEL Power Off
     COM32 poweroff.c32
-########################################
-LABEL localboot
-    MENU LABEL Local Boot
-    LOCALBOOT 0
-    TEXT HELP
-        Boot to local hard disk
-    ENDTEXT
 EOF";
     fi
 
