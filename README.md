@@ -254,7 +254,7 @@ pi@raspberry-$ cat /proc/cpuinfo | grep Serial
 Serial          : 0000000087654321
 ```
 then take ```RPI_SN0=87654321```.<br />
-if you have more than one RPi3-clients for network booting you have to add them by hand to the ```/srv/tftp``` folder on the PXE-server.
+if you have more than one RPi3-client for network booting you have to add them by hand to the ```/srv/tftp``` folder on the PXE-server.
 
 the script will download Raspbian-Stretch-Lite and prepare it for the RPi3-client with the given serial number.
 
