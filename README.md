@@ -244,9 +244,9 @@ CUSTOM_TIMEZONE=Europe/Berlin
 ## note3:
 it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because of lack of hardware for UEFI boot
 
-## note4: NETWORK BOOTING for Raspberry Pi 3
-the server is prepared for to boot a Raspberry Pi 3 via network.
-in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN0=--------``` line, change the ```--------``` to the serial number of the RPi3, that will boot from network.<br />
+## note4: NETWORK BOOTING for Raspberry Pi 3 client
+the server is prepared for to boot a Raspberry Pi 3 client via network.
+in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN0=--------``` line, change the ```--------``` to the serial number of the RPi3-**client**, that will boot from network later on.<br />
 skip the leading '00000000'. take only the last 8 digits!<br />
 e.g.
 ```
@@ -254,11 +254,11 @@ pi@raspberry-$ cat /proc/cpuinfo | grep Serial
 Serial          : 0000000087654321
 ```
 then take ```RPI_SN0=87654321```.<br />
-if you have more than one RPi3 for network booting you have to add them by hand to the ```/srv/tftp``` folder.
+if you have more than one RPi3-clients for network booting you have to add them by hand to the ```/srv/tftp``` folder on the PXE-server.
 
-the script will download Raspbian-Stretch-Lite and prepare it for the RPi3 with the given serial number.
+the script will download Raspbian-Stretch-Lite and prepare it for the RPi3-client with the given serial number.
 
-by default, a RPi3 is not enabled for network booting. you have to enable it once.
+by default, a RPi3-client is not enabled for network booting. you have to enable it once.
 
 for more information,
 
