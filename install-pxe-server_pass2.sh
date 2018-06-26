@@ -18,7 +18,7 @@
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # tails,        https://tails.boum.org/install/download/openpgp/index.en.html
 # centos,       https://www.centos.org/download/
-# opensuse      http://download.opensuse.org/distribution/openSUSE-current/live/
+# opensuse      https://download.opensuse.org/distribution/openSUSE-current/live/
 #
 # rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
