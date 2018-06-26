@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-06-25
+# v2018-06-26
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -229,7 +229,6 @@ CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86
 
 OPENSUSE_X64=opensuse-x64
 OPENSUSE_X64_URL=http://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-GNOME-Live-x86_64-Current.iso
-
 OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=http://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 
@@ -248,7 +247,6 @@ PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
 RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
-
 RPD_FULL=rpi-raspbian-full
 RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_latest
 
@@ -608,7 +606,7 @@ handle_pxe_menu() {
     # $2 : menu file name
     ######################################################################
     local FILE_MENU=$DST_TFTP_ETH0/$1/pxelinux.cfg/$2
-    local FILE_BASE=http://$IP_ETH0
+    local FILE_BASE=http://$(hostname)
     ######################################################################
     ## INFO:
     ## The entry before -- means that it will be used by the live system / the installer
