@@ -1195,12 +1195,13 @@ EOF";
 ########################################
 LABEL $OPENSUSE_X64
     MENU LABEL openSUSE Leap x64
-#    KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
-#    INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
+    KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
+    INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
+    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
 #    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts root=/dev/ram0 load_ramdisk=1 ramdisk_size=4096 init=linuxrc -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-    KERNEL memdisk
-    APPEND iso
-    INITRD $FILE_BASE$ISO/$OPENSUSE_X64.iso
+#    KERNEL memdisk
+#    APPEND iso
+#    INITRD $FILE_BASE$ISO/$OPENSUSE_X64.iso
     TEXT HELP
         Boot to openSUSE Leap Live
         User: liveuser
@@ -1215,12 +1216,12 @@ EOF";
 ########################################
 LABEL $OPENSUSE_RESCUE_X64
     MENU LABEL openSUSE Leap Rescue x64
-#    KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
-#    INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
-#    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-    KERNEL memdisk
-    APPEND iso
-    INITRD $FILE_BASE$ISO/$OPENSUSE_RESCUE_X64.iso
+    KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
+    INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
+    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+#    KERNEL memdisk
+#    APPEND iso
+#    INITRD $FILE_BASE$ISO/$OPENSUSE_RESCUE_X64.iso
     TEXT HELP
         Boot to openSUSE Leap Rescue Live
         User: liveuser
