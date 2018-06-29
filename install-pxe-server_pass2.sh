@@ -1193,15 +1193,20 @@ EOF";
         echo  -e "\e[36m    add $OPENSUSE_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
+## INFO: Booting live images
+##           https://mirrors.edge.kernel.org/pub/linux/utils/boot/dracut/dracut.html#dracutconf5
+##       Bug 1099548 - can't PXE-boot into openSUSE Leap 15.0 Live image
+##           https://bugzilla.opensuse.org/show_bug.cgi?id=1099548
 LABEL $OPENSUSE_X64
     MENU LABEL openSUSE Leap x64
     KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
     INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
-    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-#    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts root=/dev/ram0 load_ramdisk=1 ramdisk_size=4096 init=linuxrc -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-#    KERNEL memdisk
-#    APPEND iso
-#    INITRD $FILE_BASE$ISO/$OPENSUSE_X64.iso
+    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+#    APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+#    APPEND root=live:$IP_ETH0$NFS_ETH0:/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+##    KERNEL memdisk
+##    APPEND iso
+##    INITRD $FILE_BASE$ISO/$OPENSUSE_X64.iso
     TEXT HELP
         Boot to openSUSE Leap Live
         User: liveuser
@@ -1219,9 +1224,11 @@ LABEL $OPENSUSE_RESCUE_X64
     KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
     INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
     APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-#    KERNEL memdisk
-#    APPEND iso
-#    INITRD $FILE_BASE$ISO/$OPENSUSE_RESCUE_X64.iso
+#    APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+#    APPEND root=live:$IP_ETH0$NFS_ETH0:/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+##    KERNEL memdisk
+##    APPEND iso
+##    INITRD $FILE_BASE$ISO/$OPENSUSE_RESCUE_X64.iso
     TEXT HELP
         Boot to openSUSE Leap Rescue Live
         User: liveuser
