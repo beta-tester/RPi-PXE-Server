@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-06-26
+# v2018-06-29
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -1201,9 +1201,9 @@ LABEL $OPENSUSE_X64
     MENU LABEL openSUSE Leap x64
     KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
     INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
-    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-#    APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-#    APPEND root=live:$IP_ETH0$NFS_ETH0:/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+#    APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+#    APPEND root=live:$IP_ETH0$NFS_ETH0:/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
 ##    KERNEL memdisk
 ##    APPEND iso
 ##    INITRD $FILE_BASE$ISO/$OPENSUSE_X64.iso
