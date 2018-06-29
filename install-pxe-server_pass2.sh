@@ -221,16 +221,16 @@ CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
 
+OPENSUSE_X64=opensuse-x64
+OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-GNOME-Live-x86_64-Current.iso
+OPENSUSE_RESCUE_X64=opensuse-rescue-x64
+OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
+
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.2/tails-amd64-3.6.2.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1804.iso
-
-OPENSUSE_X64=opensuse-x64
-OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-GNOME-Live-x86_64-Current.iso
-OPENSUSE_RESCUE_X64=opensuse-rescue-x64
-OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 
 
 ##########################################################################
@@ -286,7 +286,7 @@ wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 #wpa_passphrase=$PASSWORD_WLAN0
-wpa_psk=$(wpa_passphrase $SSID_WLAN0 PASSWORD_WLAN0 | grep '[[:blank:]]psk' | cut -d = -f2)
+wpa_psk=$(wpa_passphrase $SSID_WLAN0 $PASSWORD_WLAN0 | grep '[[:blank:]]psk' | cut -d = -f2)
 
 ## optional: create virtual wlan adapter
 #bss=$INTERFACE_WLAN0X
@@ -299,7 +299,7 @@ wpa_psk=$(wpa_passphrase $SSID_WLAN0 PASSWORD_WLAN0 | grep '[[:blank:]]psk' | cu
 #wpa_pairwise=TKIP
 #rsn_pairwise=CCMP
 ##wpa_passphrase=$PASSWORD_WLAN0X
-#wpa_psk=$(wpa_passphrase $SSID_WLAN0X PASSWORD_WLAN0X | grep '[[:blank:]]psk' | cut -d = -f2)
+#wpa_psk=$(wpa_passphrase $SSID_WLAN0X $PASSWORD_WLAN0X | grep '[[:blank:]]psk' | cut -d = -f2)
 EOF";
     }
 
