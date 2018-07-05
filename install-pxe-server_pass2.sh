@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-06-29
+# v2018-07-05
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -211,7 +211,7 @@ TINYCORE_x86=tinycore-x86
 TINYCORE_x86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-current.iso
 
 RPDESKTOP_X86=rpdesktop-x86
-RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86/images/rpd_x86-2018-06-29/2018-06-27-rpd-x86-stretch.iso
+RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86_latest
 
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-amd64.iso
@@ -2191,7 +2191,7 @@ handle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
 handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
 handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
 handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
-#handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL;
+#handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 #handle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
