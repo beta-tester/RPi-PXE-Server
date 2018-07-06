@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-05
+# v2018-07-06
 #
 # known issues:
 #
@@ -618,7 +618,7 @@ EOF";
 LABEL $UBUNTU_DAILY_X64
     MENU LABEL Ubuntu x64 Daily-Live
     KERNEL $NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
-    INITRD $NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd.lz
+    INITRD $NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu x64 Daily-Live
@@ -670,7 +670,7 @@ EOF";
 LABEL $LUBUNTU_DAILY_X64
     MENU LABEL lubuntu x64 Daily-Live
     KERNEL $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
-    INITRD $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd.lz
+    INITRD $NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to lubuntu x64 Daily-Live
