@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-06
+# v2018-07-07
 #
 # known issues:
 #
@@ -124,22 +124,17 @@ UBUNTU_LTS_X64=ubuntu-lts-x64
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-amd64.iso
 UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-desktop-i386.iso
-
 UBUNTU_X64=ubuntu-x64
 UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
-
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/cosmic-desktop-amd64.iso
-
 
 LUBUNTU_X64=lubuntu-x64
 LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-amd64.iso
 LUBUNTU_X86=lubuntu-x86
 LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-desktop-i386.iso
-
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
 LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/cosmic-desktop-amd64.iso
-
 
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
@@ -164,7 +159,6 @@ GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnura
 
 DEFT_X64=deft-x64
 DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
-
 DEFTZ_X64=deftz-x64
 DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
 
@@ -173,6 +167,8 @@ KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened.iso
+PENTOO_BETA_X64=pentoo-beta-x64
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC7_pre20180703.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.2/systemrescuecd-x86-5.2.2.iso
@@ -879,6 +875,23 @@ LABEL $PENTOO_X64
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox --
     TEXT HELP
         Boot to Pentoo x64 Live
+        User: pentoo
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo" ]; then
+        echo  -e "\e[36m    add $PENTOO_BETA_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $PENTOO_BETA_X64
+    MENU LABEL Pentoo Beta x64
+    KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo
+    INITRD $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo.igz
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_BETA_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox --
+    TEXT HELP
+        Boot to Pentoo Beta x64 Live
         User: pentoo
     ENDTEXT
 EOF";
@@ -1636,35 +1649,36 @@ handle_chrony
 ##  you don't want to download/mount/export/install for PXE boot
 ######################################################################
 ######################################################################
-##handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
-handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
-#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
-#handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
-#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
-#handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
-#handle_iso  $LUBUNTU_X64         $LUBUNTU_X64_URL;
-#handle_iso  $LUBUNTU_X86         $LUBUNTU_X86_URL;
-#handle_iso  $LUBUNTU_DAILY_X64   $LUBUNTU_DAILY_X64_URL   timestamping;
-##handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
-#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
-#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
-#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
-#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
-#handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
-#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
-#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
-#handle_iso  $DEFT_X64           $DEFT_X64_URL;
-#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
-#handle_iso  $KALI_X64           $KALI_X64_URL;
-#handle_iso  $PENTOO_X64         $PENTOO_X64_URL         timestamping;
+##handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
+handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
+#handle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
+#handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
+#handle_iso  $UBUNTU_X86  $UBUNTU_X86_URL;
+#handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
+#handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
+#handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
+#handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
+##handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
+#handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
+#handle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
+#handle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
+#handle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
+#handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
+#handle_iso  $PARROT_FULL_X86  $PARROT_FULL_X86_URL;
+#handle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
+#handle_iso  $DEFT_X64  $DEFT_X64_URL;
+#handle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
+#handle_iso  $KALI_X64  $KALI_X64_URL;
+#handle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
+#handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL;
 #handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
-##handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
-handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
-handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL      timestamping;
-#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
-#handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
-#handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
+##handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
+handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
+handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
+handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
+#handle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
+#handle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
+#handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 ######################################################################
 handle_pxe
 
