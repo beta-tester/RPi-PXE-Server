@@ -23,7 +23,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-07
+# v2018-07-08
 #
 # known issues:
 #
@@ -168,7 +168,7 @@ KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened.iso
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC7_pre20180703.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/latest-iso-symlinks/pentoo-amd64-hardened.iso
 
 SYSTEMRESCTUE_X86=systemrescue-x86
 SYSTEMRESCTUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.2/systemrescuecd-x86-5.2.2.iso
@@ -1670,7 +1670,7 @@ handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
 #handle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 #handle_iso  $KALI_X64  $KALI_X64_URL;
 #handle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
-#handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL;
+#handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 #handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
 ##handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
 handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
