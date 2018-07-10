@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-08
+# v2018-07-10
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -1018,7 +1018,7 @@ LABEL $PENTOO_X64
     MENU LABEL Pentoo x64
     KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_X64/isolinux/pentoo
     INITRD $FILE_BASE$NFS_ETH0/$PENTOO_X64/isolinux/pentoo.igz
-    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox --
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 --
     TEXT HELP
         Boot to Pentoo x64 Live
         User: pentoo
@@ -1035,7 +1035,7 @@ LABEL $PENTOO_BETA_X64
     MENU LABEL Pentoo Beta x64
     KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo
     INITRD $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo.igz
-    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_BETA_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox --
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_BETA_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 --
     TEXT HELP
         Boot to Pentoo Beta x64 Live
         User: pentoo
