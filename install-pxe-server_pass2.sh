@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-10
+# v2018-07-17
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -162,11 +162,11 @@ LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/cosmi
 UBUNTU_NONPAE=ubuntu-nopae
 UBUNTU_NONPAE_URL=
 
-DEBIAN_KVER=4.9.0-6
+DEBIAN_KVER=4.9.0-7
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.4.0-amd64-lxde.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.5.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.4.0-i386-lxde.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.5.0-i386-lxde.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.1/Parrot-home-4.1_amd64.iso
@@ -191,7 +191,8 @@ KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened.iso
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/latest-iso-symlinks/pentoo-amd64-hardened.iso
+#PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/latest-iso-symlinks/pentoo-amd64-hardened.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/Pentoo_amd64_hardened/pentoo-amd64-hardened-2018.0_RC7.2_p20180713.iso
 
 SYSTEMRESCUE_X86=systemrescue-x86
 SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.2/systemrescuecd-x86-5.2.2.iso
@@ -2189,7 +2190,7 @@ handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 
 #handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
-#handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
+handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 #handle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
 #handle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
 #handle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
