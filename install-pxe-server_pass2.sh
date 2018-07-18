@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-17
+# v2018-07-18
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -224,7 +224,7 @@ OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.6.2/tails-amd64-3.6.2.iso
+TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.8/tails-amd64-3.8.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1804.iso
@@ -2184,11 +2184,9 @@ handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
 #handle_iso  $UBUNTU_X86  $UBUNTU_X86_URL;
 handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
-
 handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 #handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
-
 #handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 #handle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
