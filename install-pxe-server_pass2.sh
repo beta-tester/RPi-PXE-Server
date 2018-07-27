@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-26
+# v2018-07-27
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -189,7 +189,7 @@ KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened.iso
+PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened-latest.iso
 PENTOO_BETA_X64=pentoo-beta-x64
 PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-beta-amd64-hardened-latest.iso
 
@@ -1534,6 +1534,32 @@ handle_iso() {
 
 
 ##########################################################################
+_unhandle_iso() {
+    if [ "_$1_" == "__" ]; then return 0; fi
+
+    echo -e "\e[32m_unhandle_iso(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    ######################################################################
+    local NAME=$1
+    local FILE_URL=$NAME.url
+    local FILE_ISO=$NAME.iso
+    ######################################################################
+
+    sudo exportfs -uf *:$DST_NFS_ETH0/$NAME 2> /dev/null;
+    sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
+
+    sudo rm -f $DST_ISO/$FILE_URL;
+    sudo rm -f $DST_ISO/$FILE_ISO;
+
+    sudo rm -rf $DST_NFS_ETH0/$NAME;
+
+    sudo sed /etc/fstab   -i -e "/$NAME/d"
+    sudo sed /etc/exports -i -e "/$NAME/d"
+}
+
+
+##########################################################################
 handle_zip_img() {
     echo -e "\e[32mhandle_zip_img(\e[0m$1\e[32m)\e[0m";
     ######################################################################
@@ -2175,27 +2201,29 @@ handle_optional;
 ##########################################################################
 ## comment out those entries,
 ##  you don't want to download, mount, export, install for PXE boot
+## or
+## "_unhandle_iso  ...",
+##  if you want to delete the entire iso and its nfs export to free disk space
 ##########################################################################
 ##########################################################################
 handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
-#handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
-#handle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
+_unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
+_unhandle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
-#handle_iso  $UBUNTU_X86  $UBUNTU_X86_URL;
 handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
-#handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
+_unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
-#handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
+_unhandle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
-#handle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
-#handle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
-#handle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
+_unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
+_unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
+_unhandle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
 handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
-#handle_iso  $PARROT_FULL_X86  $PARROT_FULL_X86_URL;
-#handle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
-#handle_iso  $DEFT_X64  $DEFT_X64_URL;
-#handle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
+_unhandle_iso  $PARROT_FULL_X86  $PARROT_FULL_X86_URL;
+_unhandle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
+_unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
+_unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 handle_iso  $KALI_X64  $KALI_X64_URL;
 handle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
@@ -2203,14 +2231,14 @@ handle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
 handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
 handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
 handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
-#handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
-#handle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
+_unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
+_unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 handle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  ,gid=root,uid=root,norock,mode=292;
 handle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  ,gid=root,uid=root,norock,mode=292;
-##handle_iso  $CENTOS_X64  $CENTOS_X64_URL;
-##handle_iso  $TAILS_X64  $TAILS_X64_URL;
+_unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
+_unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 ##########################################################################
 handle_pxe;
 handle_ipxe;
