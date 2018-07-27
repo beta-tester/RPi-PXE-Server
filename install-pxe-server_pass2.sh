@@ -166,7 +166,7 @@ KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened.iso
+PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened-latest.iso
 PENTOO_BETA_X64=pentoo-beta-x64
 PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-beta-amd64-hardened-latest.iso
 
@@ -1654,7 +1654,6 @@ handle_chrony
 #handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
 #handle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
-#handle_iso  $UBUNTU_X86  $UBUNTU_X86_URL;
 #handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 #handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 #handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
