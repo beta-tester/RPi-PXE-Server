@@ -24,7 +24,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-07-27
+# v2018-07-28
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -1546,7 +1546,7 @@ _unhandle_iso() {
     local FILE_ISO=$NAME.iso
     ######################################################################
 
-    sudo exportfs -uf *:$DST_NFS_ETH0/$NAME 2> /dev/null;
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
     sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
 
     sudo rm -f $DST_ISO/$FILE_URL;
