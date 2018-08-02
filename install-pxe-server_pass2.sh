@@ -685,14 +685,14 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz.efi" ]; then
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_LTS_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
 ########################################
 LABEL $UBUNTU_LTS_X64
     MENU LABEL Ubuntu LTS x64
-    KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz.efi
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd.lz
+    KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu LTS x64 Live
@@ -709,7 +709,7 @@ EOF";
 LABEL $UBUNTU_LTS_X86
     MENU LABEL Ubuntu LTS x86
     KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu LTS x86 Live
