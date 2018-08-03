@@ -5,6 +5,7 @@
 # ubuntu,       http://releases.ubuntu.com/
 #               http://cdimage.ubuntu.com/daily-live/current/
 # debian,       https://cdimage.debian.org/debian-cd/
+# devuan,       https://files.devuan.org/devuan_ascii/desktop-live/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
 # kali,         https://www.kali.org/kali-linux-releases/
@@ -24,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-02
+# v2018-08-03
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -167,6 +168,11 @@ DEBIAN_X64=debian-x64
 DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.5.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.5.0-i386-lxde.iso
+
+DEVUAN_X64=devuan-x64
+DEVUAN_X64_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_amd64_desktop-live.iso
+DEVUAN_X86=devuan-x86
+DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.1/Parrot-home-4.1_amd64.iso
@@ -869,6 +875,40 @@ LABEL $DEBIAN_X86
     TEXT HELP
         Boot to Debian x86 Live LXDE
         User: user, Password: live
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$DEVUAN_X64/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $DEVUAN_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $DEVUAN_X64
+    MENU LABEL Devuan x64
+    KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/initrd.img
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X64 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    TEXT HELP
+        Boot to Devuan x64 Live
+        User: devuan
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$DEVUAN_X86/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $DEVUAN_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $DEVUAN_X86
+    MENU LABEL Devuan x86
+    KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/initrd.img
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X86 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    TEXT HELP
+        Boot to Devuan x86 Live
+        User: devuan
     ENDTEXT
 EOF";
     fi
@@ -2215,8 +2255,10 @@ handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 _unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
-handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
+_unhandle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
+_unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
+_unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
 _unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
 _unhandle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
 handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
