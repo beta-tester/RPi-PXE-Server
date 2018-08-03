@@ -5,6 +5,7 @@
 # ubuntu,       http://releases.ubuntu.com/
 #               http://cdimage.ubuntu.com/daily-live/current/
 # debian,       https://cdimage.debian.org/debian-cd/
+# devuan,       https://files.devuan.org/devuan_ascii/desktop-live/
 # parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
 # gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
 # kali,         https://www.kali.org/kali-linux-releases/
@@ -18,12 +19,13 @@
 # nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
 # tails,        https://tails.boum.org/install/download/openpgp/index.en.html
 # centos,       https://www.centos.org/download/
+# opensuse      https://download.opensuse.org/distribution/openSUSE-current/live/
 #
 # rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-02
+# v2018-08-03
 #
 # known issues:
 #
@@ -144,6 +146,11 @@ DEBIAN_X64=debian-x64
 DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.5.0-amd64-lxde.iso
 DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.5.0-i386-lxde.iso
+
+DEVUAN_X64=devuan-x64
+DEVUAN_X64_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_amd64_desktop-live.iso
+DEVUAN_X86=devuan-x86
+DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso
 
 PARROT_LITE_X64=parrot-lite-x64
 PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.1/Parrot-home-4.1_amd64.iso
@@ -729,6 +736,40 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$DEVUAN_X64/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $DEVUAN_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $DEVUAN_X64
+    MENU LABEL Devuan x64
+    KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/initrd.img
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X64 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    TEXT HELP
+        Boot to Devuan x64 Live
+        User: devuan
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$DEVUAN_X86/live/vmlinuz" ]; then
+        echo  -e "\e[36m    add $DEVUAN_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $DEVUAN_X86
+    MENU LABEL Devuan x86
+    KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/initrd.img
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X86 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+    TEXT HELP
+        Boot to Devuan x86 Live
+        User: devuan
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $PARROT_LITE_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -1170,6 +1211,34 @@ handle_iso() {
         sudo sed /etc/fstab   -i -e "/$NAME/d"
         sudo sed /etc/exports -i -e "/$NAME/d"
     fi
+}
+
+
+
+
+##########################################################################
+_unhandle_iso() {
+    if [ "_$1_" == "__" ]; then return 0; fi
+
+    echo -e "\e[32m_unhandle_iso(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    ######################################################################
+    local NAME=$1
+    local FILE_URL=$NAME.url
+    local FILE_ISO=$NAME.iso
+    ######################################################################
+
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
+    sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
+
+    sudo rm -f $DST_ISO/$FILE_URL;
+    sudo rm -f $DST_ISO/$FILE_ISO;
+
+    sudo rm -rf $DST_NFS_ETH0/$NAME;
+
+    sudo sed /etc/fstab   -i -e "/$NAME/d"
+    sudo sed /etc/exports -i -e "/$NAME/d"
 }
 
 
@@ -1644,41 +1713,46 @@ handle_chrony
 #      #              #              #              #              #
 
 
-######################################################################
-######################################################################
+##########################################################################
+##########################################################################
 ## comment out those entries,
-##  you don't want to download/mount/export/install for PXE boot
-######################################################################
-######################################################################
+##  you don't want to download, mount, export, install for PXE boot
+## or
+## "_unhandle_iso  ...",
+##  if you want to delete the entire iso and its nfs export to free disk space
+##########################################################################
+##########################################################################
 ##handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
-#handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
-#handle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
+_unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
+_unhandle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
-#handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
-#handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
-#handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
-#handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
+_unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
+_unhandle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
+_unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
+_unhandle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 ##handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
-#handle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
-#handle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
-#handle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
-#handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
-#handle_iso  $PARROT_FULL_X86  $PARROT_FULL_X86_URL;
-#handle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
-#handle_iso  $DEFT_X64  $DEFT_X64_URL;
-#handle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
-#handle_iso  $KALI_X64  $KALI_X64_URL;
-#handle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
-#handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
-#handle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
+_unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
+_unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
+_unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
+_unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
+_unhandle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
+_unhandle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
+_unhandle_iso  $PARROT_FULL_X86  $PARROT_FULL_X86_URL;
+_unhandle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
+_unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
+_unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
+_unhandle_iso  $KALI_X64  $KALI_X64_URL;
+_unhandle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
+_unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
+_unhandle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
 ##handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
-#handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
-#handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
+_unhandle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
+_unhandle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
 handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
-#handle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
-#handle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
-#handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
+_unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
+_unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
+_unhandle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 ######################################################################
 handle_pxe
 
