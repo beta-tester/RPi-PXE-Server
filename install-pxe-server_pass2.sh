@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-03
+# v2018-08-06
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -1233,7 +1233,7 @@ LABEL $FEDORA_X64
     MENU LABEL Fedora x64
     KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
     INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img
-    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+    APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
     TEXT HELP
         Boot to Fedora Workstation Live
         User: liveuser
@@ -1254,12 +1254,9 @@ LABEL $OPENSUSE_X64
     MENU LABEL openSUSE Leap x64
     KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
     INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
-    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
+    APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
+#    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
 #    APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug --
-#    APPEND root=live:$IP_ETH0$NFS_ETH0:/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-##    KERNEL memdisk
-##    APPEND iso
-##    INITRD $FILE_BASE$ISO/$OPENSUSE_X64.iso
     TEXT HELP
         Boot to openSUSE Leap Live
         User: liveuser
@@ -1276,12 +1273,9 @@ LABEL $OPENSUSE_RESCUE_X64
     MENU LABEL openSUSE Leap Rescue x64
     KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
     INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
-    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- 
+    APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- 
+#    APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- 
 #    APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-#    APPEND root=live:$IP_ETH0$NFS_ETH0:/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-##    KERNEL memdisk
-##    APPEND iso
-##    INITRD $FILE_BASE$ISO/$OPENSUSE_RESCUE_X64.iso
     TEXT HELP
         Boot to openSUSE Leap Rescue Live
         User: liveuser
@@ -1302,7 +1296,7 @@ LABEL $CENTOS_X64
     MENU LABEL CentOS x64
     KERNEL $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz0
     INITRD $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/initrd0.img
-    #APPEND root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 ro rootfstype=auto rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+    #APPEND root=live:nfs:$IP_ETH0$DST_NFS_ETH0/$CENTOS_X64 ro rootfstype=auto rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
 
 # dracut: FATAL: Don't know how to handle 'root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64';
     #APPEND root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
