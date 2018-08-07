@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-06
+# v2018-08-07
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -2271,8 +2271,8 @@ _unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
-handle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  ,gid=root,uid=root,norock,mode=292;
-handle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  ,gid=root,uid=root,norock,mode=292;
+handle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
+handle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
 _unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 ##########################################################################
