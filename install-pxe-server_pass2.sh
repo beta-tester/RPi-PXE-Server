@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-07
+# v2018-08-16
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -489,30 +489,31 @@ dhcp-match=set:ARCH_0, option:client-arch, 0
 dhcp-match=set:x86_UEFI, option:client-arch, 6
 dhcp-match=set:x64_UEFI, option:client-arch, 7
 dhcp-match=set:x64_UEFI, option:client-arch, 9
-dhcp-match=set:iPXE, option:user-class, iPXE
+#dhcp-match=set:iPXE, option:user-class, iPXE
 
 # test if it is a RPi3 or a regular x86PC
 tag-if=set:ARM_RPI3, tag:ARCH_0, tag:UUID_RPI3
-tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3, tag:!iPXE
-tag-if=set:x86_iPXE, tag:ARCH_0, tag:!UUID_RPI3, tag:iPXE
-tag-if=set:UEFI_iPXE, tag:!ARCH_0, tag:!UUID_RPI3, tag:iPXE
+tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3
+#tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3, tag:!iPXE
+#tag-if=set:x86_iPXE, tag:ARCH_0, tag:!UUID_RPI3, tag:iPXE
+#tag-if=set:UEFI_iPXE, tag:!ARCH_0, tag:!UUID_RPI3, tag:iPXE
 
 pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
 pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/lpxelinux
-pxe-service=tag:x86_iPXE,x86PC, \"iPXE Boot Menu (iPXE 00:00)\", undionly.kpxe
-pxe-service=tag:UEFI_iPXE,x86PC, \"iPXE Boot Menu (iPXE UEFI)\", ipxe.efi
 pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/syslinux.efi
 pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/syslinux.efi
 pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/syslinux.efi
+#pxe-service=tag:x86_iPXE,x86PC, \"iPXE Boot Menu (iPXE 00:00)\", undionly.kpxe
+#pxe-service=tag:UEFI_iPXE,x86PC, \"iPXE Boot Menu (iPXE UEFI)\", ipxe.efi
 
 dhcp-boot=tag:ARM_RPI3, bootcode.bin
 dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/lpxelinux.0
-#dhcp-boot=tag:x86_iPXE, http://my.web.server/real_boot_script.php
-dhcp-boot=tag:x86_iPXE, undionly.kpxe
-dhcp-boot=tag:UEFI_iPXE, ipxe.efi
-dhcp-option=iPXE, 175, 8:1:1
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/syslinux.efi
 dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.efi
+#dhcp-boot=tag:x86_iPXE, http://$(hostname)/real_boot_script.php
+#dhcp-boot=tag:x86_iPXE, undionly.kpxe
+#dhcp-boot=tag:UEFI_iPXE, ipxe.efi
+#dhcp-option=iPXE, 175, 8:1:1
 EOF";
     sudo systemctl restart dnsmasq.service;
     }
