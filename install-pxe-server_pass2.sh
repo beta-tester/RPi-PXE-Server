@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-06
+# v2018-08-18
 #
 # known issues:
 #
@@ -130,6 +130,8 @@ UBUNTU_X64=ubuntu-x64
 UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.1-desktop-amd64.iso
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/cosmic-desktop-amd64.iso
+UBUNTU_STUDIO_X64=ubuntu-studio-x64
+UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/18.04/release/ubuntustudio-18.04-dvd-amd64.iso
 
 LUBUNTU_X64=lubuntu-x64
 LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-amd64.iso
@@ -173,9 +175,11 @@ KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened-latest.iso
+#PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened-latest.iso
+PENTOO_X64_URL=https://www.pentoo.ch/isos/Pentoo_amd64_hardened/pentoo-full-amd64-hardened-2018.0_RC8.iso
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-beta-amd64-hardened-latest.iso
+#PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-beta-amd64-hardened-latest.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/Pentoo_amd64_hardened/pentoo-full-amd64-hardened-2018.0_RC7.2_p20180730.iso
 
 SYSTEMRESCUE_X86=systemrescue-x86
 SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.2/systemrescuecd-x86-5.2.2.iso
@@ -194,9 +198,9 @@ RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86_latest
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.6-22/clonezilla-live-2.5.6-22-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.5-38/clonezilla-live-2.5.5-38-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.6-22/clonezilla-live-2.5.6-22-i686.iso
 
 FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
@@ -626,6 +630,23 @@ LABEL $UBUNTU_DAILY_X64
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu x64 Daily-Live
+        User: ubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $UBUNTU_STUDIO_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $UBUNTU_STUDIO_X64
+    MENU LABEL Ubuntu Studio x64
+    KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd.lz
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+    TEXT HELP
+        Boot to Ubuntu Studio x64 Live
         User: ubuntu
     ENDTEXT
 EOF";
@@ -1730,6 +1751,7 @@ _unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 _unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 _unhandle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
+_unhandle_iso  $UBUNTU_STUDIO_X64  $UBUNTU_STUDIO_X64_URL;
 ##handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
