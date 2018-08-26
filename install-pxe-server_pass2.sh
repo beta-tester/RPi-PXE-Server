@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-18
+# v2018-08-26
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -194,7 +194,7 @@ DEFTZ_X64=deftz-x64
 DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.2-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.3-amd64.iso
 
 PENTOO_X64=pentoo-x64
 #PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened-latest.iso
