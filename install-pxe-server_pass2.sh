@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-08-26
+# v2018-08-28
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -197,11 +197,9 @@ KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.3-amd64.iso
 
 PENTOO_X64=pentoo-x64
-#PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-amd64-hardened-latest.iso
-PENTOO_X64_URL=https://www.pentoo.ch/isos/Pentoo_amd64_hardened/pentoo-full-amd64-hardened-2018.0_RC8.iso
+PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-full-amd64-hardened-latest.iso
 PENTOO_BETA_X64=pentoo-beta-x64
-#PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-beta-amd64-hardened-latest.iso
-PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/Beta/Pentoo_amd64_hardened/pentoo-full-amd64-hardened-2018.0_RC7.2_p20180730.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
 
 SYSTEMRESCUE_X86=systemrescue-x86
 SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.2.2/systemrescuecd-x86-5.2.2.iso
