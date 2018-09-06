@@ -25,7 +25,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-09-05
+# v2018-09-06
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -191,7 +191,7 @@ GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnura
 DEFT_X64=deft-x64
 DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/deft-8.2.iso
 DEFTZ_X64=deftz-x64
-DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2017-1.iso
+DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
 
 KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.3-amd64.iso
