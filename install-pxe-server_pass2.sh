@@ -1,25 +1,37 @@
 #!/bin/bash
 
 ##########################################################################
-# winpe,        https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
-# ubuntu,       http://releases.ubuntu.com/
-#               http://cdimage.ubuntu.com/daily-live/current/
-# debian,       https://cdimage.debian.org/debian-cd/
-# devuan,       https://files.devuan.org/devuan_ascii/desktop-live/
-# parrotsec,    https://cdimage.parrotsec.org/parrot/iso/
-# gnuradio,     https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
-# kali,         https://www.kali.org/kali-linux-releases/
-# deft,         http://www.deftlinux.net/
-# pentoo,       http://www.pentoo.ch/download/
-# sysrescue,    https://sourceforge.net/projects/systemrescuecd/ (https://www.sysresccd.org/Download/)
-# clonezilla    http://clonezilla.org/
-# tinycore,     http://tinycorelinux.net/downloads.html
-# rpdesktop,    https://downloads.raspberrypi.org/rpd_x86/images/
-# fedora,       https://getfedora.org/en/workstation/download/
-# nonpae,       ftp://ftp.heise.de/pub/ct/projekte/ubuntu-nonpae/ubuntu-12.04.4-nonpae.iso
-# tails,        https://tails.boum.org/install/download/openpgp/index.en.html
-# centos,       https://www.centos.org/download/
-# opensuse      https://download.opensuse.org/distribution/openSUSE-current/live/
+# winpe             https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
+# ubuntu            http://releases.ubuntu.com/
+#                   http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/
+#                   http://cdimage.ubuntu.com/daily-live/
+# ubuntu studio     http://cdimage.ubuntu.com/ubuntustudio/releases/18.04/release/
+#                   http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
+# lubuntu           http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/
+#                   http://cdimage.ubuntu.com/lubuntu/daily-live/pending/
+# debian            https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/
+#                   https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/
+# devuan            https://files.devuan.org/devuan_ascii/desktop-live/
+# gnuradio          https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
+# parrotsec         https://cdimage.parrotsec.org/parrot/iso/
+# kali              http://cdimage.kali.org/kali-images/current/
+#                   http://cdimage.kali.org/kali-images/kali-weekly/
+# pentoo            https://www.pentoo.ch/isos/Pentoo_amd64_hardened/
+#                   https://www.pentoo.ch/isos/Beta/Pentoo_Full_amd64_hardened/
+# deft              http://www.deftlinux.net/
+# clonezilla        https://sourceforge.net/projects/clonezilla/files/clonezilla_live_stable/
+# system rescue cd  https://sourceforge.net/projects/systemrescuecd/files/sysresccd-x86/
+#                   http://beta.system-rescue-cd.org/
+# tiny core         http://tinycorelinux.net/downloads.html
+# rpdesktop         https://downloads.raspberrypi.org/rpd_x86/images/
+# fedora            https://getfedora.org/en/workstation/download/
+# gentoo            https://www.gentoo.org/downloads/
+#                   http://distfiles.gentoo.org/releases/amd64/
+#                   http://distfiles.gentoo.org/releases/x86/
+# opensuse          https://download.opensuse.org/distribution/openSUSE-current/live/
+# centos            https://www.centos.org/download/
+# tail              https://tails.boum.org/install/download/
+# knoppix           http://www.knopper.net/knoppix-mirrors/index-en.html
 #
 # rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
