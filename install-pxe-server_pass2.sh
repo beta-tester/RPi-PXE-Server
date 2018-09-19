@@ -37,7 +37,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-09-18
+# v2018-09-19
 #
 # known issues:
 #
@@ -184,7 +184,7 @@ DEFTZ_X64=deftz-x64
 DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.3-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.3a-amd64.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-full-amd64-hardened-latest.iso
