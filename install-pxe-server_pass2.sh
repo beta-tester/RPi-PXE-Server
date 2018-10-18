@@ -837,7 +837,7 @@ EOF";
 LABEL $LUBUNTU_LTS_X86
     MENU LABEL lubuntu LTS x86
     KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to lubuntu LTS x86 Live
