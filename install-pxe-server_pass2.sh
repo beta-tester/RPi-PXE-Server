@@ -37,7 +37,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-09-19
+# v2018-10-18
 #
 # known issues:
 #
@@ -135,20 +135,24 @@ WIN_PE_X86=win-pe-x86
 WIN_PE_X86_URL=
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.5-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.1-desktop-amd64.iso
 UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.5-desktop-i386.iso
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.1-desktop-amd64.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/18.10/ubuntu-18.10-desktop-amd64.iso
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/cosmic-desktop-amd64.iso
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/18.04/release/ubuntustudio-18.04-dvd-amd64.iso
+UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/18.10/release/ubuntustudio-18.10-dvd-amd64.iso
 
+LUBUNTU_LTS_X64=lubuntu-lts-x64
+LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-amd64.iso
+LUBUNTU_LTS_X86=lubuntu-lts-x86
+LUBUNTU_LTS_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-i386.iso
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-amd64.iso
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-amd64.iso
 LUBUNTU_X86=lubuntu-x86
-LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-i386.iso
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-i386.iso
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
 LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/cosmic-desktop-amd64.iso
 
@@ -568,8 +572,8 @@ EOF";
 LABEL $UBUNTU_LTS_X64
     MENU LABEL Ubuntu LTS x64
     KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd
-    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd.lz
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu LTS x64 Live
         User: ubuntu
@@ -602,7 +606,7 @@ EOF";
 LABEL $UBUNTU_X64
     MENU LABEL Ubuntu x64
     KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu x64 Live
@@ -653,7 +657,7 @@ EOF";
 LABEL $UBUNTU_STUDIO_X64
     MENU LABEL Ubuntu Studio x64
     KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu Studio x64 Live
@@ -664,6 +668,40 @@ EOF";
 
 
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_LTS_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $LUBUNTU_LTS_X64
+    MENU LABEL lubuntu LTS x64
+    KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/initrd.lz
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+    TEXT HELP
+        Boot to lubuntu LTS x64 Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $LUBUNTU_LTS_X86\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $LUBUNTU_LTS_X86
+    MENU LABEL lubuntu LTS x86
+    KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/initrd
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+    TEXT HELP
+        Boot to lubuntu LTS x86 Live
+        User: lubuntu
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -671,7 +709,7 @@ EOF";
 LABEL $LUBUNTU_X64
     MENU LABEL lubuntu x64
     KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to lubuntu x64 Live
@@ -688,7 +726,7 @@ EOF";
 LABEL $LUBUNTU_X86
     MENU LABEL lubuntu x86
     KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to lubuntu x86 Live
@@ -1758,10 +1796,12 @@ _unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
 _unhandle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
 _unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
+_unhandle_iso  $UBUNTU_STUDIO_X64  $UBUNTU_STUDIO_X64_URL;
+_unhandle_iso  $LUBUNTU_LTS_X64  $LUBUNTU_LTS_X64_URL;
+_unhandle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
 _unhandle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 _unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 _unhandle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
-_unhandle_iso  $UBUNTU_STUDIO_X64  $UBUNTU_STUDIO_X64_URL;
 ##handle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
