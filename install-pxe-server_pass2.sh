@@ -751,7 +751,7 @@ EOF";
 LABEL $UBUNTU_X64
     MENU LABEL Ubuntu x64
     KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu x64 Live
@@ -802,7 +802,7 @@ EOF";
 LABEL $UBUNTU_STUDIO_X64
     MENU LABEL Ubuntu Studio x64
     KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu Studio x64 Live
@@ -854,7 +854,7 @@ EOF";
 LABEL $LUBUNTU_X64
     MENU LABEL lubuntu x64
     KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to lubuntu x64 Live
@@ -871,7 +871,7 @@ EOF";
 LABEL $LUBUNTU_X86
     MENU LABEL lubuntu x86
     KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd.lz
+    INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to lubuntu x86 Live
@@ -2311,15 +2311,15 @@ handle_optional;
 ##########################################################################
 ##########################################################################
 handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
-_unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
-_unhandle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
+handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
+handle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
 handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 handle_iso  $UBUNTU_STUDIO_X64  $UBUNTU_STUDIO_X64_URL;
 handle_iso  $LUBUNTU_LTS_X64  $LUBUNTU_LTS_X64_URL;
-_unhandle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
+handle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
 handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
-_unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
+handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 _unhandle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
