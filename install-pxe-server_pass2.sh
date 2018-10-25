@@ -2310,16 +2310,16 @@ handle_optional;
 ##  if you want to delete the entire iso and its nfs export to free disk space
 ##########################################################################
 ##########################################################################
-handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
-handle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
-handle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
+#handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
+_unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
+_unhandle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
 handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
 handle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 handle_iso  $UBUNTU_STUDIO_X64  $UBUNTU_STUDIO_X64_URL;
-handle_iso  $LUBUNTU_LTS_X64  $LUBUNTU_LTS_X64_URL;
-handle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
+_unhandle_iso  $LUBUNTU_LTS_X64  $LUBUNTU_LTS_X64_URL;
+_unhandle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
 handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
-handle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
+_unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 handle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 _unhandle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
@@ -2337,15 +2337,16 @@ handle_iso  $KALI_X64  $KALI_X64_URL;
 handle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 handle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
-handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
-handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
+#handle_iso  $DESINFECT_X64  $DESINFECT_X64_URL;
+#handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
+_unhandle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
+_unhandle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
 _unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 handle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
-handle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
-handle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
+_unhandle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
+_unhandle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
 _unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 ##########################################################################
