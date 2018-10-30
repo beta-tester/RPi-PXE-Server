@@ -37,7 +37,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-10-18
+# v2018-10-30
 #
 # known issues:
 #
@@ -217,7 +217,7 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.6-22/clonezilla-live-2.5.6-22-i686.iso
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-28-1.1.iso
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso
 
 
 ##########################################################################
