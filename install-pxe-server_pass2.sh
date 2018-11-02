@@ -249,7 +249,7 @@ OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.kernel.org/tails/stable/tails-amd64-3.9/tails-amd64-3.9.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.10.1/tails-amd64-3.10.1.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1804.iso
