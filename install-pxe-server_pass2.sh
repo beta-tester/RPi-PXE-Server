@@ -270,7 +270,9 @@ PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 RPD_LITE=rpi-raspbian-lite
 RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_latest
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_full_latest
+RPD_BASIC=rpi-raspbian-basic
+RPD_BASIC_URL=https://downloads.raspberrypi.org/raspbian_latest
 
 
 
@@ -2382,6 +2384,7 @@ handle_ipxe;
 ##########################################################################
 #handle_zip_img  $PI_CORE   $PI_CORE_URL;
 #handle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
+#handle_zip_img  $RPD_BASIC $RPD_BASIC_URL timestamping;
 #handle_zip_img  $RPD_FULL  $RPD_FULL_URL  timestamping;
 ##########################################################################
 ##########################################################################
@@ -2391,6 +2394,7 @@ handle_ipxe;
 ##########################################################################
 #handle_rpi_pxe  $PI_CORE  $RPI_SN0  bootcode,config,root;
 #handle_rpi_pxe  $RPD_LITE  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
+#handle_rpi_pxe  $RPD_BASIC $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
 #handle_rpi_pxe  $RPD_FULL  $RPI_SN0  bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
 
 
