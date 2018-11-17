@@ -37,7 +37,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-11-12
+# v2018-11-17
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -220,7 +220,7 @@ PENTOO_BETA_X64=pentoo-beta-x64
 PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
 
 SYSTEMRESCUE_X86=systemrescue-x86
-SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.3.1/systemrescuecd-x86-5.3.1.iso
+SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.3.2/systemrescuecd-x86-5.3.2.iso
 
 DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
