@@ -37,7 +37,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-11-12
+# v2018-11-17
 #
 # known issues:
 #
@@ -198,7 +198,7 @@ PENTOO_BETA_X64=pentoo-beta-x64
 PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
 
 SYSTEMRESCUE_X86=systemrescue-x86
-SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.3.1/systemrescuecd-x86-5.3.1.iso
+SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.3.2/systemrescuecd-x86-5.3.2.iso
 
 DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
@@ -236,9 +236,10 @@ PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_LITE=rpi-raspbian-lite
 RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
-
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_latest
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_full_latest
+RPD_BASIC=rpi-raspbian-basic
+RPD_BASIC_URL=https://downloads.raspberrypi.org/raspbian_latest
 
 
 
@@ -1839,8 +1840,8 @@ _unhandle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 _unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 _unhandle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
 ##handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
-_unhandle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
-_unhandle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
+handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
+handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
 handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 _unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
@@ -1857,6 +1858,7 @@ handle_pxe
 ######################################################################
 #handle_zip_img  $PI_CORE   $PI_CORE_URL;
 handle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
+#handle_zip_img  $RPD_BASIC $RPD_BASIC_URL timestamping;
 #handle_zip_img  $RPD_FULL  $RPD_FULL_URL  timestamping;
 ######################################################################
 ######################################################################
@@ -1866,6 +1868,7 @@ handle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
 ######################################################################
 #handle_network_booting  $PI_CORE  bootcode,config
 handle_network_booting  $RPD_LITE  bootcode,cmdline,config,ssh,root,fstab,wpa,history
+#handle_network_booting  $RPD_BASIC bootcode,cmdline,config,ssh,root,fstab,wpa,history
 #handle_network_booting  $RPD_FULL  bootcode,cmdline,config,ssh,root,fstab,wpa,history
 
 
