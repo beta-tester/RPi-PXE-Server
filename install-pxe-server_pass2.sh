@@ -37,7 +37,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-11-17
+# v2018-11-24
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -195,13 +195,9 @@ DEVUAN_X86=devuan-x86
 DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.3/Parrot-home-4.3_amd64.iso
-PARROT_LITE_X86=parrot-lite-x86
-PARROT_LITE_X86_URL=https://cdimage.parrotsec.org/parrot/iso/4.3/Parrot-home-4.3_i386.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.4/Parrot-home-4.4_amd64.iso
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.3/Parrot-security-4.3_amd64.iso
-PARROT_FULL_X86=parrot-full-x86
-PARROT_FULL_X86_URL=https://cdimage.parrotsec.org/parrot/iso/4.3/Parrot-security-4.3_i386.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.4/Parrot-security-4.4_amd64.iso
 
 GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
@@ -1022,23 +1018,6 @@ EOF";
     fi
 
     if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$PARROT_LITE_X86/live/vmlinuz" ]; then
-        echo  -e "\e[36m    add $PARROT_LITE_X86\e[0m";
-        sudo sh -c "cat << EOF  >> $FILE_MENU
-########################################
-LABEL $PARROT_LITE_X86
-    MENU LABEL Parrot Lite x86
-    KERNEL $FILE_BASE$NFS_ETH0/$PARROT_LITE_X86/live/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$PARROT_LITE_X86/live/initrd.img
-    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
-    TEXT HELP
-        Boot to Parrot Lite x86 Live (Home/Workstation)
-        User: user, Password: live
-    ENDTEXT
-EOF";
-    fi
-
-    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $PARROT_FULL_X64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -1050,23 +1029,6 @@ LABEL $PARROT_FULL_X64
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
     TEXT HELP
         Boot to Parrot Full x64 Live (Security)
-        User: user, Password: live
-    ENDTEXT
-EOF";
-    fi
-
-    if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X86/live/vmlinuz" ]; then
-        echo  -e "\e[36m    add $PARROT_FULL_X86\e[0m";
-        sudo sh -c "cat << EOF  >> $FILE_MENU
-########################################
-LABEL $PARROT_FULL_X86
-    MENU LABEL Parrot Full x86
-    KERNEL $FILE_BASE$NFS_ETH0/$PARROT_FULL_X86/live/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$PARROT_FULL_X86/live/initrd.img
-    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
-    TEXT HELP
-        Boot to Parrot Full x86 Live (Security)
         User: user, Password: live
     ENDTEXT
 EOF";
@@ -2349,9 +2311,7 @@ _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
 _unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
 _unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
 _unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
-_unhandle_iso  $PARROT_LITE_X86  $PARROT_LITE_X86_URL;
 handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
-_unhandle_iso  $PARROT_FULL_X86  $PARROT_FULL_X86_URL;
 _unhandle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
 _unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
 _unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
