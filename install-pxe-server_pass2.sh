@@ -2,6 +2,8 @@
 
 ##########################################################################
 # winpe             https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
+# arch              https://www.archlinux.org/download/
+# fedora            https://getfedora.org/en/workstation/download/
 # ubuntu            http://releases.ubuntu.com/
 #                   http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/
 #                   http://cdimage.ubuntu.com/daily-live/
@@ -24,7 +26,6 @@
 #                   http://beta.system-rescue-cd.org/
 # tiny core         http://tinycorelinux.net/downloads.html
 # rpdesktop         https://downloads.raspberrypi.org/rpd_x86/images/
-# fedora            https://getfedora.org/en/workstation/download/
 # gentoo            https://www.gentoo.org/downloads/
 #                   http://distfiles.gentoo.org/releases/amd64/
 #                   http://distfiles.gentoo.org/releases/x86/
@@ -37,7 +38,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-11-24
+# v2018-12-02
 #
 # known issues:
 #
@@ -134,6 +135,12 @@ sudo mount $SRC_MOUNT
 WIN_PE_X86=win-pe-x86
 WIN_PE_X86_URL=
 
+ARCH_NETBOOT_X86X64=arch-netboot-x86x64
+ARCH_NETBOOT_X86X64_URL=https://www.archlinux.org/static/netboot/ipxe.lkrn
+
+FEDORA_X64=fedora-x64
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso
+
 UBUNTU_LTS_X64=ubuntu-lts-x64
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.1-desktop-amd64.iso
 UBUNTU_LTS_X86=ubuntu-lts-x86
@@ -213,9 +220,6 @@ CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.6-22/clonezilla-live-2.5.6-22-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.5.6-22/clonezilla-live-2.5.6-22-i686.iso
-
-FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso
 
 
 ##########################################################################
@@ -559,6 +563,43 @@ LABEL $WIN_PE_X86-iso
     INITRD $FILE_BASE$ISO/$WIN_PE_X86.iso
     TEXT HELP
         Boot to Windows PE 32bit ISO ~400MB
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$ARCH_NETBOOT_X86X64/kernel" ]; then
+        echo  -e "\e[36m    add $ARCH_NETBOOT_X86X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+# INFO: https://www.archlinux.org/releng/netboot/
+LABEL $ARCH_NETBOOT_X86X64
+    MENU LABEL Arch netboot x86 x64
+#    KERNEL https://www.archlinux.org/static/netboot/ipxe.lkrn
+    KERNEL $FILE_BASE$NFS_ETH0/$ARCH_NETBOOT_X86X64/kernel
+    TEXT HELP
+        Boot to Arch netboot x86 x64
+        User: root
+    ENDTEXT
+EOF";
+    fi
+
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
+        echo  -e "\e[36m    add $FEDORA_X64\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
+##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
+##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
+LABEL $FEDORA_X64
+    MENU LABEL Fedora x64
+    KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img
+    APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+    TEXT HELP
+        Boot to Fedora Workstation Live
+        User: liveuser
     ENDTEXT
 EOF";
     fi
@@ -1127,26 +1168,6 @@ LABEL $CLONEZILLA_X86
     ENDTEXT
 EOF";
     fi
-
-    if [ -f "$FILE_MENU" ] \
-    && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
-        echo  -e "\e[36m    add $FEDORA_X64\e[0m";
-        sudo sh -c "cat << EOF  >> $FILE_MENU
-########################################
-## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
-##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
-##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
-LABEL $FEDORA_X64
-    MENU LABEL Fedora x64
-    KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
-    INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img
-    APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-    TEXT HELP
-        Boot to Fedora Workstation Live
-        User: liveuser
-    ENDTEXT
-EOF";
-    fi
 }
 
 
@@ -1289,6 +1310,105 @@ _unhandle_iso() {
     sudo rm -rf $DST_NFS_ETH0/$NAME;
 
     sudo sed /etc/fstab   -i -e "/$NAME/d"
+    sudo sed /etc/exports -i -e "/$NAME/d"
+}
+
+
+##########################################################################
+handle_kernel() {
+    echo -e "\e[32mhandle_kernel(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    # $2 : download url
+    # $3 : optional/additional mount flags
+    ######################################################################
+    local NAME=$1
+    local URL=$2
+    local FILE_URL=$NAME.url
+    local FILE_KERNEL=$NAME.kernel
+    local DST_ORIGINAL=/srv/tmp/original/$NAME
+    ######################################################################
+
+    if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
+
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
+
+    if [ "$URL" == "" ]; then
+        if ! [ -f "$DST_ISO/$FILE_KERNEL" ] \
+        && [ -f "$SRC_ISO/$FILE_KERNEL" ] \
+        && [ -f "$SRC_ISO/$FILE_URL" ]; \
+        then
+            echo -e "\e[36m    copy kernel from usb-stick\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_KERNEL  $DST_ISO;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL     $DST_ISO;
+        fi
+    else
+        if [ -f "$SRC_ISO/$FILE_KERNEL" ] \
+        && [ -f "$SRC_ISO/$FILE_URL" ] \
+        && grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
+        && ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
+        then
+            echo -e "\e[36m    copy kernel from usb-stick\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_KERNEL  $DST_ISO;
+            sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL     $DST_ISO;
+        fi
+
+        if ! [ -f "$DST_ISO/$FILE_KERNEL" ] \
+        || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
+        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_ISO/$FILE_KERNEL $URL); \
+        then
+            echo -e "\e[36m    download kernel image\e[0m";
+            sudo rm -f $DST_ISO/$FILE_URL;
+            sudo rm -f $DST_ISO/$FILE_KERNEL;
+            sudo wget -O $DST_ISO/$FILE_KERNEL  $URL;
+
+            sudo sh -c "echo '$URL' > $DST_ISO/$FILE_URL";
+            sudo touch -r $DST_ISO/$FILE_KERNEL  $DST_ISO/$FILE_URL;
+        fi
+    fi
+
+    if [ -f "$DST_ISO/$FILE_KERNEL" ]; then
+        if ! [ -d "$DST_NFS_ETH0/$NAME" ]; then
+            echo -e "\e[36m    create nfs folder\e[0m";
+            sudo mkdir -p $DST_NFS_ETH0/$NAME;
+        fi
+
+        sudo cp $DST_ISO/$FILE_KERNEL  $DST_NFS_ETH0/$NAME/kernel
+
+        if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/exports; then
+            echo -e "\e[36m    add nfs folder to exports\e[0m";
+            sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
+        fi
+
+        sudo exportfs *:$DST_NFS_ETH0/$NAME;
+    else
+        sudo sed /etc/exports -i -e "/$NAME/d"
+    fi
+}
+
+
+##########################################################################
+_unhandle_kernel() {
+    if [ "_$1_" == "__" ]; then return 0; fi
+
+    echo -e "\e[32m_unhandle_kernel(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    ######################################################################
+    local NAME=$1
+    local FILE_URL=$NAME.url
+    local FILE_KERNEL=$NAME.kernel
+    ######################################################################
+
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
+
+    sudo rm -f $DST_ISO/$FILE_URL;
+    sudo rm -f $DST_ISO/$FILE_KERNEL;
+
+    sudo rm -rf $DST_NFS_ETH0/$NAME;
+
     sudo sed /etc/exports -i -e "/$NAME/d"
 }
 
@@ -1807,6 +1927,8 @@ _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 _unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 _unhandle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 ######################################################################
+handle_kernel  $ARCH_NETBOOT_X86X64  $ARCH_NETBOOT_X86X64_URL  timestamping;
+##########################################################################
 handle_pxe
 
 
