@@ -1925,7 +1925,7 @@ handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
 handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 _unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
-_unhandle_iso  $FEDORA_X64  $FEDORA_X64_URL;
+handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 ######################################################################
 handle_kernel  $ARCH_NETBOOT_X86X64  $ARCH_NETBOOT_X86X64_URL  timestamping;
 ##########################################################################
