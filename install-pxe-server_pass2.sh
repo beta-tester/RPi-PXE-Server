@@ -38,7 +38,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-12-02
+# v2018-12-19
 #
 # known issues:
 #
@@ -351,7 +351,7 @@ dhcp-option=$INTERFACE_ETH0, option:ntp-server, 0.0.0.0
 
 # TFTP_ETH0 (enabled)
 enable-tftp
-tftp-lowercase
+#tftp-lowercase
 tftp-root=$DST_TFTP_ETH0/, $INTERFACE_ETH0
 #bridge#tftp-root=$DST_TFTP_ETH0_BR0/, $INTERFACE_BR0
 
@@ -1825,7 +1825,7 @@ handle_pxe() {
         echo -e "\e[36m    copy win-pe stuff\e[0m";
         if ! [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxeboot.n12" ] && [ -f "$SRC_TFTP_ETH0/pxeboot.n12" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/pxeboot.n12  $DST_TFTP_ETH0/$DST_PXE_BIOS/; fi
         if ! [ -f "$DST_TFTP_ETH0/bootmgr.exe" ] && [ -f "$SRC_TFTP_ETH0/bootmgr.exe" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/bootmgr.exe  $DST_TFTP_ETH0/; fi
-        if ! [ -d "$DST_TFTP_ETH0/boot" ] && [ -d "$SRC_TFTP_ETH0/boot" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/boot  $DST_TFTP_ETH0/; fi
+        if ! [ -d "$DST_TFTP_ETH0/Boot" ] && [ -d "$SRC_TFTP_ETH0/Boot" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/Boot  $DST_TFTP_ETH0/; fi
     fi
     [ -h "$DST_TFTP_ETH0/sources" ]                  || sudo ln -s $DST_NFS_ETH0/$WIN_PE_X86/sources/  $DST_TFTP_ETH0/sources;
     #for SRC in `find /srv/tftp/Boot -depth`
@@ -2038,12 +2038,12 @@ handle_network_booting  $RPD_LITE  bootcode,cmdline,config,ssh,root,fstab,wpa,hi
 ######################################################################
 if [ -d "$SRC_ISO" ]; then
     echo -e "\e[32mbackup new iso images to usb-stick\e[0m";
-    sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/
+    sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/  2>/dev/null
 fi
 ######################################################################
 if [ -d "$SRC_IMG" ]; then
     echo -e "\e[32mbackup new images to usb-stick\e[0m";
-    sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/
+    sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/  2>/dev/null
 fi
 ######################################################################
 sync
