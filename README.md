@@ -66,11 +66,11 @@ optional structure for win-pe pxe boot
 <mount_point>
 └── backup
     └── tftp
-        ├── boot
-        └── efi
+        ├── Boot
+        └── EFI
 
-mkdir -p <mount_point>/backup/tftp/boot
-mkdir -p <mount_point>/backup/tftp/efi
+mkdir -p <mount_point>/backup/tftp/Boot
+mkdir -p <mount_point>/backup/tftp/EFI
 ```
 replace **<mount_point>** with the path, where you mounted your USB stick.
 
