@@ -470,7 +470,7 @@ bogus-priv
 
 # TFTP_ETH0 (enabled)
 enable-tftp
-tftp-lowercase
+#tftp-lowercase
 tftp-root=$DST_TFTP_ETH0/, $INTERFACE_ETH0
 dhcp-option=$INTERFACE_ETH0, option:tftp-server, 0.0.0.0
 
@@ -1504,7 +1504,7 @@ handle_pxe() {
         echo -e "\e[36m    copy win-pe stuff\e[0m";
         if ! [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/pxeboot.n12" ] && [ -f "$SRC_TFTP_ETH0/pxeboot.n12" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/pxeboot.n12  $DST_TFTP_ETH0/$DST_PXE_BIOS/; fi
         if ! [ -f "$DST_TFTP_ETH0/bootmgr.exe" ] && [ -f "$SRC_TFTP_ETH0/bootmgr.exe" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/bootmgr.exe  $DST_TFTP_ETH0/; fi
-        if ! [ -d "$DST_TFTP_ETH0/boot" ] && [ -d "$SRC_TFTP_ETH0/boot" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/boot  $DST_TFTP_ETH0/; fi
+        if ! [ -d "$DST_TFTP_ETH0/Boot" ] && [ -d "$SRC_TFTP_ETH0/Boot" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/Boot  $DST_TFTP_ETH0/; fi
     fi
     [ -h "$DST_TFTP_ETH0/sources" ]                  || sudo ln -s $DST_NFS_ETH0/$WIN_PE_X86/sources/  $DST_TFTP_ETH0/sources;
     #for SRC in `find /srv/tftp/Boot -depth`
