@@ -537,6 +537,7 @@ LABEL poweroff
 EOF";
     fi
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_TFTP_ETH0/$1/pxeboot.n12" ]; then
         echo  -e "\e[36m    add $WIN_PE_X86 (PXE)\e[0m";
@@ -550,7 +551,9 @@ LABEL $WIN_PE_X86-pxe
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_ISO/$WIN_PE_X86.iso" ]; then
         echo  -e "\e[36m    add $WIN_PE_X86 (ISO)\e[0m";
@@ -566,7 +569,9 @@ LABEL $WIN_PE_X86-iso
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$ARCH_NETBOOT_X86X64/kernel" ]; then
         echo  -e "\e[36m    add $ARCH_NETBOOT_X86X64\e[0m";
@@ -583,7 +588,9 @@ LABEL $ARCH_NETBOOT_X86X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
         echo  -e "\e[36m    add $FEDORA_X64\e[0m";
@@ -603,7 +610,9 @@ LABEL $FEDORA_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_LTS_X64\e[0m";
@@ -620,7 +629,9 @@ LABEL $UBUNTU_LTS_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_LTS_X86\e[0m";
@@ -637,7 +648,9 @@ LABEL $UBUNTU_LTS_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
@@ -654,7 +667,9 @@ LABEL $UBUNTU_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_X86\e[0m";
@@ -671,7 +686,9 @@ LABEL $UBUNTU_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
@@ -688,7 +705,9 @@ LABEL $UBUNTU_DAILY_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_STUDIO_X64\e[0m";
@@ -705,7 +724,9 @@ LABEL $UBUNTU_STUDIO_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_STUDIO_DAILY_X64\e[0m";
@@ -722,8 +743,9 @@ LABEL $UBUNTU_STUDIO_DAILY_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
-
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_LTS_X64\e[0m";
@@ -740,7 +762,9 @@ LABEL $LUBUNTU_LTS_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_LTS_X86\e[0m";
@@ -757,7 +781,9 @@ LABEL $LUBUNTU_LTS_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
@@ -774,7 +800,9 @@ LABEL $LUBUNTU_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_X86\e[0m";
@@ -791,7 +819,9 @@ LABEL $LUBUNTU_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
@@ -808,8 +838,9 @@ LABEL $LUBUNTU_DAILY_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
-
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $UBUNTU_NONPAE\e[0m";
@@ -826,7 +857,9 @@ LABEL $UBUNTU_NONPAE
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-$DEBIAN_KVER-amd64" ]; then
         echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
@@ -843,7 +876,9 @@ LABEL $DEBIAN_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz-$DEBIAN_KVER-686" ]; then
         echo  -e "\e[36m    add $DEBIAN_X86\e[0m";
@@ -860,7 +895,9 @@ LABEL $DEBIAN_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEVUAN_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $DEVUAN_X64\e[0m";
@@ -877,7 +914,9 @@ LABEL $DEVUAN_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEVUAN_X86/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $DEVUAN_X86\e[0m";
@@ -894,7 +933,9 @@ LABEL $DEVUAN_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $PARROT_LITE_X64\e[0m";
@@ -911,7 +952,9 @@ LABEL $PARROT_LITE_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $PARROT_FULL_X64\e[0m";
@@ -928,7 +971,9 @@ LABEL $PARROT_FULL_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi" ]; then
         echo  -e "\e[36m    add $GNURADIO_X64\e[0m";
@@ -945,7 +990,9 @@ LABEL $GNURADIO_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$KALI_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $KALI_X64\e[0m";
@@ -962,7 +1009,9 @@ LABEL $KALI_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEFT_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $DEFT_X64\e[0m";
@@ -979,7 +1028,9 @@ LABEL $DEFT_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $DEFTZ_X64\e[0m";
@@ -996,7 +1047,9 @@ LABEL $DEFTZ_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PENTOO_X64/isolinux/pentoo" ]; then
         echo  -e "\e[36m    add $PENTOO_X64\e[0m";
@@ -1013,7 +1066,9 @@ LABEL $PENTOO_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo" ]; then
         echo  -e "\e[36m    add $PENTOO_BETA_X64\e[0m";
@@ -1030,7 +1085,9 @@ LABEL $PENTOO_BETA_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/rescue32" ]; then
         echo  -e "\e[36m    add $SYSTEMRESCUE_X86\e[0m";
@@ -1047,7 +1104,9 @@ LABEL $SYSTEMRESCUE_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DESINFECT_X86/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $DESINFECT_X86\e[0m";
@@ -1064,7 +1123,9 @@ LABEL $DESINFECT_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$DESINFECT_X64/casper/vmlinuz" ]; then
         echo  -e "\e[36m    add $DESINFECT_X64\e[0m";
@@ -1081,7 +1142,9 @@ LABEL $DESINFECT_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$TINYCORE_x64/boot/vmlinuz64" ]; then
         echo  -e "\e[36m    add $TINYCORE_x64\e[0m";
@@ -1099,7 +1162,9 @@ LABEL $TINYCORE_x64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$TINYCORE_x86/boot/vmlinuz" ]; then
         echo  -e "\e[36m    add $TINYCORE_x86\e[0m";
@@ -1117,7 +1182,9 @@ LABEL $TINYCORE_x86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2" ]; then
         echo  -e "\e[36m    add $RPDESKTOP_X86\e[0m";
@@ -1134,7 +1201,9 @@ LABEL $RPDESKTOP_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $CLONEZILLA_X64\e[0m";
@@ -1151,7 +1220,9 @@ LABEL $CLONEZILLA_X64
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 
+#========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz" ]; then
         echo  -e "\e[36m    add $CLONEZILLA_X86\e[0m";
@@ -1168,6 +1239,7 @@ LABEL $CLONEZILLA_X86
     ENDTEXT
 EOF";
     fi
+#=========== END ===========
 }
 
 
