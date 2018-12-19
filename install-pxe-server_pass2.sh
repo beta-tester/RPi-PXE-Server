@@ -38,7 +38,7 @@
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-12-02
+# v2018-12-19
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -2572,12 +2572,12 @@ handle_ipxe;
 ##########################################################################
 if [ -d "$SRC_ISO" ]; then
     echo -e "\e[32mbackup new iso images to usb-stick\e[0m";
-    sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/
+    sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/  2>/dev/null
 fi
 ######################################################################
 if [ -d "$SRC_IMG" ]; then
     echo -e "\e[32mbackup new images to usb-stick\e[0m";
-    sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/
+    sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/  2>/dev/null
 fi
 ##########################################################################
 sync
