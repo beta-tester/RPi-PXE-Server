@@ -2417,7 +2417,7 @@ EOF";
 
     ######################################################################
     ## network nat limit access of eth1
-    sudo iptables -t nat --list | grep -q DROP 2> /dev/null || {
+    sudo iptables -t filter --list | grep -q DROP 2> /dev/null || {
     echo -e "\e[36m    setup iptables for limiting traffic of $INTERFACE_ETH1\e[0m";
     sudo iptables -A FORWARD ! -i $INTERFACE_ETH0 -d 8.8.8.8 -j DROP
     sudo iptables -A FORWARD ! -i $INTERFACE_ETH0 -d 8.8.4.4 -j DROP
