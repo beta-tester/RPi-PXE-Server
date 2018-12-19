@@ -2415,6 +2415,23 @@ EOF";
     sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
 
+    ######################################################################
+    ## network nat limit access of eth1
+    sudo iptables -t nat --list | grep -q DROP 2> /dev/null || {
+    echo -e "\e[36m    setup iptables for limiting traffic of $INTERFACE_ETH1\e[0m";
+    sudo iptables -A FORWARD ! -i $INTERFACE_ETH0 -d 8.8.8.8 -j DROP
+    sudo iptables -A FORWARD ! -i $INTERFACE_ETH0 -d 8.8.4.4 -j DROP
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 53 -j REDIRECT --to-port 53
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 53 -j REDIRECT --to-port 53
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 135 -j REDIRECT --to-port 135
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 135 -j REDIRECT --to-port 135
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 853 -j REDIRECT --to-port 853
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 853 -j REDIRECT --to-port 853
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 5353 -j REDIRECT --to-port 5353
+    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 5353 -j REDIRECT --to-port 5353
+    sudo dpkg-reconfigure --unseen-only iptables-persistent
+    }
+
 
     ######################################################################
     ## chrony
