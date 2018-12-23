@@ -33,12 +33,13 @@
 # centos            https://www.centos.org/download/
 # tail              https://tails.boum.org/install/download/
 # knoppix           http://www.knopper.net/knoppix-mirrors/index-en.html
+# kaspersky         https://www.kaspersky.com/downloads/thank-you/free-rescue-disk
 #
 # rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-12-19
+# v2018-12-23
 #
 # known issues:
 #    overlayfs can not get exported via nfs
@@ -230,6 +231,9 @@ DESINFECT_X86_URL=
 DESINFECT_X64=desinfect-x64
 DESINFECT_X64_URL=
 
+KASPERSKY_RESCUE_X86=kaspersky-rescue-x86
+KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso
+
 TINYCORE_x64=tinycore-x64
 TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-current.iso
 TINYCORE_x86=tinycore-x86
@@ -249,7 +253,7 @@ OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.10.1/tails-amd64-3.10.1.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.11/tails-amd64-3.11.iso
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1804.iso
@@ -1285,6 +1289,25 @@ LABEL $DESINFECT_X64
     TEXT HELP
         Boot to ct desinfect x64
         User: desinfect
+    ENDTEXT
+EOF";
+    fi
+#=========== END ===========
+
+#========== BEGIN ==========
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86_64" ]; then
+        echo  -e "\e[36m    add $KASPERSKY_RESCUE_X86\e[0m";
+        [ -f "$DST_NFS_ETH0/kaspersky-rescue-x86-initrd.xz" ] || ( sudo wget -O /tmp/tmp.zip https://github.com/beta-tester/RPi-PXE-Server/files/2705800/kaspersky-rescue-x86-initrd.zip && sudo unzip /tmp/tmp.zip -d $DST_NFS_ETH0/ && sudo rm /tmp/tmp.zip );
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $KASPERSKY_RESCUE_X86
+    MENU LABEL Kaspersky Rescue Disk
+    KERNEL $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86
+    INITRD $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/initrd.xz,$FILE_BASE$NFS_ETH0/kaspersky-rescue-x86-initrd.xz
+    APPEND netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86 ro dostartx -- lang=us setkmap=us
+    TEXT HELP
+        Boot to Kaspersky Rescue Disk
     ENDTEXT
 EOF";
     fi
@@ -2523,7 +2546,7 @@ handle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 _unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 _unhandle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
-_unhandle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
+handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
 _unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
 _unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
@@ -2538,6 +2561,7 @@ handle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 handle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
 #handle_iso  $DESINFECT_X64  $DESINFECT_X64_URL;
 #handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
+handle_iso  $KASPERSKY_RESCUE_X86  $KASPERSKY_RESCUE_X86_URL  timestamping;
 handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
 handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
 _unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
