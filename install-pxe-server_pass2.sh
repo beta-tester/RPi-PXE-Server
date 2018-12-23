@@ -176,6 +176,8 @@ UBUNTU_STUDIO_X64=ubuntu-studio-x64
 UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/18.10/release/ubuntustudio-18.10-dvd-amd64.iso
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
 UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/disco-dvd-amd64.iso
+UBUNTU_FWTS=ubuntu-fwts
+UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-18.12.00.img
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
 LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-amd64.iso
@@ -889,6 +891,28 @@ LABEL $UBUNTU_STUDIO_DAILY_X64
     APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
     TEXT HELP
         Boot to Ubuntu Studio x64 Daily-Live
+        User: ubuntu
+    ENDTEXT
+EOF";
+    fi
+#=========== END ===========
+
+#========== BEGIN ==========
+    if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz" ]; then
+        echo  -e "\e[36m    add $UBUNTU_FWTS\e[0m";
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+## INFO: https://wiki.ubuntu.com/FirmwareTestSuite/
+##       https://wiki.ubuntu.com/FirmwareTestSuite/Reference
+##       http://fwts.ubuntu.com/fwts-live/?C=M;O=D
+LABEL $UBUNTU_FWTS
+    MENU LABEL Ubuntu Live FirmwareTestSuite
+    KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz
+    INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_FWTS/casper/initrd.lz
+    APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_FWTS ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper toram --
+    TEXT HELP
+        Boot to Ubuntu Live FirmwareTestSuite
         User: ubuntu
     ENDTEXT
 EOF";
@@ -1870,6 +1894,91 @@ _unhandle_kernel() {
 
 
 ##########################################################################
+handle_img() {
+    echo -e "\e[32mhandle_img(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    # $2 : download url
+    ######################################################################
+    local NAME=$1
+    local URL=$2
+    local FILE_URL=$NAME.url
+    local FILE_IMG=$NAME.img
+    ######################################################################
+
+    if ! [ -d "$DST_IMG/" ]; then sudo mkdir -p $DST_IMG/; fi
+    if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
+
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
+    sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
+
+    if [ "$URL" == "" ]; then
+        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_URL" ]; \
+        then
+            echo -e "\e[36m    copy img from usb-stick\e[0m";
+            sudo rm -f $FILE_IMG/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
+        fi
+    else
+        if [ -f "$SRC_IMG/$FILE_IMG" ] \
+        && [ -f "$SRC_IMG/$FILE_URL" ] \
+        && grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
+        && ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
+        then
+            echo -e "\e[36m    copy img from usb-stick\e[0m";
+            sudo rm -f $FILE_IMG/$FILE_URL;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_IMG  $DST_IMG;
+            sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
+        fi
+
+        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null \
+        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_IMG/$FILE_URL $URL); \
+        then
+            echo -e "\e[36m    download image\e[0m";
+            sudo rm -f $DST_IMG/$FILE_IMG;
+            sudo rm -f $DST_IMG/$FILE_URL;
+            sudo wget -O $DST_IMG/$FILE_IMG  $URL;
+
+            sudo sh -c "echo '$URL' > $DST_IMG/$FILE_URL";
+            sudo touch -r $DST_IMG/$FILE_IMG  $DST_IMG/$FILE_URL;
+        fi
+    fi
+
+    if [ -f "$DST_IMG/$FILE_IMG" ]; then
+        local OFFSET_PART1=$((512*$(sfdisk -d $DST_IMG/$FILE_IMG | grep $DST_IMG/$FILE_IMG\1 | awk '{print $4}' | sed 's/,//')))
+        local SIZE_PART1=$((512*$(sfdisk -d $DST_IMG/$FILE_IMG | grep $DST_IMG/$FILE_IMG\1 | awk '{print $6}' | sed 's/,//')))
+        #sfdisk -d $DST_IMG/$FILE_IMG
+
+        ## partition1
+        if ! [ -d "$DST_NFS_ETH0/$NAME" ]; then
+            echo -e "\e[36m    create image folder\e[0m";
+            sudo mkdir -p $DST_NFS_ETH0/$NAME;
+        fi
+
+        if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
+            echo -e "\e[36m    add image to fstab\e[0m";
+            sudo sh -c "echo '$DST_IMG/$FILE_IMG  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop,offset=$OFFSET_PART1,sizelimit=$SIZE_PART1  0  11' >> /etc/fstab";
+        fi
+
+        if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/exports; then
+            echo -e "\e[36m    add image folder to exports\e[0m";
+            sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
+        fi
+
+        sudo mount $DST_NFS_ETH0/$NAME;
+        sudo exportfs *:$DST_NFS_ETH0/$NAME;
+    else
+        ## partition1
+        sudo sed /etc/fstab   -i -e "/$NAME/d"
+        sudo sed /etc/exports -i -e "/$NAME/d"
+    fi
+}
+
+##########################################################################
 handle_zip_img() {
     echo -e "\e[32mhandle_zip_img(\e[0m$1\e[32m)\e[0m";
     ######################################################################
@@ -2572,6 +2681,8 @@ _unhandle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=roo
 _unhandle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
 _unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
+##########################################################################
+handle_img  $UBUNTU_FWTS  $UBUNTU_FWTS_URL;
 ##########################################################################
 handle_kernel  $ARCH_NETBOOT_X86X64  $ARCH_NETBOOT_X86X64_URL  timestamping;
 ##########################################################################
