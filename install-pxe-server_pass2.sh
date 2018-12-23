@@ -33,12 +33,13 @@
 # centos            https://www.centos.org/download/
 # tail              https://tails.boum.org/install/download/
 # knoppix           http://www.knopper.net/knoppix-mirrors/index-en.html
+# kaspersky         https://www.kaspersky.com/downloads/thank-you/free-rescue-disk
 #
 # rpi-raspbian  https://downloads.raspberrypi.org/raspbian/images/
 # piCore        http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #               http://tinycorelinux.net/9.x/armv7/releases/RPi/
 #
-# v2018-12-19
+# v2018-12-23
 #
 # known issues:
 #
@@ -207,6 +208,9 @@ DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 DESINFECT_X64=desinfect-x64
 DESINFECT_X64_URL=
+
+KASPERSKY_RESCUE_X86=kaspersky-rescue-x86
+KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso
 
 TINYCORE_x64=tinycore-x64
 TINYCORE_x64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-current.iso
@@ -1146,6 +1150,25 @@ EOF";
 
 #========== BEGIN ==========
     if [ -f "$FILE_MENU" ] \
+    && [ -f "$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86_64" ]; then
+        echo  -e "\e[36m    add $KASPERSKY_RESCUE_X86\e[0m";
+        [ -f "$DST_NFS_ETH0/kaspersky-rescue-x86-initrd.xz" ] || ( sudo wget -O /tmp/tmp.zip https://github.com/beta-tester/RPi-PXE-Server/files/2705800/kaspersky-rescue-x86-initrd.zip && sudo unzip /tmp/tmp.zip -d $DST_NFS_ETH0/ && sudo rm /tmp/tmp.zip );
+        sudo sh -c "cat << EOF  >> $FILE_MENU
+########################################
+LABEL $KASPERSKY_RESCUE_X86
+    MENU LABEL Kaspersky Rescue Disk
+    KERNEL $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86
+    INITRD $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/initrd.xz,$FILE_BASE$NFS_ETH0/kaspersky-rescue-x86-initrd.xz
+    APPEND netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86 ro dostartx -- lang=us setkmap=us
+    TEXT HELP
+        Boot to Kaspersky Rescue Disk
+    ENDTEXT
+EOF";
+    fi
+#=========== END ===========
+
+#========== BEGIN ==========
+    if [ -f "$FILE_MENU" ] \
     && [ -f "$DST_NFS_ETH0/$TINYCORE_x64/boot/vmlinuz64" ]; then
         echo  -e "\e[36m    add $TINYCORE_x64\e[0m";
         sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -1991,7 +2014,9 @@ _unhandle_iso  $KALI_X64  $KALI_X64_URL;
 _unhandle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 _unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 _unhandle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
+##handle_iso  $DESINFECT_X64  $DESINFECT_X64_URL;
 ##handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
+handle_iso  $KASPERSKY_RESCUE_X86  $KASPERSKY_RESCUE_X86_URL  timestamping;
 handle_iso  $TINYCORE_x64  $TINYCORE_x64_URL  timestamping;
 handle_iso  $TINYCORE_x86  $TINYCORE_x86_URL  timestamping;
 handle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
