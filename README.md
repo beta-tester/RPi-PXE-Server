@@ -86,7 +86,62 @@ to update your images, update the url in the **install-pxe-server_pass2.sh** fil
 this will download all updated iso files.
 
 ## modifying the script:
-what you should know, when you make modification to the script...<br />
+### p2-include-var.sh
+includes all important variables like source and destination directories, ip-addresses, and so on.
+### p2-include-url.sh
+includes all url and name of images
+```
+e.g.
+RPD_LITE=rpi-raspbian-lite
+RPD_LITE_URL=https://.../...zip
+```
+
+### p2-include-menu.sh
+includes all pxe-menu entries and kernel parameters
+
+### p2-include-handle.sh
+includes all handler to control what image to download and expose to the pxe-server
+**if you don't want some iso images getting downloaded and mounted, you can comment out lines
+e.g.:**
+```
+######################################################################
+##handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
+#handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
+#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
+#handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
+#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
+#handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
+##handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
+#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
+#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
+#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
+#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
+#handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
+#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
+#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
+#handle_iso  $DEFT_X64           $DEFT_X64_URL;
+#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
+#handle_iso  $KALI_X64           $KALI_X64_URL;
+#handle_iso  $PENTOO_X64         $PENTOO_X64_URL         timestamping;
+#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
+##handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
+handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
+handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
+handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
+#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
+#handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
+#handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
+...
+```
+**same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
+e.g.:**
+```
+######################################################################
+handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
+# handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
+```
+
+## what else you should know, when you make modification to the script...
 there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
 1. the ISO or NFS path relative to the pxe boot menu root path<br />
 (on disk `/srv/tftp/menu-bios/iso`, `/srv/tftp/menu-bios/iso` as symbolic link).
@@ -178,53 +233,6 @@ rpdesktop-x86.url
 clonezilla-x64.url
 clonezilla-x86.url
 ...
-```
-
-there is a complete new section, that contains download url for disk images, that contains partitions.
-```
-e.g.
-RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://.../...zip
-```
-
-**if you don't want some iso images getting downloaded and mounted, you can comment out lines
-e.g.:**
-```
-######################################################################
-##handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
-#handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
-#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
-#handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
-#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
-#handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
-##handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
-#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
-#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
-#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
-#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
-#handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
-#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
-#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
-#handle_iso  $DEFT_X64           $DEFT_X64_URL;
-#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
-#handle_iso  $KALI_X64           $KALI_X64_URL;
-#handle_iso  $PENTOO_X64         $PENTOO_X64_URL         timestamping;
-#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
-##handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
-handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
-handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
-#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
-#handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
-#handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
-...
-```
-**same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
-e.g.:**
-```
-######################################################################
-handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
-# handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
 ```
 
 ## note2:
