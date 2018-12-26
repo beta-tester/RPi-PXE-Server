@@ -12,17 +12,17 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$ARCH_NETBOOT_X86X64/kernel" ]; then
-    echo  -e "\e[36m    add $ARCH_NETBOOT_X86X64\e[0m";
+&& [ -f "$DST_NFS_ETH0/$ARCH_NETBOOT_X64/kernel" ]; then
+    echo  -e "\e[36m    add $ARCH_NETBOOT_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     # INFO: https://www.archlinux.org/releng/netboot/
-    LABEL $ARCH_NETBOOT_X86X64
-        MENU LABEL Arch netboot x86 x64
+    LABEL $ARCH_NETBOOT_X64
+        MENU LABEL Arch netboot x64
     #    KERNEL https://www.archlinux.org/static/netboot/ipxe.lkrn
-        KERNEL $FILE_BASE$NFS_ETH0/$ARCH_NETBOOT_X86X64/kernel
+        KERNEL $FILE_BASE$NFS_ETH0/$ARCH_NETBOOT_X64/kernel
         TEXT HELP
-            Boot to Arch netboot x86 x64
+            Boot to Arch netboot x64
             User: root
         ENDTEXT
 EOF";
