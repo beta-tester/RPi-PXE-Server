@@ -786,7 +786,7 @@ handle_zip_img() {
 
 
 ######################################################################
-handle_network_booting() {
+handle_rpi_pxe() {
     # $1 : short name
     # $2 : flags (redo,bootcode,cmdline,config,ssh,root,fstab,wpa,history)
     ##############################################################
@@ -800,7 +800,7 @@ handle_network_booting() {
     local DST_ROOT=$DST_NFS_ETH0/$RPI_SN0_ROOT
     local FILE_URL=$NAME.url
     ##############################################################
-    echo -e "\e[32mhandle_network_booting(\e[0m$NAME\e[32m)\e[0m";
+    echo -e "\e[32mhandle_rpi_pxe(\e[0m$NAME\e[32m)\e[0m";
     if [ "$RPI_SN0" == "--------" ]; then
         echo -e "\e[36m    skipped: no serial number setted at RPI_SN0.\e[0m";
         return 1;
