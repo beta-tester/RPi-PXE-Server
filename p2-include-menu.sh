@@ -883,7 +883,7 @@ if [ -f "$FILE_MENU" ] \
         #APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64 ro netboot=nfs boot=live config loglevel=7 -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
         APPEND fetch=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable nopersistent noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 nox11autologin module=Tails -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
         TEXT HELP
-            Boot to Tails x64 Live (modprobe r8169; exit)
+            Boot to Tails x64 Live
         ENDTEXT
 EOF";
 fi
