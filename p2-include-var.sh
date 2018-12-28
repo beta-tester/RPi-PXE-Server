@@ -31,9 +31,16 @@ RPI_SN1=--------
 RPI_SN2=--------
 RPI_SN3=--------
 ##########################################################################
-INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net)
+INTERFACE_ETH0=
 INTERFACE_ETH1=eth1
 INTERFACE_WLAN0=wlan0
+##########################################################################
+if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1:1.0/net ]; then
+INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1:1.0/net)
+fi
+if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/*/1-1.1.1:1.0/net ]; then
+INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/*/1-1.1.1:1.0/net)
+fi
 ##########################################################################
 IP_ETH0=$(ip -4 address show dev $INTERFACE_ETH0 | grep -o -E '(([0-9]{1,3}[\.]){3}[0-9]{1,3})' | sed '1!d')
 IP_ETH0_=$(echo $IP_ETH0 | grep -o -E '([0-9]{1,3}[\.]){3}')
