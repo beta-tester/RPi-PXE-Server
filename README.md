@@ -56,7 +56,7 @@ and optional:
 └── backup
     ├── img
     └── iso
-    
+
 mkdir -p <mount_point>/backup/img
 mkdir -p <mount_point>/backup/iso
 ```
@@ -141,7 +141,7 @@ there are three importent locations for the pxe boot and the pxe menu that must 
 |   ├── img    (the real physical location of IMG files)
 |   ├── iso    (the real physical location of ISO files)
 |   ├── nfs    (the real physical location of NFS files or mountpoints)
-|   | 
+|   |
 |   └── tftp       (TFTP root)
 |       |
 |       └── menu-bios  (PXE boot menu root for BIOS)
