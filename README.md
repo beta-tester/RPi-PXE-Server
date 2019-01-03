@@ -1,8 +1,6 @@
 # install-pxe-server
-setup a Raspberry Pi as an PXE-Server.
-
-it is a private project i have made for myself.
-
+setup a Raspberry Pi as a PXE-Server.<br />
+it is a private project i have made for myself.<br />
 i did not keeped an eye on network security.
 
 **USE IT AT YOUR OWN RISK.**
@@ -14,6 +12,8 @@ and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
 
 it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see **note4**)
+
+**Please give me a '_Star_', if you find that project useful.**
 
 ### overview schematic:
 ```
@@ -34,20 +34,22 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 ### hardware:
 - Raspberry Pi (with LAN)
 - SD card (big enough to hold entire ISO images of desired Live DVDs), (e.g. 64GByte)
-- USB memory stick (for preloaded iso images), (e.g. 64GByte)
+- USB memory stick (optional, to store preloaded iso images), (e.g. 64GByte)
 - working network environment with a connection to internet
 
-optional, if your SD card is too small or you dont want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the scripts.
+optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
 
 ### software:
-- **Raspbian Stretch** or **Raspbina Stretch Lite** (2018-03-13), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspbian Stretch** or **Raspbina Stretch Lite** (2018-11-13), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2018-03-13,
+- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2018-11-13,
 - and has a proper connection to the internet via LAN (eth0).
-- and your SD card can hold all the iso images (41GB when you use unmodified script),
-- and you have plugged an USB-memory-stick that has the has a label **PXE-Server**
+- and your SD card can hold all the iso images (16GB when you use unmodified script)
+
+and optional:
+- you have plugged an USB-memory-stick that has the has a label **PXE-Server**
 - and the folowing folder structure on the USB memory stick:
 ```
 <mount_point>
@@ -82,55 +84,39 @@ replace **<mount_point>** with the path, where you mounted your USB stick.
 done.
 
 ## update:
-to update your images, update the url in the **install-pxe-server_pass2.sh** file and re-run `bash install-pxe-server_pass2.sh`.
+to update your images, update the url in the **p2-include-url.sh** file<br />
+and re-run `bash install-pxe-server_pass2.sh`.
 this will download all updated iso files.
 
 ## modifying the script:
 ### p2-include-var.sh
 includes all important variables like source and destination directories, ip-addresses, and so on.
+e.g.: by changing '**DST_ROOT=/srv**' you can tell the script to download and store all iso to an external storage, instead of storing to the internal SD card.
+
 ### p2-include-url.sh
 includes all url and name of images
 ```
 e.g.
-RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://.../...zip
+DEBIAN_X64=debian-x64
+DEBIAN_X64_URL=https://...
 ```
 
 ### p2-include-menu.sh
 includes all pxe-menu entries and kernel parameters
+in the script, for each image there is a pxe-menu entry enclosed by<br />
+`#========== BEGIN ==========`<br />
+and<br />
+`#=========== END ===========`<br />
+comments.
 
 ### p2-include-handle.sh
 includes all handler to control what image to download and expose to the pxe-server
-**if you don't want some iso images getting downloaded and mounted, you can comment out lines
+**if you don't want some iso images getting downloaded and mounted, you can comment out lines to do not handle the image.<br />
+or rename handle to __unhandle to uninstall the previous downloaded image and undo all mounting stuff for that image to free disk space.<br />
 e.g.:**
 ```
-######################################################################
-##handle_iso  $WIN_PE_X86         $WIN_PE_X86_URL;
-#handle_iso  $UBUNTU_LTS_X64     $UBUNTU_LTS_X64_URL;
-#handle_iso  $UBUNTU_LTS_X86     $UBUNTU_LTS_X86_URL;
-#handle_iso  $UBUNTU_X64         $UBUNTU_X64_URL;
-#handle_iso  $UBUNTU_X86         $UBUNTU_X86_URL;
-#handle_iso  $UBUNTU_DAILY_X64   $UBUNTU_DAILY_X64_URL   timestamping;
-##handle_iso  $UBUNTU_NONPAE      $UBUNTU_NONPAE_URL;
-#handle_iso  $DEBIAN_X64         $DEBIAN_X64_URL;
-#handle_iso  $DEBIAN_X86         $DEBIAN_X86_URL;
-#handle_iso  $PARROT_LITE_X64    $PARROT_LITE_X64_URL;
-#handle_iso  $PARROT_LITE_X86    $PARROT_LITE_X86_URL;
-#handle_iso  $PARROT_FULL_X64     $PARROT_FULL_X64_URL;
-#handle_iso  $PARROT_FULL_X86     $PARROT_FULL_X86_URL;
-#handle_iso  $GNURADIO_X64       $GNURADIO_X64_URL;
-#handle_iso  $DEFT_X64           $DEFT_X64_URL;
-#handle_iso  $DEFTZ_X64          $DEFTZ_X64_URL          ,gid=root,uid=root,norock,mode=292;
-#handle_iso  $KALI_X64           $KALI_X64_URL;
-#handle_iso  $PENTOO_X64         $PENTOO_X64_URL         timestamping;
-#handle_iso  $SYSTEMRESCTUE_X86  $SYSTEMRESCTUE_X86_URL;
-##handle_iso  $DESINFECT_X86      $DESINFECT_X86_URL;
-handle_iso  $TINYCORE_x64       $TINYCORE_x64_URL       timestamping;
-handle_iso  $TINYCORE_x86       $TINYCORE_x86_URL       timestamping;
-handle_iso  $RPDESKTOP_X86      $RPDESKTOP_X86_URL;
-#handle_iso  $CLONEZILLA_X64     $CLONEZILLA_X64_URL;
-#handle_iso  $CLONEZILLA_X86     $CLONEZILLA_X86_URL;
-#handle_iso  $FEDORA_X64         $FEDORA_X64_URL;
+#handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
+_unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
 ...
 ```
 **same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
@@ -178,63 +164,6 @@ the root for NFS is defined in `/etc/exports`.<br />
 the root for HTML is defined in the **_lighttpd_** configuration file `/etc/lighttpd/lighttpd.conf`.
 
 
-## note:
-the script will copy/download/mount following ISOs:
-```
-win-pe-x86.iso        # Microsoft Windows PE, can not be downloaded, you have to create by yourself
-ubuntu-lts-x64.iso    # Ubuntu LTS
-ubuntu-lts-x86.iso
-ubuntu-x64.iso        # Ubuntu
-ubuntu-x86.iso
-ubuntu-nopae.iso      # an old Ubuntu with non-PAE for old PCs
-debian-x64.iso        # Debian
-debian-x86.iso
-parrot-lite-x64.iso   # Parrot Security + Home/Workstation
-parrot-lite-x86.iso
-parrot-full-x64.iso
-parrot-full-x86.iso
-gnuradio-x64.iso      # GNU Radio
-deft-x64.iso          # DEFT
-kali-x64.iso          # Kali Linux
-pentoo-x64.iso        # Pentoo Linux
-systemrescue-x86.iso  # System Rescue
-desinfect-x86.iso     # c't desinfect, is not downloadable, you have to get by yourself
-tinycore-x86.iso      # tiny core ~16MB minimal linux.
-tinycore-x64.iso      # tiny core ~16MB minimal linux.
-rpdesktop-x86.iso     # Raspberry Pi Desktop for x86 PC
-clonezilla-x64.iso    # clonezilla
-clonezilla-x86.iso
-...
-```
-
-the following url files will contain the url of the iso image, where to download, to compare if you have the requested iso already downloaded, to prevent downloading an iso newly, when it is done already.
-```
-win-pe-x86.url
-ubuntu-lts-x64.url
-ubuntu-lts-x86.url
-ubuntu-x64.url
-ubuntu-x86.url
-ubuntu-nopae.url
-debian-x64.url
-debian-x86.url
-parrot-lite-x64.url
-parrot-lite-x86.url
-parrot-full-x64.url
-parrot-full-x86.url
-gnuradio-x64.url
-deft-x64.url
-kali-x64.url
-pentoo-x64.url
-systemrescue-x86.url
-desinfect-x86.url
-tinycore-x86.url
-tinycore-x64.url
-rpdesktop-x86.url
-clonezilla-x64.url
-clonezilla-x86.url
-...
-```
-
 ## note2:
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
 if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
@@ -250,7 +179,7 @@ CUSTOM_TIMEZONE=Europe/Berlin
 ```
 
 ## note3:
-it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet, because of lack of hardware for UEFI boot
+it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet by me, because of lack of hardware for UEFI boot.
 
 ## note4: NETWORK BOOTING for Raspberry Pi 3 client
 the server is prepared for to boot a Raspberry Pi 3 client via network.
