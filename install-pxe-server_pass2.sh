@@ -586,14 +586,10 @@ handle_ipxe() {
     # http://ipxe.org/howto/chainloading
 
     ######################################################################
-    if [ -d "$SRC_TFTP_ETH0" ]; then
-        echo -e "\e[36m    copy iPXE stuff\e[0m";
-        if ! [ -f "$DST_TFTP_ETH0/undionly.kpxe" ] && [ -f "$SRC_TFTP_ETH0/undionly.kpxe" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/undionly.kpxe  $DST_TFTP_ETH0/; fi
-        if ! [ -f "$DST_TFTP_ETH0/ipxe.efi" ] && [ -f "$SRC_TFTP_ETH0/ipxe.efi" ]; then sudo rsync -xa --info=progress2 $SRC_TFTP_ETH0/ipxe.efi  $DST_TFTP_ETH0/; fi
-    else
+    if (! compare_last_modification_time $DST_TFTP_ETH0/ipxe.efi https://boot.ipxe.org/ipxe.efi); then
         echo -e "\e[36m    download iPXE stuff\e[0m";
-        sudo wget -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
         sudo wget -O $DST_TFTP_ETH0/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
+        sudo wget -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
     fi
 }
 
