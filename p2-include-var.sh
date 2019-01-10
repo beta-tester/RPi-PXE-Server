@@ -44,7 +44,7 @@ fi
 ##########################################################################
 IP_ETH0=$(ip -4 address show dev $INTERFACE_ETH0 | grep -o -E '(([0-9]{1,3}[\.]){3}[0-9]{1,3})' | sed '1!d')
 IP_ETH0_=$(echo $IP_ETH0 | grep -o -E '([0-9]{1,3}[\.]){3}')
-IP_ETH0_0=$(echo $(echo $IP_ETH0_)0)
+IP_ETH0_0=$(echo $(echo $IP_ETH0_)0)/24
 IP_ETH0_START=$(echo $(echo $IP_ETH0_)200)
 IP_ETH0_END=$(echo $(echo $IP_ETH0_)250)
 IP_ETH0_ROUTER=$(echo $(ip rout show  dev $INTERFACE_ETH0 | grep default | cut -d' ' -f3))
@@ -52,11 +52,13 @@ IP_ETH0_DNS=$IP_ETH0_ROUTER
 IP_ETH0_MASK=255.255.255.0
 ##########################################################################
 IP_ETH1=192.168.250.1
+IP_ETH1_0=192.168.250.0/24
 IP_ETH1_START=192.168.250.100
 IP_ETH1_END=192.168.250.110
 IP_ETH1_MASK=255.255.255.0
 ##########################################################################
 IP_WLAN0=192.168.251.1
+IP_WLAN0_0=192.168.251.0/24
 IP_WLAN0_START=192.168.251.100
 IP_WLAN0_END=192.168.251.110
 IP_WLAN0_MASK=255.255.255.0

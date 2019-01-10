@@ -382,7 +382,7 @@ dns proxy = yes
 enhanced browsing = no
 
 #### Networking ####
-interfaces = $IP_ETH0_0/24 $INTERFACE_ETH0
+interfaces = $IP_ETH0_0 $INTERFACE_ETH0
 bind interfaces only = yes
 
 #### Debugging/Accounting ####
@@ -589,6 +589,8 @@ handle_ipxe() {
     if (! compare_last_modification_time $DST_TFTP_ETH0/ipxe.efi https://boot.ipxe.org/ipxe.efi); then
         echo -e "\e[36m    download iPXE stuff\e[0m";
         sudo wget -O $DST_TFTP_ETH0/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
+        sudo wget -O $DST_TFTP_ETH0/ipxe.pxe  https://boot.ipxe.org/ipxe.pxe;
+        sudo wget -O $DST_TFTP_ETH0/ipxe.iso  https://boot.ipxe.org/ipxe.iso;
         sudo wget -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
     fi
 }
@@ -1535,24 +1537,20 @@ EOF";
     ## network nat
     sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
     echo -e "\e[36m    setup iptables for nat\e[0m";
-    sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE
+    sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE -m comment --comment "NAT: masquerade traffic going out over $INTERFACE_ETH0"
     sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
 
     ######################################################################
-    ## network nat limit access of eth1
-    sudo iptables -t filter --list | grep -q DROP 2> /dev/null || {
+    ## network nat limit access of eth1 and wlan0
+    sudo iptables-save | grep -q LIMIT-ACCESS 2> /dev/null || {
     echo -e "\e[36m    setup iptables for limiting traffic of $INTERFACE_ETH1\e[0m";
-    sudo iptables -A FORWARD ! -i $INTERFACE_ETH0 -d 8.8.8.8 -j DROP
-    sudo iptables -A FORWARD ! -i $INTERFACE_ETH0 -d 8.8.4.4 -j DROP
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 53 -j REDIRECT --to-port 53
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 53 -j REDIRECT --to-port 53
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 135 -j REDIRECT --to-port 135
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 135 -j REDIRECT --to-port 135
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 853 -j REDIRECT --to-port 853
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 853 -j REDIRECT --to-port 853
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p udp --dport 5353 -j REDIRECT --to-port 5353
-    sudo iptables -t nat -A PREROUTING -i $INTERFACE_ETH1 -p tcp --dport 5353 -j REDIRECT --to-port 5353
+    sudo iptables -t filter -A INPUT -s $IP_ETH1_0 ! -d $IP_ETH1_0 -j REJECT --reject-with icmp-host-unreachable -m comment --comment "LIMIT-ACCESS: reject all traffic from (eth1) going to outside own subnet"
+    sudo iptables -t filter -A INPUT -s $IP_WLAN0_0 ! -d $IP_WLAN0_0 -j REJECT --reject-with icmp-host-unreachable -m comment --comment "LIMIT-ACCESS: reject all traffic from (wlan0) going to outside own subnet"
+    sudo iptables -t filter -A FORWARD -s $IP_WLAN0_0 -j REJECT --reject-with icmp-host-unreachable -m comment --comment "LIMIT-ACCESS: reject all traffic from (wlan0) going to internet"
+    sudo iptables -t nat -A PREROUTING ! -i $INTERFACE_ETH0 -p udp -m multiport --dports 53,135,853,5353 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all (udp) DNS traffic from all but $INTERFACE_ETH0 to local DNS server"
+    sudo iptables -t nat -A PREROUTING ! -i $INTERFACE_ETH0 -p tcp -m multiport --dports 53,135,853,5353 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all (tcp) DNS traffic from all but $INTERFACE_ETH0 to local DNS server"
+    sudo iptables -t nat -A PREROUTING ! -i $INTERFACE_ETH0 -p udp -m multiport --dports 123 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all NTP traffic from all but $INTERFACE_ETH0 to local NTP server"
     sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
 
