@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-#v 2019-01-19
+#v 2019-01-22
 
 ##########################################################################
 ##########################################################################
@@ -93,10 +93,10 @@ SYSTEMRESCUE_X86=systemrescue-x86
 SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.3.2/systemrescuecd-x86-5.3.2.iso
 
 TINYCORE_X64=tinycore-x64
-TINYCORE_X64_URL=http://tinycorelinux.net/9.x/x86_64/release/TinyCorePure64-current.iso
+TINYCORE_X64_URL=http://tinycorelinux.net/10.x/x86_64/release/TinyCorePure64-current.iso
 
 TINYCORE_X86=tinycore-x86
-TINYCORE_X86_URL=http://tinycorelinux.net/9.x/x86/release/TinyCore-current.iso
+TINYCORE_X86_URL=http://tinycorelinux.net/10.x/x86/release/TinyCore-current.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/disco-desktop-amd64.iso
