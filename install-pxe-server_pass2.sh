@@ -243,12 +243,8 @@ handle_samba() {
     ######################################################################
     grep -q mod_install_server /etc/samba/smb.conf 2> /dev/null || ( \
     echo -e "\e[36m    setup samba\e[0m";
-    sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
+    # sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
     sudo sh -c "cat << EOF  >> /etc/samba/smb.conf
-[global]
-# https://www.samba.org/samba/security/CVE-2017-14746.html
-server min protocol = SMB2
-
 ########################################
 ## mod_install_server
 
