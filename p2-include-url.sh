@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-01-25
+# v 2019-01-30
 
 ##########################################################################
 ##########################################################################
@@ -75,10 +75,10 @@ LUBUNTU_X86=lubuntu-x86
 LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-i386.iso
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.5/Parrot-security-4.5_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.5.1/Parrot-security-4.5.1_amd64.iso
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.5/Parrot-home-4.5_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.5.1/Parrot-home-4.5.1_amd64.iso
 
 PENTOO_BETA_X64=pentoo-beta-x64
 PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
