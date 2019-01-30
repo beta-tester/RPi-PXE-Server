@@ -1,7 +1,8 @@
 # install-pxe-server
 setup a Raspberry Pi as a PXE-Server.<br />
 it is a private project i have made for myself.<br />
-i did not keeped an eye on network security.
+i did not keeped an eye on network security.<br />
+**the script will override some existing configurations**
 
 **USE IT AT YOUR OWN RISK.**
 
@@ -44,7 +45,7 @@ optional, if your SD card is too small or you don't want to have all the server 
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspbian Stretch (or Lite) from 2018-11-13,
+- your Raspberry Pi is running a new fresh virgin Raspbian Stretch (or Lite) installation from 2018-11-13,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (16GB when you use unmodified script)
 
