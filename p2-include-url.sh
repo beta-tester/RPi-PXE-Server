@@ -139,7 +139,7 @@ ANDROID_X86=android-x86
 ANDROID_X86_URL=https://osdn.net/frs/redir.php?f=android-x86%2F69704%2Fandroid-x86_64-8.1-r1.iso
 
 CENTOS_X64=centos-x64
-CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1804.iso
+CENTOS_X64_URL=http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso
 
 OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
