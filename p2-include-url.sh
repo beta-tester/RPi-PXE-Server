@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-01-30
+# v 2019-02-01
 
 ##########################################################################
 ##########################################################################
@@ -60,7 +60,7 @@ KASPERSKY_RESCUE_X86=kaspersky-rescue-x86
 KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/disco-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/current/disco-desktop-amd64.iso
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
 LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.1-desktop-amd64.iso
@@ -99,7 +99,7 @@ TINYCORE_X86=tinycore-x86
 TINYCORE_X86_URL=http://tinycorelinux.net/10.x/x86/release/TinyCore-current.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/disco-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/current/disco-desktop-amd64.iso
 
 UBUNTU_FWTS=ubuntu-fwts
 UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-18.12.00.img
@@ -111,7 +111,7 @@ UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.5-desktop-i386.iso
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/disco-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/current/disco-dvd-amd64.iso
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
 UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/18.10/release/ubuntustudio-18.10-dvd-amd64.iso
