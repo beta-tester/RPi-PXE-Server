@@ -90,7 +90,7 @@ RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86_latest
 
 SYSTEMRESCUE_X86=systemrescue-x86
-SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.0.0/systemrescuecd-x86-6.0.0.iso
+SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.0.0/systemrescuecd-6.0.0.iso
 
 TINYCORE_X64=tinycore-x64
 TINYCORE_X64_URL=http://tinycorelinux.net/10.x/x86_64/release/TinyCorePure64-current.iso
