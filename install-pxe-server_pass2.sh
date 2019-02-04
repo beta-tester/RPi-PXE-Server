@@ -103,8 +103,8 @@ handle_hostapd() {
 
     ######################################################################
     grep -q mod_install_server /etc/hostapd/hostapd.conf || {
-    echo -e "\e[36m    setup hostapd.conf for wlan access point\e[0m";
-    sudo sh -c "cat << EOF  > /etc/hostapd/hostapd.conf
+        echo -e "\e[36m    setup hostapd.conf for wlan access point\e[0m";
+        sudo sh -c "cat << EOF  > /etc/hostapd/hostapd.conf
 ########################################
 #/etc/hostapd/hostapd.conf
 ## mod_install_server
@@ -145,20 +145,20 @@ wpa_psk=$(wpa_passphrase $SSID_WLAN0 $PASSWORD_WLAN0 | grep '[[:blank:]]psk' | c
 ##wpa_passphrase=$PASSWORD_WLAN0X
 #wpa_psk=$(wpa_passphrase $SSID_WLAN0X $PASSWORD_WLAN0X | grep '[[:blank:]]psk' | cut -d = -f2)
 EOF";
-    }
 
-    ######################################################################
-    grep -q mod_install_server /etc/default/hostapd || {
-    echo -e "\e[36m    setup hostapd for wlan access point\e[0m";
-    sudo sh -c "cat << EOF  > /etc/default/hostapd
+        ######################################################################
+        grep -q mod_install_server /etc/default/hostapd || {
+        echo -e "\e[36m    setup hostapd for wlan access point\e[0m";
+        sudo sh -c "cat << EOF  > /etc/default/hostapd
 ########################################
 #/etc/default/hostapd
 ## mod_install_server
 DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"
 EOF";
-    }
+        }
 
-    sudo systemctl restart hostapd.service;
+        sudo systemctl restart hostapd.service;
+    }
 }
 
 
@@ -171,8 +171,8 @@ handle_dhcpcd() {
         echo -e "\e[36m    a stretch os detected\e[0m";
         ##################################################################
         grep -q mod_install_server /etc/dhcpcd.conf || {
-        echo -e "\e[36m    setup dhcpcd.conf\e[0m";
-        sudo sh -c "cat << EOF  >> /etc/dhcpcd.conf
+            echo -e "\e[36m    setup dhcpcd.conf\e[0m";
+            sudo sh -c "cat << EOF  >> /etc/dhcpcd.conf
 ########################################
 ## mod_install_server
 interface $INTERFACE_ETH0
@@ -199,8 +199,8 @@ EOF";
         echo -e "\e[36m    a non-stretch os detected\e[0m";
         ##################################################################
         grep -q mod_install_server /etc/network/interfaces || {
-        echo -e "\e[36m    setup networking, disable dhcpcd\e[0m";
-        sudo sh -c "cat << EOF  > /etc/network/interfaces
+            echo -e "\e[36m    setup networking, disable dhcpcd\e[0m";
+            sudo sh -c "cat << EOF  > /etc/network/interfaces
 ########################################
 # interfaces(5) file used by ifup(8) and ifdown(8)
 
@@ -253,11 +253,11 @@ iface $INTERFACE_WLAN0 inet static
 #bridge#        bridge_fd 0          # no forwarding delay
 EOF";
 
-        echo "nameserver $IP_ETH0_DNS" | sudo tee -a /etc/resolv.conf
-        sudo chattr +i /etc/resolv.conf
-        sudo rm /etc/resolvconf/update.d/dnsmasq
-        sudo systemctl disable dhcpcd.service;
-        sudo systemctl enable networking.service;
+            echo "nameserver $IP_ETH0_DNS" | sudo tee -a /etc/resolv.conf
+            sudo chattr +i /etc/resolv.conf
+            sudo rm /etc/resolvconf/update.d/dnsmasq
+            sudo systemctl disable dhcpcd.service;
+            sudo systemctl enable networking.service;
         }
     fi
 }
@@ -269,8 +269,8 @@ handle_dnsmasq() {
 
     ######################################################################
     [ -f /etc/dnsmasq.d/pxe-server ] || {
-    echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
-    sudo sh -c "cat << EOF  >> /etc/dnsmasq.d/pxe-server
+        echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
+        sudo sh -c "cat << EOF  >> /etc/dnsmasq.d/pxe-server
 ########################################
 #/etc/dnsmasq.d/pxeboot
 ## mod_install_server
@@ -357,7 +357,7 @@ dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/syslinux.efi
 #dhcp-boot=tag:UEFI_iPXE, ipxe.efi
 #dhcp-option=iPXE, 175, 8:1:1
 EOF";
-    sudo systemctl restart dnsmasq.service;
+        sudo systemctl restart dnsmasq.service;
     }
 }
 
@@ -368,9 +368,9 @@ handle_samba() {
 
     ######################################################################
     grep -q mod_install_server /etc/samba/smb.conf 2> /dev/null || ( \
-    echo -e "\e[36m    setup samba\e[0m";
-    #sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
-    sudo sh -c "cat << EOF  > /etc/samba/smb.conf
+        echo -e "\e[36m    setup samba\e[0m";
+        #sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
+        sudo sh -c "cat << EOF  > /etc/samba/smb.conf
 ########################################
 ## mod_install_server
 #======================= Global Settings =======================
@@ -440,7 +440,7 @@ server min protocol = SMB2
     force group = root
     hide dot files = no
 EOF"
-    sudo systemctl restart smbd.service;
+        sudo systemctl restart smbd.service;
     )
 }
 
