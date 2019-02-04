@@ -452,15 +452,17 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/rescue32" ]; then
+&& [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/vmlinuz" ]; then
     echo  -e "\e[36m    add $SYSTEMRESCUE_X86\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     LABEL $SYSTEMRESCUE_X86
         MENU LABEL System Rescue x86
-        KERNEL $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/rescue32
-        INITRD $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/initram.igz
-        APPEND netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCUE_X86 ro dodhcp -- setkmap=$CUSTOM_LANG
+        KERNEL $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/intel_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/amd_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/sysresccd.img
+        #APPEND archisobasedir=sysresccd archiso_nfs_srv=$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCUE_X86
+        APPEND archisobasedir=sysresccd archiso_http_srv=http://$IP_ETH0$NFS_ETH0/$SYSTEMRESCUE_X86/
+        SYSAPPEND 3
         TEXT HELP
             Boot to System Rescue x86 Live
             User: root
