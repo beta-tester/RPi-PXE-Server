@@ -395,14 +395,14 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo" ]; then
+&& [ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo" ]; then
     echo  -e "\e[36m    add $PENTOO_BETA_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     LABEL $PENTOO_BETA_X64
         MENU LABEL Pentoo Beta x64
-        KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo
-        INITRD $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/isolinux/pentoo.igz
+        KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo
+        INITRD $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo.igz
         APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_BETA_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 --
         TEXT HELP
             Boot to Pentoo Beta x64 Live
@@ -414,14 +414,14 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$PENTOO_X64/isolinux/pentoo" ]; then
+&& [ -f "$DST_NFS_ETH0/$PENTOO_X64/boot/pentoo" ]; then
     echo  -e "\e[36m    add $PENTOO_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     LABEL $PENTOO_X64
         MENU LABEL Pentoo x64
-        KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_X64/isolinux/pentoo
-        INITRD $FILE_BASE$NFS_ETH0/$PENTOO_X64/isolinux/pentoo.igz
+        KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_X64/boot/pentoo
+        INITRD $FILE_BASE$NFS_ETH0/$PENTOO_X64/boot/pentoo.igz
         APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 --
         TEXT HELP
             Boot to Pentoo x64 Live
@@ -452,15 +452,17 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/rescue32" ]; then
+&& [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/vmlinuz" ]; then
     echo  -e "\e[36m    add $SYSTEMRESCUE_X86\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     LABEL $SYSTEMRESCUE_X86
         MENU LABEL System Rescue x86
-        KERNEL $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/rescue32
-        INITRD $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/isolinux/initram.igz
-        APPEND netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCUE_X86 ro dodhcp -- setkmap=$CUSTOM_LANG
+        KERNEL $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/intel_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/amd_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/sysresccd.img
+        #APPEND archisobasedir=sysresccd archiso_nfs_srv=$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCUE_X86
+        APPEND archisobasedir=sysresccd archiso_http_srv=http://$IP_ETH0$NFS_ETH0/$SYSTEMRESCUE_X86/
+        SYSAPPEND 3
         TEXT HELP
             Boot to System Rescue x86 Live
             User: root
