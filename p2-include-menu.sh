@@ -788,7 +788,7 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz0" ]; then
+&& [ -f "$DST_NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz" ]; then
     echo  -e "\e[36m    add $CENTOS_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
@@ -798,8 +798,8 @@ if [ -f "$FILE_MENU" ] \
     ## NOT WORKING
     LABEL $CENTOS_X64
         MENU LABEL CentOS x64 (broken)
-        KERNEL $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz0
-        INITRD $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/initrd0.img
+        KERNEL $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/initrd.img
         #APPEND root=live:nfs:$IP_ETH0$DST_NFS_ETH0/$CENTOS_X64 ro rootfstype=auto rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
 
     # dracut: FATAL: Don't know how to handle 'root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64';
