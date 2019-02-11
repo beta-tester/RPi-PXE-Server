@@ -141,6 +141,9 @@ ANDROID_X86_URL=https://osdn.net/frs/redir.php?f=android-x86%2F69704%2Fandroid-x
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso
 
+MINT_X64=mint-x64
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.1/linuxmint-19.1-xfce-64bit.iso
+
 OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 

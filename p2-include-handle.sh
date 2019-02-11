@@ -60,6 +60,7 @@ handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
 #broken#
 _unhandle_iso  $ANDROID_X86  $ANDROID_X86_URL;
 _unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
+handle_iso  $MINT_X64  $MINT_X64_URL;
 _unhandle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
@@ -68,7 +69,7 @@ _unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 _unhandle_img  $UBUNTU_FWTS  $UBUNTU_FWTS_URL;
 
 ##########################################################################
-handle_kernel  $ARCH_NETBOOT_X64  $ARCH_NETBOOT_X64_URL  timestamping;
+_unhandle_kernel  $ARCH_NETBOOT_X64  $ARCH_NETBOOT_X64_URL  timestamping;
 
 
 ##########################################################################
