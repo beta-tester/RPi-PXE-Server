@@ -357,6 +357,25 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$MINT_X64/casper/vmlinuz" ]; then
+    echo  -e "\e[36m    add $MINT_X64\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    LABEL $MINT_X64
+        MENU LABEL linux-mint x64
+        KERNEL $FILE_BASE$NFS_ETH0/$MINT_X64/casper/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$MINT_X64/casper/initrd.lz
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs file=/cdrom/preseed/linuxmint.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        TEXT HELP
+            Boot to linux-mint x64 Live
+            User:
+        ENDTEXT
+EOF";
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $PARROT_FULL_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -823,25 +842,6 @@ if [ -f "$FILE_MENU" ] \
 EOF";
 fi
 #========== END ==========
-
-#========== BEGIN ==========
-if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$MINT_X64/casper/vmlinuz" ]; then
-    echo  -e "\e[36m    add $MINT_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
-    ########################################
-    LABEL $MINT_X64
-        MENU LABEL linux-mint x64
-        KERNEL $FILE_BASE$NFS_ETH0/$MINT_X64/casper/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$MINT_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs file=/cdrom/preseed/linuxmint.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
-        TEXT HELP
-            Boot to linux-mint x64 Live
-            User:
-        ENDTEXT
-EOF";
-fi
-#=========== END ===========
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
