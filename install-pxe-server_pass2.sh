@@ -743,6 +743,7 @@ _unhandle_iso() {
     # $1 : short name
     ######################################################################
     local NAME=$1
+    local URL=$2
     local FILE_URL=$NAME.url
     local FILE_ISO=$NAME.iso
     ######################################################################
@@ -757,6 +758,21 @@ _unhandle_iso() {
 
     sudo sed /etc/fstab   -i -e "/$NAME/d"
     sudo sed /etc/exports -i -e "/$NAME/d"
+
+    if [ -d "$SRC_ISO" ] \
+    && ( \
+    ! [ -f "$SRC_ISO/$FILE_ISO" ] \
+    || ! grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
+    || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $SRC_ISO/$FILE_ISO $URL) \
+    ); \
+    then
+        echo -e "\e[36m    download iso image to backup location\e[0m";
+        sudo rm -f $SRC_ISO/$FILE_URL;
+        sudo rm -f $SRC_ISO/$FILE_ISO;
+        sudo wget -O $SRC_ISO/$FILE_ISO  $URL;
+        sudo sh -c "echo '$URL' > $SRC_ISO/$FILE_URL";
+        sudo touch -r $SRC_ISO/$FILE_ISO  $SRC_ISO/$FILE_URL;
+    fi
 }
 
 
@@ -955,6 +971,7 @@ _unhandle_img() {
     # $1 : short name
     ######################################################################
     local NAME=$1
+    local URL=$2
     local FILE_URL=$NAME.url
     local FILE_IMG=$NAME.img
     ######################################################################
@@ -969,6 +986,21 @@ _unhandle_img() {
 
     sudo sed /etc/fstab   -i -e "/$NAME/d"
     sudo sed /etc/exports -i -e "/$NAME/d"
+
+    if [ -d "$SRC_IMG" ] \
+    && ( \
+    ! [ -f "$SRC_IMG/$FILE_IMG" ] \
+    || ! grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
+    || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $SRC_IMG/$FILE_IMG $URL) \
+    ); \
+    then
+        echo -e "\e[36m    download image to backup location\e[0m";
+        sudo rm -f $SRC_IMG/$FILE_URL;
+        sudo rm -f $SRC_IMG/$FILE_IMG;
+        sudo wget -O $SRC_IMG/$FILE_IMG  $URL;
+        sudo sh -c "echo '$URL' > $SRC_IMG/$FILE_URL";
+        sudo touch -r $SRC_IMG/$FILE_IMG  $SRC_IMG/$FILE_URL;
+    fi
 }
 
 
@@ -1097,6 +1129,61 @@ handle_zip_img() {
         ## root
         sudo sed /etc/fstab   -i -e "/$NAME_ROOT/d"
         sudo sed /etc/exports -i -e "/$NAME_ROOT/d"
+    fi
+}
+
+##########################################################################
+_unhandle_zip_img() {
+    echo -e "\e[32m_unhandle_zip_img(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    # $2 : download url
+    ######################################################################
+    local NAME=$1
+    local URL=$2
+    local RAW_FILENAME=$(basename $URL .zip)
+    local RAW_FILENAME_ZIP=$RAW_FILENAME.zip
+    local NAME_BOOT=$NAME-boot
+    local NAME_ROOT=$NAME-root
+    local DST_NFS_BOOT=$DST_NFS_ETH0/$NAME_BOOT
+    local DST_NFS_ROOT=$DST_NFS_ETH0/$NAME_ROOT
+    local FILE_URL=$NAME.url
+    local FILE_IMG=$NAME.img
+    ######################################################################
+
+    ## boot
+    sudo exportfs -u *:$DST_NFS_BOOT 2> /dev/null;
+    sudo umount -f $DST_NFS_BOOT 2> /dev/null;
+    sudo sed /etc/fstab   -i -e "/$NAME_BOOT/d"
+    sudo sed /etc/exports -i -e "/$NAME_BOOT/d"
+
+    ## root
+    sudo sed /etc/fstab   -i -e "/$NAME_ROOT/d"
+    sudo sed /etc/exports -i -e "/$NAME_ROOT/d"
+    sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
+    sudo umount -f $DST_NFS_ROOT 2> /dev/null;
+
+    if [ -d "$SRC_IMG/$FILE_IMG" ] \
+    && ( \
+    ! [ -f "$SRC_IMG/$FILE_IMG" ] \
+    || ! grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
+    || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $SRC_IMG/$FILE_URL $URL) \
+    ); \
+    then
+        echo -e "\e[36m    download image to backup location\e[0m";
+        sudo rm -f $SRC_IMG/$FILE_IMG;
+        sudo rm -f $SRC_IMG/$FILE_URL;
+        sudo wget -O $SRC_IMG/$RAW_FILENAME_ZIP  $URL;
+
+        sudo sh -c "echo '$URL' > $SRC_IMG/$FILE_URL";
+        sudo touch -r $SRC_IMG/$RAW_FILENAME_ZIP  $SRC_IMG/$FILE_URL;
+
+        echo -e "\e[36m    extract image to backup location\e[0m";
+        sudo unzip $SRC_IMG/$RAW_FILENAME_ZIP  -d $SRC_IMG > /tmp/output.tmp;
+        sudo rm -f $SRC_IMG/$RAW_FILENAME_ZIP;
+        local RAW_FILENAME_IMG=$(grep 'inflating' /tmp/output.tmp | cut -d':' -f2 | xargs basename)
+        sudo mv $SRC_IMG/$RAW_FILENAME_IMG  $SRC_IMG/$FILE_IMG;
+        rm /tmp/output.tmp
     fi
 }
 
