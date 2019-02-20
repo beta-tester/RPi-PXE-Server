@@ -39,7 +39,7 @@ _unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 _unhandle_iso  $MINT_X64  $MINT_X64_URL;
 handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
 _unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
-_unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
+#_unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 handle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 _unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 _unhandle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
