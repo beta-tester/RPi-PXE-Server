@@ -288,7 +288,7 @@ if [ -f "$FILE_MENU" ] \
     LABEL $LUBUNTU_LTS_X64
         MENU LABEL lubuntu LTS x64
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/initrd.lz
+        INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/initrd
         APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu LTS x64 Live
@@ -501,7 +501,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL tiny core x64
         KERNEL $FILE_BASE$NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X64/boot/corepure64.gz
-        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64 ro tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
+        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
         TEXT HELP
             Boot to tiny core x64
             User: tc
@@ -521,7 +521,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL tiny core x86
         KERNEL $FILE_BASE$NFS_ETH0/$TINYCORE_X86/boot/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X86/boot/core.gz
-        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86 ro tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
+        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
         TEXT HELP
             Boot to tiny core x86
             User: tc
@@ -580,7 +580,7 @@ if [ -f "$FILE_MENU" ] \
     LABEL $UBUNTU_LTS_X64
         MENU LABEL Ubuntu LTS x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd.lz
+        INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd
         APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu LTS x64 Live
