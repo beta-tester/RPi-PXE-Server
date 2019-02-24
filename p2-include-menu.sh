@@ -501,7 +501,8 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL tiny core x64
         KERNEL $FILE_BASE$NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X64/boot/corepure64.gz
-        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
+        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
+        #APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
         TEXT HELP
             Boot to tiny core x64
             User: tc
@@ -521,7 +522,8 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL tiny core x86
         KERNEL $FILE_BASE$NFS_ETH0/$TINYCORE_X86/boot/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X86/boot/core.gz
-        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=us
+        APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
+        #APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
         TEXT HELP
             Boot to tiny core x86
             User: tc
