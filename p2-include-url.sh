@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-02-17
+# v 2019-02-24
 
 ##########################################################################
 ##########################################################################
@@ -30,10 +30,10 @@ CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 DEBIAN_KVER=4.9.0-8
 
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.8.0-amd64-lxde.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-9.8.0-amd64-xfce.iso
 
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.8.0-i386-lxde.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-9.8.0-i386-xfce.iso
 
 DEFTZ_X64=deftz-x64
 DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
@@ -148,7 +148,7 @@ OPENSUSE_RESCUE_X64=opensuse-rescue-x64
 OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
 
 OPENSUSE_X64=opensuse-x64
-OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-GNOME-Live-x86_64-Current.iso
+OPENSUSE_X64_URL=https://download.opensuse.org/distribution/leap/15.1/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.12.1/tails-amd64-3.12.1.iso
