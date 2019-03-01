@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-02-24
+# v 2019-03-01
 
 ##########################################################################
 ##########################################################################
@@ -111,7 +111,7 @@ UBUNTU_LTS_X64=ubuntu-lts-x64
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.2-desktop-amd64.iso
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
-UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.5-desktop-i386.iso
+UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-i386.iso
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
 UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/disco-dvd-amd64.iso
