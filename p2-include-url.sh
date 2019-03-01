@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-02-24
+# v 2019-03-01
 
 ##########################################################################
 ##########################################################################
@@ -111,7 +111,7 @@ UBUNTU_LTS_X64=ubuntu-lts-x64
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.2-desktop-amd64.iso
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
-UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.5-desktop-i386.iso
+UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-i386.iso
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
 UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/disco-dvd-amd64.iso
@@ -145,7 +145,7 @@ CENTOS_X64=centos-x64
 CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso
 
 OPENSUSE_RESCUE_X64=opensuse-rescue-x64
-OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.0-Rescue-CD-x86_64-Current.iso
+OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/leap/15.1/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso
 
 OPENSUSE_X64=opensuse-x64
 OPENSUSE_X64_URL=https://download.opensuse.org/distribution/leap/15.1/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso
