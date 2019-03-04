@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-03-01
+# v 2019-03-03
 
 ##########################################################################
 ##########################################################################
@@ -54,7 +54,7 @@ GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2018.4-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/kali-images/current/kali-linux-2019.1-amd64.iso
 
 KASPERSKY_RESCUE_X86=kaspersky-rescue-x86
 KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso
