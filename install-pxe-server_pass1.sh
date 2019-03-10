@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2018-05-30
+# v2019-03-10
 #
 # known issues:
 #
@@ -66,7 +66,7 @@ grep -q splash /boot/cmdline.txt 2> /dev/null && {
 ######################################################################
 echo -e "\e[32msync...\e[0m" && sudo sync \
 && echo -e "\e[32mupdate...\e[0m" && sudo apt update \
-&& echo -e "\e[32mupgrade...\e[0m" && sudo apt upgrade -y \
+&& echo -e "\e[32mupgrade...\e[0m" && sudo apt full-upgrade -y \
 && echo -e "\e[32mautoremove...\e[0m" && sudo apt autoremove -y --purge \
 && echo -e "\e[32mautoclean...\e[0m" && sudo apt autoclean \
 && echo -e "\e[32msync...\e[0m" && sudo sync \
