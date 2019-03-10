@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2018-05-30
+# v2019-03-10
 #
 # known issues:
 #
@@ -45,7 +45,7 @@ grep -q net.ifnames /boot/cmdline.txt 2> /dev/null || {
 ######################################################################
 sudo sync \
 && echo -e "\e[32mupdate...\e[0m" && sudo apt update -y \
-&& echo -e "\e[32mupgrade...\e[0m" && sudo apt upgrade -y \
+&& echo -e "\e[32mupgrade...\e[0m" && sudo apt full-upgrade -y \
 && echo -e "\e[32mautoremove...\e[0m" && sudo apt autoremove -y --purge \
 && echo -e "\e[32mautoclean...\e[0m" && sudo apt autoclean \
 && sudo sync \
