@@ -39,6 +39,9 @@ fi
 if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/*/1-1.1.1:1.0/net ]; then
 INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/*/1-1.1.1:1.0/net)
 fi
+if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/*/1-1.1\:1.0/net ]; then
+INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/*/1-1.1\:1.0/net)
+fi
 ######################################################################
 IP_ETH0=$(ip -4 address show dev $INTERFACE_ETH0 | grep -o -E '(([0-9]{1,3}[\.]){3}[0-9]{1,3})' | sed '1!d')
 IP_ETH0_=$(echo $IP_ETH0 | grep -E -o "([0-9]{1,3}[\.]){3}")
