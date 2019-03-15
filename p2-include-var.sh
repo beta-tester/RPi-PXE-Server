@@ -33,14 +33,17 @@ RPI_SN0_ROOT=rpi-$RPI_SN0-root
 INTERFACE_ETH0=
 INTERFACE_BR0=br0
 ##########################################################################
-if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1:1.0/net ]; then
-INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1:1.0/net)
+if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net ]; then
+# RPi3B+
+INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net)
 fi
-if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/*/1-1.1.1:1.0/net ]; then
-INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/*/1-1.1.1:1.0/net)
+if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net ]; then
+# RPi1B rev.1, RPi1B rev.2, RPi1B+, RPi2B, RPi3B
+INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net)
 fi
-if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/*/1-1.1\:1.0/net ]; then
-INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/*/1-1.1\:1.0/net)
+if [ -z "$INTERFACE_ETH0" ]; then
+# fallback
+INTERFACE_ETH0=eth0
 fi
 ######################################################################
 IP_ETH0=$(ip -4 address show dev $INTERFACE_ETH0 | grep -o -E '(([0-9]{1,3}[\.]){3}[0-9]{1,3})' | sed '1!d')
