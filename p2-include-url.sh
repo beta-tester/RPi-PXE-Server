@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-03-10
+# v 2019-03-25
 
 ##########################################################################
 ##########################################################################
@@ -151,7 +151,7 @@ OPENSUSE_X64=opensuse-x64
 OPENSUSE_X64_URL=https://download.opensuse.org/distribution/leap/15.1/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.12.1/tails-amd64-3.12.1.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.13.1/tails-amd64-3.13.1.iso
 
 
 ##########################################################################
