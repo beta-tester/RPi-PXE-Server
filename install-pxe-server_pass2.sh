@@ -1167,6 +1167,9 @@ _unhandle_zip_img() {
     sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
     sudo umount -f $DST_NFS_ROOT 2> /dev/null;
 
+    sudo rm -f $DST_IMG/$FILE_IMG;
+    sudo rm -f $DST_IMG/$FILE_URL;
+
     if [ -d "$SRC_IMG" ] \
     && ( \
     ! [ -f "$SRC_IMG/$FILE_IMG" ] \
