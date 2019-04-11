@@ -78,10 +78,10 @@ handle_kernel  $ARCH_NETBOOT_X64  $ARCH_NETBOOT_X64_URL  timestamping;
 ##  you don't want to download, mount, export
 ##########################################################################
 ##########################################################################
-#handle_zip_img  $PI_CORE   $PI_CORE_URL;
-#handle_zip_img  $RPD_BASIC $RPD_BASIC_URL timestamping;
-#handle_zip_img  $RPD_FULL  $RPD_FULL_URL  timestamping;
-#handle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
+_unhandle_zip_img  $PI_CORE   $PI_CORE_URL;
+_unhandle_zip_img  $RPD_BASIC $RPD_BASIC_URL timestamping;
+_unhandle_zip_img  $RPD_FULL  $RPD_FULL_URL  timestamping;
+_unhandle_zip_img  $RPD_LITE  $RPD_LITE_URL  timestamping;
 
 ##########################################################################
 ##########################################################################
