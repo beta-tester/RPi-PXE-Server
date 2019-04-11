@@ -619,6 +619,8 @@ try:
         exit_code = 0
     else:
         exit_code = 1
+
+    print('file:{} <-> url:{}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time_file), time.strftime("%Y-%m-%d %H:%M:%S", time_url)))
 except:
     exit_code = 1
 
@@ -1165,7 +1167,7 @@ _unhandle_zip_img() {
     sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
     sudo umount -f $DST_NFS_ROOT 2> /dev/null;
 
-    if [ -d "$SRC_IMG/$FILE_IMG" ] \
+    if [ -d "$SRC_IMG" ] \
     && ( \
     ! [ -f "$SRC_IMG/$FILE_IMG" ] \
     || ! grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
