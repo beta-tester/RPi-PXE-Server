@@ -523,8 +523,6 @@ handle_iso() {
 }
 
 
-
-
 ##########################################################################
 _unhandle_iso() {
     if [ "_$1_" == "__" ]; then return 0; fi
@@ -776,6 +774,40 @@ handle_zip_img() {
         sudo sed /etc/fstab   -i -e "/$NAME_ROOT/d"
         sudo sed /etc/exports -i -e "/$NAME_ROOT/d"
     fi
+}
+
+
+##########################################################################
+_unhandle_zip_img() {
+    echo -e "\e[32m_unhandle_zip_img(\e[0m$1\e[32m)\e[0m";
+    ######################################################################
+    # $1 : short name
+    # $2 : download url
+    ######################################################################
+    local NAME=$1
+    local URL=$2
+    local NAME_BOOT=$NAME-boot
+    local NAME_ROOT=$NAME-root
+    local DST_NFS_BOOT=$DST_NFS_ETH0/$NAME_BOOT
+    local DST_NFS_ROOT=$DST_NFS_ETH0/$NAME_ROOT
+    local FILE_URL=$NAME.url
+    local FILE_IMG=$NAME.img
+    ######################################################################
+
+    ## boot
+    sudo exportfs -u *:$DST_NFS_BOOT 2> /dev/null;
+    sudo umount -f $DST_NFS_BOOT 2> /dev/null;
+    sudo sed /etc/fstab   -i -e "/$NAME_BOOT/d"
+    sudo sed /etc/exports -i -e "/$NAME_BOOT/d"
+
+    ## root
+    sudo sed /etc/fstab   -i -e "/$NAME_ROOT/d"
+    sudo sed /etc/exports -i -e "/$NAME_ROOT/d"
+    sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
+    sudo umount -f $DST_NFS_ROOT 2> /dev/null;
+
+    sudo rm -f $DST_IMG/$FILE_IMG;
+    sudo rm -f $DST_IMG/$FILE_URL;
 }
 
 
