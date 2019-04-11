@@ -1158,17 +1158,18 @@ _unhandle_zip_img() {
     ## boot
     sudo exportfs -u *:$DST_NFS_BOOT 2> /dev/null;
     sudo umount -f $DST_NFS_BOOT 2> /dev/null;
-    sudo rm -rf $DST_NFS_ROOT;
+    sudo rm -rf $DST_NFS_BOOT;
     sudo sed /etc/fstab   -i -e "/$NAME_BOOT/d"
     sudo sed /etc/exports -i -e "/$NAME_BOOT/d"
 
     ## root
     sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
     sudo umount -f $DST_NFS_ROOT 2> /dev/null;
-    sudo rm -rf $DST_NFS_BOOT;
+    sudo rm -rf $DST_NFS_ROOT;
     sudo sed /etc/fstab   -i -e "/$NAME_ROOT/d"
     sudo sed /etc/exports -i -e "/$NAME_ROOT/d"
 
+    ## img
     sudo rm -f $DST_IMG/$FILE_IMG;
     sudo rm -f $DST_IMG/$FILE_URL;
 
