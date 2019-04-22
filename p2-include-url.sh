@@ -60,7 +60,7 @@ KASPERSKY_RESCUE_X86=kaspersky-rescue-x86
 KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/disco-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/eoan-desktop-amd64.iso
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
 LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.2-desktop-amd64.iso
@@ -102,7 +102,7 @@ TINYCORE_X86=tinycore-x86
 TINYCORE_X86_URL=http://tinycorelinux.net/10.x/x86/release/TinyCore-current.iso
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/disco-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/eoan-desktop-amd64.iso
 
 UBUNTU_FWTS=ubuntu-fwts
 UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-19.02.00.img
