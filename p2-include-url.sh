@@ -114,7 +114,7 @@ UBUNTU_LTS_X86=ubuntu-lts-x86
 UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-i386.iso
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/disco-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/eoan-dvd-amd64.iso
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
 UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/19.04/release/ubuntustudio-19.04-dvd-amd64.iso
