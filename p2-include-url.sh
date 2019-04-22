@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-03-25
+# v 2019-04-22
 
 ##########################################################################
 ##########################################################################
@@ -69,10 +69,10 @@ LUBUNTU_LTS_X86=lubuntu-lts-x86
 LUBUNTU_LTS_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.2-desktop-i386.iso
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-amd64.iso
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-amd64.iso
 
 LUBUNTU_X86=lubuntu-x86
-LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-i386.iso
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-i386.iso
 
 MINT_X64=mint-x64
 MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.1/linuxmint-19.1-xfce-64bit.iso
@@ -105,7 +105,7 @@ UBUNTU_DAILY_X64=ubuntu-daily-x64
 UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/disco-desktop-amd64.iso
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-18.12.00.img
+UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-19.02.00.img
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
 UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.2-desktop-amd64.iso
@@ -117,10 +117,10 @@ UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
 UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/disco-dvd-amd64.iso
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/18.10/release/ubuntustudio-18.10-dvd-amd64.iso
+UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/19.04/release/ubuntustudio-19.04-dvd-amd64.iso
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/18.10/ubuntu-18.10-desktop-amd64.iso
+UBUNTU_X64_URL=http://releases.ubuntu.com/19.04/ubuntu-19.04-desktop-amd64.iso
 
 
 #custom#
