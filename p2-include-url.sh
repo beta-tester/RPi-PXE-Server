@@ -72,7 +72,7 @@ LUBUNTU_X64=lubuntu-x64
 LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-amd64.iso
 
 LUBUNTU_X86=lubuntu-x86
-LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-i386.iso
+LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-i386.iso
 
 MINT_X64=mint-x64
 MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.1/linuxmint-19.1-xfce-64bit.iso
