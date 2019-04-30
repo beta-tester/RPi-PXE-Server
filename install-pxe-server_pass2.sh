@@ -429,6 +429,8 @@ try:
         exit_code = 0
     else:
         exit_code = 1
+
+    print('file:{} <-> url:{}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time_file), time.strftime("%Y-%m-%d %H:%M:%S", time_url)))
 except:
     exit_code = 1
 
@@ -458,9 +460,9 @@ handle_iso() {
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
     sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
 
-    if [ "$URL" == "" ]; then
-        if ! [ -f "$DST_ISO/$FILE_ISO" ] \
-        && [ -f "$SRC_ISO/$FILE_ISO" ] \
+    if [ -z $URL ]; then
+        if ! [ -s "$DST_ISO/$FILE_ISO" ] \
+        && [ -s "$SRC_ISO/$FILE_ISO" ] \
         && [ -f "$SRC_ISO/$FILE_URL" ]; \
         then
             echo -e "\e[36m    copy iso from usb-stick\e[0m";
@@ -469,7 +471,7 @@ handle_iso() {
             sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL  $DST_ISO;
         fi
     else
-        if [ -f "$SRC_ISO/$FILE_ISO" ] \
+        if [ -s "$SRC_ISO/$FILE_ISO" ] \
         && [ -f "$SRC_ISO/$FILE_URL" ] \
         && grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
         && ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
@@ -480,7 +482,7 @@ handle_iso() {
             sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL  $DST_ISO;
         fi
 
-        if ! [ -f "$DST_ISO/$FILE_ISO" ] \
+        if ! [ -s "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
         || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
         then
@@ -494,7 +496,12 @@ handle_iso() {
         fi
     fi
 
-    if [ -f "$DST_ISO/$FILE_ISO" ]; then
+    if ! [ -s $DST_ISO/$FILE_ISO ]; then
+        sudo rm -f $DST_ISO/$FILE_ISO;
+        sudo rm -f $DST_ISO/$FILE_URL;
+    fi
+
+    if [ -s "$DST_ISO/$FILE_ISO" ]; then
         if ! [ -d "$DST_NFS_ETH0/$NAME" ]; then
             echo -e "\e[36m    create nfs folder\e[0m";
             sudo mkdir -p $DST_NFS_ETH0/$NAME;
@@ -568,9 +575,9 @@ handle_kernel() {
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
 
-    if [ "$URL" == "" ]; then
-        if ! [ -f "$DST_ISO/$FILE_KERNEL" ] \
-        && [ -f "$SRC_ISO/$FILE_KERNEL" ] \
+    if [ -z $URL ]; then
+        if ! [ -s "$DST_ISO/$FILE_KERNEL" ] \
+        && [ -s "$SRC_ISO/$FILE_KERNEL" ] \
         && [ -f "$SRC_ISO/$FILE_URL" ]; \
         then
             echo -e "\e[36m    copy kernel from usb-stick\e[0m";
@@ -579,7 +586,7 @@ handle_kernel() {
             sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL     $DST_ISO;
         fi
     else
-        if [ -f "$SRC_ISO/$FILE_KERNEL" ] \
+        if [ -s "$SRC_ISO/$FILE_KERNEL" ] \
         && [ -f "$SRC_ISO/$FILE_URL" ] \
         && grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
         && ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null; \
@@ -590,7 +597,7 @@ handle_kernel() {
             sudo rsync -xa --info=progress2 $SRC_ISO/$FILE_URL     $DST_ISO;
         fi
 
-        if ! [ -f "$DST_ISO/$FILE_KERNEL" ] \
+        if ! [ -s "$DST_ISO/$FILE_KERNEL" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
         || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_ISO/$FILE_KERNEL $URL); \
         then
@@ -604,7 +611,12 @@ handle_kernel() {
         fi
     fi
 
-    if [ -f "$DST_ISO/$FILE_KERNEL" ]; then
+    if ! [ -s $DST_ISO/$FILE_KERNEL ]; then
+        sudo rm -f $DST_ISO/$FILE_KERNEL;
+        sudo rm -f $DST_ISO/$FILE_URL;
+    fi
+
+    if [ -s "$DST_ISO/$FILE_KERNEL" ]; then
         if ! [ -d "$DST_NFS_ETH0/$NAME" ]; then
             echo -e "\e[36m    create nfs folder\e[0m";
             sudo mkdir -p $DST_NFS_ETH0/$NAME;
@@ -676,9 +688,9 @@ handle_zip_img() {
     sudo exportfs -u *:$DST_NFS_ROOT 2> /dev/null;
     sudo umount -f $DST_NFS_ROOT 2> /dev/null;
 
-    if [ "$URL" == "" ]; then
-        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
-        && [ -f "$SRC_IMG/$FILE_IMG" ] \
+    if [ -z $URL ]; then
+        if ! [ -s "$DST_IMG/$FILE_IMG" ] \
+        && [ -s "$SRC_IMG/$FILE_IMG" ] \
         && [ -f "$SRC_IMG/$FILE_URL" ]; \
         then
             echo -e "\e[36m    copy img from usb-stick\e[0m";
@@ -687,7 +699,7 @@ handle_zip_img() {
             sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
         fi
     else
-        if [ -f "$SRC_IMG/$FILE_IMG" ] \
+        if [ -s "$SRC_IMG/$FILE_IMG" ] \
         && [ -f "$SRC_IMG/$FILE_URL" ] \
         && grep -q "$URL" $SRC_IMG/$FILE_URL 2> /dev/null \
         && ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null; \
@@ -698,7 +710,7 @@ handle_zip_img() {
             sudo rsync -xa --info=progress2 $SRC_IMG/$FILE_URL  $DST_IMG;
         fi
 
-        if ! [ -f "$DST_IMG/$FILE_IMG" ] \
+        if ! [ -s "$DST_IMG/$FILE_IMG" ] \
         || ! grep -q "$URL" $DST_IMG/$FILE_URL 2> /dev/null \
         || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_IMG/$FILE_URL $URL); \
         then
@@ -719,7 +731,12 @@ handle_zip_img() {
         fi
     fi
 
-    if [ -f "$DST_IMG/$FILE_IMG" ]; then
+    if ! [ -s $DST_IMG/$FILE_IMG ]; then
+        sudo rm -f $DST_IMG/$FILE_IMG;
+        sudo rm -f $DST_IMG/$FILE_URL;
+    fi
+
+    if [ -s "$DST_IMG/$FILE_IMG" ]; then
         local OFFSET_BOOT=$((512*$(sfdisk -d $DST_IMG/$FILE_IMG | grep $DST_IMG/$FILE_IMG\1 | awk '{print $4}' | sed 's/,//')))
         local SIZE_BOOT=$((512*$(sfdisk -d $DST_IMG/$FILE_IMG | grep $DST_IMG/$FILE_IMG\1 | awk '{print $6}' | sed 's/,//')))
         local OFFSET_ROOT=$((512*$(sfdisk -d $DST_IMG/$FILE_IMG | grep $DST_IMG/$FILE_IMG\2 | awk '{print $4}' | sed 's/,//')))
