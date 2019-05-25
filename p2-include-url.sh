@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-05-21
+# v 2019-05-25
 
 ##########################################################################
 ##########################################################################
@@ -209,7 +209,7 @@ OPENSUSE_X64_HASH_TYPE=sha256
 OPENSUSE_X64_HASH_PATTERN=.sha256
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.13.2/tails-amd64-3.13.2.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.14/tails-amd64-3.14.iso
 
 
 ##########################################################################
