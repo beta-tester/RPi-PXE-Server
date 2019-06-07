@@ -27,6 +27,7 @@ _unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
 _unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
 _unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
+handle_iso  $ESET_SYSRESCUE_X86  $ESET_SYSRESCUE_X86_URL;
 handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 _unhandle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
 _unhandle_iso  $KALI_X64  $KALI_X64_URL;

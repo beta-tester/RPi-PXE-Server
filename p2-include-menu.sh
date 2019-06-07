@@ -183,6 +183,24 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz" ]; then
+    echo  -e "\e[36m    add $ESET_SYSRESCUE_X86\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    LABEL $ESET_SYSRESCUE_X86
+        MENU LABEL ESET SysRescue Live
+        KERNEL $FILE_BASE$NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$ESET_SYSRESCUE_X86/casper/initrd.lz
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$ESET_SYSRESCUE_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        TEXT HELP
+            Boot to ESET SysRescue Live
+        ENDTEXT
+EOF";
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
     echo  -e "\e[36m    add $FEDORA_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU

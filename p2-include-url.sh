@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-05-25
+# v 2019-06-06
 
 ##########################################################################
 ##########################################################################
@@ -58,6 +58,9 @@ DEVUAN_X86=devuan-x86
 DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso
 DEVUAN_X86_HASH_TYPE=sha256
 DEVUAN_X86_HASH_PATTERN=SHA256SUMS
+
+ESET_SYSRESCUE_X86=eset-rescue-x86
+ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_cd/latest/eset_sysrescue_live_enu.iso
 
 FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/30/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-30-1.2.iso
