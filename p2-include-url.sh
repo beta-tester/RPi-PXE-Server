@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-06-06
+# v 2019-06-22
 
 ##########################################################################
 ##########################################################################
@@ -109,12 +109,12 @@ MINT_X64_HASH_TYPE=sha256
 MINT_X64_HASH_PATTERN=sha256sum.txt
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.6/Parrot-security-4.6_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-security-4.7_amd64.iso
 PARROT_FULL_X64_HASH_TYPE=sha512
 PARROT_FULL_X64_HASH_PATTERN=signed-hashes.txt
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.6/Parrot-home-4.6_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-home-4.7_amd64.iso
 PARROT_LITE_X64_HASH_TYPE=sha512
 PARROT_LITE_X64_HASH_PATTERN=signed-hashes.txt
 
@@ -212,7 +212,7 @@ OPENSUSE_X64_HASH_TYPE=sha256
 OPENSUSE_X64_HASH_PATTERN=.sha256
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.14/tails-amd64-3.14.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.14.1/tails-amd64-3.14.1.iso
 
 
 ##########################################################################
