@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-07-07
+# v 2019-07-12
 
 ##########################################################################
 ##########################################################################
@@ -22,10 +22,10 @@ ARCH_NETBOOT_X64=arch-netboot-x64
 ARCH_NETBOOT_X64_URL=https://www.archlinux.org/static/netboot/ipxe.lkrn
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.1-25/clonezilla-live-2.6.1-25-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.2-15/clonezilla-live-2.6.2-15-amd64.iso
 
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.1-25/clonezilla-live-2.6.1-25-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.2-15/clonezilla-live-2.6.2-15-i686.iso
 
 DEBIAN_KVER=4.19.0-5
 
@@ -212,7 +212,7 @@ OPENSUSE_X64_HASH_TYPE=sha256
 OPENSUSE_X64_HASH_PATTERN=.sha256
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.14.2/tails-amd64-3.14.2.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-3.15/tails-amd64-3.15.iso
 
 
 ##########################################################################
