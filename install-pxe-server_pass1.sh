@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2019-03-10
+# v2019-07-12
 #
 # known issues:
 #
@@ -118,17 +118,14 @@ sudo apt install -y rsync;
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
 sudo apt install -y pxelinux syslinux-common syslinux-efi;
 
-sudo wget -O /tmp/temp.tar.xz https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/Testing/6.04/syslinux-6.04-pre1.tar.xz;
-
-echo -e "\e[32m update the 32bit efi file and ldlinux.e32 to 6.04-pre1 due to bugs\e[0m";
-sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/SYSLINUX.EFI/efi32/     --no-same-owner --no-same-permissions --strip-components=3 syslinux-6.04-pre1/efi32/efi/syslinux.efi;
-sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/syslinux/modules/efi32/ --no-same-owner --no-same-permissions --strip-components=5 syslinux-6.04-pre1/efi32/com32/elflink/ldlinux/ldlinux.e32;
-
-echo -e "\e[32m update the 64bit efi file and ldlinux.e64 to 6.04-pre1 due to bugs\e[0m";
-sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/SYSLINUX.EFI/efi64/     --no-same-owner --no-same-permissions --strip-components=3 syslinux-6.04-pre1/efi64/efi/syslinux.efi;
-sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/syslinux/modules/efi64/ --no-same-owner --no-same-permissions --strip-components=5 syslinux-6.04-pre1/efi64/com32/elflink/ldlinux/ldlinux.e64;
-
-sudo rm /tmp/temp.tar.xz;
+#sudo wget -O /tmp/temp.tar.xz https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/Testing/6.04/syslinux-6.04-pre1.tar.xz;
+#echo -e "\e[32m update the 32bit efi file and ldlinux.e32 to 6.04-pre1 due to bugs\e[0m";
+#sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/SYSLINUX.EFI/efi32/     --no-same-owner --no-same-permissions --strip-components=3 syslinux-6.04-pre1/efi32/efi/syslinux.efi;
+#sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/syslinux/modules/efi32/ --no-same-owner --no-same-permissions --strip-components=5 syslinux-6.04-pre1/efi32/com32/elflink/ldlinux/ldlinux.e32;
+#echo -e "\e[32m update the 64bit efi file and ldlinux.e64 to 6.04-pre1 due to bugs\e[0m";
+#sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/SYSLINUX.EFI/efi64/     --no-same-owner --no-same-permissions --strip-components=3 syslinux-6.04-pre1/efi64/efi/syslinux.efi;
+#sudo tar -x -v -f /tmp/temp.tar.xz -C /usr/lib/syslinux/modules/efi64/ --no-same-owner --no-same-permissions --strip-components=5 syslinux-6.04-pre1/efi64/com32/elflink/ldlinux/ldlinux.e64;
+#sudo rm /tmp/temp.tar.xz;
 
 
 ######################################################################
