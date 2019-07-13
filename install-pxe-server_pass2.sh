@@ -90,8 +90,8 @@ handle_dhcpcd() {
     echo -e "\e[32mhandle_dhcpcd()\e[0m";
 
     ######################################################################
-    if grep -q stretch /etc/*-release; then
-        echo -e "\e[36m    a stretch os detected\e[0m";
+    if [ "$OS_VER" -ge "9" ]; then
+        echo -e "\e[36m    a stretch or newer OS detected\e[0m";
         ######################################################################
         grep -q $INTERFACE_ETH0 /etc/dhcpcd.conf || {
         echo -e "\e[36m    setup dhcpcd.conf\e[0m";
@@ -107,7 +107,7 @@ EOF";
         sudo systemctl restart dhcpcd.service;
         }
     else
-        echo -e "\e[36m    a non-stretch os detected\e[0m";
+        echo -e "\e[36m    a jessie or older os detected\e[0m";
         ######################################################################
         grep -q mod_install_server /etc/network/interfaces || {
         echo -e "\e[36m    setup networking, disable dhcpcd\e[0m";

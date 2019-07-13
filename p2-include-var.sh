@@ -78,3 +78,4 @@ DST_NFS_ETH0=$DST_ROOT$NFS_ETH0
 DST_PXE_BIOS=menu-bios
 DST_PXE_EFI32=menu-efi32
 DST_PXE_EFI64=menu-efi64
+OS_VER=$(grep VERSION_ID /etc/*-release |  grep -o '".*"' | sed 's/"//g')
