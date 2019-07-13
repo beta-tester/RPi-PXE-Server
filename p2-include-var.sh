@@ -101,3 +101,4 @@ DST_PXE_EFI64=menu-efi64
 KERNEL_MAJOR=$(cat /proc/version | awk '{print $3}' | awk -F . '{print $1}')
 KERNEL_MINOR=$(cat /proc/version | awk '{print $3}' | awk -F . '{print $2}')
 KERNEL_VER=$((KERNEL_MAJOR*100 + KERNEL_MINOR))
+OS_VER=$(grep VERSION_ID /etc/*-release |  grep -o '".*"' | sed 's/"//g')
