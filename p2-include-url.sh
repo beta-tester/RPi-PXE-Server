@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-07-12
+# v 2019-08-02
 
 ##########################################################################
 ##########################################################################
@@ -104,7 +104,7 @@ LUBUNTU_X86_HASH_TYPE=sha256
 LUBUNTU_X86_HASH_PATTERN=SHA256SUMS
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.1/linuxmint-19.1-xfce-64bit.iso
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.2/linuxmint-19.2-xfce-64bit.iso
 MINT_X64_HASH_TYPE=sha256
 MINT_X64_HASH_PATTERN=sha256sum.txt
 
