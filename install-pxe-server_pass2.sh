@@ -157,6 +157,10 @@ DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"
 EOF";
         }
 
+        sudo systemctl stop wpa_supplicant;
+        sudo systemctl disable wpa_supplicant;
+        sudo rfkill unblock wlan;
+  
         sudo systemctl unmask hostapd;
         sudo systemctl enable hostapd;
         sudo systemctl restart hostapd;
