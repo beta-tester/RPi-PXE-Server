@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-08-02
+# v 2019-08-13
 
 ##########################################################################
 ##########################################################################
@@ -109,12 +109,12 @@ MINT_X64_HASH_TYPE=sha256
 MINT_X64_HASH_PATTERN=sha256sum.txt
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-security-4.7_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-security-4.7-1_amd64.iso
 PARROT_FULL_X64_HASH_TYPE=sha512
 PARROT_FULL_X64_HASH_PATTERN=signed-hashes.txt
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-home-4.7_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-home-4.7-2019.08.06_amd64.iso
 PARROT_LITE_X64_HASH_TYPE=sha512
 PARROT_LITE_X64_HASH_PATTERN=signed-hashes.txt
 
@@ -242,4 +242,3 @@ RPD_LITE=rpi-raspbian-lite
 RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
 RPD_LITE_HASH_TYPE=sha256
 RPD_LITE_HASH_PATTERN=https://www.raspberrypi.org/downloads/raspbian/
-
