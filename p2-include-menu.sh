@@ -269,7 +269,7 @@ if [ -f "$FILE_MENU" ] \
     LABEL $KASPERSKY_RESCUE_X86
         MENU LABEL Kaspersky Rescue Disk
         KERNEL $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86
-        INITRD $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/initrd.xz,$FILE_BASE$NFS_ETH0/kaspersky-rescue-x86-initrd.xz
+        INITRD $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/initrd.xz
         APPEND netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86 ro dostartx -- lang=us setkmap=us
         TEXT HELP
             Boot to Kaspersky Rescue Disk
