@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-09-05
+# v 2019-09-14
 
 ##########################################################################
 ##########################################################################
@@ -30,12 +30,12 @@ CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 DEBIAN_KVER=4.19.0-5
 
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.0.0-amd64-xfce.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.1.0-amd64-xfce.iso
 DEBIAN_X64_HASH_TYPE=sha512
 DEBIAN_X64_HASH_PATTERN=SHA512SUMS
 
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-10.0.0-i386-xfce.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-10.1.0-i386-xfce.iso
 DEBIAN_X86_HASH_TYPE=sha512
 DEBIAN_X86_HASH_PATTERN=SHA512SUMS
 
