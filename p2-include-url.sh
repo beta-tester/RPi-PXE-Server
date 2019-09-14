@@ -27,7 +27,7 @@ CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.2-15/clonezilla-live-2.6.2-15-i686.iso
 
-DEBIAN_KVER=4.19.0-5
+DEBIAN_KVER=4.19.0-6
 
 DEBIAN_X64=debian-x64
 DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.1.0-amd64-xfce.iso
