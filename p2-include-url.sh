@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-09-17
+# v 2019-09-21
 
 ##########################################################################
 ##########################################################################
@@ -109,12 +109,12 @@ MINT_X64_HASH_TYPE=sha256
 MINT_X64_HASH_PATTERN=sha256sum.txt
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.6/Parrot-security-4.6_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-security-4.7_x64.iso
 PARROT_FULL_X64_HASH_TYPE=sha512
 PARROT_FULL_X64_HASH_PATTERN=signed-hashes.txt
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.6/Parrot-home-4.6_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.7/Parrot-home-4.7_x64.iso
 PARROT_LITE_X64_HASH_TYPE=sha512
 PARROT_LITE_X64_HASH_PATTERN=signed-hashes.txt
 
