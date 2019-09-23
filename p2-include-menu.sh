@@ -801,6 +801,24 @@ EOF";
 fi
 #=========== END ===========
 
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_TFTP_ETH0/$1/wimboot" ] \
+&& [ -f "$DST_NFS_ETH0/$WIN_PE_X86/sources/boot.wim" ]; then
+    echo  -e "\e[36m    add $WIN_PE_X86 (WIM)\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    LABEL $WIN_PE_X86-pxe
+        MENU LABEL Windows PE x86 (WIM)
+        COM32 linux.c32 wimboot
+        APPEND initrdfile=$FILE_BASE$NFS_ETH0/$WIN_PE_X86/Boot/BCD,$FILE_BASE$NFS_ETH0/$WIN_PE_X86/Boot/boot.sdi,$FILE_BASE$NFS_ETH0/$WIN_PE_X86/sources/boot.wim
+        TEXT HELP
+            Boot to Windows PE 32bit
+        ENDTEXT
+EOF";
+fi
+#=========== END ===========
+
 
 
 ##########################################################################

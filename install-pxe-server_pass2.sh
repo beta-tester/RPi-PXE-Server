@@ -376,6 +376,12 @@ handle_pxe() {
     [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/memdisk" ]      || sudo ln -s /usr/lib/syslinux/memdisk                    $DST_TFTP_ETH0/$DST_PXE_BIOS/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/nfs" ]          || sudo ln -s $DST_NFS_ETH0/                               $DST_TFTP_ETH0/$DST_PXE_BIOS/nfs;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/iso" ]          || sudo ln -s $DST_ISO/                                    $DST_TFTP_ETH0/$DST_PXE_BIOS/iso;
+
+    [ -h "$DST_TFTP_ETH0/$DST_PXE_BIOS/linux.c32" ]    || sudo ln -s /usr/lib/syslinux/modules/bios/linux.c32     $DST_TFTP_ETH0/$DST_PXE_BIOS/;
+    [ -f "$DST_TFTP_ETH0/$DST_PXE_BIOS/wimboot" ] \
+    || wget -O /tmp/wimboot.tar.gz https://git.ipxe.org/releases/wimboot/wimboot-latest.tar.gz; \
+    tar -xf /tmp/wimboot.tar.gz --wildcards *wimboot -O | sudo tee $DST_TFTP_ETH0/$DST_PXE_BIOS/wimboot > /dev/null;
+
     handle_pxe_menu  $DST_PXE_BIOS  default;
 
     ######################################################################
@@ -390,6 +396,12 @@ handle_pxe() {
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/poweroff.c32" ] || sudo ln -s /usr/lib/syslinux/modules/efi32/poweroff.c32  $DST_TFTP_ETH0/$DST_PXE_EFI32/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/nfs" ]          || sudo ln -s $DST_NFS_ETH0/                                $DST_TFTP_ETH0/$DST_PXE_EFI32/nfs;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/iso" ]          || sudo ln -s $DST_ISO/                                     $DST_TFTP_ETH0/$DST_PXE_EFI32/iso;
+
+    [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI32/linux.c32" ]    || sudo ln -s /usr/lib/syslinux/modules/efi32/linux.c32     $DST_TFTP_ETH0/$DST_PXE_EFI32/;
+    [ -f "$DST_TFTP_ETH0/$DST_PXE_EFI32/wimboot" ] \
+    || wget -O /tmp/wimboot.tar.gz https://git.ipxe.org/releases/wimboot/wimboot-latest.tar.gz; \
+    tar -xf /tmp/wimboot.tar.gz --wildcards *wimboot -O | sudo tee $DST_TFTP_ETH0/$DST_PXE_EFI32/wimboot > /dev/null;
+
     handle_pxe_menu  $DST_PXE_EFI32  default;
 
     ######################################################################
@@ -404,6 +416,12 @@ handle_pxe() {
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/poweroff.c32" ] || sudo ln -s /usr/lib/syslinux/modules/efi64/poweroff.c32  $DST_TFTP_ETH0/$DST_PXE_EFI64/;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/nfs" ]          || sudo ln -s $DST_NFS_ETH0/                                $DST_TFTP_ETH0/$DST_PXE_EFI64/nfs;
     [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/iso" ]          || sudo ln -s $DST_ISO/                                     $DST_TFTP_ETH0/$DST_PXE_EFI64/iso;
+
+    [ -h "$DST_TFTP_ETH0/$DST_PXE_EFI64/linux.c32" ]    || sudo ln -s /usr/lib/syslinux/modules/efi64/linux.c32     $DST_TFTP_ETH0/$DST_PXE_EFI64/;
+    [ -f "$DST_TFTP_ETH0/$DST_PXE_EFI64/wimboot" ] \
+    || wget -O /tmp/wimboot.tar.gz https://git.ipxe.org/releases/wimboot/wimboot-latest.tar.gz; \
+    tar -xf /tmp/wimboot.tar.gz --wildcards *wimboot -O | sudo tee $DST_TFTP_ETH0/$DST_PXE_EFI64/wimboot > /dev/null;
+
     handle_pxe_menu  $DST_PXE_EFI64  default;
 }
 
