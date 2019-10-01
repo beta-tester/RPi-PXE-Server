@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-09-25
+# v 2019-10-01
 
 ##########################################################################
 ##########################################################################
@@ -71,7 +71,7 @@ GNURADIO_X64=gnuradio-x64
 GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2019.2-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2019.3-amd64.iso
 KALI_X64_HASH_TYPE=sha256
 KALI_X64_HASH_PATTERN=SHA256SUMS
 
