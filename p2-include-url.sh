@@ -197,7 +197,7 @@ ANDROID_X86=android-x86
 ANDROID_X86_URL=https://osdn.net/frs/redir.php?f=android-x86%2F69704%2Fandroid-x86_64-8.1-r1.iso
 
 CENTOS_X64=centos-x64
-CENTOS_X64_URL=http://ftp.rrzn.uni-hannover.de/centos/8.0.1905/isos/x86_64/CentOS-8-x86_64-1905-dvd1.iso
+CENTOS_X64_URL=http://ftp.tu-chemnitz.de/pub/linux/centos/7.7.1908/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1908.iso
 CENTOS_X64_HASH_TYPE=sha256
 CENTOS_X64_HASH_PATTERN=sha256sum.txt.asc
 
