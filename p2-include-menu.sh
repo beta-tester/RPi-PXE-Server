@@ -288,7 +288,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu x64 Daily-Live
             User: lubuntu
@@ -345,7 +345,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu x64
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu x64 Live
             User: lubuntu
@@ -364,7 +364,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu x86
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu x86 Live
             User: lubuntu
@@ -560,7 +560,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu x64 Daily-Live
             User: ubuntu
@@ -582,7 +582,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu Live FirmwareTestSuite
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_FWTS/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_FWTS ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper toram --
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_FWTS ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper toram --
         TEXT HELP
             Boot to Ubuntu Live FirmwareTestSuite
             User: ubuntu
@@ -639,7 +639,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu Studio x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu Studio x64 Daily-Live
             User: ubuntu
@@ -658,7 +658,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu Studio x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu Studio x64 Live
             User: ubuntu
@@ -677,7 +677,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu x64 Live
             User: ubuntu
@@ -943,6 +943,32 @@ if [ -f "$FILE_MENU" ] \
         APPEND fetch=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable nopersistent noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 nox11autologin module=Tails -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
         TEXT HELP
             Boot to Tails x64 Live
+        ENDTEXT
+EOF";
+fi
+#========== END ==========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ]; then
+    echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    ## NOT WORKING
+    ## $ knoppix-terminalserver
+    ## $ cat /etc/exports
+    ##     /mnt-system 192.168.1.0/255.255.255.0(ro,no_root_squash,no_subtree_check,async,fsid=0)
+    ## $ cat /tmp/tftpboot/pxelinux.cfg/default
+    ##     APPEND secure nfsdir=192.168.1.1:/mnt-system nodhcp lang=de ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
+    ##    #INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/minirt.gz
+    ##    #APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 lang=de apm=power-off nomce hpsa.hpsa_allow_any=1 loglevel=1 debug forensic
+    LABEL $KNOPPIX_X86
+        MENU LABEL Knoppix x86 (broken)
+        KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
+        INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86-miniroot.gz
+        APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp lang=de ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix debug
+        TEXT HELP
+            Boot to Knoppix x86 Live
         ENDTEXT
 EOF";
 fi
