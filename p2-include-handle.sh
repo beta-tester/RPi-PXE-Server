@@ -32,6 +32,7 @@ handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 _unhandle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
 handle_iso  $KALI_X64  $KALI_X64_URL;
 handle_iso  $KASPERSKY_RESCUE_X86  $KASPERSKY_RESCUE_X86_URL  timestamping;
+handle_iso  $KNOPPIX_X86  $KNOPPIX_X86_URL;
 #_unhandle_iso  $LUBUNTU_DAILY_X64  $LUBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $LUBUNTU_LTS_X64  $LUBUNTU_LTS_X64_URL;
 _unhandle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
