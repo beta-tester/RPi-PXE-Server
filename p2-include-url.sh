@@ -134,6 +134,8 @@ KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/
 
 KNOPPIX_X86=knoppix-x86
 KNOPPIX_X86_URL=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6-2019-08-08-DE.iso
+KNOPPIX_X86_SUM=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6-2019-08-08-DE.iso.sha256
+KNOPPIX_X86_SUM_TYPE=sha256
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
