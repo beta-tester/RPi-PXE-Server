@@ -132,6 +132,10 @@ KASPERSKY_RESCUE_X86=kaspersky-rescue-x86
 KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso
 
 
+KNOPPIX_X86=knoppix-x86
+KNOPPIX_X86_URL=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6-2019-08-08-DE.iso
+
+
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
 LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/focal-desktop-amd64.iso
 LUBUNTU_DAILY_X64_SUM=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
@@ -279,10 +283,6 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.0/tails-amd64-4.0.iso
-
-
-KNOPPIX_X86=knoppix-x86
-KNOPPIX_X86_URL=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6-2019-08-08-DE.iso
 
 
 ##########################################################################
