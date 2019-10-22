@@ -279,18 +279,18 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ] \
-&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot.gz" ]; then
+&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ]; then
     echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
+    [ -f "$DST_NFS_ETH0/knoppix-x86-miniroot.gz" ] || ( sudo wget -O $DST_NFS_ETH0/knoppix-x86-miniroot.gz https://github.com/beta-tester/RPi-PXE-Server/files/3754352/knoppix-x86-miniroot.gz );
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
-    ## INFO:
+    ## INFO: https://github.com/beta-tester/RPi-PXE-Server/issues/27
     ## $ knoppix-terminalserver
     ## $ cp /tmp/tftproot/miniroot.gz  /srv/nfs/knoppix-x86-miniroot.gz
     LABEL $KNOPPIX_X86
         MENU LABEL Knoppix x86
         KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
-        INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86-miniroot.gz
+        INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot.gz
         APPEND secure nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp lang=de ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
         TEXT HELP
             Boot to Knoppix x86 Live
