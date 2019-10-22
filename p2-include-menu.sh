@@ -263,7 +263,6 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86_64" ]; then
     echo  -e "\e[36m    add $KASPERSKY_RESCUE_X86\e[0m";
-    [ -f "$DST_NFS_ETH0/kaspersky-rescue-x86-initrd.xz" ] || ( sudo wget -O /tmp/tmp.zip https://github.com/beta-tester/RPi-PXE-Server/files/2705800/kaspersky-rescue-x86-initrd.zip && sudo unzip /tmp/tmp.zip -d $DST_NFS_ETH0/ && sudo rm /tmp/tmp.zip );
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     LABEL $KASPERSKY_RESCUE_X86
@@ -277,6 +276,28 @@ if [ -f "$FILE_MENU" ] \
 EOF";
 fi
 #=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ] \
+&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot.gz" ]; then
+    echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    ## INFO:
+    ## $ knoppix-terminalserver
+    ## $ cp /tmp/tftproot/miniroot.gz  /srv/nfs/knoppix-x86-miniroot.gz
+    LABEL $KNOPPIX_X86
+        MENU LABEL Knoppix x86
+        KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
+        INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86-miniroot.gz
+        APPEND secure nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp lang=de ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
+        TEXT HELP
+            Boot to Knoppix x86 Live
+        ENDTEXT
+EOF";
+fi
+#========== END ==========
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
@@ -830,6 +851,7 @@ if [ -f "$FILE_MENU" ] \
     echo  -e "\e[36m    add $ANDROID_X86\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
+    ## NOT WORKING
     LABEL $ANDROID_X86
         MENU LABEL Android x86 (broken)
         KERNEL $FILE_BASE$NFS_ETH0/$ANDROID_X86/kernel
@@ -849,10 +871,10 @@ if [ -f "$FILE_MENU" ] \
     echo  -e "\e[36m    add $CENTOS_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
+    ## NOT WORKING
     ## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
     ##       https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-installation-server-setup
     ##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
-    ## NOT WORKING
     LABEL $CENTOS_X64
         MENU LABEL CentOS x64 (broken)
         KERNEL $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz
@@ -887,6 +909,7 @@ if [ -f "$FILE_MENU" ] \
     echo  -e "\e[36m    add $OPENSUSE_RESCUE_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
+    ## NOT WORKING
     LABEL $OPENSUSE_RESCUE_X64
         MENU LABEL openSUSE Leap Rescue x64 (broken)
         KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
@@ -908,6 +931,7 @@ if [ -f "$FILE_MENU" ] \
     echo  -e "\e[36m    add $OPENSUSE_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
+    ## NOT WORKING
     ## INFO: Booting live images
     ##           https://mirrors.edge.kernel.org/pub/linux/utils/boot/dracut/dracut.html#dracutconf5
     ##       Bug 1099548 - can't PXE-boot into openSUSE Leap 15.0 Live image
@@ -933,8 +957,8 @@ if [ -f "$FILE_MENU" ] \
     echo  -e "\e[36m    add $TAILS_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
-    ## INFO: https://www.com-magazin.de/praxis/nas/multi-boot-nas-server-232864.html?page=10_tails-vom-nas-booten
     ## NOT WORKING
+    ## INFO: https://www.com-magazin.de/praxis/nas/multi-boot-nas-server-232864.html?page=10_tails-vom-nas-booten
     LABEL $TAILS_X64
         MENU LABEL Tails x64 (broken)
         KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
@@ -943,32 +967,6 @@ if [ -f "$FILE_MENU" ] \
         APPEND fetch=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable nopersistent noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 nox11autologin module=Tails -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
         TEXT HELP
             Boot to Tails x64 Live
-        ENDTEXT
-EOF";
-fi
-#========== END ==========
-
-#========== BEGIN ==========
-if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ]; then
-    echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
-    ########################################
-    ## NOT WORKING
-    ## $ knoppix-terminalserver
-    ## $ cat /etc/exports
-    ##     /mnt-system 192.168.1.0/255.255.255.0(ro,no_root_squash,no_subtree_check,async,fsid=0)
-    ## $ cat /tmp/tftpboot/pxelinux.cfg/default
-    ##     APPEND secure nfsdir=192.168.1.1:/mnt-system nodhcp lang=de ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
-    ##    #INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/minirt.gz
-    ##    #APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 lang=de apm=power-off nomce hpsa.hpsa_allow_any=1 loglevel=1 debug forensic
-    LABEL $KNOPPIX_X86
-        MENU LABEL Knoppix x86 (broken)
-        KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
-        INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86-miniroot.gz
-        APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp lang=de ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix debug
-        TEXT HELP
-            Boot to Knoppix x86 Live
         ENDTEXT
 EOF";
 fi
