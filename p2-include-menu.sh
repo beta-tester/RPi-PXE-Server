@@ -281,7 +281,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ]; then
     echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
-    ! [ -f "$DST_NFS_ETH0/knoppix-x86-miniroot.gz" ] || ( sudo wget -O $DST_NFS_ETH0/knoppix-x86-miniroot.gz https://github.com/beta-tester/RPi-PXE-Server/files/3764311/knoppix-x86-miniroot.gz );
+    [ -f "$DST_NFS_ETH0/knoppix-x86-miniroot.gz" ] || ( sudo wget -O $DST_NFS_ETH0/knoppix-x86-miniroot.gz https://github.com/beta-tester/RPi-PXE-Server/files/3764311/knoppix-x86-miniroot.gz );
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
     ## INFO: https://github.com/beta-tester/RPi-PXE-Server/issues/27
