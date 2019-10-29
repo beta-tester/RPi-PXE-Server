@@ -291,7 +291,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Knoppix x86
         KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
         INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot.gz
-        APPEND secure nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp lang=de mem=800M ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
+        APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp mem=800M ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix -- lang=de
         TEXT HELP
             Boot to Knoppix x86 Live
         ENDTEXT
