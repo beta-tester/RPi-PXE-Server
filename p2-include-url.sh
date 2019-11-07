@@ -98,12 +98,12 @@ DEFT_X64_SUM_TYPE=md5
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_amd64_desktop-live.iso
+DEVUAN_X64_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.1_amd64_desktop-live.iso
 DEVUAN_X64_SUM=https://files.devuan.org/devuan_ascii/desktop-live/SHA256SUMS
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
-DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso
+DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.1_i386_desktop-live.iso
 DEVUAN_X86_SUM=https://files.devuan.org/devuan_ascii/desktop-live/SHA256SUMS
 DEVUAN_X86_SUM_TYPE=sha256
 
