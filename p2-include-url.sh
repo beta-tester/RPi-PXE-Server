@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2019-11-28
+# v 2019-12-06
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -133,8 +133,8 @@ KASPERSKY_RESCUE_X86_URL=https://rescuedisk.s.kaspersky-labs.com/updatable/2018/
 
 
 KNOPPIX_X86=knoppix-x86
-KNOPPIX_X86_URL=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6-2019-08-08-DE.iso
-KNOPPIX_X86_SUM=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6-2019-08-08-DE.iso.sha256
+KNOPPIX_X86_URL=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6.1-2019-10-14-DE.iso
+KNOPPIX_X86_SUM=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V8.6.1-2019-10-14-DE.iso.sha256
 KNOPPIX_X86_SUM_TYPE=sha256
 
 
@@ -284,7 +284,7 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.0/tails-amd64-4.0.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.1/tails-amd64-4.1.iso
 
 
 ##########################################################################
