@@ -76,17 +76,17 @@ echo -e "\e[32msync...\e[0m" && sudo sync \
 
 ######################################################################
 echo -e "\e[32minstall debconf-utils\e[0m";
-sudo apt install -y debconf-utils;
+sudo apt install -y --no-install-recommends debconf-utils;
 
 
 ######################################################################
 echo -e "\e[32minstall uuid\e[0m";
-sudo apt install -y uuid;
+sudo apt install -y --no-install-recommends uuid;
 
 
 ######################################################################
 echo -e "\e[32minstall nfs-kernel-server for pxe\e[0m";
-sudo apt install -y nfs-kernel-server;
+sudo apt install -y --no-install-recommends nfs-kernel-server;
 sudo systemctl enable nfs-kernel-server.service;
 sudo systemctl restart nfs-kernel-server.service;
 
@@ -99,29 +99,30 @@ sudo systemctl restart rpcbind.service;
 
 ######################################################################
 echo -e "\e[32minstall dnsmasq for pxe\e[0m";
-sudo apt install -y dnsmasq
+sudo apt install -y --no-install-recommends dnsmasq
 sudo systemctl enable dnsmasq.service;
 sudo systemctl restart dnsmasq.service;
 
 
 ######################################################################
 echo -e "\e[32minstall samba\e[0m";
-sudo apt install -y samba;
+echo "samba-common	samba-common/dhcp	boolean	false" | sudo debconf-set-selections;
+sudo apt install -y --no-install-recommends samba;
 
 
 ######################################################################
 echo -e "\e[32minstall rsync\e[0m";
-sudo apt install -y rsync;
+sudo apt install -y --no-install-recommends rsync;
 
 
 ######################################################################
 echo -e "\e[32minstall syslinux-common for pxe\e[0m";
-sudo apt install -y pxelinux syslinux-common syslinux-efi;
+sudo apt install -y --no-install-recommends pxelinux syslinux-common syslinux-efi;
 
 
 ######################################################################
 echo -e "\e[32minstall lighttpd\e[0m";
-sudo apt install -y lighttpd;
+sudo apt install -y --no-install-recommends lighttpd;
 sudo sh -c "cat << EOF  >> /etc/lighttpd/lighttpd.conf
 ########################################
 ## mod_install_server
@@ -136,35 +137,35 @@ sudo rm /var/www/html/index.lighttpd.html
 
 ######################################################################
 echo -e "\e[32minstall apt-cacher-ng\e[0m";
-sudo apt install -y apt-cacher-ng;
+sudo apt install -y --no-install-recommends apt-cacher-ng;
 
 
 ######################################################################
 echo -e "\e[32minstall bindfs\e[0m";
-sudo apt install -y fuse bindfs;
+sudo apt install -y --no-install-recommends fuse bindfs;
 
 
 ######################################################################
 echo -e "\e[32minstall wlan access point\e[0m";
-sudo apt install -y hostapd
+sudo apt install -y --no-install-recommends hostapd
 
 
 ######################################################################
 #bridge#echo -e "\e[32minstall network bridge\e[0m";
-#bridge#sudo apt install -y bridge-utils
+#bridge#sudo apt install -y --no-install-recommends bridge-utils
 
 
 ######################################################################
 echo -e "\e[32minstall iptables for network address translation (NAT)\e[0m";
 echo "iptables-persistent     iptables-persistent/autosave_v4 boolean true" | sudo debconf-set-selections;
 echo "iptables-persistent     iptables-persistent/autosave_v6 boolean true" | sudo debconf-set-selections;
-sudo apt install -y iptables iptables-persistent
+sudo apt install -y --no-install-recommends iptables iptables-persistent
 
 
 ######################################################################
 $(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
 echo -e "\e[32minstall chrony as ntp client and ntp server\e[0m";
-sudo apt install -y chrony;
+sudo apt install -y --no-install-recommends chrony;
 sudo systemctl enable chronyd.service;
 sudo systemctl restart chronyd.service;
 }
@@ -172,7 +173,7 @@ sudo systemctl restart chronyd.service;
 ######################################################################
 ######################################################################
 echo -e "\e[32minstall real-vnc-server\e[0m";
-sudo apt install -y realvnc-vnc-server
+sudo apt install -y --no-install-recommends realvnc-vnc-server
 sudo systemctl enable vncserver-x11-serviced.service;
 sudo systemctl restart vncserver-x11-serviced.service;
 
@@ -187,11 +188,11 @@ sudo systemctl restart vncserver-x11-serviced.service;
 ## optional
 echo -e "\e[32minstall wireshark\e[0m";
 echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
-sudo apt install -y tshark wireshark
+sudo apt install -y --no-install-recommends tshark wireshark
 sudo usermod -a -G wireshark $USER
 
 echo -e "\e[32minstall other useful stuff\e[0m";
-sudo apt install -y xterm transmission-gtk
+sudo apt install -y --no-install-recommends xterm transmission-gtk
 
 echo -e "\e[32mreduce annoying networktraffic\e[0m";
 sudo systemctl stop avahi-daemon.service
