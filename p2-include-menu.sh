@@ -250,10 +250,10 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Kali x64
         KERNEL $FILE_BASE$NFS_ETH0/$KALI_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$KALI_X64/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64 ro netboot=nfs boot=live noconfig=sudo username=root hostname=kali -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64 ro netboot=nfs boot=live noconfig=sudo username=kali hostname=kali -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Kali x64 Live
-            User: root, Password: toor
+            User: kali, Password: kali
         ENDTEXT
 EOF";
 fi
