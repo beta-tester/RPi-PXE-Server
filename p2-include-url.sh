@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-01-28
+# v 2020-02-09
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -74,14 +74,14 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.4-10/clonezilla-live-2.6.4-10-i686.iso
 
 
-DEBIAN_KVER=4.19.0-6
+DEBIAN_KVER=4.19.0-8
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.2.0-amd64-lxde.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.3.0-amd64-lxde.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-10.2.0-i386-lxde.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-10.3.0-i386-lxde.iso
 DEBIAN_X86_SUM=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/SHA256SUMS
 DEBIAN_X86_SUM_TYPE=sha256
 
