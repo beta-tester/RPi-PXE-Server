@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-02-10
+# v 2020-02-11
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -199,13 +199,13 @@ SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TINYCORE_X64=tinycore-x64
-TINYCORE_X64_URL=http://tinycorelinux.net/10.x/x86_64/release/TinyCorePure64-current.iso
-TINYCORE_X64_SUM=http://tinycorelinux.net/10.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
+TINYCORE_X64_URL=http://tinycorelinux.net/11.x/x86_64/release/TinyCorePure64-current.iso
+TINYCORE_X64_SUM=http://tinycorelinux.net/11.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
 TINYCORE_X64_SUM_TYPE=md5
 
 TINYCORE_X86=tinycore-x86
-TINYCORE_X86_URL=http://tinycorelinux.net/10.x/x86/release/TinyCore-current.iso
-TINYCORE_X86_SUM=http://tinycorelinux.net/10.x/x86/release/TinyCore-current.iso.md5.txt
+TINYCORE_X86_URL=http://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso
+TINYCORE_X86_SUM=http://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso.md5.txt
 TINYCORE_X86_SUM_TYPE=md5
 
 
