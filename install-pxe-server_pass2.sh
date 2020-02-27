@@ -4,17 +4,26 @@
 # known issues:
 #
 
-#bridge#
-
 
 script_dir=$(dirname "$BASH_SOURCE")
+
+BACKUP_FILE=backup.tar.xz
 
 
 ######################################################################
 echo -e "\e[36msetup variables\e[0m";
 
-. "$script_dir/p2-include-var.sh"
 
+##########################################################################
+##########################################################################
+## variables, you have to customize
+## e.g.:
+##  RPI_SN0 : serial number
+##            of the raspberry pi 3 for network booting
+##  and other variables...
+##########################################################################
+##########################################################################
+. "$script_dir/p2-include-var.sh"
 
 echo
 echo -e "$INTERFACE_ETH0 \e[36mis used as primary networkadapter for PXE\e[0m";
@@ -22,18 +31,18 @@ echo -e "$IP_ETH0 \e[36mis used as primary IP address for PXE\e[0m";
 echo -e "$RPI_SN0 \e[36mis used as SN for RPi3 network booting\e[0m";
 echo
 
-if [ "$IP_ETH0" == "" ]; then
+if [ -z $IP_ETH0 ]; then
     echo -e "\e[1;31mIP address not found. please check your ethernet cable.\e[0m";
     exit 1
 fi
 
-if [ "$IP_ETH0_ROUTER" == "" ]; then
+if [ -z $IP_ETH0_ROUTER ]; then
     echo -e "\e[1;31mrouter IP address not found. please check your router settings.\e[0m";
     exit 1
 fi
 
-sudo umount -f $SRC_MOUNT
-sudo mount $SRC_MOUNT
+sudo umount -f $SRC_MOUNT &>/dev/null;
+sudo mount $SRC_MOUNT &>/dev/null;
 
 ##########################################################################
 ##########################################################################
@@ -52,195 +61,205 @@ handle_dhcpcd() {
     echo -e "\e[32mhandle_dhcpcd()\e[0m";
 
     ######################################################################
-    if [ "$OS_VER" -ge "9" ]; then
-        echo -e "\e[36m    a stretch or newer OS detected\e[0m";
-        ######################################################################
-        grep -q $INTERFACE_ETH0 /etc/dhcpcd.conf || {
+    echo -e "\e[36m    a stretch or newer OS detected\e[0m";
+    ##################################################################
+    grep -q mod_install_server /etc/dhcpcd.conf || {
         echo -e "\e[36m    setup dhcpcd.conf\e[0m";
-        sudo sh -c "cat << EOF  >> /etc/dhcpcd.conf
+        tar -ravf $BACKUP_FILE -C / etc/dhcpcd.conf
+        cat << EOF | sudo tee -a /etc/dhcpcd.conf &>/dev/null
+
 ########################################
 ## mod_install_server
 interface $INTERFACE_ETH0
-static ip_address=$IP_ETH0/24
-static routers=$IP_ETH0_ROUTER
-static domain_name_servers=$IP_ETH0_ROUTER
-EOF";
-        sudo systemctl daemon-reload;
-        sudo systemctl restart dhcpcd.service;
-        }
-    else
-        echo -e "\e[36m    a jessie or older os detected\e[0m";
-        ######################################################################
-        grep -q mod_install_server /etc/network/interfaces || {
-        echo -e "\e[36m    setup networking, disable dhcpcd\e[0m";
-        sudo sh -c "cat << EOF  > /etc/network/interfaces
-########################################
-# interfaces(5) file used by ifup(8) and ifdown(8)
-
-# Please note that this file is written to be used with dhcpcd
-# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
-
-# Include files from /etc/network/interfaces.d:
-source-directory /etc/network/interfaces.d
-
-auto lo
-iface lo inet loopback
-
-allow-hotplug wlan0
-iface wlan0 inet manual
-    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-
-allow-hotplug wlan1
-iface wlan1 inet manual
-    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-
-## mod_install_server
-auto $INTERFACE_ETH0
-iface $INTERFACE_ETH0 inet static
-    address $IP_ETH0
-    netmask $IP_ETH0_MASK
-    gateway $IP_ETH0_ROUTER
-
-#bridge#auto eth1
-#bridge#iface eth1 inet static
-#bridge#    hwaddress 88:88:88:11:11:11
-#bridge#    address 169.254.11.11
-#bridge#    netmask 255.255.0.0
-#bridge#
-#bridge#auto br0
-#bridge#iface br0 inet static
-#bridge#    bridge_ports eth1 wlan0 wlan1
-#bridge#        hwaddress 88:88:88:88:88:88
-#bridge#        address $IP_BR0
-#bridge#        netmask $IP_BR0_MASK
-#bridge#        bridge_stp off       # disable Spanning Tree Protocol
-#bridge#        bridge_waitport 0    # no delay before a port becomes available
-#bridge#        bridge_fd 0          # no forwarding delay
-EOF";
-
-        echo "nameserver $IP_ETH0_DNS" | sudo tee -a /etc/resolv.conf
-        sudo chattr +i /etc/resolv.conf
-        sudo rm /etc/resolvconf/update.d/dnsmasq
-        sudo systemctl disable dhcpcd.service;
-        sudo systemctl enable networking.service;
-        }
-    fi
+    slaac private
+    static ip_address=$IP_ETH0/24
+    static ip6_address=fd80::$IP_ETH0/120
+    static routers=$IP_ETH0_ROUTER
+    static domain_name_servers=$IP_ETH0_ROUTER 8.8.8.8 fd51:42f8:caae:d92e::1
+EOF
+    sudo systemctl daemon-reload;
+    sudo systemctl restart dhcpcd.service;
+    }
 }
 
 
-######################################################################
+##########################################################################
 handle_dnsmasq() {
     echo -e "\e[32mhandle_dnsmasq()\e[0m";
 
     ######################################################################
     [ -f /etc/dnsmasq.d/pxe-server ] || {
-    echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
-    sudo sh -c "cat << EOF  >> /etc/dnsmasq.d/pxe-server
+        echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
+        tar -ravf $BACKUP_FILE -C / etc/dnsmasq.d/10-pxe-server
+        cat << EOF | sudo tee /etc/dnsmasq.d/10-pxe-server &>/dev/null
 ########################################
 #/etc/dnsmasq.d/pxeboot
-
 ## mod_install_server
 
 log-dhcp
-log-queries
+#log-queries
+
+# for local resolve
+interface=lo
 
 # interface selection
 interface=$INTERFACE_ETH0
-#bridge#interface=$INTERFACE_BR0
 
-# NTP Server
-dhcp-option=$INTERFACE_ETH0, option:ntp-server, 0.0.0.0
-#bridge#dhcp-option=$INTERFACE_BR0, option:ntp-server, 0.0.0.0
+#
+bind-dynamic
 
+##########
 # TFTP_ETH0 (enabled)
-enable-tftp
+enable-tftp=$INTERFACE_ETH0
 #tftp-lowercase
 tftp-root=$DST_TFTP_ETH0/, $INTERFACE_ETH0
-#bridge#tftp-root=$DST_TFTP_ETH0_BR0/, $INTERFACE_BR0
+dhcp-option=tag:$INTERFACE_ETH0, option:tftp-server, 0.0.0.0
 
+##########
+# Time Server
+dhcp-option=tag:$INTERFACE_ETH0,  option:ntp-server,  0.0.0.0
+dhcp-option=tag:$INTERFACE_ETH0,  option6:ntp-server, [::]
+
+##########
 # DHCP
-# do not give IPs that are in pool of DSL routers DHCP
-dhcp-range=$INTERFACE_ETH0, $IP_ETH0_START, $IP_ETH0_END, 24h
-#bridge#dhcp-range=$INTERFACE_BR0, $IP_BR0_START, $IP_BR0_END, 24h
-dhcp-option=$INTERFACE_ETH0, option:tftp-server, $IP_ETH0
-#bridge#dhcp-option=$INTERFACE_BR0, option:tftp-server, $IP_BR0
+log-dhcp
+#enable-ra
 
+# block NETGEAR managed switch
+dhcp-mac=set:block, 28:c6:8e:*:*:*
+
+# static IP
+#dhcp-host=set:known_128,  08:08:08:08:08:08, 192.168.1.128,  [fd80::192.168.1.128],  infinite
+#dhcp-host=set:known_129,  client_acb,        192.168.1.129,  [fd80::192.168.1.129],  infinite
+
+# dynamic IP
+dhcp-range=tag:$INTERFACE_ETH0,  tag:!block,  fd80::$IP_ETH0_START, fd80::$IP_ETH0_END, 120, 1h
+dhcp-range=tag:$INTERFACE_ETH0,  tag:!block,  $IP_ETH0_START, $IP_ETH0_END, 255.255.255.0, 1h
+
+##########
 # DNS (enabled)
 port=53
+#log-queries
 dns-loop-detect
+stop-dns-rebind
+bogus-priv
+domain-needed
+dhcp-option=tag:$INTERFACE_ETH0, option:netbios-ns, 0.0.0.0
+dhcp-option=tag:$INTERFACE_ETH0, option:netbios-dd, 0.0.0.0
 
 # PXE (enabled)
 # warning: unfortunately, a RPi3 identifies itself as of architecture x86PC (x86PC=0)
-# luckily the RPi3 seems to use always the same UUID 44444444-4444-4444-4444-444444444444
-dhcp-match=set:UUID_RPI3, option:client-machine-id, 00:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44:44
+dhcp-mac=set:IS_RPI3,B8:27:EB:*:*:*
+dhcp-mac=set:IS_RPI4,DC:A6:32:*:*:*
 dhcp-match=set:ARCH_0, option:client-arch, 0
+
+# test if it is a RPi or a regular x86PC
+tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI3
+tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI4
+
+##########
+# RPi 3
+pxe-service=tag:IS_RPI3,0, "Raspberry Pi Boot   ", bootcode.bin
+dhcp-boot=tag:IS_RPI3, bootcode.bin
+
+##########
+# PXE Linux
 dhcp-match=set:x86_UEFI, option:client-arch, 6
 dhcp-match=set:x64_UEFI, option:client-arch, 7
 dhcp-match=set:x64_UEFI, option:client-arch, 9
-
-# test if it is a RPi3 or a regular x86PC
-tag-if=set:ARM_RPI3, tag:ARCH_0, tag:UUID_RPI3
-tag-if=set:x86_BIOS, tag:ARCH_0, tag:!UUID_RPI3
-
-pxe-service=tag:ARM_RPI3,0, \"Raspberry Pi Boot   \", bootcode.bin
-pxe-service=tag:x86_BIOS,x86PC, \"PXE Boot Menu (BIOS 00:00)\", $DST_PXE_BIOS/lpxelinux
-pxe-service=6, \"PXE Boot Menu (UEFI 00:06)\", $DST_PXE_EFI32/bootia32.efi
-pxe-service=x86-64_EFI, \"PXE Boot Menu (UEFI 00:07)\", $DST_PXE_EFI64/bootx64.efi
-pxe-service=9, \"PXE Boot Menu (UEFI 00:09)\", $DST_PXE_EFI64/bootx64.efi
-
-dhcp-boot=tag:ARM_RPI3, bootcode.bin
+tag-if=set:x86_BIOS, tag:ARCH_0, tag:!ARM_RPI
+#pxe-service=tag:x86_BIOS,x86PC, "PXE Boot Menu (BIOS 00:00)", $DST_PXE_BIOS/lpxelinux
+#pxe-service=6, "PXE Boot Menu (UEFI 00:06)", $DST_PXE_EFI32/bootia32.efi
+#pxe-service=tag:x86-64_EFI, "PXE Boot Menu (UEFI 00:07)", $DST_PXE_EFI64/bootx64.efi
+#pxe-service=9, "PXE Boot Menu (UEFI 00:09)", $DST_PXE_EFI64/bootx64.efi
 dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/lpxelinux.0
 dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/bootia32.efi
 dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/bootx64.efi
-EOF";
-    sudo systemctl restart dnsmasq.service;
+dhcp-option=tag:x86_BIOS, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_BIOS/lpxelinux.0
+dhcp-option=tag:x86_UEFI, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_EFI32/bootia32.efi
+dhcp-option=tag:x64_UEFI, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_EFI64/bootx64.efi
+EOF
+        sudo systemctl restart dnsmasq.service;
     }
 }
 
 
-######################################################################
+##########################################################################
 handle_samba() {
     echo -e "\e[32mhandle_samba()\e[0m";
 
     ######################################################################
     grep -q mod_install_server /etc/samba/smb.conf 2> /dev/null || ( \
-    echo -e "\e[36m    setup samba\e[0m";
-    # sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
-    sudo sh -c "cat << EOF  >> /etc/samba/smb.conf
+        echo -e "\e[36m    setup samba\e[0m";
+        tar -ravf $BACKUP_FILE -C / etc/samba/smb.conf
+        #sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
+        cat << EOF | sudo tee /etc/samba/smb.conf &>/dev/null
 ########################################
 ## mod_install_server
+#======================= Global Settings =======================
+[global]
 
+## Browsing/Identification ###
+   workgroup = WORKGROUP
+dns proxy = yes
+enhanced browsing = no
+
+#### Networking ####
+interfaces = $IP_ETH0_0 $INTERFACE_ETH0
+bind interfaces only = yes
+
+#### Debugging/Accounting ####
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   syslog = 0
+   panic action = /usr/share/samba/panic-action %d
+
+####### Authentication #######
+   server role = standalone server
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+   pam password change = yes
+   map to guest = bad user
+
+########## Domains ###########
+
+############ Misc ############
+   usershare allow guests = yes
+
+#======================= Share Definitions =======================
 [srv]
+    path = $DST_ROOT
     comment = /srv folder of pxe-server
-    path = $DST_ROOT/
-    public = yes
-    only guest = yes
-    browseable = yes
+    guest ok = yes
+    guest only = yes
+    browseable = no
     read only = no
-    writeable = yes
     create mask = 0644
     directory mask = 0755
     force create mode = 0644
     force directory mode = 0755
     force user = root
     force group = root
+    hide dot files = no
 
 [media]
-    comment = /media folder of pxe-server
     path = /media/
-    public = yes
-    only guest = yes
-    browseable = yes
+    comment = /media folder of pxe-server
+    guest ok = yes
+    guest only = yes
+    browseable = no
     read only = no
-    writeable = yes
     create mask = 0644
     directory mask = 0755
     force create mode = 0644
     force directory mode = 0755
     force user = root
     force group = root
-EOF"
-    sudo systemctl restart smbd.service;
+    hide dot files = no
+EOF
+        sudo systemctl restart smbd.service;
     )
 }
 
@@ -864,45 +883,29 @@ handle_rpi_pxe() {
         ##################################################################
         if (echo $FLAGS | grep -q config); then
             echo -e "\e[36m    add config file\e[0m";
-            sudo sh -c "cat << EOF  > $DST_BOOT/config.txt
-########################################
+            cat << EOF | sudo tee $DST_BOOT/config.txt
+# Enable audio (loads snd_bcm2835)
 dtparam=audio=on
 
-max_usb_current=1
-#force_turbo=1
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+
+[all]
+#dtoverlay=vc4-fkms-v3d
 
 disable_overscan=1
-hdmi_force_hotplug=1
-config_hdmi_boost=4
+max_usb_current=1
 
+hdmi_force_hotplug=1
+
+#hdmi_ignore_cec=1
 #hdmi_ignore_cec_init=1
 cec_osd_name=NetBoot
 
-#########################################
-# standard resolution
-hdmi_drive=2
-
-#########################################
-# custom resolution
-# 4k@24Hz or 25Hz custom DMT - mode
-#gpu_mem=128
-#hdmi_group=2
-#hdmi_mode=87
-#hdmi_pixel_freq_limit=400000000
-#max_framebuffer_width=3840
-#max_framebuffer_height=2160
-#
-#    #### implicit timing ####
-#    hdmi_cvt 3840 2160 24
-#    #hdmi_cvt 3840 2160 25
-#
-#    #### explicit timing ####
-#    #hdmi_ignore_edid=0xa5000080
-#    #hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 24 0 211190000 3
-#    ##hdmi_timings=3840 1 48 32 80 2160 1 3 5 54 0 0 0 25 0 220430000 3
-#    #framebuffer_width=3840
-#    #framebuffer_height=2160
-EOF";
+disable_splash=1
+EOF
         fi
 
         ##################################################################
@@ -921,20 +924,20 @@ EOF";
             ##############################################################
             if (echo $FLAGS | grep -q fstab); then
                 echo -e "\e[36m    add fstab file\e[0m";
-                sudo sh -c "cat << EOF  > $DST_ROOT/etc/fstab
+                cat << EOF | sudo tee $DST_ROOT/etc/fstab &>/dev/null
 ########################################
 proc  /proc  proc  defaults  0  0
-$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_BOOT  /boot  nfs   defaults,nofail,noatime  0  2
-$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT  /      nfs   defaults,nofail,noatime  0  1
-EOF";
+$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_BOOT  /      nfs   defaults,noatime  0  1
+$IP_ETH0:$DST_NFS_ETH0/$RPI_SN0_ROOT  /boot  nfs   defaults,noatime  0  2
+EOF
             fi
 
             ##############################################################
             if (echo $FLAGS | grep -q wpa); then
                 echo -e "\e[36m    add wpa_supplicant template file\e[0m";
-                sudo sh -c "cat << EOF  > $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf
+                cat << EOF | sudo tee $DST_ROOT/etc/wpa_supplicant/wpa_supplicant.conf &>/dev/null
 ########################################
-country=DE
+country=$COUNTRY_WLAN0
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
@@ -949,7 +952,7 @@ network={
     scan_ssid=1
     key_mgmt=WPA-PSK
 }
-EOF";
+EOF
                 if [ -f "$SRC_BACKUP/wpa_supplicant.conf" ]; then
                     echo -e "\e[36m    add wpa_supplicant file from backup\e[0m";
                     sudo rsync -xa --info=progress2 $SRC_BACKUP/wpa_supplicant.conf  $DST_ROOT/etc/wpa_supplicant/
@@ -959,9 +962,10 @@ EOF";
             ##############################################################
             if (echo $FLAGS | grep -q history); then
                 echo -e "\e[36m    add .bash_history file\e[0m";
-                sudo sh -c "cat << EOF  > $DST_ROOT/home/pi/.bash_history
+                cat << EOF | sudo tee $DST_ROOT/home/pi/.bash_history &>/dev/null
 sudo poweroff
-sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y --purge autoremove && sudo apt-get -y autoclean && sync && echo Done.
+sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove -y --purge && sudo apt autoclean -y && sync && echo Done.
+sudo nano /etc/resolv.conf
 ip route
 sudo ip route del default dev eth0
 sudo reboot
@@ -969,7 +973,7 @@ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 wpa_passphrase <SSID> <PASSWORD>
 sudo iwlist wlan0 scan  [essid <SSID>]
 sudo raspi-config
-EOF";
+EOF
                 sudo chown 1000:1000 $DST_ROOT/home/pi/.bash_history;
             fi
         fi
@@ -1017,46 +1021,41 @@ handle_optional() {
     echo -e "\e[32mhandle_optional()\e[0m";
 
     ######################################################################
-    #sudo chmod 755 $(find $DST_TFTP_ETH0/ -type d) 2>/dev/null
-    #sudo chmod 644 $(find $DST_TFTP_ETH0/ -type f) 2>/dev/null
-    #sudo chmod 755 $(find $DST_TFTP_ETH0/ -type l) 2>/dev/null
-    #sudo chown -R root:root /srv/ 2>/dev/null
-    #sudo chown -R root:root $DST_TFTP_ETH0 2>/dev/null
-    #sudo chown -R root:root $DST_TFTP_ETH0/ 2>/dev/null
+    ## network nat
+    grep -q mod_install_server /etc/sysctl.conf 2> /dev/null || {
+        echo -e "\e[36m    setup sysctrl for nat\e[0m";
+        tar -ravf $BACKUP_FILE -C / etc/sysctl.conf
+        cat << EOF | sudo tee -a /etc/sysctl.conf &>/dev/null
+########################################
+## mod_install_server
+net.ipv4.ip_forward=1
+net.ipv6.conf.all.forwarding=1
+net.ipv6.conf.$INTERFACE_ETH0.accept_ra=2
+net.ipv6.conf.$INTERFACE_ETH1.accept_ra=2
+net.ipv6.conf.$INTERFACE_WLAN0.accept_ra=2
+EOF
+        sudo sysctl -p &>/dev/null
+        sudo sysctl --system &>/dev/null
+    }
 
 
     ######################################################################
-    ## network bridge
-    #bridge#grep -q mod_install_server /etc/sysctrl.conf 2> /dev/null || {
-    #bridge#echo -e "\e[36m    setup sysctrl for bridging\e[0m";
-    #bridge#sudo sh -c "cat << EOF  >> /etc/sysctl.conf
-#bridge#########################################
-#bridge### mod_install_server
-#bridge#net.ipv4.ip_forward=1
-#bridge#net.ipv6.conf.all.forwarding=1
-#bridge##net.ipv6.conf.all.disable_ipv6 = 1
-#bridge#EOF";
-    #bridge#}
-
-
-    ######################################################################
-    ## network bridge
-    #bridge#sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
-    #bridge#echo -e "\e[36m    setup iptables for bridging\e[0m";
-    #bridge#sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-    #bridge#sudo dpkg-reconfigure iptables-persistent
-    #bridge#}
+    ## network nat
+    sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
+        echo -e "\e[36m    setup iptables for nat\e[0m";
+        sudo iptables -t nat -A POSTROUTING -o $INTERFACE_ETH0 -j MASQUERADE -m comment --comment "NAT: masquerade traffic going out over $INTERFACE_ETH0"
+        sudo dpkg-reconfigure --unseen-only iptables-persistent
+    }
 }
 
 
 handle_chrony() {
-    echo -e "\e[32mhandle_chrony()\e[0m";
-
     ######################################################################
+    ## chrony
     grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
         echo -e "\e[36m    setup chrony\e[0m";
-        sudo systemctl stop chronyd.service;
-        sudo sh -c "cat << EOF  > /etc/chrony/chrony.conf
+        tar -ravf $BACKUP_FILE -C / etc/chrony/chrony.conf
+        cat << EOF | sudo tee /etc/chrony/chrony.conf &>/dev/null
 ########################################
 ## mod_install_server
 allow
@@ -1064,17 +1063,10 @@ allow
 server  ptbtime1.ptb.de  iburst
 server  ptbtime2.ptb.de  iburst
 server  ptbtime3.ptb.de  iburst
-server  char-ntp-pool.charite.de
-server  isis.uni-paderborn.de
-server  ntp1.rrze.uni-erlangen.de  iburst
-server  ntp2.rrze.uni-erlangen.de  iburst
-server  ntp3.rrze.uni-erlangen.de  iburst
 server  ntp1.oma.be  iburst
 server  ntp2.oma.be  iburst
-server  ntp.certum.pl  iburst
-server  ntp1.sp.se  iburst
 
-pool  europe.pool.ntp.org  iburst
+pool  $CUSTOM_LANG.pool.ntp.org  iburst
 
 keyfile /etc/chrony/chrony.keys
 driftfile /var/lib/chrony/chrony.drift
@@ -1082,17 +1074,11 @@ logdir /var/log/chrony
 maxupdateskew 100.0
 hwclockfile /etc/adjtime
 rtcsync
-makestep 1 3
-EOF";
+makestep 1 5
+EOF
         sudo systemctl restart chronyd.service;
     }
 }
-
-
-######################################################################
-######################################################################
-######################################################################
-######################################################################
 
 
 ######################################################################
@@ -1103,16 +1089,18 @@ sudo mkdir -p $DST_NFS_ETH0;
 
 ##########################################################################
 if [ -d "/var/www/html" ]; then
-    [ -h "/var/www/html$ISO" ]      || sudo ln -s $DST_ISO      /var/www/html$ISO;
-    [ -h "/var/www/html$IMG" ]      || sudo ln -s $DST_IMG      /var/www/html$IMG;
-    [ -h "/var/www/html$NFS_ETH0" ] || sudo ln -s $DST_NFS_ETH0 /var/www/html$NFS_ETH0;
+    [ -d "/var/www/html/srv" ] || sudo mkdir -p /var/www/html/srv
+    [ -h "/var/www/html/srv$ISO" ]      || sudo ln -s $DST_ISO      /var/www/html/srv$ISO;
+    [ -h "/var/www/html/srv$IMG" ]      || sudo ln -s $DST_IMG      /var/www/html/srv$IMG;
+    [ -h "/var/www/html/srv$NFS_ETH0" ] || sudo ln -s $DST_NFS_ETH0 /var/www/html/srv$NFS_ETH0;
 fi
+
 
 ######################################################################
 handle_dhcpcd;
 handle_dnsmasq;
 handle_samba;
-handle_optional;
+#handle_optional;
 handle_chrony;
 
 
@@ -1132,17 +1120,17 @@ handle_chrony;
 handle_pxe;
 
 
-######################################################################
-if [ -d "$SRC_ISO" ]; then
+##########################################################################
+if [ -d "$SRC_ISO" ] && ! [ "$SRC_ISO" == "$DST_ISO" ]; then
     echo -e "\e[32mbackup new iso images to usb-stick\e[0m";
     sudo rsync -xa --info=progress2 $DST_ISO/*.iso $DST_ISO/*.url  $SRC_ISO/  2>/dev/null
 fi
 ######################################################################
-if [ -d "$SRC_IMG" ]; then
+if [ -d "$SRC_IMG" ] && ! [ "$SRC_IMG" == "$DST_IMG" ]; then
     echo -e "\e[32mbackup new images to usb-stick\e[0m";
     sudo rsync -xa --info=progress2 $DST_IMG/*.img $DST_IMG/*.url  $SRC_IMG/  2>/dev/null
 fi
-######################################################################
+##########################################################################
 sync
 echo -e "\e[32mDone.\e[0m";
 echo -e "\e[1;31mPlease reboot\e[0m";
