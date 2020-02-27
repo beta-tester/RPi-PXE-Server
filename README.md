@@ -3,6 +3,9 @@ setup a Raspberry Pi as a PXE-Server.<br />
 it is a private project i have made for myself.<br />
 i did not keeped an eye on network security.
 
+**the script will override some existing configurations**<br />
+(a backup of the changed configuration files will be stored to **backup.tar.xz**)
+
 **USE IT AT YOUR OWN RISK.**
 
 ## what is it good for?
