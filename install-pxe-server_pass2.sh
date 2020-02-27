@@ -45,8 +45,8 @@ if [ -z $IP_ETH0_ROUTER ]; then
     exit 1
 fi
 
-sudo umount -f $SRC_MOUNT 2> /dev/null;
-sudo mount $SRC_MOUNT 2> /dev/null;
+sudo umount -f $SRC_MOUNT &>/dev/null;
+sudo mount $SRC_MOUNT &>/dev/null;
 
 ##########################################################################
 ##########################################################################
@@ -170,8 +170,6 @@ EOF
 handle_dhcpcd() {
     echo -e "\e[32mhandle_dhcpcd()\e[0m";
 
-    ######################################################################
-    echo -e "\e[36m    a stretch or newer OS detected\e[0m";
     ##################################################################
     grep -q mod_install_server /etc/dhcpcd.conf || {
         echo -e "\e[36m    setup dhcpcd.conf\e[0m";
@@ -1624,8 +1622,10 @@ EOF
         sudo iptables -t nat -A PREROUTING ! -i $INTERFACE_ETH0 -p udp -m multiport --dports 123 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all NTP traffic from all but $INTERFACE_ETH0 to local NTP server"
         sudo dpkg-reconfigure --unseen-only iptables-persistent
     }
+}
 
 
+handle_chrony() {
     ######################################################################
     ## chrony
     grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
@@ -1652,8 +1652,8 @@ hwclockfile /etc/adjtime
 rtcsync
 makestep 1 5
 EOF
+        sudo systemctl restart chronyd.service;
     }
-
 }
 
 
@@ -1678,6 +1678,7 @@ handle_dhcpcd;
 handle_dnsmasq;
 handle_samba;
 handle_optional;
+handle_chrony;
 
 
 ##########################################################################
