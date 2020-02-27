@@ -1,8 +1,10 @@
 # install-pxe-server
 setup a Raspberry Pi as a PXE-Server.<br />
 it is a private project i have made for myself.<br />
-i did not keeped an eye on network security.<br />
-**the script will override some existing configurations**
+i did not keeped an eye on network security.
+
+**the script will override some existing configurations**<br />
+(a backup of the changed configuration files will be stored to **backup.tar.xz**)
 
 **USE IT AT YOUR OWN RISK.**
 
@@ -13,6 +15,8 @@ and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
 
 it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see **note4**)
+
+for more advanced setup, watch branch **testing** of this project
 
 **Please give me a '_Star_', if you find that project useful.**
 
