@@ -54,7 +54,7 @@ assuming,
 - and your SD card can hold all the iso images (16GB when you use unmodified script)
 
 and optional:
-- you have plugged an USB-memory-stick that has the has a label **PXE-Server**
+- you have plugged an USB-memory-stick that is mounted at /media/server (SRC_MOUNT=/media/server)
 - and the folowing folder structure on the USB memory stick:
 ```
 <mount_point>
