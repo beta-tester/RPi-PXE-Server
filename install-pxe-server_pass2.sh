@@ -60,8 +60,6 @@ sudo mount $SRC_MOUNT &>/dev/null;
 handle_dhcpcd() {
     echo -e "\e[32mhandle_dhcpcd()\e[0m";
 
-    ######################################################################
-    echo -e "\e[36m    a stretch or newer OS detected\e[0m";
     ##################################################################
     grep -q mod_install_server /etc/dhcpcd.conf || {
         echo -e "\e[36m    setup dhcpcd.conf\e[0m";
