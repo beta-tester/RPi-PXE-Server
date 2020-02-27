@@ -1029,8 +1029,6 @@ handle_optional() {
 net.ipv4.ip_forward=1
 net.ipv6.conf.all.forwarding=1
 net.ipv6.conf.$INTERFACE_ETH0.accept_ra=2
-net.ipv6.conf.$INTERFACE_ETH1.accept_ra=2
-net.ipv6.conf.$INTERFACE_WLAN0.accept_ra=2
 EOF
         sudo sysctl -p &>/dev/null
         sudo sysctl --system &>/dev/null
