@@ -41,11 +41,11 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
 
 ### software:
-- **Raspbian Buster** or **Raspbina Buster Lite** (2020-03-13), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspbian Buster** or **Raspbina Buster Lite** (2020-02-13), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running a new fresh virgin Raspbian Buster (or Lite) installation from 2020-03-13,
+- your Raspberry Pi is running a new fresh virgin Raspbian Buster (or Lite) installation from 2020-02-13,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (16GB when you use unmodified script)
 
