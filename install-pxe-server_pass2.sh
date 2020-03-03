@@ -416,7 +416,7 @@ handle_pxe_menu() {
     # $2 : menu file name
     ######################################################################
     local FILE_MENU=$DST_TFTP_ETH0/$1/pxelinux.cfg/$2
-    local FILE_BASE=http://$IP_ETH0
+    local FILE_BASE=http://$IP_ETH0/srv
     ######################################################################
     ## INFO:
     ## The entry before -- means that it will be used by the live system / the installer
