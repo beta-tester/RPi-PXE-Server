@@ -44,7 +44,7 @@ _unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
 _unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 _unhandle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 _unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
-_unhandle_iso  $SYSTEMRESCUE_X86  $SYSTEMRESCUE_X86_URL;
+_unhandle_iso  $SYSTEMRESCUE_X64  $SYSTEMRESCUE_X64_URL;
 handle_iso  $TINYCORE_X64  $TINYCORE_X64_URL  timestamping;
 _unhandle_iso  $TINYCORE_X86  $TINYCORE_X86_URL  timestamping;
 _unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
