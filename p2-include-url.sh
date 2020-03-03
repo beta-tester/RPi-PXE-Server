@@ -194,8 +194,8 @@ RPDESKTOP_X86_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-desktop/
 RPDESKTOP_X86_SUM_TYPE=sha256
 
 
-SYSTEMRESCUE_X86=systemrescue-x86
-SYSTEMRESCUE_X86_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.0.1/systemrescuecd-6.0.1.iso
+SYSTEMRESCUE_X64=systemrescue-x64
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.0/systemrescuecd-amd64-6.1.0.iso
 
 
 TINYCORE_X64=tinycore-x64

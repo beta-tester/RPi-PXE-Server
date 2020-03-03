@@ -510,19 +510,19 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/vmlinuz" ]; then
-    echo  -e "\e[36m    add $SYSTEMRESCUE_X86\e[0m";
+&& [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X64/sysresccd/boot/x86_64/vmlinuz" ]; then
+    echo  -e "\e[36m    add $SYSTEMRESCUE_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
     ########################################
-    LABEL $SYSTEMRESCUE_X86
-        MENU LABEL System Rescue x86
-        KERNEL $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/intel_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/amd_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X86/sysresccd/boot/x86_64/sysresccd.img
-        #APPEND archisobasedir=sysresccd archiso_nfs_srv=$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCUE_X86
-        APPEND archisobasedir=sysresccd archiso_http_srv=http://$IP_ETH0$NFS_ETH0/$SYSTEMRESCUE_X86/
+    LABEL $SYSTEMRESCUE_X64
+        MENU LABEL System Rescue x64
+        KERNEL $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X64/sysresccd/boot/x86_64/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X64/sysresccd/boot/intel_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X64/sysresccd/boot/amd_ucode.img,$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X64/sysresccd/boot/x86_64/sysresccd.img
+        #APPEND archisobasedir=sysresccd archiso_nfs_srv=$IP_ETH0:$DST_NFS_ETH0/$SYSTEMRESCUE_X64
+        APPEND archisobasedir=sysresccd archiso_http_srv=$FILE_BASE$NFS_ETH0/$SYSTEMRESCUE_X64/
         SYSAPPEND 3
         TEXT HELP
-            Boot to System Rescue x86 Live
+            Boot to System Rescue x64 Live
             User: root
         ENDTEXT
 EOF";
@@ -915,7 +915,7 @@ if [ -f "$FILE_MENU" ] \
         KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
         INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
         APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts --
-        #APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts --
+        #APPEND root=live:$FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts --
         #APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
         TEXT HELP
             Boot to openSUSE Leap Rescue Live
@@ -941,7 +941,7 @@ if [ -f "$FILE_MENU" ] \
         KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
         INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
         APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
-        #APPEND root=live:http://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
+        #APPEND root=live:$FILE_BASE$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
         #APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug --
         TEXT HELP
             Boot to openSUSE Leap Live
