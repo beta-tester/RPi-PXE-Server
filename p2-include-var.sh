@@ -35,6 +35,10 @@ RPI_SN0_ROOT=rpi-$RPI_SN0-root
 INTERFACE_ETH0=
 INTERFACE_BR0=br0
 ##########################################################################
+if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/scb/fd580000.genet/net ]; then
+# RPi4B
+INTERFACE_ETH0=$(ls /sys/devices/platform/scb/fd580000.genet/net)
+fi
 if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net ]; then
 # RPi3B+
 INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net)
