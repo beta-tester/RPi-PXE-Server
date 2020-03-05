@@ -26,6 +26,8 @@ CUSTOM_LANG_WRITTEN=German
 CUSTOM_LANG_EXT=de-latin1-nodeadkeys
 CUSTOM_TIMEZONE=Europe/Berlin
 ######################################################################
+COUNTRY_WLAN0=$CUSTOM_LANG_UPPER
+######################################################################
 RPI_SN0=--------
 RPI_SN0_BOOT=rpi-$RPI_SN0-boot
 RPI_SN0_ROOT=rpi-$RPI_SN0-root
