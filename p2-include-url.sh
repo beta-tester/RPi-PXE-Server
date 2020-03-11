@@ -69,10 +69,9 @@ ARCH_NETBOOT_X64_URL=https://www.archlinux.org/static/netboot/ipxe.lkrn
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.4-10/clonezilla-live-2.6.4-10-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.5-21/clonezilla-live-2.6.5-21-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.4-10/clonezilla-live-2.6.4-10-i686.iso
-
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.5-21/clonezilla-live-2.6.5-21-i686.iso
 
 DEBIAN_KVER=4.19.0-8
 DEBIAN_X64=debian-x64
