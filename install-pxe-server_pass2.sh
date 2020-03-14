@@ -183,7 +183,7 @@ interface $INTERFACE_ETH0
     static ip_address=$IP_ETH0/24
     static ip6_address=fd80::$IP_ETH0/120
     static routers=$IP_ETH0_ROUTER
-    static domain_name_servers=$IP_ETH0_ROUTER 8.8.8.8 fd51:42f8:caae:d92e::1
+    static domain_name_servers=$IP_ETH0_ROUTER 1.1.1.1 2606:4700:4700::1111
 
 ########################################
 interface $INTERFACE_ETH1
