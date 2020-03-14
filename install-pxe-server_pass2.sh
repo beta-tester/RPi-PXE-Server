@@ -212,7 +212,7 @@ handle_dnsmasq() {
     echo -e "\e[32mhandle_dnsmasq()\e[0m";
 
     ######################################################################
-    [ -f /etc/dnsmasq.d/pxe-server ] || {
+    [ -f /etc/dnsmasq.d/10-pxe-server ] || {
         echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
         tar -ravf $BACKUP_FILE -C / etc/dnsmasq.d/10-pxe-server
         cat << EOF | sudo tee /etc/dnsmasq.d/10-pxe-server &>/dev/null
