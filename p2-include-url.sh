@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-03-27
+# v 2020-03-31
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -194,7 +194,7 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.1/systemrescuecd-amd64-6.1.1.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.2/systemrescuecd-amd64-6.1.2.iso
 
 TINYCORE_X64=tinycore-x64
 TINYCORE_X64_URL=http://tinycorelinux.net/11.x/x86_64/release/TinyCorePure64-current.iso
