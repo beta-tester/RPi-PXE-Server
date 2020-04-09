@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-03-31
+# v 2020-04-09
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -282,7 +282,7 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.4.1/tails-amd64-4.4.1.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.5/tails-amd64-4.5.iso
 
 ##########################################################################
 ##########################################################################
