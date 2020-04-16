@@ -69,6 +69,25 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64" ]; then
+    echo  -e "\e[36m    add $DEBIAN_TESTING_X64\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    LABEL $DEBIAN_TESTING_X64
+        MENU LABEL Debian x64 (testing)
+        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64
+        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/initrd.img-$DEBIAN_TESTING_KVER-amd64
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_TESTING_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        TEXT HELP
+            Boot to Debian x64 Live (testing)
+            User: user, Password: live
+        ENDTEXT
+EOF";
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-$DEBIAN_KVER-amd64" ]; then
     echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -531,6 +550,29 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ] \
+&& [ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]; then
+    echo  -e "\e[36m    add $TAILS_X64\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+    ##       see:
+    ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
+    ########################################
+    LABEL $TAILS_X64
+        MENU LABEL Tails x64
+        KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+        APPEND fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt
+        TEXT HELP
+            Boot to Tails x64 Live
+        ENDTEXT
+EOF";
+fi
+#========== END ==========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]; then
     echo  -e "\e[36m    add $TINYCORE_X64\e[0m";
     sudo sh -c "cat << EOF  >> $FILE_MENU
@@ -542,6 +584,27 @@ if [ -f "$FILE_MENU" ] \
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X64/boot/corepure64.gz
         APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
         #APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
+        #APPEND httplist=$IP_ETH0$DST_NFS_ETH0/tinycore-x64.xbase.lst vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 tz=Europe/Berlin noswap norestore settime showapps pause
+        TEXT HELP
+            Boot to tiny core x64
+            User: tc
+        ENDTEXT
+EOF";
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]; then
+    echo  -e "\e[36m    add $TINYCORE_X64\e[0m";
+    sudo sh -c "cat << EOF  >> $FILE_MENU
+    ########################################
+    # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
+    LABEL $TINYCORE_X64 (ISO)
+        MENU LABEL tiny core x64 (ISO)
+        KERNEL memdisk
+        APPEND iso
+        INITRD $FILE_BASE$ISO/$TINYCORE_X64.iso
         TEXT HELP
             Boot to tiny core x64
             User: tc
@@ -950,24 +1013,3 @@ if [ -f "$FILE_MENU" ] \
 EOF";
 fi
 #=========== END ===========
-
-#========== BEGIN ==========
-if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]; then
-    echo  -e "\e[36m    add $TAILS_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
-    ########################################
-    ## NOT WORKING
-    ## INFO: https://www.com-magazin.de/praxis/nas/multi-boot-nas-server-232864.html?page=10_tails-vom-nas-booten
-    LABEL $TAILS_X64
-        MENU LABEL Tails x64 (broken)
-        KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img
-        #APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64 ro netboot=nfs boot=live config loglevel=7 -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
-        APPEND fetch=$IP_ETH0:$DST_NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable nopersistent noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 nox11autologin module=Tails -- break locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG
-        TEXT HELP
-            Boot to Tails x64 Live
-        ENDTEXT
-EOF";
-fi
-#========== END ==========
