@@ -2,7 +2,7 @@
 
 ######################################################################
 #
-# v2020-02-25
+# v2020-04-16
 #
 # known issues:
 #
@@ -103,6 +103,10 @@ $(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
     sudo systemctl restart chronyd.service;
 }
 
+######################################################################
+## optional
+echo -e "\e[32minstall tools to create initrd images\e[0m";
+sudo apt install -y --no-install-recommends squashfs-tools initramfs-tools xz-utils;
 
 ######################################################################
 sync
