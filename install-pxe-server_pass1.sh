@@ -143,6 +143,12 @@ sudo systemctl restart vncserver-x11-serviced.service;
 
 ######################################################################
 ## optional
+echo -e "\e[32minstall tools to create initrd images\e[0m";
+sudo apt install -y --no-install-recommends squashfs-tools initramfs-tools xz-utils;
+
+
+######################################################################
+## optional
 #echo -e "\e[32minstall apt-cacher-ng\e[0m";
 #sudo apt install -y --no-install-recommends apt-cacher-ng;
 
