@@ -46,6 +46,7 @@ _unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
 #_unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 handle_iso  $SYSTEMRESCUE_X64  $SYSTEMRESCUE_X64_URL;
 handle_iso  $TINYCORE_X64  $TINYCORE_X64_URL  timestamping;
+handle_iso  $TAILS_X64  $TAILS_X64_URL;
 _unhandle_iso  $TINYCORE_X86  $TINYCORE_X86_URL  timestamping;
 #_unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
@@ -65,7 +66,6 @@ _unhandle_iso  $ANDROID_X86  $ANDROID_X86_URL;
 _unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
 _unhandle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
-_unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 
 ##########################################################################
 _unhandle_img  $UBUNTU_FWTS  $UBUNTU_FWTS_URL;
