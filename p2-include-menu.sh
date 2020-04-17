@@ -14,7 +14,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$ARCH_NETBOOT_X64/kernel" ]; then
     echo  -e "\e[36m    add $ARCH_NETBOOT_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     # INFO: https://www.archlinux.org/releng/netboot/
     LABEL $ARCH_NETBOOT_X64
@@ -25,7 +25,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Arch netboot x64
             User: root
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -33,7 +33,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $CLONEZILLA_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $CLONEZILLA_X64
         MENU LABEL Clonezilla x64
@@ -44,7 +44,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Clonezilla x64
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -52,7 +52,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $CLONEZILLA_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $CLONEZILLA_X86
         MENU LABEL Clonezilla x86
@@ -63,7 +63,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Clonezilla x86
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -71,7 +71,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64" ]; then
     echo  -e "\e[36m    add $DEBIAN_TESTING_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_TESTING_X64
         MENU LABEL Debian x64 (testing)
@@ -82,7 +82,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Debian x64 Live (testing)
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -90,7 +90,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-$DEBIAN_KVER-amd64" ]; then
     echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_X64
         MENU LABEL Debian x64
@@ -101,7 +101,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Debian x64 Live LXDE
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -109,7 +109,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz-$DEBIAN_KVER-686" ]; then
     echo  -e "\e[36m    add $DEBIAN_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_X86
         MENU LABEL Debian x86
@@ -120,7 +120,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Debian x86 Live LXDE
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -128,7 +128,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $DEFTZ_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEFTZ_X64
         MENU LABEL DEFT Zero x64
@@ -139,7 +139,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to DEFT Zero x64 Live
             User: root, Password: toor
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -147,7 +147,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEFT_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $DEFT_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEFT_X64
         MENU LABEL DEFT x64
@@ -158,7 +158,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to DEFT x64 Live
             User: root, Password: toor
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -166,7 +166,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEVUAN_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $DEVUAN_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEVUAN_X64
         MENU LABEL Devuan x64
@@ -177,7 +177,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Devuan x64 Live
             User: devuan
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -185,7 +185,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEVUAN_X86/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $DEVUAN_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEVUAN_X86
         MENU LABEL Devuan x86
@@ -196,7 +196,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Devuan x86 Live
             User: devuan
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -204,7 +204,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $ESET_SYSRESCUE_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $ESET_SYSRESCUE_X86
         MENU LABEL ESET SysRescue Live
@@ -214,7 +214,7 @@ if [ -f "$FILE_MENU" ] \
         TEXT HELP
             Boot to ESET SysRescue Live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -222,7 +222,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz" ]; then
     echo  -e "\e[36m    add $FEDORA_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
     ##       https://github.com/haraldh/dracut/blob/master/dracut.cmdline.7.asc
@@ -236,7 +236,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Fedora Workstation Live
             User: liveuser
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -244,7 +244,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi" ]; then
     echo  -e "\e[36m    add $GNURADIO_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $GNURADIO_X64
         MENU LABEL GNU Radio x64
@@ -255,7 +255,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to GNU Radio x64 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -263,7 +263,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$KALI_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $KALI_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $KALI_X64
         MENU LABEL Kali x64
@@ -274,7 +274,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Kali x64 Live
             User: kali, Password: kali
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -282,7 +282,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86_64" ]; then
     echo  -e "\e[36m    add $KASPERSKY_RESCUE_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $KASPERSKY_RESCUE_X86
         MENU LABEL Kaspersky Rescue Disk
@@ -292,29 +292,37 @@ if [ -f "$FILE_MENU" ] \
         TEXT HELP
             Boot to Kaspersky Rescue Disk
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ]; then
-    echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
-    [ -f "$DST_NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz" ] || ( sudo wget -O $DST_NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz https://github.com/beta-tester/RPi-PXE-Server/files/3932135/knoppix-x86-miniroot-8.6.1.gz );
-    sudo sh -c "cat << EOF  >> $FILE_MENU
-    ########################################
-    ## INFO: https://github.com/beta-tester/RPi-PXE-Server/issues/27
-    ## $ knoppix-terminalserver
-    ## $ cp /tmp/tftproot/miniroot.gz  /srv/nfs/knoppix-x86-miniroot.gz
-    LABEL $KNOPPIX_X86
-        MENU LABEL Knoppix x86
-        KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
-        INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz
-        APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix -- lang=de
-        TEXT HELP
-            Boot to Knoppix x86 Live
-        ENDTEXT
-EOF";
+    if ! [ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz" ]; then
+        echo  -e "\e[36m    download patch for $KNOPPIX_X86\e[0m";
+        sudo wget --quiet -O $DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz https://github.com/beta-tester/RPi-PXE-Server/files/3932135/$KNOPPIX_X86-miniroot-8.6.1.gz
+    fi
+    if [ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz" ]; then
+        echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+        ########################################
+        ## INFO: https://github.com/beta-tester/RPi-PXE-Server/issues/27
+        ## $ knoppix-terminalserver
+        ## $ cp /tmp/tftproot/miniroot.gz  /srv/nfs/knoppix-x86-miniroot.gz
+        LABEL $KNOPPIX_X86
+            MENU LABEL Knoppix x86
+            KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
+            INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz
+            APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix -- lang=de
+            TEXT HELP
+                Boot to Knoppix x86 Live
+            ENDTEXT
+EOF
+    else
+        echo  -e "\e[1;31m    failed $KNOPPIX_X86,\e[0m"
+        echo  -e "\e[1;31m        please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/27\e[0m";
+    fi
 fi
 #========== END ==========
 
@@ -322,7 +330,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_DAILY_X64
         MENU LABEL lubuntu x64 Daily-Live
@@ -333,7 +341,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to lubuntu x64 Daily-Live
             User: lubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -341,7 +349,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $LUBUNTU_LTS_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_LTS_X64
         MENU LABEL lubuntu LTS x64
@@ -352,7 +360,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to lubuntu LTS x64 Live
             User: lubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -360,7 +368,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $LUBUNTU_LTS_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_LTS_X86
         MENU LABEL lubuntu LTS x86
@@ -371,7 +379,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to lubuntu LTS x86 Live
             User: lubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -379,7 +387,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_X64
         MENU LABEL lubuntu x64
@@ -390,7 +398,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to lubuntu x64 Live
             User: lubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -398,7 +406,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $LUBUNTU_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_X86
         MENU LABEL lubuntu x86
@@ -409,7 +417,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to lubuntu x86 Live
             User: lubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -417,7 +425,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$MINT_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $MINT_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $MINT_X64
         MENU LABEL linux-mint x64
@@ -428,7 +436,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to linux-mint x64 Live
             User:
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -436,7 +444,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $PARROT_FULL_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PARROT_FULL_X64
         MENU LABEL Parrot Full x64
@@ -447,7 +455,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Parrot Full x64 Live (Security)
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -455,7 +463,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $PARROT_LITE_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PARROT_LITE_X64
         MENU LABEL Parrot Lite x64
@@ -466,7 +474,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Parrot Lite x64 Live (Home/Workstation)
             User: user, Password: live
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -474,7 +482,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo" ]; then
     echo  -e "\e[36m    add $PENTOO_BETA_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PENTOO_BETA_X64
         MENU LABEL Pentoo Beta x64
@@ -485,7 +493,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Pentoo Beta x64 Live
             User: pentoo
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -493,7 +501,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$PENTOO_X64/boot/pentoo" ]; then
     echo  -e "\e[36m    add $PENTOO_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PENTOO_X64
         MENU LABEL Pentoo x64
@@ -504,7 +512,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Pentoo x64 Live
             User: pentoo
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -512,7 +520,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2" ]; then
     echo  -e "\e[36m    add $RPDESKTOP_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $RPDESKTOP_X86
         MENU LABEL Raspberry Pi Desktop
@@ -523,7 +531,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Raspberry Pi Desktop
             User: pi, Password: raspberry
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -531,7 +539,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$SYSTEMRESCUE_X64/sysresccd/boot/x86_64/vmlinuz" ]; then
     echo  -e "\e[36m    add $SYSTEMRESCUE_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $SYSTEMRESCUE_X64
         MENU LABEL System Rescue x64
@@ -544,30 +552,39 @@ if [ -f "$FILE_MENU" ] \
             Boot to System Rescue x64 Live
             User: root
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ] \
-&& [ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]; then
-    echo  -e "\e[36m    add $TAILS_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
-    ########################################
-    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-    ##       see:
-    ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
-    ########################################
-    LABEL $TAILS_X64
-        MENU LABEL Tails x64
-        KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-        APPEND fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt
-        TEXT HELP
-            Boot to Tails x64 Live
-        ENDTEXT
-EOF";
+&& [ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]; then
+    if ! [ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]; then
+        #echo  -e "\e[36m    download patch for $TAILS_X64\e[0m";
+        #sudo wget --quiet -O $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz https://github.com/beta-tester/RPi-PXE-Server/files/?/$TAILS_X64-hotfix-pxe.cpio.xz
+        :
+    fi
+    if [ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]; then
+        echo  -e "\e[36m    add $TAILS_X64\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+        ########################################
+        ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+        ##       see:
+        ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
+        ########################################
+        LABEL $TAILS_X64
+            MENU LABEL Tails x64
+            KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
+            INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+            APPEND fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt
+            TEXT HELP
+                Boot to Tails x64 Live
+            ENDTEXT
+EOF
+    else
+        echo  -e "\e[1;31m    failed $TAILS_X64,\e[0m"
+        echo  -e "\e[1;31m        please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/31\e[0m";
+    fi
 fi
 #========== END ==========
 
@@ -575,7 +592,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]; then
     echo  -e "\e[36m    add $TINYCORE_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
     LABEL $TINYCORE_X64
@@ -589,7 +606,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to tiny core x64
             User: tc
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -597,7 +614,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]; then
     echo  -e "\e[36m    add $TINYCORE_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
     LABEL $TINYCORE_X64 (ISO)
@@ -609,7 +626,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to tiny core x64
             User: tc
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -617,7 +634,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$TINYCORE_X86/boot/vmlinuz" ]; then
     echo  -e "\e[36m    add $TINYCORE_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
     LABEL $TINYCORE_X86
@@ -630,7 +647,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to tiny core x86
             User: tc
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -638,7 +655,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_DAILY_X64
         MENU LABEL Ubuntu x64 Daily-Live
@@ -649,7 +666,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu x64 Daily-Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -657,7 +674,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_FWTS\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## INFO: https://wiki.ubuntu.com/FirmwareTestSuite/
     ##       https://wiki.ubuntu.com/FirmwareTestSuite/Reference
@@ -671,7 +688,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu Live FirmwareTestSuite
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -679,7 +696,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_LTS_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_LTS_X64
         MENU LABEL Ubuntu LTS x64
@@ -690,7 +707,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu LTS x64 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -698,7 +715,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_LTS_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_LTS_X86
         MENU LABEL Ubuntu LTS x86
@@ -709,7 +726,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu LTS x86 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -717,7 +734,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_STUDIO_DAILY_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_STUDIO_DAILY_X64
         MENU LABEL Ubuntu Studio x64 Daily-Live
@@ -728,7 +745,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu Studio x64 Daily-Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -736,7 +753,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_STUDIO_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_STUDIO_X64
         MENU LABEL Ubuntu Studio x64
@@ -747,7 +764,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu Studio x64 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -755,7 +772,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_X64
         MENU LABEL Ubuntu x64
@@ -766,7 +783,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu x64 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -774,7 +791,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_X86
         MENU LABEL Ubuntu x86
@@ -785,7 +802,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu x86 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -798,7 +815,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DESINFECT_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $DESINFECT_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DESINFECT_X86
         MENU LABEL desinfect x86
@@ -809,7 +826,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to ct desinfect x86
             User: desinfect
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -817,7 +834,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DESINFECT_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $DESINFECT_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DESINFECT_X64
         MENU LABEL desinfect x64
@@ -828,7 +845,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to ct desinfect x64
             User: desinfect
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -836,7 +853,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $UBUNTU_NONPAE\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_NONPAE
         MENU LABEL Ubuntu non-PAE x86
@@ -847,7 +864,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Ubuntu non-PAE x86 Live
             User: ubuntu
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -855,7 +872,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_TFTP_ETH0/$1/pxeboot.n12" ]; then
     echo  -e "\e[36m    add $WIN_PE_X86 (PXE)\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $WIN_PE_X86-pxe
         MENU LABEL Windows PE x86 (PXE)
@@ -863,7 +880,7 @@ if [ -f "$FILE_MENU" ] \
         TEXT HELP
             Boot to Windows PE 32bit
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -871,7 +888,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_ISO/$WIN_PE_X86.iso" ]; then
     echo  -e "\e[36m    add $WIN_PE_X86 (ISO)\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $WIN_PE_X86-iso
         MENU LABEL Windows PE x86 (ISO)
@@ -881,7 +898,7 @@ if [ -f "$FILE_MENU" ] \
         TEXT HELP
             Boot to Windows PE 32bit ISO ~400MB
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -890,7 +907,7 @@ if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_TFTP_ETH0/$1/wimboot" ] \
 && [ -f "$DST_NFS_ETH0/$WIN_PE_X86/sources/boot.wim" ]; then
     echo  -e "\e[36m    add $WIN_PE_X86 (WIM)\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $WIN_PE_X86-pxe
         MENU LABEL Windows PE x86 (WIM)
@@ -899,7 +916,7 @@ if [ -f "$FILE_MENU" ] \
         TEXT HELP
             Boot to Windows PE 32bit
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -912,7 +929,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$ANDROID_X86/kernel" ]; then
     echo  -e "\e[36m    add $ANDROID_X86\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## NOT WORKING
     LABEL $ANDROID_X86
@@ -924,7 +941,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to Android x86 Live
             User: root
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -932,7 +949,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz" ]; then
     echo  -e "\e[36m    add $CENTOS_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## NOT WORKING
     ## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
@@ -962,7 +979,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to CentOS LiveGNOME
             User: liveuser
         ENDTEXT
-EOF";
+EOF
 fi
 #========== END ==========
 
@@ -970,7 +987,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux" ]; then
     echo  -e "\e[36m    add $OPENSUSE_RESCUE_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## NOT WORKING
     LABEL $OPENSUSE_RESCUE_X64
@@ -984,7 +1001,7 @@ if [ -f "$FILE_MENU" ] \
             Boot to openSUSE Leap Rescue Live
             User: liveuser
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
 
@@ -992,7 +1009,7 @@ fi
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux" ]; then
     echo  -e "\e[36m    add $OPENSUSE_X64\e[0m";
-    sudo sh -c "cat << EOF  >> $FILE_MENU
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## NOT WORKING
     ## INFO: Booting live images
@@ -1010,6 +1027,6 @@ if [ -f "$FILE_MENU" ] \
             Boot to openSUSE Leap Live
             User: liveuser
         ENDTEXT
-EOF";
+EOF
 fi
 #=========== END ===========
