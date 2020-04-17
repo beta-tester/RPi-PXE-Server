@@ -562,10 +562,10 @@ handle_ipxe() {
     ######################################################################
     if (! compare_last_modification_time $DST_TFTP_ETH0/ipxe.efi https://boot.ipxe.org/ipxe.efi); then
         echo -e "\e[36m    download iPXE stuff\e[0m";
-        sudo wget -O $DST_TFTP_ETH0/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
-        sudo wget -O $DST_TFTP_ETH0/ipxe.pxe  https://boot.ipxe.org/ipxe.pxe;
-        sudo wget -O $DST_TFTP_ETH0/ipxe.iso  https://boot.ipxe.org/ipxe.iso;
-        sudo wget -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
+        sudo wget --quiet -O $DST_TFTP_ETH0/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
+        sudo wget --quiet -O $DST_TFTP_ETH0/ipxe.pxe  https://boot.ipxe.org/ipxe.pxe;
+        sudo wget --quiet -O $DST_TFTP_ETH0/ipxe.iso  https://boot.ipxe.org/ipxe.iso;
+        sudo wget --quiet -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
     fi
 }
 
