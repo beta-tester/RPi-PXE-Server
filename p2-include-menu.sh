@@ -306,18 +306,18 @@ if [ -f "$FILE_MENU" ] \
     if [ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz" ]; then
         echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
-        ########################################
-        ## INFO: https://github.com/beta-tester/RPi-PXE-Server/issues/27
-        ## $ knoppix-terminalserver
-        ## $ cp /tmp/tftproot/miniroot.gz  /srv/nfs/knoppix-x86-miniroot.gz
-        LABEL $KNOPPIX_X86
-            MENU LABEL Knoppix x86
-            KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
-            INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz
-            APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix -- lang=de
-            TEXT HELP
-                Boot to Knoppix x86 Live
-            ENDTEXT
+    ########################################
+    ## INFO: https://github.com/beta-tester/RPi-PXE-Server/issues/27
+    ## $ knoppix-terminalserver
+    ## $ cp /tmp/tftproot/miniroot.gz  /srv/nfs/knoppix-x86-miniroot.gz
+    LABEL $KNOPPIX_X86
+        MENU LABEL Knoppix x86
+        KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
+        INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz
+        APPEND nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix -- lang=de
+        TEXT HELP
+            Boot to Knoppix x86 Live
+        ENDTEXT
 EOF
     else
         echo  -e "\e[1;31m    failed $KNOPPIX_X86,\e[0m"
@@ -567,19 +567,19 @@ if [ -f "$FILE_MENU" ] \
     if [ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]; then
         echo  -e "\e[36m    add $TAILS_X64\e[0m";
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
-        ########################################
-        ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-        ##       see:
-        ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
-        ########################################
-        LABEL $TAILS_X64
-            MENU LABEL Tails x64
-            KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
-            INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-            APPEND fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt timezone=Etc/UTC block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt
-            TEXT HELP
-                Boot to Tails x64 Live
-            ENDTEXT
+    ########################################
+    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+    ##       see:
+    ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
+    ########################################
+    LABEL $TAILS_X64
+        MENU LABEL Tails x64
+        KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+        APPEND fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC -- keyboard-layouts=$CUSTOM_LANG
+        TEXT HELP
+            Boot to Tails x64 Live
+        ENDTEXT
 EOF
     else
         echo  -e "\e[1;31m    failed $TAILS_X64,\e[0m"
