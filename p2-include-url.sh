@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-04-18
+# v 2020-04-24
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -143,13 +143,13 @@ LUBUNTU_DAILY_X64_SUM=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA25
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.3-desktop-amd64.iso
-LUBUNTU_LTS_X64_SUM=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/SHA256SUMS
+LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04-desktop-amd64.iso
+LUBUNTU_LTS_X64_SUM=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/19.10/release/lubuntu-19.10-desktop-amd64.iso
-LUBUNTU_X64_SUM=http://cdimage.ubuntu.com/lubuntu/releases/19.10/release/SHA256SUMS
+LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04-desktop-amd64.iso
+LUBUNTU_X64_SUM=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X86=lubuntu-lts-x86
@@ -218,8 +218,8 @@ UBUNTU_FWTS_SUM=http://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/18.04/ubuntu-18.04.3-desktop-amd64.iso
-UBUNTU_LTS_X64_SUM=http://releases.ubuntu.com/18.04/SHA256SUMS
+UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+UBUNTU_LTS_X64_SUM=http://releases.ubuntu.com/20.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
@@ -228,13 +228,13 @@ UBUNTU_STUDIO_DAILY_X64_SUM=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/S
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/19.10/release/ubuntustudio-19.10-dvd-amd64.iso
-UBUNTU_STUDIO_X64_SUM=http://cdimage.ubuntu.com/ubuntustudio/releases/19.10/release/SHA256SUMS
+UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/ubuntustudio-20.04-dvd-amd64.iso
+UBUNTU_STUDIO_X64_SUM=http://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/19.10/ubuntu-19.10-desktop-amd64.iso
-UBUNTU_X64_SUM=http://releases.ubuntu.com/19.10/SHA256SUMS
+UBUNTU_X64_URL=http://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+UBUNTU_X64_SUM=http://releases.ubuntu.com/20.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
