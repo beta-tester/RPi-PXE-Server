@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-04-24
+# v 2020-04-28
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -112,8 +112,8 @@ ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_
 
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/31/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-31-1.9.iso
-FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/31/Workstation/x86_64/iso/Fedora-Workstation-31-1.9-x86_64-CHECKSUM
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/32/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-32-1.6.iso
+FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/32/Workstation/x86_64/iso/Fedora-Workstation-32-1.6-x86_64-CHECKSUM
 FEDORA_X64_SUM_TYPE=sha256
 
 
@@ -195,6 +195,11 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 SYSTEMRESCUE_X64=systemrescue-x64
 SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.3/systemrescuecd-amd64-6.1.3.iso
+
+
+TAILS_X64=tails-x64
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.5/tails-amd64-4.5.iso
+
 
 TINYCORE_X64=tinycore-x64
 TINYCORE_X64_URL=http://tinycorelinux.net/11.x/x86_64/release/TinyCorePure64-current.iso
@@ -280,9 +285,6 @@ OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/liv
 OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-KDE-Live-x86_64-Current.iso.sha256
 OPENSUSE_X64_SUM_TYPE=sha256
 
-
-TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.5/tails-amd64-4.5.iso
 
 ##########################################################################
 ##########################################################################
