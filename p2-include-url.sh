@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-04-28
+# v 2020-05-07
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -69,9 +69,9 @@ ARCH_NETBOOT_X64_URL=https://www.archlinux.org/static/netboot/ipxe.lkrn
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.5-21/clonezilla-live-2.6.5-21-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.6-15/clonezilla-live-2.6.6-15-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.5-21/clonezilla-live-2.6.5-21-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.6-15/clonezilla-live-2.6.6-15-i686.iso
 
 DEBIAN_KVER=4.19.0-8
 DEBIAN_X64=debian-x64
@@ -170,13 +170,13 @@ MINT_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.8/Parrot-security-4.8_x64.iso
-PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.8/sha256.txt
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9/Parrot-security-4.9_x64.iso
+PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9/sha256.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.8/Parrot-home-4.8_x64.iso
-PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.8/sha256.txt
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9/Parrot-home-4.9_x64.iso
+PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9/sha256.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
@@ -198,7 +198,7 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.5/tails-amd64-4.5.iso
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.6/tails-amd64-4.6.iso
 
 
 TINYCORE_X64=tinycore-x64
