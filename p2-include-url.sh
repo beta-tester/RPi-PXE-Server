@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-05-12
+# v 2020-05-17
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -118,7 +118,7 @@ FEDORA_X64_SUM_TYPE=sha256
 
 
 GNURADIO_X64=gnuradio-x64
-GNURADIO_X64_URL=https://s3-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
+GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 
 KALI_X64=kali-x64
