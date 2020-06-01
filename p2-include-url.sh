@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-05-27
+# v 2020-06-01
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -97,13 +97,13 @@ DEFT_X64_SUM_TYPE=md5
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.1_amd64_desktop-live.iso
-DEVUAN_X64_SUM=https://files.devuan.org/devuan_ascii/desktop-live/SHA256SUMS
+DEVUAN_X64_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.0.0_amd64_desktop-live.iso
+DEVUAN_X64_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.txt
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
-DEVUAN_X86_URL=https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.1_i386_desktop-live.iso
-DEVUAN_X86_SUM=https://files.devuan.org/devuan_ascii/desktop-live/SHA256SUMS
+DEVUAN_X86_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.0.0_i386_desktop-live.iso
+DEVUAN_X86_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.txt
 DEVUAN_X86_SUM_TYPE=sha256
 
 
@@ -170,13 +170,13 @@ MINT_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9/Parrot-security-4.9_x64.iso
-PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9/sha256.txt
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9.1/Parrot-security-4.9.1_x64.iso
+PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9.1/sha256.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9/Parrot-home-4.9_x64.iso
-PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9/sha256.txt
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9.1/Parrot-home-4.9.1_x64.iso
+PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9.1/sha256.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
@@ -300,17 +300,17 @@ PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 
 RPD_BASIC=rpi-raspbian-basic
-RPD_BASIC_URL=https://downloads.raspberrypi.org/raspbian_latest
+RPD_BASIC_URL=https://downloads.raspberrypi.org/raspios_armhf_latest
 RPD_BASIC_SUM=https://www.raspberrypi.org/downloads/raspbian/
 RPD_BASIC_SUM_TYPE=sha256
 
 RPD_FULL=rpi-raspbian-full
-RPD_FULL_URL=https://downloads.raspberrypi.org/raspbian_full_latest
+RPD_FULL_URL=https://downloads.raspberrypi.org/raspios_full_armhf_latest
 RPD_FULL_SUM=https://www.raspberrypi.org/downloads/raspbian/
 RPD_FULL_SUM_TYPE=sha256
 
 RPD_LITE=rpi-raspbian-lite
-RPD_LITE_URL=https://downloads.raspberrypi.org/raspbian_lite_latest
+RPD_LITE_URL=https://downloads.raspberrypi.org/raspios_lite_armhf_latest
 RPD_LITE_SUM=https://www.raspberrypi.org/downloads/raspbian/
 RPD_LITE_SUM_TYPE=sha256
 
