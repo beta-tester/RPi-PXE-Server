@@ -175,8 +175,8 @@ OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-curr
 OPENSUSE_RESCUE_X64_SUM_TYPE=sha256
 
 OPENSUSE_X64=opensuse-x64
-OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-KDE-Live-x86_64-Current.iso
-OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-KDE-Live-x86_64-Current.iso.sha256
+OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso
+OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso.sha256
 OPENSUSE_X64_SUM_TYPE=sha256
 
 
