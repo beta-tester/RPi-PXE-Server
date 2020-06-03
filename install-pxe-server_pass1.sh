@@ -2,8 +2,6 @@
 
 ######################################################################
 #
-# v2020-04-16
-#
 # known issues:
 #
 
@@ -111,6 +109,11 @@ EOF
 }
 tar -ravf $BACKUP_FILE -C / var/www/html/index.lighttpd.html
 sudo rm /var/www/html/index.lighttpd.html
+
+
+######################################################################
+echo -e "\e[32minstall vblade\e[0m";
+sudo apt install -y --no-install-recommends vblade vblade-persist;
 
 
 ######################################################################

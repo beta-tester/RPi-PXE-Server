@@ -23,8 +23,8 @@ _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 _unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
-_unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
+_unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
 _unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
 _unhandle_iso  $ESET_SYSRESCUE_X86  $ESET_SYSRESCUE_X86_URL;
@@ -39,15 +39,17 @@ _unhandle_iso  $LUBUNTU_LTS_X86  $LUBUNTU_LTS_X86_URL;
 _unhandle_iso  $LUBUNTU_X64  $LUBUNTU_X64_URL;
 _unhandle_iso  $LUBUNTU_X86  $LUBUNTU_X86_URL;
 _unhandle_iso  $MINT_X64  $MINT_X64_URL;
-_unhandle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
+handle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292  vbladed 0 1;
+handle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292  vbladed 1 1;
+handle_iso  $PARROT_FULL_X64  $PARROT_FULL_X64_URL;
 _unhandle_iso  $PARROT_LITE_X64  $PARROT_LITE_X64_URL;
 #_unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 #_unhandle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 #_unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
-handle_iso  $SYSTEMRESCUE_X64  $SYSTEMRESCUE_X64_URL;
-handle_iso  $TINYCORE_X64  $TINYCORE_X64_URL  timestamping;
+_unhandle_iso  $SYSTEMRESCUE_X64  $SYSTEMRESCUE_X64_URL;
 handle_iso  $TAILS_X64  $TAILS_X64_URL;
-_unhandle_iso  $TINYCORE_X86  $TINYCORE_X86_URL  timestamping;
+_unhandle_iso  $TINYCORE_X64  $TINYCORE_X64_URL  timestamping;
+handle_iso  $TINYCORE_X86  $TINYCORE_X86_URL  timestamping;
 #_unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
 _unhandle_iso  $UBUNTU_LTS_X64  $UBUNTU_LTS_X64_URL;
 _unhandle_iso  $UBUNTU_LTS_X86  $UBUNTU_LTS_X86_URL;
@@ -64,14 +66,12 @@ handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
 #broken#
 _unhandle_iso  $ANDROID_X86  $ANDROID_X86_URL;
 _unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
-_unhandle_iso  $OPENSUSE_RESCUE_X64  $OPENSUSE_RESCUE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
-_unhandle_iso  $OPENSUSE_X64  $OPENSUSE_X64_URL  timestamping  ,gid=root,uid=root,norock,mode=292;
 
 ##########################################################################
 _unhandle_img  $UBUNTU_FWTS  $UBUNTU_FWTS_URL;
 
 ##########################################################################
-handle_kernel  $ARCH_NETBOOT_X64  $ARCH_NETBOOT_X64_URL  timestamping;
+_unhandle_kernel  $ARCH_NETBOOT_X64  $ARCH_NETBOOT_X64_URL  timestamping;
 
 
 ##########################################################################

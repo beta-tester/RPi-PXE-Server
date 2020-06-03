@@ -615,13 +615,50 @@ handle_iso() {
     local FILE_ISO=$NAME.iso
     local DST_ORIGINAL=/srv/tmp/original/$NAME
     ######################################################################
+    local timestamping;
+    local bindfs;
+    local vblade;
+    local vblade_shelf;
+    local vblade_slot;
+    local fstab_options;
+
+    shift 2;
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            timestamping)
+                timestamping=yes;
+                echo -e "\e[36m    timestamping\e[0m";
+                ;;
+            bindfs)
+                bindfs=yes;
+                echo -e "\e[36m    bindfs\e[0m";
+                ;;
+            vbladed)
+                vblade=yes;
+                vblade_shelf=$2;
+                vblade_slot=$3;
+                shift 2;
+                echo -e "\e[36m    vblade_shelf=$vblade_shelf, vblade_slot=$vblade_slot\e[0m";
+                ;;
+            *)
+                fstab_options="$1"
+                echo -e "\e[36m    fstab_options=$fstab_options\e[0m";
+                ;;
+        esac
+        shift;
+    done
+    ######################################################################
 
     if ! [ -d "$DST_ISO/" ]; then sudo mkdir -p $DST_ISO/; fi
     if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
 
-    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
-    sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
-    if [ "$3" == "bindfs" ]; then sudo umount -f $DST_ORIGINAL 2> /dev/null; fi
+    if [ "$vblade" == "yes" ]; then
+        sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service;
+    fi
+
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME &>/dev/null;
+    sudo umount -f $DST_NFS_ETH0/$NAME &>/dev/null;
+    if [ "$bindfs" == "yes" ]; then sudo umount -f $DST_ORIGINAL 2> /dev/null; fi
 
     if [ -z $URL ]; then
         if ! [ -s "$DST_ISO/$FILE_ISO" ] \
@@ -647,7 +684,7 @@ handle_iso() {
 
         if ! [ -s "$DST_ISO/$FILE_ISO" ] \
         || ! grep -q "$URL" $DST_ISO/$FILE_URL 2> /dev/null \
-        || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
+        || ([ "$timestamping" == "yes" ] && ! compare_last_modification_time $DST_ISO/$FILE_ISO $URL); \
         then
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f $DST_ISO/$FILE_URL;
@@ -670,7 +707,7 @@ handle_iso() {
         fi
 
         if ! [ -d "$DST_ORIGINAL" ]; then
-            if [ "$3" == "bindfs" ]; then
+            if [ "$bindfs" == "yes" ]; then
                 echo -e "\e[36m    create nfs folder\e[0m";
                 sudo mkdir -p $DST_ORIGINAL;
             fi
@@ -678,15 +715,11 @@ handle_iso() {
 
         if ! grep -q "$DST_NFS_ETH0/$NAME" /etc/fstab; then
             echo -e "\e[36m    add iso image to fstab\e[0m";
-            if [ "$3" == "bindfs" ]; then
+            if [ "$bindfs" == "yes" ]; then
                 sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_ORIGINAL  auto  ro,nofail,auto,loop  0  10' >> /etc/fstab";
                 sudo sh -c "echo '$DST_ORIGINAL  $DST_NFS_ETH0/$NAME  fuse.bindfs  ro,auto,force-user=root,force-group=root,perms=a+rX  0  11' >> /etc/fstab";
             else
-                if [ "$3" == "timestamping" ]; then
-                    sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$4  0  10' >> /etc/fstab";
-                else
-                    sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$3  0  10' >> /etc/fstab";
-                fi
+                sudo sh -c "echo '$DST_ISO/$FILE_ISO  $DST_NFS_ETH0/$NAME  auto  ro,nofail,auto,loop$fstab_options  0  10' >> /etc/fstab";
             fi
         fi
 
@@ -695,21 +728,32 @@ handle_iso() {
             sudo sh -c "echo '$DST_NFS_ETH0/$NAME  *(ro,async,no_subtree_check,root_squash,mp,fsid=$(uuid))' >> /etc/exports";
         fi
 
-        if [ "$3" == "bindfs" ]; then sudo mount $DST_ORIGINAL; fi
+        if [ "$bindfs" == "yes" ]; then sudo mount $DST_ORIGINAL; fi
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
 
-        #if [ -d "/var/www/html" ]; then
-        #    if ! [ -h "/var/www/html/$FILE_ISO" ]; then
-        #        sudo ln -s $DST_ISO/$FILE_ISO /var/www/html/$FILE_ISO
-        #    fi
-        #    if ! [ -h "/var/www/html/$NAME" ]; then
-        #        sudo ln -s $DST_NFS_ETH0/$NAME/ /var/www/html/$NAME
-        #    fi
-        #fi
+
+        if [ "$vblade" == "yes" ]; then
+            echo -e "\e[36m    setup vblade-persistence\e[0m";
+            cat << EOF | sudo tee /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf &>/dev/null
+shelf=$vblade_shelf
+slot=$vblade_slot
+netif=$INTERFACE_ETH0
+filename=$DST_ISO/$FILE_ISO
+options='-r'
+ionice='--class best-effort --classdata 7'
+EOF
+             sudo systemctl daemon-reload;
+             sudo systemctl restart vblade.service;
+        fi
     else
         sudo sed /etc/fstab   -i -e "/$NAME/d"
         sudo sed /etc/exports -i -e "/$NAME/d"
+
+        if [ "$vblade" == "yes" ]; then
+            sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf
+            sudo systemctl daemon-reload;
+        fi
     fi
 }
 
@@ -727,9 +771,42 @@ _unhandle_iso() {
     local FILE_URL=$NAME.url
     local FILE_ISO=$NAME.iso
     ######################################################################
+    local timestamping;
+    local bindfs;
+    local vblade;
+    local vblade_shelf;
+    local vblade_slot;
+    local fstab_options;
 
-    sudo exportfs -u *:$DST_NFS_ETH0/$NAME 2> /dev/null;
-    sudo umount -f $DST_NFS_ETH0/$NAME 2> /dev/null;
+    shift 2;
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            timestamping)
+                timestamping=yes;
+                ;;
+            bindfs)
+                bindfs=yes;
+                ;;
+            vbladed)
+                vblade=yes;
+                vblade_shelf=$2;
+                vblade_slot=$3;
+                shift 2;
+                ;;
+            *)
+                fstab_options="$1"
+                ;;
+        esac
+        shift;
+    done
+    ######################################################################
+
+    if [ "$vblade" == "yes" ]; then
+        sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service;
+    fi
+
+    sudo exportfs -u *:$DST_NFS_ETH0/$NAME &>/dev/null;
+    sudo umount -f $DST_NFS_ETH0/$NAME &>/dev/null;
 
     sudo rm -f $DST_ISO/$FILE_URL;
     sudo rm -f $DST_ISO/$FILE_ISO;
@@ -739,11 +816,16 @@ _unhandle_iso() {
     sudo sed /etc/fstab   -i -e "/$NAME/d"
     sudo sed /etc/exports -i -e "/$NAME/d"
 
+    if [ "$vblade" == "yes" ]; then
+        sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf
+        sudo systemctl daemon-reload;
+    fi
+
     if [ -d "$SRC_ISO" ] \
     && ( \
     ! [ -s "$SRC_ISO/$FILE_ISO" ] \
     || ! grep -q "$URL" $SRC_ISO/$FILE_URL 2> /dev/null \
-    || ([ "$3" == "timestamping" ] && ! compare_last_modification_time $SRC_ISO/$FILE_ISO $URL) \
+    || ([ "$timestamping" == "yes" ] && ! compare_last_modification_time $SRC_ISO/$FILE_ISO $URL) \
     ); \
     then
         echo -e "\e[36m    download iso image to backup location\e[0m";

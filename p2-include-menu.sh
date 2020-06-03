@@ -126,25 +126,6 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]; then
-    echo  -e "\e[36m    add $DEFTZ_X64\e[0m";
-    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
-    ########################################
-    LABEL $DEFTZ_X64
-        MENU LABEL DEFT Zero x64
-        KERNEL $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
-        TEXT HELP
-            Boot to DEFT Zero x64 Live
-            User: root, Password: toor
-        ENDTEXT
-EOF
-fi
-#=========== END ===========
-
-#========== BEGIN ==========
-if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DEFT_X64/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $DEFT_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
@@ -156,6 +137,25 @@ if [ -f "$FILE_MENU" ] \
         APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to DEFT x64 Live
+            User: root, Password: toor
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]; then
+    echo  -e "\e[36m    add $DEFTZ_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $DEFTZ_X64
+        MENU LABEL DEFT Zero x64
+        KERNEL $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/initrd.lz
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        TEXT HELP
+            Boot to DEFT Zero x64 Live
             User: root, Password: toor
         ENDTEXT
 EOF
@@ -435,6 +435,44 @@ if [ -f "$FILE_MENU" ] \
         TEXT HELP
             Boot to linux-mint x64 Live
             User:
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux" ]; then
+    echo  -e "\e[36m    add $OPENSUSE_RESCUE_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $OPENSUSE_RESCUE_X64
+        MENU LABEL openSUSE Leap Rescue x64
+        KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
+        INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
+        APPEND root=live:AOEINTERFACE=e0.1 rd.kiwi.live.pxe --
+        TEXT HELP
+            Boot to openSUSE Leap Rescue Live
+            User: liveuser
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux" ]; then
+    echo  -e "\e[36m    add $OPENSUSE_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $OPENSUSE_X64
+        MENU LABEL openSUSE Leap x64
+        KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
+        INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
+        APPEND root=live:AOEINTERFACE=e1.1 rd.kiwi.live.pxe --
+        TEXT HELP
+            Boot to openSUSE Leap Live
+            User: liveuser
         ENDTEXT
 EOF
 fi
@@ -982,51 +1020,3 @@ if [ -f "$FILE_MENU" ] \
 EOF
 fi
 #========== END ==========
-
-#========== BEGIN ==========
-if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux" ]; then
-    echo  -e "\e[36m    add $OPENSUSE_RESCUE_X64\e[0m";
-    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
-    ########################################
-    ## NOT WORKING
-    LABEL $OPENSUSE_RESCUE_X64
-        MENU LABEL openSUSE Leap Rescue x64 (broken)
-        KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/linux
-        INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/boot/x86_64/loader/initrd
-        APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts --
-        #APPEND root=live:$FILE_BASE$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts --
-        #APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_RESCUE_X64/LiveOS/squashfs.img ro rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 showopts -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
-        TEXT HELP
-            Boot to openSUSE Leap Rescue Live
-            User: liveuser
-        ENDTEXT
-EOF
-fi
-#=========== END ===========
-
-#========== BEGIN ==========
-if [ -f "$FILE_MENU" ] \
-&& [ -f "$DST_NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux" ]; then
-    echo  -e "\e[36m    add $OPENSUSE_X64\e[0m";
-    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
-    ########################################
-    ## NOT WORKING
-    ## INFO: Booting live images
-    ##           https://mirrors.edge.kernel.org/pub/linux/utils/boot/dracut/dracut.html#dracutconf5
-    ##       Bug 1099548 - can't PXE-boot into openSUSE Leap 15.0 Live image
-    ##           https://bugzilla.opensuse.org/show_bug.cgi?id=1099548
-    LABEL $OPENSUSE_X64
-        MENU LABEL openSUSE Leap x64 (broken)
-        KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
-        INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
-        APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
-        #APPEND root=live:$FILE_BASE$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image
-        #APPEND root=live:tftp://$IP_ETH0$NFS_ETH0/$OPENSUSE_X64/LiveOS/squashfs.img ro rd.live.image rd.shell rd.debug --
-        TEXT HELP
-            Boot to openSUSE Leap Live
-            User: liveuser
-        ENDTEXT
-EOF
-fi
-#=========== END ===========
