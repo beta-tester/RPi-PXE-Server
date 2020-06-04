@@ -490,7 +490,7 @@ handle_iso() {
     if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
 
     if [ "$vblade" == "yes" ]; then
-        sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service;
+        sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service &>/dev/null;
     fi
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME &>/dev/null;
@@ -573,7 +573,7 @@ EOF
         sudo sed /etc/exports -i -e "/$NAME/d"
 
         if [ "$vblade" == "yes" ]; then
-            sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf
+            sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf &>/dev/null;
             sudo systemctl daemon-reload;
         fi
     fi
@@ -625,7 +625,7 @@ _unhandle_iso() {
     ######################################################################
 
     if [ "$vblade" == "yes" ]; then
-        sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service;
+        sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service &>/dev/null;
     fi
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME &>/dev/null;
@@ -640,7 +640,7 @@ _unhandle_iso() {
     sudo sed /etc/exports -i -e "/$NAME/d"
 
     if [ "$vblade" == "yes" ]; then
-        sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf
+        sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf &>/dev/null;
         sudo systemctl daemon-reload;
     fi
 }
