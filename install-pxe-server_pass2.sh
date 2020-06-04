@@ -622,7 +622,9 @@ handle_iso() {
     local vblade_slot;
     local fstab_options;
 
-    shift 2;
+    shift;
+    shift;
+
     while [ $# -gt 0 ]; do
         case "$1" in
             timestamping)
@@ -732,7 +734,6 @@ handle_iso() {
         sudo mount $DST_NFS_ETH0/$NAME;
         sudo exportfs *:$DST_NFS_ETH0/$NAME;
 
-
         if [ "$vblade" == "yes" ]; then
             echo -e "\e[36m    setup vblade-persistence\e[0m";
             cat << EOF | sudo tee /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf &>/dev/null
@@ -778,7 +779,9 @@ _unhandle_iso() {
     local vblade_slot;
     local fstab_options;
 
-    shift 2;
+    shift;
+    shift;
+
     while [ $# -gt 0 ]; do
         case "$1" in
             timestamping)
