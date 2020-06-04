@@ -85,15 +85,15 @@ DEBIAN_X86_SUM=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid
 DEBIAN_X86_SUM_TYPE=sha256
 
 
-DEFTZ_X64=deftz-x64
-DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
-DEFTZ_X64_SUM=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso.md5
-DEFTZ_X64_SUM_TYPE=md5
-
 DEFT_X64=deft-x64
 DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/iso/deft-8.2.iso
 DEFT_X64_SUM=https://na.mirror.garr.it/mirrors/deft/md5.txt
 DEFT_X64_SUM_TYPE=md5
+
+DEFTZ_X64=deftz-x64
+DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
+DEFTZ_X64_SUM=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso.md5
+DEFTZ_X64_SUM_TYPE=md5
 
 
 DEVUAN_X64=devuan-x64
@@ -167,6 +167,17 @@ MINT_X64=mint-x64
 MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.3/linuxmint-19.3-xfce-64bit.iso
 MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/19.3/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
+
+
+OPENSUSE_RESCUE_X64=opensuse-rescue-x64
+OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso
+OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso.sha256
+OPENSUSE_RESCUE_X64_SUM_TYPE=sha256
+
+OPENSUSE_X64=opensuse-x64
+OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso
+OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso.sha256
+OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
@@ -273,17 +284,6 @@ CENTOS_X64=centos-x64
 CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1908.iso
 CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.txt
 CENTOS_X64_SUM_TYPE=sha256
-
-
-OPENSUSE_RESCUE_X64=opensuse-rescue-x64
-OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso
-OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso.sha256
-OPENSUSE_RESCUE_X64_SUM_TYPE=sha256
-
-OPENSUSE_X64=opensuse-x64
-OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-KDE-Live-x86_64-Current.iso
-OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-KDE-Live-x86_64-Current.iso.sha256
-OPENSUSE_X64_SUM_TYPE=sha256
 
 
 ##########################################################################
