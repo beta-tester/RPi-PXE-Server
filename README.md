@@ -4,7 +4,8 @@ it is a private project i have made for myself.<br />
 i did not keep an eye on network security.
 
 **the script will override some existing configurations**<br />
-(a backup of the changed configuration files will be stored to **backup.tar.xz**)
+(a backup of the changed configuration files will be stored to **backup.tar.xz**)<br />
+(to extract all versions of all files to /tmp: `tar --backup=numbered -xavf backup.tar.xz -C /tmp`, some files will be hidden)
 
 **USE IT AT YOUR OWN RISK.**
 
@@ -45,11 +46,11 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
 
 ### software:
-- **Raspberry Pi OS Buster** or **Raspberry Pi OS Buster Lite** (2020-02-13), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspberry Pi OS Buster** or **Raspberry Pi OS Buster Lite** (2020-05-27), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running a new fresh virgin Raspberry Pi OS Buster (or Lite) installation from 2020-02-13,
+- your Raspberry Pi is running a new fresh virgin Raspberry Pi OS Buster (or Lite) installation from 2020-05-27,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (16GB when you use unmodified script)
 
