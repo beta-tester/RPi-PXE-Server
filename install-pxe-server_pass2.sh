@@ -655,10 +655,7 @@ handle_iso() {
     if ! [ -d "$DST_NFS_ETH0/" ]; then sudo mkdir -p $DST_NFS_ETH0/; fi
 
     if [ "$vblade" == "yes" ]; then
-        sudo rm -f /etc/vblade.conf.d/$NAME.conf &>/dev/null;
-        ##sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service &>/dev/null;
-        sudo systemctl disable --now vblade@$(systemd-escape $NAME).service &>/dev/null;
-        sudo systemctl daemon-reload;
+        sudo systemctl stop vblade@$(systemd-escape $NAME).service &>/dev/null;
     fi
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME &>/dev/null;
@@ -756,9 +753,10 @@ EOF
         sudo sed /etc/exports -i -e "/$NAME/d"
 
         if [ "$vblade" == "yes" ]; then
-            ##sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf &>/dev/null;
+            sudo systemctl stop vblade@$(systemd-escape $NAME).service &>/dev/null;
             sudo rm -f /etc/vblade.conf.d/$NAME.conf &>/dev/null;
-            sudo systemctl daemon-reload;
+            sudo systemctl daemon-reload &>/dev/null;
+            sudo systemctl restart vblade.service &>/dev/null;
         fi
     fi
 }
@@ -810,10 +808,10 @@ _unhandle_iso() {
     ######################################################################
 
     if [ "$vblade" == "yes" ]; then
+        sudo systemctl stop vblade@$(systemd-escape $NAME).service &>/dev/null;
         sudo rm -f /etc/vblade.conf.d/$NAME.conf &>/dev/null;
-        ##sudo systemctl --now disable vblade@e$vblade_shelf$vblade_slot.service &>/dev/null;
-        sudo systemctl disable --now vblade@$(systemd-escape $NAME).service &>/dev/null;
-        sudo systemctl daemon-reload;
+        sudo systemctl daemon-reload &>/dev/null;
+        sudo systemctl restart vblade.service &>/dev/null;
     fi
 
     sudo exportfs -u *:$DST_NFS_ETH0/$NAME &>/dev/null;
@@ -826,12 +824,6 @@ _unhandle_iso() {
 
     sudo sed /etc/fstab   -i -e "/$NAME/d"
     sudo sed /etc/exports -i -e "/$NAME/d"
-
-    if [ "$vblade" == "yes" ]; then
-        ##sudo rm -f /etc/vblade.conf.d/e$vblade_shelf$vblade_slot.conf &>/dev/null;
-        sudo rm -f /etc/vblade.conf.d/$NAME.conf &>/dev/null;
-        sudo systemctl daemon-reload;
-    fi
 
     if [ -d "$SRC_ISO" ] \
     && ( \
