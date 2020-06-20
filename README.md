@@ -1,7 +1,7 @@
 # install-pxe-server
 setup a Raspberry Pi as a PXE-Server.<br />
 it is a private project i have made for myself.<br />
-i did not keeped an eye on network security.
+i did not keep an eye on network security.
 
 **the script will override some existing configurations**<br />
 (a backup of the changed configuration files will be stored to **backup.tar.xz**)
@@ -12,7 +12,7 @@ i did not keeped an eye on network security.
 the scripts installs necessary packages to let your RPi act as a DHCP, TFTP, Samba, NFS, HTML, NTP, VBLADE, PXE server.
 and it will download LiveDVD ISOs you can boot your PXE client (Desktop PC) to.
 
-the script can easely be modified to add additional ISOs or update ISOs if updated ones are available.
+the script can easily be modified to add additional ISOs or update ISOs if updated ones are available.
 
 it also is able to act as server for NETWORK BOOTING for a Raspberry Pi 3 (see **note4**)
 
@@ -39,7 +39,7 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 - SD card (big enough to hold entire ISO images of desired Live DVDs), (e.g. 64GByte)
 - USB memory stick (optional, to store preloaded iso images), (e.g. 64GByte)
 - working network environment with a connection to internet
-- optional: second ethernet interface (via USB)
+- optional: second Ethernet interface (via USB)
 - optional: built-in WLAN interface (as that one of RPi3, or an external one via USB)
 
 optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
@@ -55,7 +55,7 @@ assuming,
 
 and optional:
 - you have plugged an USB-memory-stick that is mounted at /media/server (SRC_MOUNT=/media/server)
-- and the folowing folder structure on the USB memory stick:
+- and the following folder structure on the USB memory stick:
 ```
 <mount_point>
 └── backup
@@ -124,7 +124,7 @@ e.g.:**
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
 ...
 ```
-**same procedure, if you dont want some disk images getting downloaded and mountet, you can comment out those lines
+**same procedure, if you don't want some disk images getting downloaded and mounted, you can comment out those lines
 e.g.:**
 ```
 ######################################################################
@@ -133,10 +133,10 @@ handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
 ```
 
 ## what else you should know, when you make modification to the script...
-there are three importent locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
+there are three important locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
 1. the ISO or NFS path relative to the pxe boot menu root path<br />
 (on disk `/srv/tftp/menu-bios/iso`, `/srv/tftp/menu-bios/iso` as symbolic link).
-2. the ISO or NFS path repative to the nfs root path<br />
+2. the ISO or NFS path relative to the nfs root path<br />
 (on disk `/srv/iso`, `/srv/nfs`).
 3. the ISO, IMG or NFS path located at /var/www/html<br />
 (on disk `/var/www/html/iso`, `/var/www/html/img`, `/var/www/html/nfs`).
@@ -161,14 +161,14 @@ there are three importent locations for the pxe boot and the pxe menu that must 
             └── nfs  (only a symbolic link to NFS files)
 ```
 
-if you make any changes to your script and/or file stcructure on disk, keep an eye to changes you made and adapt everything to match
+if you make any changes to your script and/or file structure on disk, keep an eye to changes you made and adapt everything to match
 pxe menu entries to file structure on disk.
 
 what the root of TFTP and PXE boot menu are, is defined in the **_dnsmasq_** configuration file `/etc/dnsmasq.d/pxe-server`.<br />
 the root for NFS is defined in `/etc/exports`.<br />
 the root for HTML is defined in the **_lighttpd_** configuration file `/etc/lighttpd/lighttpd.conf`.
 ## mount scenarios for pxe boot:
-### direct readonly mounting content of ISO:
+### direct read-only mounting content of ISO:
 e.g. ubuntu-lts-x64 iso image<br />
 no problems. pxe boot job can access to required content.
 ```
@@ -183,11 +183,11 @@ no problems. pxe boot job can access to required content.
 ║ └───────────╥─┘
 ╚═════════════╝
 ```
-### mounting content of disk image and make content read/writalbe by overlayfs:
+### mounting content of disk image and make content read/writable by overlayfs:
 e.g. rpi-raspbian-full<br />
-this disk image contains two partitions. the first is the boot partition and the second is the root parition.
+this disk image contains two partitions. the first is the boot partition and the second is the root partition.
 to make the images read/writable, there is an overlayfs putted on top.<br />
-(lowerdir is the readonly source, upperdir is the writable difference, workdir is an temporarily workfolder for internal use. the mergeddir is the sum of lower + upper. write access happens only on the upperdir with white-out and write-on-modify capability)<br />
+(lowerdir is the read-only source, upperdir is the writable difference, workdir is an temporarily workfolder for internal use. the mergeddir is the sum of lower + upper. write access happens only on the upperdir with white-out and write-on-modify capability)<br />
 but unfortunately overlayfs can't get exported directly for nfs. so putting a bindfs on top of the overlayfs makes it possible to get exported for nfs.<br />
 and another issue is, overlayfs can't handle **vfat** partitions as source (lowerdir). putting bindfs between makes overlayfs happy.<br />
 **note: this overlayfs+bindfs construction does NOT work reliably - data loss!**
@@ -223,8 +223,8 @@ and another issue is, overlayfs can't handle **vfat** partitions as source (lowe
 ```
 
 ## note2:
-some of the PXE-menu entries has additional parameters, that lets the Live systems boot with german language (keyboard layout).
-if you dont like or want, remove those additional parameters just behind the ' --' in the menu entries
+some of the PXE-menu entries has additional parameters, that lets the Live systems boot with German language (keyboard layout).
+if you don't like or want, remove those additional parameters just behind the ' --' in the menu entries
 
 to easily change the language to your favorite ones, there are variables on the top part of the script.
 ```
