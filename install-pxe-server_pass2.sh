@@ -448,7 +448,7 @@ NOESCAPE 1
 ALLOWOPTIONS 1
 
 menu color title * #FFFFFFFF *
-menu title PXE Boot Menu (menu-bios)
+menu title PXE Boot Menu ($1)
 menu rows 20
 menu tabmsgrow 24
 menu tabmsg [Enter]=boot, [Tab]=edit, [Esc]=return
