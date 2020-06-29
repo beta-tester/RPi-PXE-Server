@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-06-14
+# v 2020-06-29
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -164,8 +164,8 @@ LUBUNTU_X86_SUM_TYPE=sha256
 
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/19.3/linuxmint-19.3-xfce-64bit.iso
-MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/19.3/sha256sum.txt
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/20/linuxmint-20-cinnamon-64bit.iso
+MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/20/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
 
 
