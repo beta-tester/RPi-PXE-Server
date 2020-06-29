@@ -431,7 +431,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL linux-mint x64
         KERNEL $FILE_BASE$NFS_ETH0/$MINT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$MINT_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs file=/cdrom/preseed/linuxmint.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/linuxmint.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to linux-mint x64 Live
             User:
