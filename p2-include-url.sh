@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-06-30
+# v 2020-07-05
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -170,13 +170,13 @@ MINT_X64_SUM_TYPE=sha256
 
 
 OPENSUSE_RESCUE_X64=opensuse-rescue-x64
-OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso
-OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-Rescue-CD-x86_64-Current.iso.sha256
+OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.2-Rescue-CD-x86_64-Media.iso
+OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.2-Rescue-CD-x86_64-Media.iso.sha256
 OPENSUSE_RESCUE_X64_SUM_TYPE=sha256
 
 OPENSUSE_X64=opensuse-x64
-OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso
-OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.1-GNOME-Live-x86_64-Current.iso.sha256
+OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.2-KDE-Live-x86_64-Media.iso
+OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.2-KDE-Live-x86_64-Media.iso.sha256
 OPENSUSE_X64_SUM_TYPE=sha256
 
 
@@ -205,7 +205,7 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.5/systemrescuecd-amd64-6.1.5.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.6/systemrescuecd-amd64-6.1.6.iso
 
 
 TAILS_X64=tails-x64
