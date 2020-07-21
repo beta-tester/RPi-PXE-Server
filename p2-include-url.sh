@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-07-06
+# v 2020-07-21
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -195,7 +195,7 @@ PENTOO_BETA_X64=pentoo-beta-x64
 PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-full-amd64-hardened-latest.iso
+PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Release/pentoo-full-amd64-hardened-latest.iso
 
 
 RPDESKTOP_X86=rpdesktop-x86
