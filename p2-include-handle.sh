@@ -23,8 +23,6 @@ _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 _unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 _unhandle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
-#discontinued# _unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
-#discontinued# _unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 _unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
 _unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
 _unhandle_iso  $ESET_SYSRESCUE_X86  $ESET_SYSRESCUE_X86_URL;
@@ -66,6 +64,9 @@ handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
 #broken#
 #_unhandle_iso  $ANDROID_X86  $ANDROID_X86_URL;
 #_unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
+
+#discontinued# _unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
+#discontinued# _unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
 
 ##########################################################################
 #_unhandle_img  $UBUNTU_FWTS  $UBUNTU_FWTS_URL;
