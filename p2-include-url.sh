@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-07-21
+# v 2020-07-28
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -209,8 +209,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.8/tails-amd64-4.8.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.8/tails-amd64-4.8.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.9/tails-amd64-4.9.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.9/tails-amd64-4.9.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
