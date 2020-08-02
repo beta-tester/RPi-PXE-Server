@@ -1,13 +1,15 @@
 #!/bin/bash
 
 ######################################################################
-#
-# known issues:
-#
-
 BACKUP_FILE=backup.tar.xz
+BACKUP_TRANSFORM=s/^/$(date +%Y-%m-%dT%H_%M_%S)-pxe-server\\//
 
-tar -ravf $BACKUP_FILE -C / boot/cmdline.txt
+do_backup() {
+    tar -ravf "$BACKUP_FILE" --transform="$BACKUP_TRANSFORM" -C / "$1" &>/dev/null
+}
+
+
+do_backup boot/cmdline.txt
 
 ######################################################################
 grep -q max_loop /boot/cmdline.txt &>/dev/null || {
@@ -78,7 +80,7 @@ sudo apt install -y --no-install-recommends pxelinux syslinux-common syslinux-ef
 echo -e "\e[32minstall lighttpd\e[0m";
 sudo apt install -y --no-install-recommends lighttpd;
 grep -q mod_install_server /etc/lighttpd/lighttpd.conf &>/dev/null || {
-    tar -ravf $BACKUP_FILE -C / etc/lighttpd/lighttpd.conf
+    do_backup etc/lighttpd/lighttpd.conf
     cat << EOF | sudo tee -a /etc/lighttpd/lighttpd.conf &>/dev/null
 ########################################
 ## mod_install_server
@@ -89,7 +91,7 @@ dir-listing.set-footer = "&nbsp;<br />"
 dir-listing.exclude = ( "[.]*\.url" )
 EOF
 }
-tar -ravf $BACKUP_FILE -C / var/www/html/index.lighttpd.html
+do_backup var/www/html/index.lighttpd.html
 sudo rm /var/www/html/index.lighttpd.html
 
 
