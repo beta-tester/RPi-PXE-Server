@@ -7,7 +7,14 @@
 
 script_dir=$(dirname "$BASH_SOURCE")
 
+
+######################################################################
 BACKUP_FILE=backup.tar.xz
+BACKUP_TRANSFORM=s/^/$(date +%Y-%m-%dT%H_%M_%S)-pxe-server\\//
+
+do_backup() {
+    tar -ravf "$BACKUP_FILE" --transform="$BACKUP_TRANSFORM" -C / "$1" &>/dev/null
+}
 
 
 ######################################################################
@@ -63,7 +70,7 @@ handle_dhcpcd() {
     ##################################################################
     grep -q mod_install_server /etc/dhcpcd.conf || {
         echo -e "\e[36m    setup dhcpcd.conf\e[0m";
-        tar -ravf $BACKUP_FILE -C / etc/dhcpcd.conf
+        do_backup etc/dhcpcd.conf
         cat << EOF | sudo tee -a /etc/dhcpcd.conf &>/dev/null
 
 ########################################
@@ -88,7 +95,7 @@ handle_dnsmasq() {
     ######################################################################
     [ -f /etc/dnsmasq.d/10-pxe-server ] || {
         echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
-        tar -ravf $BACKUP_FILE -C / etc/dnsmasq.d/10-pxe-server
+        do_backup etc/dnsmasq.d/10-pxe-server
         cat << EOF | sudo tee /etc/dnsmasq.d/10-pxe-server &>/dev/null
 ########################################
 #/etc/dnsmasq.d/pxeboot
@@ -189,7 +196,7 @@ handle_samba() {
     ######################################################################
     grep -q mod_install_server /etc/samba/smb.conf 2> /dev/null || ( \
         echo -e "\e[36m    setup samba\e[0m";
-        tar -ravf $BACKUP_FILE -C / etc/samba/smb.conf
+        do_backup etc/samba/smb.conf
         #sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
         cat << EOF | sudo tee /etc/samba/smb.conf &>/dev/null
 ########################################
@@ -1116,7 +1123,7 @@ handle_optional() {
     ## network nat
     grep -q mod_install_server /etc/sysctl.conf 2> /dev/null || {
         echo -e "\e[36m    setup sysctrl for nat\e[0m";
-        tar -ravf $BACKUP_FILE -C / etc/sysctl.conf
+        do_backup etc/sysctl.conf
         cat << EOF | sudo tee -a /etc/sysctl.conf &>/dev/null
 ########################################
 ## mod_install_server
@@ -1144,7 +1151,7 @@ handle_chrony() {
     ## chrony
     grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
         echo -e "\e[36m    setup chrony\e[0m";
-        tar -ravf $BACKUP_FILE -C / etc/chrony/chrony.conf
+        do_backup etc/chrony/chrony.conf
         cat << EOF | sudo tee /etc/chrony/chrony.conf &>/dev/null
 ########################################
 ## mod_install_server
