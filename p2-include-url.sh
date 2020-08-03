@@ -17,42 +17,45 @@ fi
 #                      https://github.com/pebakery/pebakery
 # arch                 https://www.archlinux.org/download/
 # fedora               https://getfedora.org/en/workstation/download/
-# ubuntu               http://releases.ubuntu.com/
+# ubuntu               https://releases.ubuntu.com/
 #                      http://cdimage.ubuntu.com/ubuntu/releases/
-#                      http://cdimage.ubuntu.com/daily-live/
+#                      http://cdimage.ubuntu.com/daily-live/pending/
 # ubuntu studio        http://cdimage.ubuntu.com/ubuntustudio/releases/
 #                      http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 # lubuntu              http://cdimage.ubuntu.com/lubuntu/releases/
 #                      http://cdimage.ubuntu.com/lubuntu/daily-live/pending/
 # debian               https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/
 #                      https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/
-# devuan               https://files.devuan.org/devuan_ascii/desktop-live/
+# devuan               https://files.devuan.org/devuan_beowulf/desktop-live/
 # gnuradio             https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
+#                      http://eu2-dist.gnuradio.org/
 # parrotsec            https://cdimage.parrotsec.org/parrot/iso/
-# kali                 http://cdimage.kali.org/kali-images/current/
-#                      http://cdimage.kali.org/kali-images/kali-weekly/
-# pentoo               https://www.pentoo.ch/isos/Pentoo_Full_amd64_hardened/
-#                      https://www.pentoo.ch/isos/Beta/Pentoo_Full_amd64_hardened/
+# kali                 https://cdimage.kali.org/kali-images/current/
+#                      https://cdimage.kali.org/kali-images/kali-weekly/
+# pentoo               https://www.pentoo.ch/isos/latest-iso-symlinks/
 # deft                 http://www.deftlinux.net/
 # clonezilla           https://sourceforge.net/projects/clonezilla/files/clonezilla_live_stable/
 # system rescue cd     https://sourceforge.net/projects/systemrescuecd/files/sysresccd-x86/
-#                      http://beta.system-rescue-cd.org/
+#                      https://system-rescue-cd.org/
 # tiny core            http://tinycorelinux.net/downloads.html
-# rpdesktop            https://downloads.raspberrypi.org/rpd_x86/images/
+# rpdesktop            https://downloads.raspberrypi.org/rpd_x86/images/?C=M;O=D
 # gentoo               https://www.gentoo.org/downloads/
 #                      http://distfiles.gentoo.org/releases/amd64/
 #                      http://distfiles.gentoo.org/releases/x86/
 # opensuse             https://download.opensuse.org/distribution/openSUSE-current/live/
+#                      https://download.opensuse.org/tumbleweed/iso/?C=M;O=D
 # centos               https://www.centos.org/download/
 # tail                 https://tails.boum.org/install/download/
 # knoppix              http://www.knopper.net/knoppix-mirrors/index-en.html
 # kaspersky            https://www.kaspersky.com/downloads/thank-you/free-rescue-disk
 # bitdefender          https://download.bitdefender.com/rescue_cd/latest/
+#                      Bitdefender Rescue CD reached End of Life on 2019-08-01
+#                        https://www.bitdefender.com/consumer/support/answer/10131/
 # ESET SysRescue Live  https://www.eset.com/int/download-utilities/#content-c10295
 # linuxmint            https://www.linuxmint.com/download.php
 #                      https://mirrors.edge.kernel.org/linuxmint/stable/
 # android x86          https://osdn.net/projects/android-x86/
-# rpi-raspbian         https://downloads.raspberrypi.org/raspbian/images/
+# rpi-raspbian         https://downloads.raspberrypi.org/raspios_armhf/images/
 # piCore               http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #                      http://tinycorelinux.net/9.x/armv7/releases/RPi/
 
@@ -72,6 +75,7 @@ CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.7-28/clonezilla-live-2.6.7-28-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.7-28/clonezilla-live-2.6.7-28-i686.iso
+
 
 DEBIAN_KVER=4.19.0-10
 DEBIAN_X64=debian-x64
@@ -231,7 +235,7 @@ UBUNTU_DAILY_X64_SUM=http://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-19.09.00.img.xz
+UBUNTU_FWTS_URL=http://fwts.ubuntu.com/fwts-live/fwts-live-20.07.00.img.xz
 UBUNTU_FWTS_SUM=http://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
@@ -269,7 +273,7 @@ DESINFECT_X86=desinfect-x86
 DESINFECT_X86_URL=
 
 
-UBUNTU_NONPAE=ubuntu-nopae
+UBUNTU_NONPAE=ubuntu-nonpae
 UBUNTU_NONPAE_URL=
 
 
@@ -279,11 +283,10 @@ WIN_PE_X86_URL=
 
 #broken#
 ANDROID_X86=android-x86
-ANDROID_X86_URL=https://osdn.net/frs/redir.php?f=android-x86%2F69704%2Fandroid-x86-8.1-r2.iso
-
+ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64-9.0-r2.iso
 
 CENTOS_X64=centos-x64
-CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1908.iso
+CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-2003.iso
 CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.txt
 CENTOS_X64_SUM_TYPE=sha256
 
@@ -303,17 +306,17 @@ PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
 RPD_BASIC=rpi-raspbian-basic
 RPD_BASIC_URL=https://downloads.raspberrypi.org/raspios_armhf_latest
-RPD_BASIC_SUM=https://www.raspberrypi.org/downloads/raspbian/
+RPD_BASIC_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-os/
 RPD_BASIC_SUM_TYPE=sha256
 
 RPD_FULL=rpi-raspbian-full
 RPD_FULL_URL=https://downloads.raspberrypi.org/raspios_full_armhf_latest
-RPD_FULL_SUM=https://www.raspberrypi.org/downloads/raspbian/
+RPD_FULL_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-os/
 RPD_FULL_SUM_TYPE=sha256
 
 RPD_LITE=rpi-raspbian-lite
 RPD_LITE_URL=https://downloads.raspberrypi.org/raspios_lite_armhf_latest
-RPD_LITE_SUM=https://www.raspberrypi.org/downloads/raspbian/
+RPD_LITE_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-os/
 RPD_LITE_SUM_TYPE=sha256
 
 
