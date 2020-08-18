@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-08-03
+# v 2020-08-18
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -185,13 +185,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9.1/Parrot-security-4.9.1_x64.iso
-PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9.1/sha256.txt
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/current/Parrot-security-4.10_amd64.iso
+PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/current/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.9.1/Parrot-home-4.9.1_x64.iso
-PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.9.1/sha256.txt
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/current/Parrot-home-4.10_amd64.iso
+PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/current/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
