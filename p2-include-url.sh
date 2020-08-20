@@ -11,9 +11,8 @@ fi
 
 # v 2020-08-20
 
-# check broken links
-# for i in $(grep URL= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*URL=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
-# for i in $(grep SUM= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*SUM=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
+# check broken url
+# for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
