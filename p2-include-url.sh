@@ -11,6 +11,9 @@ fi
 
 # v 2020-08-20
 
+# check broken links
+# for i in $(grep URL= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*URL=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
+
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
 #                      https://www.heise.de/ct/artikel/c-t-Notfall-Windows-2020-4514169.html
