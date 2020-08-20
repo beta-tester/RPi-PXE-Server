@@ -195,11 +195,10 @@ PARROT_LITE_X64_SUM_TYPE=sha256
 
 
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-beta-amd64-hardened-latest.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Release/pentoo-full-amd64-hardened-latest.iso
-
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86_latest
