@@ -18,12 +18,12 @@ fi
 # arch                 https://www.archlinux.org/download/
 # fedora               https://getfedora.org/en/workstation/download/
 # ubuntu               https://releases.ubuntu.com/
-#                      http://cdimage.ubuntu.com/ubuntu/releases/
-#                      http://cdimage.ubuntu.com/daily-live/pending/
-# ubuntu studio        http://cdimage.ubuntu.com/ubuntustudio/releases/
-#                      http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
-# lubuntu              http://cdimage.ubuntu.com/lubuntu/releases/
-#                      http://cdimage.ubuntu.com/lubuntu/daily-live/pending/
+#                      https://cdimage.ubuntu.com/ubuntu/releases/
+#                      https://cdimage.ubuntu.com/daily-live/pending/
+# ubuntu studio        https://cdimage.ubuntu.com/ubuntustudio/releases/
+#                      https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
+# lubuntu              https://cdimage.ubuntu.com/lubuntu/releases/
+#                      https://cdimage.ubuntu.com/lubuntu/daily-live/pending/
 # debian               https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/
 #                      https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/
 # devuan               https://files.devuan.org/devuan_beowulf/desktop-live/
@@ -46,7 +46,7 @@ fi
 #                      https://download.opensuse.org/tumbleweed/iso/?C=M;O=D
 # centos               https://www.centos.org/download/
 # tail                 https://tails.boum.org/install/download/
-# knoppix              http://www.knopper.net/knoppix-mirrors/index-en.html
+# knoppix              https://www.knopper.net/knoppix-mirrors/index-en.html
 # kaspersky            https://www.kaspersky.com/downloads/thank-you/free-rescue-disk
 # bitdefender          https://download.bitdefender.com/rescue_cd/latest/
 #                      Bitdefender Rescue CD reached End of Life on 2019-08-01
@@ -142,28 +142,28 @@ KNOPPIX_X86_SUM_TYPE=sha256
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/focal-desktop-amd64.iso
-LUBUNTU_DAILY_X64_SUM=http://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
+LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/focal-desktop-amd64.iso
+LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04-desktop-amd64.iso
-LUBUNTU_LTS_X64_SUM=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04-desktop-amd64.iso
+LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04-desktop-amd64.iso
-LUBUNTU_X64_SUM=http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
+LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04-desktop-amd64.iso
+LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X86=lubuntu-lts-x86
-LUBUNTU_LTS_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.3-desktop-i386.iso
-LUBUNTU_LTS_X86_SUM=http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/SHA256SUMS
+LUBUNTU_LTS_X86_URL=https://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04.3-desktop-i386.iso
+LUBUNTU_LTS_X86_SUM=https://cdimage.ubuntu.com/lubuntu/releases/18.04/release/SHA256SUMS
 LUBUNTU_LTS_X86_SUM_TYPE=sha256
 
 LUBUNTU_X86=lubuntu-x86
-LUBUNTU_X86_URL=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-i386.iso
-LUBUNTU_X86_SUM=http://cdimage.ubuntu.com/lubuntu/releases/18.10/release/SHA256SUMS
+LUBUNTU_X86_URL=https://cdimage.ubuntu.com/lubuntu/releases/18.10/release/lubuntu-18.10-desktop-i386.iso
+LUBUNTU_X86_SUM=https://cdimage.ubuntu.com/lubuntu/releases/18.10/release/SHA256SUMS
 LUBUNTU_X86_SUM_TYPE=sha256
 
 
@@ -230,8 +230,8 @@ TINYCORE_X86_SUM_TYPE=md5
 
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=http://cdimage.ubuntu.com/daily-live/pending/focal-desktop-amd64.iso
-UBUNTU_DAILY_X64_SUM=http://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
+UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/focal-desktop-amd64.iso
+UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
@@ -240,28 +240,28 @@ UBUNTU_FWTS_SUM=http://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=http://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
-UBUNTU_LTS_X64_SUM=http://releases.ubuntu.com/20.04/SHA256SUMS
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/20.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/focal-dvd-amd64.iso
-UBUNTU_STUDIO_DAILY_X64_SUM=http://cdimage.ubuntu.com/ubuntustudio/dvd/pending/SHA256SUMS
+UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/focal-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/SHA256SUMS
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=http://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/ubuntustudio-20.04-dvd-amd64.iso
-UBUNTU_STUDIO_X64_SUM=http://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/SHA256SUMS
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/ubuntustudio-20.04-dvd-amd64.iso
+UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=http://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
-UBUNTU_X64_SUM=http://releases.ubuntu.com/20.04/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/20.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
-UBUNTU_LTS_X86_URL=http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-i386.iso
-UBUNTU_LTS_X86_SUM=http://releases.ubuntu.com/16.04/SHA256SUMS
+UBUNTU_LTS_X86_URL=https://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-i386.iso
+UBUNTU_LTS_X86_SUM=https://releases.ubuntu.com/16.04/SHA256SUMS
 UBUNTU_LTS_X86_SUM_TYPE=sha256
 
 
