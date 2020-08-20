@@ -225,7 +225,7 @@ TINYCORE_X86_SUM_TYPE=md5
 
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/focal-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/groovy-desktop-amd64.iso
 UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
