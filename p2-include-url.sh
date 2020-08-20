@@ -11,6 +11,10 @@ fi
 
 # v 2020-08-20
 
+# check broken links
+# for i in $(grep URL= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*URL=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
+# for i in $(grep SUM= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*SUM=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
+
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
 #                      https://www.heise.de/ct/artikel/c-t-Notfall-Windows-2020-4514169.html
@@ -191,11 +195,10 @@ PARROT_LITE_X64_SUM_TYPE=sha256
 
 
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Beta/pentoo-full-beta-amd64-hardened-latest.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-beta-amd64-hardened-latest.iso
 
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Release/pentoo-full-amd64-hardened-latest.iso
-
 
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86_latest
