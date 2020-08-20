@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-08-18
+# v 2020-08-20
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -126,7 +126,7 @@ GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnura
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2020.2-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2020.3-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
