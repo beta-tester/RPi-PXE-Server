@@ -200,6 +200,7 @@ PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-
 PENTOO_X64=pentoo-x64
 PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Release/pentoo-full-amd64-hardened-latest.iso
 
+
 RPDESKTOP_X86=rpdesktop-x86
 RPDESKTOP_X86_URL=https://downloads.raspberrypi.org/rpd_x86_latest
 RPDESKTOP_X86_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-desktop/
