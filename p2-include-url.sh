@@ -9,11 +9,10 @@ then
 fi
 ##########################################################################
 
-# v 2020-08-20
+# v 2020-08-27
 
-# check broken links
-# for i in $(grep URL= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*URL=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
-# for i in $(grep SUM= ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*SUM=//g); do wget --quiet --timeout=5 --spider $i; echo $? = $i; done
+# check broken url
+# for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -212,8 +211,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.9/tails-amd64-4.9.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.9/tails-amd64-4.9.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.10/tails-amd64-4.10.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.10/tails-amd64-4.10.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -283,6 +282,7 @@ WIN_PE_X86_URL=
 #broken#
 ANDROID_X86=android-x86
 ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64-9.0-r2.iso
+
 
 CENTOS_X64=centos-x64
 CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-2003.iso
