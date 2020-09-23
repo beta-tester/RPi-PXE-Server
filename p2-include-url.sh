@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-08-27
+# v 2020-09-23
 
 # check broken url
 # for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -211,8 +211,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.10/tails-amd64-4.10.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.10/tails-amd64-4.10.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.11/tails-amd64-4.11.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.11/tails-amd64-4.11.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
