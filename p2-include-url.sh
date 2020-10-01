@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-09-23
+# v 2020-10-01
 
 # check broken url
 # for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -80,14 +80,14 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.7-28/clonezilla-live-2.6.7-28-i686.iso
 
 
-DEBIAN_KVER=4.19.0-10
+DEBIAN_KVER=4.19.0-11
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.5.0-amd64-xfce.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-10.6.0-amd64-cinnamon.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-10.5.0-i386-xfce.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-10.6.0-i386-cinnamon.iso
 DEBIAN_X86_SUM=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/SHA256SUMS
 DEBIAN_X86_SUM_TYPE=sha256
 
@@ -207,7 +207,7 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.7/systemrescuecd-amd64-6.1.7.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/6.1.8/systemrescuecd-amd64-6.1.8.iso
 
 
 TAILS_X64=tails-x64
