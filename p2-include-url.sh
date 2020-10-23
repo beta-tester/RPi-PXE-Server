@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-10-22
+# v 2020-10-23
 
 # check broken url
 # for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -155,8 +155,8 @@ LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SH
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04.1-desktop-amd64.iso
-LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
+LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/20.10/release/lubuntu-20.10-desktop-amd64.iso
+LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/20.10/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X86=lubuntu-lts-x86
@@ -247,13 +247,13 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/ubuntustudio-20.04.1-dvd-amd64.iso
-UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/20.04/release/SHA256SUMS
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/20.10/release/ubuntustudio-20.10-dvd-amd64.iso
+UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/20.10/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/20.04/ubuntu-20.04.1-desktop-amd64.iso
-UBUNTU_X64_SUM=https://releases.ubuntu.com/20.04/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/20.10/ubuntu-20.10-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/20.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
