@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-10-23
+# v 2020-10-27
 
 # check broken url
 # for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -119,8 +119,8 @@ ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_
 
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/32/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-32-1.6.iso
-FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/32/Workstation/x86_64/iso/Fedora-Workstation-32-1.6-x86_64-CHECKSUM
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/33/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-33-1.2.iso
+FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/33/Workstation/x86_64/iso/Fedora-Workstation-33-1.2-x86_64-CHECKSUM
 FEDORA_X64_SUM_TYPE=sha256
 
 
