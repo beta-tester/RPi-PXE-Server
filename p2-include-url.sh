@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-10-27
+# v 2020-11-19
 
 # check broken url
 # for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -75,9 +75,9 @@ ARCH_NETBOOT_X64_URL=https://www.archlinux.org/static/netboot/ipxe.lkrn
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.7-28/clonezilla-live-2.6.7-28-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.0-10/clonezilla-live-2.7.0-10-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.6.7-28/clonezilla-live-2.6.7-28-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.0-10/clonezilla-live-2.7.0-10-i686.iso
 
 
 DEBIAN_KVER=4.19.0-11
@@ -129,7 +129,7 @@ GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnura
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2020.3-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2020.4-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -210,8 +210,8 @@ SYSTEMRESCUE_X64=systemrescue-x64
 SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/7.00/systemrescue-7.00-amd64.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.12/tails-amd64-4.12.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.12/tails-amd64-4.12.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.13/tails-amd64-4.13.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.13/tails-amd64-4.13.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
