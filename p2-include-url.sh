@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-11-19
+# v 2020-11-24
 
 # check broken url
 # for i in $(grep http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -194,10 +194,10 @@ PARROT_LITE_X64_SUM_TYPE=sha256
 
 
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-beta-amd64-hardened-latest.iso
+PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-daily-amd64-hardened-latest.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/Release/pentoo-full-amd64-hardened-latest.iso
+PENTOO_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-daily-amd64-hardened-latest.iso
 
 
 RPDESKTOP_X86=rpdesktop-x86
@@ -207,7 +207,7 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/7.00/systemrescue-7.00-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/7.01/systemrescue-7.01-amd64.iso
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.13/tails-amd64-4.13.iso
