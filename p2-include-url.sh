@@ -12,7 +12,7 @@ fi
 # v 2020-11-24
 
 # check broken url
-# for i in $(grep =http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
+# for i in $(grep [A-Z]=http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
 
 ##########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
