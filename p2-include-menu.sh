@@ -39,7 +39,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Clonezilla x64
         KERNEL $FILE_BASE$NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$CLONEZILLA_X64/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X64 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X64 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Clonezilla x64
             User: user, Password: live
@@ -58,7 +58,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Clonezilla x86
         KERNEL $FILE_BASE$NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$CLONEZILLA_X86/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X86 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X86 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Clonezilla x86
             User: user, Password: live
@@ -77,7 +77,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Debian x64 (testing)
         KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64
         INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/initrd.img-$DEBIAN_TESTING_KVER-amd64
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_TESTING_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_TESTING_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Debian x64 Live (testing)
             User: user, Password: live
@@ -96,7 +96,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Debian x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/vmlinuz-$DEBIAN_KVER-amd64
         INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/initrd.img-$DEBIAN_KVER-amd64
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Debian x64 Live LXDE
             User: user, Password: live
@@ -115,7 +115,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Debian x86
         KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/vmlinuz-$DEBIAN_KVER-686
         INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/initrd.img-$DEBIAN_KVER-686
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Debian x86 Live LXDE
             User: user, Password: live
@@ -134,7 +134,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL DEFT x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEFT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEFT_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to DEFT x64 Live
             User: root, Password: toor
@@ -153,7 +153,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL DEFT Zero x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to DEFT Zero x64 Live
             User: root, Password: toor
@@ -172,7 +172,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Devuan x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X64 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X64 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Devuan x64 Live
             User: devuan
@@ -191,7 +191,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Devuan x86
         KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X86 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X86 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Devuan x86 Live
             User: devuan
@@ -210,7 +210,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL ESET SysRescue Live
         KERNEL $FILE_BASE$NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$ESET_SYSRESCUE_X86/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$ESET_SYSRESCUE_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$ESET_SYSRESCUE_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to ESET SysRescue Live
         ENDTEXT
@@ -231,7 +231,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Fedora x64
         KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/isolinux/initrd.img
-        APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+        APPEND root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LOCALE
         TEXT HELP
             Boot to Fedora Workstation Live
             User: liveuser
@@ -250,7 +250,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL GNU Radio x64
         KERNEL $FILE_BASE$NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi
         INITRD $FILE_BASE$NFS_ETH0/$GNURADIO_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$GNURADIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$GNURADIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to GNU Radio x64 Live
             User: ubuntu
@@ -269,7 +269,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Kali x64
         KERNEL $FILE_BASE$NFS_ETH0/$KALI_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$KALI_X64/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64 ro netboot=nfs boot=live noconfig=sudo username=kali hostname=kali -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64 ro netboot=nfs boot=live noconfig=sudo username=kali hostname=kali -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Kali x64 Live
             User: kali, Password: kali
@@ -336,7 +336,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu x64 Daily-Live
             User: lubuntu
@@ -355,7 +355,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu LTS x64
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu LTS x64 Live
             User: lubuntu
@@ -374,7 +374,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu LTS x86
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu LTS x86 Live
             User: lubuntu
@@ -393,7 +393,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu x64
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu x64 Live
             User: lubuntu
@@ -412,7 +412,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL lubuntu x86
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs ip=dhcp file=/cdrom/preseed/lubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to lubuntu x86 Live
             User: lubuntu
@@ -431,7 +431,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL linux-mint x64
         KERNEL $FILE_BASE$NFS_ETH0/$MINT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$MINT_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/linuxmint.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/linuxmint.seed boot=casper systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to linux-mint x64 Live
             User:
@@ -488,7 +488,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Parrot Full x64
         KERNEL $FILE_BASE$NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$PARROT_FULL_X64/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Parrot Full x64 Live (Security)
             User: user, Password: live
@@ -507,7 +507,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Parrot Lite x64
         KERNEL $FILE_BASE$NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$PARROT_LITE_X64/live/initrd.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG pkeys=$CUSTOM_LANG setxkbmap=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Parrot Lite x64 Live (Home/Workstation)
             User: user, Password: live
@@ -564,7 +564,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Raspberry Pi Desktop
         KERNEL $FILE_BASE$NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2
         INITRD $FILE_BASE$NFS_ETH0/$RPDESKTOP_X86/live/initrd2.img
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPDESKTOP_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LONG.UTF-8 keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPDESKTOP_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LANG_LOCALE keyboard-layouts=$CUSTOM_LANG utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Raspberry Pi Desktop
             User: pi, Password: raspberry
@@ -699,7 +699,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu x64 Daily-Live
             User: ubuntu
@@ -740,7 +740,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu LTS x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu LTS x64 Live
             User: ubuntu
@@ -759,7 +759,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu LTS x86
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu LTS x86 Live
             User: ubuntu
@@ -778,7 +778,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu Studio x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu Studio x64 Daily-Live
             User: ubuntu
@@ -797,7 +797,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu Studio x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu Studio x64 Live
             User: ubuntu
@@ -816,7 +816,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu x64 Live
             User: ubuntu
@@ -835,7 +835,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu x86
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X86/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu x86 Live
             User: ubuntu
@@ -859,7 +859,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL desinfect x86
         KERNEL $FILE_BASE$NFS_ETH0/$DESINFECT_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DESINFECT_X86/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to ct desinfect x86
             User: desinfect
@@ -878,7 +878,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL desinfect x64
         KERNEL $FILE_BASE$NFS_ETH0/$DESINFECT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DESINFECT_X64/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to ct desinfect x64
             User: desinfect
@@ -897,7 +897,7 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL Ubuntu non-PAE x86
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_NONPAE/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_NONPAE/casper/initrd.lz
-        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_NONPAE ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/language=$CUSTOM_LANG console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_NONPAE ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
         TEXT HELP
             Boot to Ubuntu non-PAE x86 Live
             User: ubuntu
@@ -997,21 +997,21 @@ if [ -f "$FILE_MENU" ] \
         MENU LABEL CentOS x64 (broken)
         KERNEL $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$CENTOS_X64/isolinux/initrd.img
-        #APPEND root=live:nfs:$IP_ETH0$DST_NFS_ETH0/$CENTOS_X64 ro rootfstype=auto rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+        #APPEND root=live:nfs:$IP_ETH0$DST_NFS_ETH0/$CENTOS_X64 ro rootfstype=auto rd.live.image rhgb rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 rd.shell rd.break console=tty0 loglevel=7 vga=794 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LOCALE
 
     # dracut: FATAL: Don't know how to handle 'root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64';
-        #APPEND root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+        #APPEND root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LOCALE
 
     # dracut: FATAL: Don't know how to handle 'root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img';
-        #APPEND root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+        #APPEND root=live:nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LOCALE
 
     # mount.nfs: mountpoint /sysroot is not a directory
-        #APPEND root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+        #APPEND root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64/LiveOS/squashfs.img ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LOCALE
 
     # Warning: Could not boot.
         # Warning: /dev/mapper/live-rw does not exist
         # Starting Dracut Emergency Shell
-        APPEND root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LONG.UTF-8
+        APPEND root=nfs:$IP_ETH0:$DST_NFS_ETH0/$CENTOS_X64 ro root-path=/LiveOS/squashfs.img rootfstype=squashfs rd.live.image rd.live.ram=1 rd.live.overlay=none rd.luks=0 rd.md=0 rd.dm=0 vga=794 rd.shell log_buf_len=1M rd.retry=10 -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_LANG_EXT locale.LANG=$CUSTOM_LANG_LOCALE
 
         TEXT HELP
             Boot to CentOS LiveGNOME
