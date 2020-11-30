@@ -227,11 +227,12 @@ and another issue is, overlayfs can't handle **vfat** partitions as source (lowe
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with German language (keyboard layout).
 if you don't like or want, remove those additional parameters just behind the ' --' in the menu entries
 
-to easily change the language to your favorite ones, there are variables on the top part of the script.
+to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var.sh** script.
 ```
 CUSTOM_LANG=de
 CUSTOM_LANG_LONG=de_DE
 CUSTOM_LANG_UPPER=DE
+CUSTOM_LANG_LOCALE=de_DE.UTF-8
 CUSTOM_LANG_WRITTEN=German
 CUSTOM_LANG_EXT=de-latin1-nodeadkeys
 CUSTOM_TIMEZONE=Europe/Berlin
