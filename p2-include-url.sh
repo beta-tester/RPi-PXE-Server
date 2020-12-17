@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-12-08
+# v 2020-12-17
 
 # check broken url
 # for i in $(grep [A-Z]=http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -114,6 +114,10 @@ DEVUAN_X86_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.t
 DEVUAN_X86_SUM_TYPE=sha256
 
 
+DRAGONOS_X64=dragonos-x64
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR9.iso
+
+
 ESET_SYSRESCUE_X86=eset-rescue-x86
 ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_cd/latest/eset_sysrescue_live_enu.iso
 
@@ -210,8 +214,8 @@ SYSTEMRESCUE_X64=systemrescue-x64
 SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/7.01/systemrescue-7.01-amd64.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.13/tails-amd64-4.13.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.13/tails-amd64-4.13.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.14/tails-amd64-4.14.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.14/tails-amd64-4.14.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
