@@ -202,6 +202,25 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz" ]; then
+    echo  -e "\e[36m    add $DRAGONOS_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $DRAGONOS_X64
+        MENU LABEL DragonOS x64
+        KERNEL $FILE_BASE$NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$DRAGONOS_X64/casper/initrd.gz
+        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DRAGONOS_X64 ro netboot=nfs ip=dhcp file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LANG_LOCALE console-setup/layoutcode=$CUSTOM_LANG keyboard-configuration/layoutcode=$CUSTOM_LANG keyboard-configuration/variant=$CUSTOM_LANG_WRITTEN
+        TEXT HELP
+            Boot to DragonOS x64 Live
+            User: live
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz" ]; then
     echo  -e "\e[36m    add $ESET_SYSRESCUE_X86\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
