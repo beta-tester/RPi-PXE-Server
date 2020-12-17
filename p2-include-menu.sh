@@ -203,7 +203,7 @@ fi
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz" ]; then
-    echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
+    echo  -e "\e[36m    add $DRAGONOS_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DRAGONOS_X64
