@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2020-12-17
+# v 2020-12-18
 
 # check broken url
 # for i in $(grep [A-Z]=http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -19,6 +19,7 @@ fi
 #                      https://www.heise.de/ct/artikel/c-t-Notfall-Windows-2020-4514169.html
 #                      https://github.com/pebakery/pebakery
 # arch                 https://www.archlinux.org/download/
+# blackarch            https://blackarch.org/
 # fedora               https://getfedora.org/en/workstation/download/
 # ubuntu               https://releases.ubuntu.com/
 #                      https://cdimage.ubuntu.com/ubuntu/releases/
@@ -78,6 +79,10 @@ CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.0-10/clonezilla-live-2.7.0-10-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.0-10/clonezilla-live-2.7.0-10-i686.iso
+
+
+BLACKARCH_X64=blackarch-x64
+BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-linux-full-2020.12.01-x86_64.iso
 
 
 DEBIAN_KVER=4.19.0-13
