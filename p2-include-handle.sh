@@ -19,13 +19,14 @@ fi
 ##  if you want to delete the entire iso and its nfs export to free disk space
 ##########################################################################
 ##########################################################################
+_unhandle_iso  $BLACKARCH_X64  $BLACKARCH_X64_URL;
 _unhandle_iso  $CLONEZILLA_X64  $CLONEZILLA_X64_URL;
 _unhandle_iso  $CLONEZILLA_X86  $CLONEZILLA_X86_URL;
 _unhandle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
 _unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
 _unhandle_iso  $DEVUAN_X64  $DEVUAN_X64_URL;
 _unhandle_iso  $DEVUAN_X86  $DEVUAN_X86_URL;
-handle_iso  $DRAGONOS_X64  $DRAGONOS_X64_URL;
+_unhandle_iso  $DRAGONOS_X64  $DRAGONOS_X64_URL;
 _unhandle_iso  $ESET_SYSRESCUE_X86  $ESET_SYSRESCUE_X86_URL;
 handle_iso  $FEDORA_X64  $FEDORA_X64_URL;
 _unhandle_iso  $GNURADIO_X64  $GNURADIO_X64_URL;
