@@ -31,6 +31,26 @@ fi
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_NFS_ETH0/$BLACKARCH_X64/blackarch/boot/x86_64/vmlinuz-linux" ]; then
+    echo  -e "\e[36m    add $BLACKARCH_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $BLACKARCH_X64
+        MENU LABEL BlackArch x64
+        KERNEL $FILE_BASE$NFS_ETH0/$BLACKARCH_X64/blackarch/boot/x86_64/vmlinuz-linux
+        INITRD $FILE_BASE$NFS_ETH0/$BLACKARCH_X64/blackarch/boot/intel-ucode.img,$FILE_BASE$NFS_ETH0/$BLACKARCH_X64/blackarch/boot/amd-ucode.img,$FILE_BASE$NFS_ETH0/$BLACKARCH_X64/blackarch/boot/x86_64/initramfs-linux.img
+        APPEND ro archisobasedir=blackarch archiso_nfs_srv=$IP_ETH0:$DST_NFS_ETH0/$BLACKARCH_X64 copytoram=n
+        SYSAPPEND 3
+        TEXT HELP
+            Boot to BlackArch Linux full medium (x86_64, UEFI)
+            User:  root, Password: blackarch
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
 && [ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]; then
     echo  -e "\e[36m    add $CLONEZILLA_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
