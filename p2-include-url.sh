@@ -286,6 +286,9 @@ UBUNTU_NONPAE_URL=
 WIN_PE_X86=win-pe-x86
 WIN_PE_X86_URL=
 
+WIN_PE_X64=win-pe-x64
+WIN_PE_X64_URL=
+
 
 #broken#
 ANDROID_X86=android-x86

@@ -986,12 +986,64 @@ if [ -f "$FILE_MENU" ] \
     echo  -e "\e[36m    add $WIN_PE_X86 (WIM)\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
-    LABEL $WIN_PE_X86-pxe
+    LABEL $WIN_PE_X86-wim
         MENU LABEL Windows PE x86 (WIM)
         COM32 linux.c32 wimboot
         APPEND initrdfile=$FILE_BASE$NFS_ETH0/$WIN_PE_X86/Boot/BCD,$FILE_BASE$NFS_ETH0/$WIN_PE_X86/Boot/boot.sdi,$FILE_BASE$NFS_ETH0/$WIN_PE_X86/sources/boot.wim
         TEXT HELP
             Boot to Windows PE 32bit
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_TFTP_ETH0/$1/pxeboot.n12" ]; then
+    echo  -e "\e[36m    add $WIN_PE_X64 (PXE)\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $WIN_PE_X64-pxe
+        MENU LABEL Windows PE x64 (PXE)
+        PXE pxeboot.n12
+        TEXT HELP
+            Boot to Windows PE 64bit
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_ISO/$WIN_PE_X64.iso" ]; then
+    echo  -e "\e[36m    add $WIN_PE_X64 (ISO)\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $WIN_PE_X64-iso
+        MENU LABEL Windows PE x64 (ISO)
+        KERNEL memdisk
+        APPEND iso
+        INITRD $FILE_BASE$ISO/$WIN_PE_X64.iso
+        TEXT HELP
+            Boot to Windows PE 64bit ISO ~400MB
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ] \
+&& [ -f "$DST_TFTP_ETH0/$1/wimboot" ] \
+&& [ -f "$DST_NFS_ETH0/$WIN_PE_X64/sources/boot.wim" ]; then
+    echo  -e "\e[36m    add $WIN_PE_X64 (WIM)\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $WIN_PE_X64-wim
+        MENU LABEL Windows PE x64 (WIM)
+        COM64 linux.c64 wimboot
+        APPEND initrdfile=$FILE_BASE$NFS_ETH0/$WIN_PE_X64/Boot/BCD,$FILE_BASE$NFS_ETH0/$WIN_PE_X64/Boot/boot.sdi,$FILE_BASE$NFS_ETH0/$WIN_PE_X64/sources/boot.wim
+        TEXT HELP
+            Boot to Windows PE 64bit
         ENDTEXT
 EOF
 fi
