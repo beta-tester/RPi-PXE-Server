@@ -970,7 +970,7 @@ if [ -f "$FILE_MENU" ] \
     LABEL $WIN_PE_X86-iso
         MENU LABEL Windows PE x86 (ISO)
         KERNEL memdisk
-        APPEND iso
+        APPEND iso raw
         INITRD $FILE_BASE$ISO/$WIN_PE_X86.iso
         TEXT HELP
             Boot to Windows PE 32bit ISO ~400MB
@@ -1022,7 +1022,7 @@ if [ -f "$FILE_MENU" ] \
     LABEL $WIN_PE_X64-iso
         MENU LABEL Windows PE x64 (ISO)
         KERNEL memdisk
-        APPEND iso
+        APPEND iso raw
         INITRD $FILE_BASE$ISO/$WIN_PE_X64.iso
         TEXT HELP
             Boot to Windows PE 64bit ISO ~400MB
