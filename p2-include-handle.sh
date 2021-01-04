@@ -47,7 +47,6 @@ _unhandle_iso  $PENTOO_BETA_X64  $PENTOO_BETA_X64_URL  timestamping;
 _unhandle_iso  $PENTOO_X64  $PENTOO_X64_URL  timestamping;
 _unhandle_iso  $RPDESKTOP_X86  $RPDESKTOP_X86_URL  timestamping;
 _unhandle_iso  $SYSTEMRESCUE_X64  $SYSTEMRESCUE_X64_URL;
-_unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 _unhandle_iso  $TINYCORE_X64  $TINYCORE_X64_URL  timestamping;
 handle_iso  $TINYCORE_X86  $TINYCORE_X86_URL  timestamping;
 _unhandle_iso  $UBUNTU_DAILY_X64  $UBUNTU_DAILY_X64_URL  timestamping;
@@ -62,10 +61,12 @@ handle_iso  $UBUNTU_X64  $UBUNTU_X64_URL;
 #handle_iso  $DESINFECT_X86  $DESINFECT_X86_URL;
 #_unhandle_iso  $UBUNTU_NONPAE  $UBUNTU_NONPAE_URL;
 #handle_iso  $WIN_PE_X86  $WIN_PE_X86_URL;
+#handle_iso  $WIN_PE_X64  $WIN_PE_X64_URL;
 
 #broken#
 #_unhandle_iso  $ANDROID_X86  $ANDROID_X86_URL;
 #_unhandle_iso  $CENTOS_X64  $CENTOS_X64_URL;
+#_unhandle_iso  $TAILS_X64  $TAILS_X64_URL;
 
 #discontinued# _unhandle_iso  $DEFT_X64  $DEFT_X64_URL;
 #discontinued# _unhandle_iso  $DEFTZ_X64  $DEFTZ_X64_URL  ,gid=root,uid=root,norock,mode=292;
