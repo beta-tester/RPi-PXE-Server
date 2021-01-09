@@ -9,7 +9,7 @@ then
 fi
 ##########################################################################
 
-# v 2021-01-07
+# v 2021-01-09
 
 # check broken url
 # for i in $(grep [A-Z]=http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -120,7 +120,7 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR9.iso
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR10.iso
 
 
 ESET_SYSRESCUE_X86=eset-rescue-x86
