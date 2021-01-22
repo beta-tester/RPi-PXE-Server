@@ -9,6 +9,10 @@ then
 fi
 ##########################################################################
 
+if ! [ "$1" == "ipxe" ]
+then
+##########################################################################
+## lpxelinux
 
 #========== BEGIN ==========
 if [ -f "$FILE_MENU" ] \
@@ -1111,3 +1115,462 @@ if [ -f "$FILE_MENU" ] \
 EOF
 fi
 #========== END ==========
+
+
+else
+
+
+##########################################################################
+## ipxe
+#========== BEGIN ==========
+if [ -f "$FILE_MENU" ]; then
+    echo  -e "\e[36m    add ipxe menu\e[0m";
+    cat << EOF | sudo tee $FILE_MENU &>/dev/null
+#!ipxe
+
+# 2021-01-19
+# made by https://github.com/beta-tester
+# for project https://github.com/beta-tester/RPi-PXE-Server
+
+
+########################################################################
+### CHAIN LOAD SERVER VERSION OF iPXE
+:begin_ipxe_chainload_serverversion
+iseq \${product} VirtualBox || goto end_ipxe_chainload_serverversion
+set version_vbox 1.0.0+
+iseq \${version} \${version_vbox} || goto end_ipxe_chainload_serverversion
+
+:ipxe_chainload_serverversion
+echo download iPXE
+iseq \${platform} efi && set ipxe_file ipxe.efi || set ipxe_file undionly.kpxe
+imgfree ||
+chain \${ipxe_file}
+exit
+
+:end_ipxe_chainload_serverversion
+
+
+########################################################################
+### VARIABLES
+set base       http://\${next-server}/srv/nfs
+set nfsroot    \${next-server}:/srv/nfs
+
+set language   de
+set layoutcode de
+set variant    German
+set locale     de_DE.UTF-8
+set timezone   Europe/Berlin
+set keymap     de-latin1-nodeadkeys
+set kmap       qwertz/de-latin1
+
+
+# Figure out if client is 64-bit capable
+cpuid --ext 29 && set archx x64 || set archx x86
+cpuid --ext 29 && set arch amd64 || set arch i386
+cpuid --ext 29 && set arch2 amd64 || set arch2 i686
+cpuid --ext 29 && set bit_cpu 64 || set bit_cpu 32
+
+# Figure out if BIOS, EFI32 or EFI64
+iseq \${platform} efi && goto is_efi ||
+set pxe_menu menu-bios
+goto start
+:is_efi
+cpuid --ext 29 && set pxe_menu menu-efi64 || set pxe_menu menu-efi32
+goto start
+
+
+########################################################################
+### MAIN MENU
+:start
+imgfree
+menu iPXE \${version}, \${platform}, \${archx}, \${next-server}, \${pxe_menu}
+item --gap --               ------------------------- Live Operating systems -------------------------
+item arch-netboot-x64       Boot Arch netboot x64
+item debian-x64             Boot Debian x64
+item devuan-x64             Boot Devuan x64
+item fedora-x64             Boot Fedora x64
+item mint-x64               Boot Linux Mint x64
+item opensuse-x64           Boot openSUSE x64
+item tinycore-x64           Boot Tiny Core x64
+item ubuntu-x64             Boot Ubuntu x64
+item --gap --               ------------------------- Pentesting systems ------------------------------
+item blackarch-x64          Boot BlackArch x64
+item kali-x64               Boot Kali x64
+item parrot-full-x64        Boot Parrot x64
+item pentoo-x64             Boot Pentoo x64
+item --gap --               ------------------------- Virus scanner systems ---------------------------
+item desinfect-x64          Boot Desinfec't x64
+item desinfect-x86          Boot Desinfec't x86
+item eset-rescue-x86        Boot ESET SysRescue Live x86
+item kaspersky-rescue-x86   Boot Kaspersky Rescue Disk x86
+item --gap --               ------------------------- Other systems ----------------------------------
+item clonezilla-x64         Boot Clonezilla x64
+item dragonos-x64           Boot DragonOS x64
+item gnuradio-x64           Boot GNU Radio x64
+item knoppix-x86            Boot Knoppix x86
+item opensuse-rescue-x64    Boot openSUSE Rescue x64
+item rpdesktop-x86          Boot Raspberry Pi Desktop
+item systemrescue-x64       Boot System Rescue x64
+item ubuntu-studio-x64      Boot Ubuntu Studio x64
+item --gap --               ------------------------- Windows systems ----------------------------------
+item windows-iso-x64        Boot Windows PE x64 (ISO via http)
+item windows-iso-x86        Boot Windows PE x86 (ISO via http)
+item windows-pxe-x64        Boot Windows PE x64 (PXE via tftp)
+item windows-pxe-x86        Boot Windows PE x86 (PXE via tftp)
+item windows-wim-x64        Boot Windows PE x64 (WIM via http)
+item windows-wim-x86        Boot Windows PE x86 (WIM via http)
+item --gap --               ------------------------- Broken systems ----------------------------------
+item tails-x64              Boot Tails x64
+item --gap --               ------------------------- Tools and utilities ----------------------------
+item --key p pxelinux       Boot PXE Linux
+item --gap --               ------------------------- Advanced options -------------------------------
+item --key c config         Configure settings
+item shell                  Drop to iPXE shell
+item reboot                 Reboot computer
+item poweroff               Power off computer
+item --gap --               --------------------------------------------------------------------------
+item --key x exit           Exit iPXE and continue BIOS boot
+choose os || goto cancel
+echo \${os}
+goto \${os}
+
+
+:cancel
+echo You cancelled the menu, dropping you to the shell
+
+:shell
+echo Type 'exit' to get the back to the menu
+shell
+goto start
+
+:failed
+echo Action failed, dropping you to the shell
+goto shell
+
+:reboot
+reboot || goto failed
+
+:poweroff
+poweroff || goto failed
+
+:exit
+exit
+
+:config
+config
+goto start
+
+
+########################################################################
+###
+:arch-netboot-x64
+#imgselect  http://www.archlinux.org/static/netboot/ipxe.lkrn  || goto failed
+imgselect  \${base}/\${os}/kernel  || goto failed
+imgexec                          || goto failed
+goto start
+
+
+########################################################################
+### ubuntu based
+:dragonos-x64
+set ext2 .gz
+goto ubuntu
+
+:eset-rescue-x86
+:mint-x64
+:ubuntu-x86
+:desinfect-x64
+:desinfect-x86
+set ext2 .lz
+goto ubuntu
+
+:gnuradio-x64
+set ext1 .efi
+set ext2 .lz
+goto ubuntu
+
+:kubuntu-daily-x64
+:kubuntu-x64
+:lubuntu-daily-x64
+:lubuntu-x64
+:ubuntu-daily-x64
+:ubuntu-studio-daily-x64
+:ubuntu-studio-x64
+:ubuntu-x64
+:xubuntu-daily-x64
+:xubuntu-x64
+goto ubuntu
+
+:ubuntu
+#set custom   -- debian-installer/locale=\${locale} debian-installer/language=\${language} console-setup/layoutcode=\${layoutcode} keyboard-configuration/layoutcode=\${layoutcode} keyboard-configuration/variant=\${variant}
+set custom   -- debian-installer/locale=\${locale} console-setup/layoutcode=\${layoutcode} keyboard-configuration/layoutcode=\${layoutcode} keyboard-configuration/variant=\${variant}
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns
+imgselect  \${base}/\${os}/casper/vmlinuz\${ext1}  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/casper/initrd\${ext2}                          || goto failed
+imgexec                                                                || goto failed
+goto start
+
+
+########################################################################
+### debian based
+:debian-cinnamon-x64
+:debian-cinnamon-x86
+:debian-gnome-x64
+:debian-gnome-x86
+:debian-kde-x64
+:debian-kde-x86
+:debian-lxde-x64
+:debian-lxde-x86
+:debian-lxqt-x64
+:debian-lxqt-x86
+:debian-mate-x64
+:debian-mate-x86
+:debian-x64
+:debian-x86
+set version  4.19.0-13
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
+imgselect  \${base}/\${os}/live/vmlinuz-\${version}-\${arch}  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img-\${version}-\${arch}                      || goto failed
+imgexec                                                                          || goto failed
+goto start
+
+
+:devuan-x64
+:devuan-x86
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live username=devuan config
+imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
+imgexec                                                       || goto failed
+goto start
+
+
+:rpdesktop-x86
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
+imgselect  \${base}/\${os}/live/vmlinuz2  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd2.img                      || goto failed
+imgexec                                                        || goto failed
+goto start
+
+
+########################################################################
+###
+:fedora-x64
+set custom   -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=\${keymap} locale.LANG=\${locale}
+set options  ip=dhcp root=live:nfs://\${next-server}/srv/nfs/\${os}/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794
+imgselect  \${base}/\${os}/isolinux/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/isolinux/initrd.img                      || goto failed
+imgexec                                                           || goto failed
+goto start
+
+
+########################################################################
+###
+:opensuse-rescue-x64
+set aoe_if e0.1
+goto opensuse
+
+:opensuse-x64
+set aoe_if e1.1
+goto opensuse
+
+:opensuse
+set custom   --
+set options  ip=dhcp root=live:AOEINTERFACE=\${aoe_if} rd.kiwi.live.pxe
+imgselect  \${base}/\${os}/boot/x86_64/loader/linux  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/boot/x86_64/loader/initrd                        || goto failed
+imgexec                                                                   || goto failed
+goto start
+
+
+########################################################################
+###
+:tinycore-x64
+:tinycore-x86
+set custom   -- lang=en kmap=\${kmap}
+set options  ip=dhcp nfsmount=\${nfsroot}/\${os} tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 noswap norestore
+#set options  ip=dhcp nfsmount=\${nfsroot}/\${os}.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 noswap norestore
+imgselect  \${base}/\${os}/boot/vmlinuz64  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/boot/corepure64.gz                     || goto failed
+imgexec                                                         || goto failed
+goto start
+
+
+########################################################################
+###
+:blackarch-x64
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp archiso_nfs_srv=\${nfsroot}/\${os} ro archisobasedir=blackarch copytoram=n
+imgselect  \${base}/\${os}/blackarch/boot/x86_64/vmlinuz-linux  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/blackarch/boot/intel-ucode.img                              || goto failed
+imgfetch   \${base}/\${os}/blackarch/boot/amd-ucode.img                                || goto failed
+imgfetch   \${base}/\${os}/blackarch/boot/x86_64/initramfs-linux.img                   || goto failed
+imgexec                                                                              || goto failed
+goto start
+
+
+########################################################################
+###
+:systemrescue-x64
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp archiso_nfs_srv=\${nfsroot}/\${os} ro archisobasedir=sysresccd copytoram=n
+imgselect  \${base}/\${os}/sysresccd/boot/x86_64/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/sysresccd/boot/intel_ucode.img                        || goto failed
+imgfetch   \${base}/\${os}/sysresccd/boot/amd_ucode.img                          || goto failed
+imgfetch   \${base}/\${os}/sysresccd/boot/x86_64/sysresccd.img                   || goto failed
+imgexec                                                                        || goto failed
+goto start
+
+
+########################################################################
+###
+:kali-x64
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live noconfig=sudo username=kali hostname=kali
+imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
+imgexec                                                       || goto failed
+goto start
+
+
+########################################################################
+###
+:parrot-full-x64
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} pkeys=\${kmap} setxkbmap=\${kmap} timezone=\${timezone} utc=no
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
+imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
+imgexec                                                       || goto failed
+goto start
+
+
+########################################################################
+###
+:pentoo-beta-x64
+:pentoo-x64
+set custom   --
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0
+imgselect  \${base}/\${os}/boot/pentoo  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/boot/pentoo.igz                     || goto failed
+imgexec                                                      || goto failed
+goto start
+
+
+########################################################################
+###
+:kaspersky-rescue-x86
+set custom   -- lang=us setkmap=us
+set options  ip=dhcp netboot=nfs://\${nfsroot}/\${os} ro dostartx
+imgselect  \${base}/\${os}/boot/grub/k-x86  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/boot/grub/initrd.xz                     || goto failed
+imgexec                                                          || goto failed
+goto start
+
+
+########################################################################
+###
+:clonezilla-x64
+:clonezilla-x86
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} utc=no timezone=\${timezone}
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt
+imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
+imgexec                                                       || goto failed
+goto start
+
+
+########################################################################
+###
+:knoppix-x86
+set custom   -- lang=de
+set options  ip=dhcp nfsdir=\${nfsroot}/\${os} nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
+imgselect  \${base}/\${os}/boot/isolinux/linux  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}-miniroot-8.6.1.gz                           || goto failed
+imgexec                                                              || goto failed
+goto start
+
+
+########################################################################
+###
+:tails-x64
+set custom   -- keyboard-layouts=\${lasyoutcode}
+set options  ip=dhcp BOOTIF=\${hwaddr} fetch=\${base}/\${os}/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC debug ignore_loglevel log_buf_len=10M print_fatal_signals=1 LOGLEVEL=8 earlyprintk=vga,keep sched_debug
+imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
+imgfetch   \${base}/\${os}-hotfix-pxe.cpio.xz                   || goto failed
+imgexec                                                       || goto failed
+goto start
+
+
+########################################################################
+###
+:windows-iso-x64
+set os win-pe-x64
+goto windows-iso
+
+:windows-iso-x86
+set os win-pe-x86
+goto windows-iso
+
+:windows-iso
+imgselect  memdisk iso raw                          || goto failed
+imgfetch   http://\${next-server}/srv/iso/\${os}.iso  || goto failed
+imgexec                                             || goto failed
+goto start
+
+
+# https://git.ipxe.org/releases/wimboot/
+:windows-wim-x64
+set os win-pe-x64
+goto windows-wim
+
+:windows-wim-x86
+set os win-pe-x86
+goto windows-wim
+
+:windows-wim
+imgselect  wimboot                                                || goto failed
+imgfetch   \${base}/\${os}/bootmgr                   bootmgr        || goto failed
+imgfetch   \${base}/\${os}/Boot/BCD                  BCD            || goto failed
+imgfetch   \${base}/\${os}/Boot/Fonts/wgl4_boot.ttf  wgl4_boot.ttf  || goto failed
+imgfetch   \${base}/\${os}/Boot/boot.sdi             boot.sdi       || goto failed
+imgfetch   \${base}/\${os}/sources/boot.wim          boot.wim       || goto failed
+imgexec                                                           || goto failed
+goto start
+
+
+:windows-pxe-x86
+goto windows-pxe
+
+:windows-pxe-x64
+goto windows-pxe
+
+:windows-pxe
+#set 67:string pxeboot.n12
+#set 17:string \${pxe_menu}
+iseq \${platform} efi && set boot-file bootmgr.efi || set boot-file pxeboot.n12
+imgselect  \${pxe_menu}/\${boot-file}  || goto failed
+#imgselect  \${pxe_menu}/pxeboot.n12  || goto failed
+#imgselect  http://\${next-server}/srv/iso/Boot.amd64/PXE/wdsnbp.com  || goto failed
+#imgselect  http://\${next-server}/srv/iso/Boot.amd64/PXE/bootmgr.exe  || goto failed
+#imgselect  http://\${next-server}/srv/iso/Boot.amd64/PXE/bootmgr.efi  || goto failed
+imgexec    || goto failed
+goto start
+
+
+########################################################################
+###
+:pxelinux
+set 209:string /pxelinux.cfg/default
+set 210:string \${pxe_menu}
+imgselect  \${210:string}/lpxelinux.0  || goto failed
+imgexec                               || goto failed
+goto start
+
+EOF
+fi
+#========== END ==========
+
+fi

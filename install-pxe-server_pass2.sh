@@ -165,7 +165,7 @@ EOF
         sudo systemctl stop wpa_supplicant;
         sudo systemctl disable wpa_supplicant;
         sudo rfkill unblock wlan;
-  
+
         sudo systemctl unmask hostapd;
         sudo systemctl enable hostapd;
         sudo systemctl restart hostapd;
@@ -315,6 +315,52 @@ tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI4
 pxe-service=tag:IS_RPI3,0, "Raspberry Pi Boot   ", bootcode.bin
 dhcp-boot=tag:IS_RPI3, bootcode.bin
 
+
+##########
+# iPXE
+dhcp-match=set:iPXE, option:user-class, iPXE
+dhcp-match=set:ipxe.priority,         175, 1   #= signed integer 8;
+dhcp-match=set:ipxe.keep-san,         175, 8   #= unsigned integer 8;
+dhcp-match=set:ipxe.skip-san-boot,    175, 9   #= unsigned integer 8;
+dhcp-match=set:ipxe.syslogs,          175, 85  #= string;
+dhcp-match=set:ipxe.cert,             175, 91  #= string;
+dhcp-match=set:ipxe.privkey,          175, 92  #= string;
+dhcp-match=set:ipxe.crosscert,        175, 93  #= string;
+dhcp-match=set:ipxe.no-pxedhcp,       175, 176 #= unsigned integer 8;
+dhcp-match=set:ipxe.bus-id,           175, 177 #= string;
+dhcp-match=set:ipxe.san-filename,     175, 188 #= string;
+dhcp-match=set:ipxe.bios-drive,       175, 189 #= unsigned integer 8;
+dhcp-match=set:ipxe.username,         175, 190 #= string;
+dhcp-match=set:ipxe.password,         175, 191 #= string;
+dhcp-match=set:ipxe.reverse-username, 175, 192 #= string;
+dhcp-match=set:ipxe.reverse-password, 175, 193 #= string;
+dhcp-match=set:ipxe.version,          175, 235 #= string;
+dhcp-match=set:iscsi-initiator-iqn,   175, 203 #= string;
+# Feature indicators
+dhcp-match=set:ipxe.pxeext,           175, 16  #= unsigned integer 8;
+dhcp-match=set:ipxe.iscsi,            175, 17  #= unsigned integer 8;
+dhcp-match=set:ipxe.aoe,              175, 18  #= unsigned integer 8;
+dhcp-match=set:ipxe.http,             175, 19  #= unsigned integer 8;
+dhcp-match=set:ipxe.https,            175, 20  #= unsigned integer 8;
+dhcp-match=set:ipxe.tftp,             175, 21  #= unsigned integer 8;
+dhcp-match=set:ipxe.ftp,              175, 22  #= unsigned integer 8;
+dhcp-match=set:ipxe.dns,              175, 23  #= unsigned integer 8;
+dhcp-match=set:ipxe.bzimage,          175, 24  #= unsigned integer 8;
+dhcp-match=set:ipxe.multiboot,        175, 25  #= unsigned integer 8;
+dhcp-match=set:ipxe.slam,             175, 26  #= unsigned integer 8;
+dhcp-match=set:ipxe.srp,              175, 27  #= unsigned integer 8;
+dhcp-match=set:ipxe.nbi,              175, 32  #= unsigned integer 8;
+dhcp-match=set:ipxe.pxe,              175, 33  #= unsigned integer 8;
+dhcp-match=set:ipxe.elf,              175, 34  #= unsigned integer 8;
+dhcp-match=set:ipxe.comboot,          175, 35  #= unsigned integer 8;
+dhcp-match=set:ipxe.efi,              175, 36  #= unsigned integer 8;
+dhcp-match=set:ipxe.fcoe,             175, 37  #= unsigned integer 8;
+dhcp-match=set:ipxe.vlan,             175, 38  #= unsigned integer 8;
+dhcp-match=set:ipxe.menu,             175, 39  #= unsigned integer 8;
+dhcp-match=set:ipxe.sdi,              175, 40  #= unsigned integer 8;
+dhcp-match=set:ipxe.nfs,              175, 41  #= unsigned integer 8;
+
+
 ##########
 # PXE Linux
 dhcp-match=set:x86_UEFI, option:client-arch, 6
@@ -325,12 +371,22 @@ tag-if=set:x86_BIOS, tag:ARCH_0, tag:!ARM_RPI
 #pxe-service=6, "PXE Boot Menu (UEFI 00:06)", $DST_PXE_EFI32/bootia32.efi
 #pxe-service=tag:x86-64_EFI, "PXE Boot Menu (UEFI 00:07)", $DST_PXE_EFI64/bootx64.efi
 #pxe-service=9, "PXE Boot Menu (UEFI 00:09)", $DST_PXE_EFI64/bootx64.efi
-dhcp-boot=tag:x86_BIOS, $DST_PXE_BIOS/lpxelinux.0
-dhcp-boot=tag:x86_UEFI, $DST_PXE_EFI32/bootia32.efi
-dhcp-boot=tag:x64_UEFI, $DST_PXE_EFI64/bootx64.efi
-dhcp-option=tag:x86_BIOS, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_BIOS/lpxelinux.0
-dhcp-option=tag:x86_UEFI, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_EFI32/bootia32.efi
-dhcp-option=tag:x64_UEFI, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_EFI64/bootx64.efi
+
+tag-if=set:ipxe_feature_rich, tag:iPXE,tag:ipxe.priority,tag:ipxe.bus-id,tag:ipxe.version,tag:ipxe.pxeext,tag:ipxe.iscsi,tag:ipxe.aoe,tag:ipxe.http,tag:ipxe.tftp,tag:ipxe.dns,tag:ipxe.bzimage,tag:ipxe.multiboot,tag:ipxe.pxe,tag:ipxe.elf,tag:ipxe.menu
+dhcp-boot=tag:iPXE,tag:ipxe_feature_rich,                menu-ipxe/menu.ipxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  menu-ipxe/undionly.kpxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, menu-ipxe/ipxe.efi
+dhcp-boot=tag:iPXE,tag:ipxe_feature_rich,                option6:bootfile-url, tftp://[fd80::$IP_ETH0]/menu-ipxe/menu.ipxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  option6:bootfile-url, tftp://[fd80::$IP_ETH0]/menu-ipxe/undionly.kpxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/menu-ipxe/ipxe.efi
+
+dhcp-boot=tag:!iPXE,tag:x86_BIOS, $DST_PXE_BIOS/lpxelinux.0
+dhcp-boot=tag:!iPXE,tag:x86_UEFI, $DST_PXE_EFI32/bootia32.efi
+dhcp-boot=tag:!iPXE,tag:x64_UEFI, $DST_PXE_EFI64/bootx64.efi
+dhcp-option=tag:!iPXE,tag:x86_BIOS, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_BIOS/lpxelinux.0
+dhcp-option=tag:!iPXE,tag:x86_UEFI, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_EFI32/bootia32.efi
+dhcp-option=tag:!iPXE,tag:x64_UEFI, option6:bootfile-url, tftp://[fd80::$IP_ETH0]/$DST_PXE_EFI64/bootx64.efi
+
 EOF
         sudo systemctl restart dnsmasq.service;
     }
@@ -562,18 +618,31 @@ handle_pxe() {
 handle_ipxe() {
     echo -e "\e[32mhandle_ipxe()\e[0m";
 
+    local DST_IPXE=menu-ipxe
+    local FILE_MENU=$DST_TFTP_ETH0/$DST_IPXE/menu.ipxe
+    local FILE_BASE=http://$IP_ETH0/srv
+
+    if ! [ -d "$DST_TFTP_ETH0/$DST_IPXE" ]; then sudo mkdir -p $DST_TFTP_ETH0/$DST_IPXE; fi
+
     ######################################################################
     # http://ipxe.org/docs
     # http://ipxe.org/howto/chainloading
-
     ######################################################################
-    if (! compare_last_modification_time $DST_TFTP_ETH0/ipxe.efi https://boot.ipxe.org/ipxe.efi); then
+    if (! compare_last_modification_time $DST_TFTP_ETH0/$DST_IPXE/ipxe.efi https://boot.ipxe.org/ipxe.efi); then
         echo -e "\e[36m    download iPXE stuff\e[0m";
-        sudo wget --quiet -O $DST_TFTP_ETH0/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
-        sudo wget --quiet -O $DST_TFTP_ETH0/ipxe.pxe  https://boot.ipxe.org/ipxe.pxe;
-        sudo wget --quiet -O $DST_TFTP_ETH0/ipxe.iso  https://boot.ipxe.org/ipxe.iso;
-        sudo wget --quiet -O $DST_TFTP_ETH0/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
+        sudo wget --quiet -O $DST_TFTP_ETH0/$DST_IPXE/ipxe.efi  https://boot.ipxe.org/ipxe.efi;
+        sudo wget --quiet -O $DST_TFTP_ETH0/$DST_IPXE/undionly.kpxe  https://boot.ipxe.org/undionly.kpxe;
+
+		[ -f "$DST_TFTP_ETH0/$DST_IPXE/wimboot" ] || (\
+		wget -O /tmp/wimboot.tar.gz https://git.ipxe.org/releases/wimboot/wimboot-latest.tar.gz; \
+		tar -xf /tmp/wimboot.tar.gz --wildcards *wimboot -O | sudo tee $DST_TFTP_ETH0/$DST_IPXE/wimboot &>/dev/null);
+
+        sudo wget --quiet -O $DST_TFTP_ETH0/$DST_IPXE/ipxe.pxe  https://boot.ipxe.org/ipxe.pxe;
+        sudo wget --quiet -O $DST_TFTP_ETH0/$DST_IPXE/ipxe.iso  https://boot.ipxe.org/ipxe.iso;
     fi
+
+    sudo touch $FILE_MENU
+    . "$script_dir/p2-include-menu.sh" ipxe
 }
 
 
