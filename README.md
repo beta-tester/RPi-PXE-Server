@@ -46,11 +46,11 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
 
 ### software:
-- **Raspberry Pi OS Buster** or **Raspberry Pi OS Buster Lite** (2020-05-27), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspberry Pi OS Buster** or **Raspberry Pi OS Buster Lite** (2021-01-11), https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running a new fresh virgin Raspberry Pi OS Buster (or Lite) installation from 2020-05-27,
+- your Raspberry Pi is running a new fresh virgin Raspberry Pi OS Buster (or Lite) installation from 2021-01-11,
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (16GB when you use unmodified script)
 
@@ -117,21 +117,45 @@ comments.
 
 ### p2-include-handle.sh
 includes all handler to control what image to download and expose to the pxe-server
-**if you don't want some iso images getting downloaded and mounted, you can comment out lines to do not handle the image.<br />
-or rename handle to __unhandle to uninstall the previous downloaded image and undo all mounting stuff for that image to free disk space.<br />
+**if you don't want some iso images getting downloaded and mounted, you can disable images from handling '#'.<br />
+or '-' to uninstall the previous downloaded image and undo all mounting stuff for that image to free disk space.<br />
 e.g.:**
 ```
-#handle_iso  $DEBIAN_X64  $DEBIAN_X64_URL;
-_unhandle_iso  $DEBIAN_X86  $DEBIAN_X86_URL;
+handle_item  '+'  iso   UBUNTU_X64;
+handle_item  '-'  iso   UBUNTU_LTS_X64;
+handle_item  '#'  iso   UBUNTU_DAILY_X64         timestamping;
 ...
 ```
-**same procedure, if you don't want some disk images getting downloaded and mounted, you can comment out those lines
-e.g.:**
-```
-######################################################################
-handle_zip_img  $RPD_LITE  $RPD_LITE_URL;
-# handle_zip_img  $RPD_FULL  $RPD_FULL_URL;
-```
+'+' = add image to PXE service
+          download if not there
+          update if newer version is available
+
+'-' = remove image from PXE service
+          free resources on server
+          if backup exist, keep updating backup)
+
+'#' = skip image handling
+          keep everything untouched
+          does not updating backup
+          good, when timestamping option is set
+
+iso     = iso image (ISO,UDF, ISO_HYBRID)
+
+img     = harddrive image (MPT, GPT)
+
+kernel  = kernel
+
+zip_img = zip file containing an harddrive image (zip -> MTP, GPT)
+
+rpi_pxe = only if you want to pxe boot a RPi3.
+              (copyes files from boot & root partition to local directors)
+              requires an already mounted harddrive image (img or zip_img)
+              note: option '-' does nothing for rpi_pxe.
+                    you have to free resources for rpi_pxe by hand
+
+note:
+do not put the $ infornt of the VARIABLE name !!!
+the handle_item functions do need the NAME of the VARIABLE (without _URL)
 
 ## what else you should know, when you make modification to the script...
 there are three important locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
@@ -140,7 +164,7 @@ there are three important locations for the pxe boot and the pxe menu that must 
 2. the ISO or NFS path repative to the nfs root path<br />
 (on disk `/srv/iso`, `/srv/nfs`).
 3. the ISO, IMG or NFS path located at /var/www/html<br />
-(on disk `/var/www/html/iso`, `/var/www/html/img`, `/var/www/html/nfs`).
+(on disk `/var/www/html/srv/iso`, `/var/www/html/srv/img`, `/var/www/html/srv/nfs`).
 ```
 /
 ├── srv
@@ -157,9 +181,10 @@ there are three important locations for the pxe boot and the pxe menu that must 
 └── var
     └── www
         └── html     (HTML root)
-            ├── img  (only a symbolic link to IMG files)
-            ├── iso  (only a symbolic link to ISO files)
-            └── nfs  (only a symbolic link to NFS files)
+            └── srv  (only a symbolic link to IMG files)
+                ├── img  (only a symbolic link to IMG files)
+                ├── iso  (only a symbolic link to ISO files)
+                └── nfs  (only a symbolic link to NFS files)
 ```
 
 if you make any changes to your script and/or file structure on disk, keep an eye to changes you made and adapt everything to match
@@ -176,13 +201,14 @@ if you dont like or want, remove those additional parameters just behind the ' -
 
 to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var.sh** script.
 ```
-CUSTOM_LANG=de
-CUSTOM_LANG_LONG=de_DE
-CUSTOM_LANG_UPPER=DE
-CUSTOM_LANG_LOCALE=de_DE.UTF-8
-CUSTOM_LANG_WRITTEN=German
-CUSTOM_LANG_EXT=de-latin1-nodeadkeys
+CUSTOM_COUNTRY=DE
+CUSTOM_KEYMAP=de-latin1-nodeadkeys
+CUSTOM_KMAP=qwertz/de-latin1
+CUSTOM_LANGUAGE=de
+CUSTOM_LAYOUTCODE=de
+CUSTOM_LOCALE=de_DE.UTF-8
 CUSTOM_TIMEZONE=Europe/Berlin
+CUSTOM_VARIANT=German
 ```
 
 ## note3:

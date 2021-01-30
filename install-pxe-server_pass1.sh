@@ -5,7 +5,7 @@ BACKUP_FILE=backup.tar.xz
 BACKUP_TRANSFORM=s/^/$(date +%Y-%m-%dT%H_%M_%S)-pxe-server\\//
 
 do_backup() {
-    tar -ravf "$BACKUP_FILE" --transform="$BACKUP_TRANSFORM" -C / "$1" &>/dev/null
+    tar -ravf "${BACKUP_FILE:?}" --transform="${BACKUP_TRANSFORM:?}" -C / "${1:?}" &>/dev/null
 }
 
 

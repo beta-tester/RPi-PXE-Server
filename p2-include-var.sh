@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##########################################################################
-if [ -z "$script_dir" ]
+if [[ -z "$script_dir" ]]
 then
     echo "do not run this script directly !"
     echo "this script is part of install-pxe-server-pass2.sh"
@@ -19,15 +19,16 @@ fi
 ##  and other variables...
 ######################################################################
 ######################################################################
-CUSTOM_LANG=de
-CUSTOM_LANG_LONG=de_DE
-CUSTOM_LANG_UPPER=DE
-CUSTOM_LANG_LOCALE=de_DE.UTF-8
-CUSTOM_LANG_WRITTEN=German
-CUSTOM_LANG_EXT=de-latin1-nodeadkeys
+CUSTOM_COUNTRY=DE
+CUSTOM_KEYMAP=de-latin1-nodeadkeys
+CUSTOM_KMAP=qwertz/de-latin1
+CUSTOM_LANGUAGE=de
+CUSTOM_LAYOUTCODE=de
+CUSTOM_LOCALE=de_DE.UTF-8
 CUSTOM_TIMEZONE=Europe/Berlin
+CUSTOM_VARIANT=German
 ######################################################################
-COUNTRY_WLAN0=$CUSTOM_LANG_UPPER
+COUNTRY_WLAN0=$CUSTOM_COUNTRY
 ######################################################################
 RPI_SN0=--------
 RPI_SN0_BOOT=rpi-$RPI_SN0-boot
@@ -36,19 +37,19 @@ RPI_SN0_ROOT=rpi-$RPI_SN0-root
 INTERFACE_ETH0=
 INTERFACE_BR0=br0
 ##########################################################################
-if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/scb/fd580000.genet/net ]; then
+if [[ -z "$INTERFACE_ETH0" ]] && [[ -d /sys/devices/platform/scb/fd580000.genet/net ]]; then
 # RPi4B
 INTERFACE_ETH0=$(ls /sys/devices/platform/scb/fd580000.genet/net)
 fi
-if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net ]; then
+if [[ -z "$INTERFACE_ETH0" ]] && [[ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net ]]; then
 # RPi3B+
 INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1.1/1-1.1.1:1.0/net)
 fi
-if [ -z "$INTERFACE_ETH0" ] && [ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net ]; then
+if [[ -z "$INTERFACE_ETH0" ]] && [[ -d /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net ]]; then
 # RPi1B rev.1, RPi1B rev.2, RPi1B+, RPi2B, RPi3B
 INTERFACE_ETH0=$(ls /sys/devices/platform/soc/*.usb/usb1/1-1/1-1.1/1-1.1:1.0/net)
 fi
-if [ -z "$INTERFACE_ETH0" ]; then
+if [[ -z "$INTERFACE_ETH0" ]]; then
 # fallback
 INTERFACE_ETH0=eth0
 fi
@@ -85,4 +86,6 @@ DST_NFS_ETH0=$DST_ROOT$NFS_ETH0
 DST_PXE_BIOS=menu-bios
 DST_PXE_EFI32=menu-efi32
 DST_PXE_EFI64=menu-efi64
+DST_IPXE=menu-ipxe
+
 OS_VER=$(grep VERSION_ID /etc/*-release |  grep -o '".*"' | sed 's/"//g')

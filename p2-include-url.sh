@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##########################################################################
-if [ -z "$script_dir" ]
+if [[ -z "$script_dir" ]]
 then
     echo "do not run this script directly !"
     echo "this script is part of install-pxe-server-pass2.sh"
