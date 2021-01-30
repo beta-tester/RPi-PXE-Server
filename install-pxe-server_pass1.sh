@@ -5,7 +5,7 @@ BACKUP_FILE=backup.tar.xz
 BACKUP_TRANSFORM=s/^/$(date +%Y-%m-%dT%H_%M_%S)-pxe-server\\//
 
 do_backup() {
-    tar -ravf "$BACKUP_FILE" --transform="$BACKUP_TRANSFORM" -C / "$1" &>/dev/null
+    tar -ravf "${BACKUP_FILE:?}" --transform="${BACKUP_TRANSFORM:?}" -C / "${1:?}" &>/dev/null
 }
 
 
@@ -175,7 +175,7 @@ sudo apt install -y --no-install-recommends squashfs-tools initramfs-tools xz-ut
 echo -e "\e[32minstall wireshark\e[0m";
 echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
 sudo apt install -y --no-install-recommends tshark wireshark
-sudo usermod -a -G wireshark $USER
+sudo usermod -a -G wireshark "${USER:?}"
 
 echo -e "\e[32minstall other useful stuff\e[0m";
 sudo apt install -y --no-install-recommends xterm transmission-gtk
