@@ -4,7 +4,7 @@ it is a private project i have made for myself.<br />
 i did not keep an eye on network security.
 
 **the script will override some existing configurations**<br />
-(a backup of the changed configuration files will be stored to **backup.tar.xz**)<br />
+(a backup of the changed configuration files will be stored to **backup.tar.xz** in the script folder)<br />
 (to extract all versions of all files to /tmp: `tar --backup=numbered -xavf backup.tar.xz -C /tmp`, some files will be hidden)
 
 **USE IT AT YOUR OWN RISK.**
@@ -80,26 +80,27 @@ mkdir -p <mount_point>/backup/tftp/EFI
 ```
 replace **<mount_point>** with the path, where you mounted your USB stick.
 
-1. run `bash install-pxe-server_pass1.sh` to install necessary packages<br />
+1. run `bash run.sh` the first time, to install necessary packages<br />
 (use **_bash_** and do not run it from **_sudo_**)
 2. reboot your RPi with `sudo reboot`
-3. run `bash install-pxe-server_pass2.sh` to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.<br />
-(use **_bash_** and do not run it from **_sudo_**)
+3. run `bash run.sh` the second time to setup everything required for PXE server.
 4. reboot your RPi with `sudo reboot`
+5. run `bash run.sh` the third time to copy/download iso images of LiveDVDs, mount and export them and setup PXE menu according installed images.<br />
+6. reboot your RPi with `sudo reboot`
 
 done.
 
 ## update:
-to update your images, update the url in the **p2-include-url.sh** file<br />
-and re-run `bash install-pxe-server_pass2.sh`.
-this will download all updated iso files.
+to update your images, update the url in the **p2-include-url.sh** and **c2-custom-url.sh** file<br />
+and re-run `bash run.sh`.
+this will download all updated iso files and menu entries.
 
 ## modifying the script:
-### p2-include-var.sh
+### p2-include-var.sh / c2-custom-var.sh
 includes all important variables like source and destination directories, ip-addresses, and so on.
 e.g.: by changing '**DST_ROOT=/srv**' you can tell the script to download and store all iso to an external storage, instead of storing to the internal SD card.
 
-### p2-include-url.sh
+### p2-include-url.sh / c2-custom-url.sh
 includes all url and name of images
 ```
 e.g.
@@ -107,7 +108,7 @@ DEBIAN_X64=debian-x64
 DEBIAN_X64_URL=https://...
 ```
 
-### p2-include-menu.sh
+### p2-include-menu.sh / c2-custom-menu.sh
 includes all pxe-menu entries and kernel parameters
 in the script, for each image there is a pxe-menu entry enclosed by<br />
 `#========== BEGIN ==========`<br />
@@ -115,47 +116,49 @@ and<br />
 `#=========== END ===========`<br />
 comments.
 
-### p2-include-handle.sh
-includes all handler to control what image to download and expose to the pxe-server
-**if you don't want some iso images getting downloaded and mounted, you can disable images from handling '#'.<br />
+### p2-include-handle.sh / c2-custom-handle.sh
+includes all handler to control what image to download and expose to the pxe-server<br />
+if you don't want some iso images getting downloaded and mounted, you can disable images from handling '#'.<br />
 or '-' to uninstall the previous downloaded image and undo all mounting stuff for that image to free disk space.<br />
-e.g.:**
+e.g.:
 ```
 handle_item  '+'  iso   UBUNTU_X64;
 handle_item  '-'  iso   UBUNTU_LTS_X64;
 handle_item  '#'  iso   UBUNTU_DAILY_X64         timestamping;
 ...
 ```
-'+' = add image to PXE service
-          download if not there
-          update if newer version is available
+action:
+   '+' = add image to PXE service
+         download if not there
+         update if new version is available
 
-'-' = remove image from PXE service
-          free resources on server
-          if backup exist, keep updating backup)
+   '-' = remove image from PXE service
+         free resources on server
+         if backup exist, keep updating backup
 
-'#' = skip image handling
-          keep everything untouched
-          does not updating backup
-          good, when timestamping option is set
+   '#' = skip image handling
+         keep everything untouched
+         does not updating backup
+         good, when timestamping option is set but want to keep the current version and you don't want to download each daily update
 
-iso     = iso image (ISO,UDF, ISO_HYBRID)
+type:
+   iso     = iso image (ISO, UDF, ISO_HYBRID)
 
-img     = harddrive image (MPT, GPT)
+   img     = hard drive image (MPT, GPT)
 
-kernel  = kernel
+   kernel  = kernel
 
-zip_img = zip file containing an harddrive image (zip -> MTP, GPT)
+   zip_img = zip file containing a hard drive image (zip -> img -> MTP/GPT)
 
-rpi_pxe = only if you want to pxe boot a RPi3.
-              (copyes files from boot & root partition to local directors)
-              requires an already mounted harddrive image (img or zip_img)
-              note: option '-' does nothing for rpi_pxe.
-                    you have to free resources for rpi_pxe by hand
+   rpi_pxe = only if you want to pxe boot a RPi3.
+               copies files from its selected image boot & root partition to PXE server directories
+               requires an already mounted hard drive image (img or zip_img)
+               note: Action '-' does nothing for rpi_pxe. It is not implemented.
+                     You have to free resources for rpi_pxe by hand
 
 note:
-do not put the $ infornt of the VARIABLE name !!!
-the handle_item functions do need the NAME of the VARIABLE (without _URL)
+   do not put the $ in fornt of the VARIABLE name !!!
+   the handle_item functions do need the NAME of the VARIABLE (without _URL)
 
 ## what else you should know, when you make modification to the script...
 there are three important locations for the pxe boot and the pxe menu that must fit. otherwise the pxe menu and the following boot process can not find required files.
@@ -181,7 +184,7 @@ there are three important locations for the pxe boot and the pxe menu that must 
 └── var
     └── www
         └── html     (HTML root)
-            └── srv  (only a symbolic link to IMG files)
+            └── srv  (only a symbolic link to /srv)
                 ├── img  (only a symbolic link to IMG files)
                 ├── iso  (only a symbolic link to ISO files)
                 └── nfs  (only a symbolic link to NFS files)
@@ -252,7 +255,7 @@ and another issue is, overlayfs can't handle **vfat** partitions as source (lowe
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with German language (keyboard layout).
 if you don't like or want, remove those additional parameters just behind the ' --' in the menu entries
 
-to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var.sh** script.
+to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var.sh** script or use **c2-custom-var.sh** to override those variables with your values.
 ```
 CUSTOM_COUNTRY=DE
 CUSTOM_KEYMAP=de-latin1-nodeadkeys
@@ -265,11 +268,13 @@ CUSTOM_VARIANT=German
 ```
 
 ## note3:
-it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet by me, because of lack of hardware for UEFI boot.
+it is prepared for BIOS, UEFI 32bit and UEFI 64bit boot, but UEFI is not tested yet by me, because of lack of hardware for UEFI boot.<br />
+IPv4 UEFI 64bit boot with SecureBoot enabled is tested and working on my computer (with Asus board and latest Fedora, Debian and Ubuntu distro).<br />
+but tested with an other computer it wont work - it depends on the UEFI firmware.
 
 ## note4: NETWORK BOOTING for Raspberry Pi 3 client
 the server is prepared for to boot a Raspberry Pi 3 client via network.
-in the script ```install-pxe-server_pass2.sh```, there is a ```RPI_SN0=--------``` line, change the ```--------``` to the serial number of the RPi3-**client**, that will boot from network later on.<br />
+in the script ```p2-include-var.sh```, there is a ```RPI_SN0=--------``` line, change the ```--------``` to the serial number of the RPi3-**client**, that will boot from network later on.<br />
 skip the leading '00000000'. take only the last 8 digits!<br />
 e.g.
 ```

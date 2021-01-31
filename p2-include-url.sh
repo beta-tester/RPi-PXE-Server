@@ -1,20 +1,20 @@
 #!/bin/bash
 
-##########################################################################
+########################################################################
 if [[ -z "$script_dir" ]]
 then
     echo "do not run this script directly !"
-    echo "this script is part of install-pxe-server-pass2.sh"
+    echo "this script is part of p2-update.sh"
     exit -1
 fi
-##########################################################################
+########################################################################
 
-# v 2021-01-09
+# v 2021-01-31
 
-# check broken url
-# for i in $(grep [A-Z]=http ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*http/http/g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
+# check for broken url
+#   for i in $(grep "[A-Z0-9_]_URL=" ~/RPi-PXE-Server/p2-include-url.sh | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
 
-##########################################################################
+########################################################################
 # winpe                https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
 #                      https://www.heise.de/ct/artikel/c-t-Notfall-Windows-2020-4514169.html
 #                      https://github.com/pebakery/pebakery
@@ -31,6 +31,7 @@ fi
 # debian               https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/
 #                      https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/
 # devuan               https://files.devuan.org/devuan_beowulf/desktop-live/
+# dragon os            https://sourceforge.net/projects/dragonos-focal/files/
 # gnuradio             https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
 #                      http://eu2-dist.gnuradio.org/
 # parrotsec            https://cdimage.parrotsec.org/parrot/iso/
@@ -64,21 +65,20 @@ fi
 #                      http://tinycorelinux.net/9.x/armv7/releases/RPi/
 
 
-##########################################################################
-##########################################################################
-## url to iso images, with LiveDVD systems
-## note:
-##  update the url, if iso is outdated
-##########################################################################
-##########################################################################
+########################################################################
+# url to iso images, with LiveDVD systems
+# note:
+#   update the url, if iso is outdated
+########################################################################
+
 ARCH_NETBOOT_X64=arch-netboot-x64
 ARCH_NETBOOT_X64_URL=https://www.archlinux.org/static/netboot/ipxe.lkrn
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.0-10/clonezilla-live-2.7.0-10-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.1-22/clonezilla-live-2.7.1-22-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.0-10/clonezilla-live-2.7.0-10-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.7.1-22/clonezilla-live-2.7.1-22-i686.iso
 
 
 BLACKARCH_X64=blackarch-x64
@@ -219,8 +219,8 @@ SYSTEMRESCUE_X64=systemrescue-x64
 SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/7.01/systemrescue-7.01-amd64.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.14/tails-amd64-4.14.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.14/tails-amd64-4.14.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.15.1/tails-amd64-4.15.1.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.15.1/tails-amd64-4.15.1.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -301,15 +301,13 @@ CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.tx
 CENTOS_X64_SUM_TYPE=sha256
 
 
-##########################################################################
-##########################################################################
-## url to zip files,
-##  that contains disk images
-##  for raspbarry pi 3 pxe network booting
-## note:
-##  update the url, if disk image is outdated
-##########################################################################
-##########################################################################
+########################################################################
+# url to zip files,
+#  that contains disk images
+#  for raspbarry pi 3 pxe network booting
+# note:
+#  update the url, if disk image is outdated
+########################################################################
 PI_CORE=pi-core
 PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
 
@@ -330,4 +328,4 @@ RPD_LITE_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-os/
 RPD_LITE_SUM_TYPE=sha256
 
 
-##########################################################################
+########################################################################
