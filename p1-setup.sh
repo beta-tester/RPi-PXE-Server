@@ -99,24 +99,24 @@ interface ${INTERFACE_ETH0:?}
     slaac private
     static ip_address=${IP_ETH0:?}/24
     static ip6_address=fd80::${IP_ETH0:?}/120
-    static routers=${IP_ETH0_ROUTER:?}
-    static domain_name_servers=${IP_ETH0_ROUTER:?} 1.1.1.1 2606:4700:4700::1111
+    static routers=${IP_ETH0_ROUTER}
+    static domain_name_servers=${IP_ETH0_ROUTER} 1.1.1.1 2606:4700:4700::1111
 
 ########################################
 interface ${INTERFACE_ETH1:?}
     slaac private
     static ip_address=${IP_ETH1:?}/24
     static ip6_address=fd80::${IP_ETH1:?}/120
-    static routers=${IP_ETH1_ROUTER:?}
-    static domain_name_servers=${IP_ETH1_ROUTER:?}
+    static routers=${IP_ETH1_ROUTER}
+    static domain_name_servers=${IP_ETH1_ROUTER}
 
 ########################################
 interface ${INTERFACE_WLAN0:?}
     slaac private
     static ip_address=${IP_WLAN0:?}/24
     static ip6_address=fd80::${IP_WLAN0:?}/120
-    static routers=${IP_WLAN0_ROUTER:?}
-    static domain_name_servers=${IP_WLAN0_ROUTER:?}
+    static routers=${IP_WLAN0_ROUTER}
+    static domain_name_servers=${IP_WLAN0_ROUTER}
 EOF
     sudo systemctl daemon-reload;
     sudo systemctl restart dhcpcd.service;
