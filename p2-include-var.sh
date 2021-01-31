@@ -3,9 +3,9 @@
 ########################################################################
 if [[ -z "$script_dir" ]]
 then
-    echo "do not run this script directly !"
-    echo "this script is part of p2-update.sh"
-    exit -1
+  echo 'do not run this script directly !'
+  echo 'this script is part of run.sh'
+  exit -1
 fi
 ########################################################################
 

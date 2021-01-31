@@ -1,14 +1,21 @@
 #!/bin/bash
 
 ########################################################################
+if [[ -z "$script_dir" ]]
+then
+  echo 'do not run this script directly !'
+  echo 'this script is part of run.sh'
+  exit -1
+fi
+########################################################################
+
+
+########################################################################
 # known issues:
 #    overlayfs can not get exported via nfs
 #    overlayfs is working, when you put a bindfs on top of overlayfs, to make exportfs happy
 #    note: this overlayfs+bindfs construction does NOT work reliably - data loss!
 #    solution: maybe linux kernel 5.6
-
-
-script_dir=$(dirname "${BASH_SOURCE:?}")
 
 
 ########################################################################
