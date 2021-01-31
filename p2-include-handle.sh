@@ -1,52 +1,52 @@
 #!/bin/bash
 
-##########################################################################
+########################################################################
 if [[ -z "$script_dir" ]]
 then
   echo 'do not run this script directly !'
-  echo 'this script is part of install-pxe-server-pass2.sh'
+  echo 'this script is part of run.sh'
   exit -1
 fi
-##########################################################################
+########################################################################
 
 
-##########################################################################
-##########################################################################
-##
-## '+' = add image to PXE service
-##           download if not there
-##           update if newer version is available
-##
-## '-' = remove image from PXE service
-##           free resources on server
-##           if backup exist, keep updating backup)
-##
-## '#' = skip image handling
-##           keep everything untouched
-##           does not updating backup
-##           good, when timestamping option is set
-##
-## iso     = iso image (ISO,UDF, ISO_HYBRID)
-##
-## img     = harddrive image (MPT, GPT)
-##
-## kernel  = kernel
-##
-## zip_img = zip file containing an harddrive image (zip -> MTP, GPT)
-##
-## rpi_pxe = only if you want to pxe boot a RPi3.
-##               (copyes files from boot & root partition to local directors)
-##               requires an already mounted harddrive image (img or zip_img)
-##               note: option '-' does nothing for rpi_pxe.
-##                     you have to free resources for rpi_pxe by hand
-##
-##
-## NOTE:
-##     do not put the $ infornt of the VARIABLE name !!!
-##     the handle_item functions do need the NAME of the VARIABLE (without _URL)
-##
-##########################################################################
-##########################################################################
+########################################################################
+#
+# Action:
+#   '+' = Add image to PXE service
+#         Download if not there
+#         Update if new version is available
+#
+#   '-' = Remove image from PXE service
+#         Free resources on server
+#         If backup exist, keep updating backup
+#
+#   '#' = Skip image handling
+#         Keep everything untouched
+#         Does not updating backup
+#         Good, when timestamping option is set but want to keep the current version and you don't want to download each daily update
+#
+# Type:
+#   iso     = Iso image (ISO, UDF, ISO_HYBRID)
+#
+#   img     = Hard drive image (MPT, GPT)
+#
+#   kernel  = Kernel
+#
+#   zip_img = Zip file containing a hard drive image (zip -> img -> MTP/GPT)
+#
+#   rpi_pxe = Only if you want to pxe boot a RPi3.
+#               Copies files from its selected image boot & root partition to PXE server directories
+#               Requires an already mounted hard drive image (img or zip_img)
+#               Note: Action '-' does nothing for rpi_pxe. It is not implemented.
+#                     You have to free resources for rpi_pxe by hand
+# Note:
+#     Do not put the $ in fornt of the VARIABLE name !!!
+#     the handle_item functions do need the NAME of the VARIABLE (without _URL)
+
+########################################################################
+#-----------+----+-----+------------------------+-----------------------
+#exec       |act.|type |VAR. name of item       |optional options
 handle_item  '-'  iso   BLACKARCH_X64;
 handle_item  '-'  iso   CLONEZILLA_X64;
 handle_item  '-'  iso   CLONEZILLA_X86;
@@ -100,25 +100,33 @@ handle_item  '-'  iso   TAILS_X64;
 #discontinued# handle_item  '#'  iso    DEFTZ_X64  ,gid=root,uid=root,norock,mode=292;
 
 
-##########################################################################
-handle_item  '-' img    UBUNTU_FWTS;
+########################################################################
+#-----------+----+-----+------------------------+-----------------------
+#exec       |act.|type |VAR. name of item       |optional options
+handle_item  '-'  img   UBUNTU_FWTS;
 
 
-##########################################################################
-handle_item  '#' kernel    ARCH_NETBOOT_X64      timestamping;
+########################################################################
+#-----------+----+--------+--------------------+------------------------
+#exec       |act.|type    |VAR. name of item   |optional options
+handle_item  '#'  kernel   ARCH_NETBOOT_X64     timestamping;
 
 
-##########################################################################
-handle_item  '-'  zip_img    PI_CORE;
-handle_item  '#'  zip_img    RPD_BASIC           timestamping;
-handle_item  '#'  zip_img    RPD_FULL            timestamping;
-handle_item  '#'  zip_img    RPD_LITE            timestamping;
+########################################################################
+#-----------+----+--------+--------------------+------------------------
+#exec       |act.|type    |VAR. name of item   |optional options
+handle_item  '-'  zip_img  PI_CORE;
+handle_item  '#'  zip_img  RPD_BASIC            timestamping;
+handle_item  '#'  zip_img  RPD_FULL             timestamping;
+handle_item  '#'  zip_img  RPD_LITE             timestamping;
 
 
-##########################################################################
+########################################################################
 ## must be the last, because it requireas an already mounted image
-##########################################################################
-handle_item  '-'  rpi_pxe    PI_CORE   RPI_SN0   bootcode,config,root;
-handle_item  '-'  rpi_pxe    RPD_BASIC RPI_SN0   bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
-handle_item  '-'  rpi_pxe    RPD_FULL  RPI_SN0   bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
-handle_item  '-'  rpi_pxe    RPD_LITE  RPI_SN0   bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
+########################################################################
+#-----------+----+--------+----------+---------+------------------------
+#exec       |act.|type    |VAR. name |VAR. sn  |optional options
+handle_item  '-'  rpi_pxe  PI_CORE    RPI_SN0   bootcode,config,root;
+handle_item  '-'  rpi_pxe  RPD_BASIC  RPI_SN0   bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
+handle_item  '-'  rpi_pxe  RPD_FULL   RPI_SN0   bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;
+handle_item  '-'  rpi_pxe  RPD_LITE   RPI_SN0   bootcode,cmdline,config,ssh,root,fstab,wpa,history,apt;

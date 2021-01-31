@@ -1,0 +1,518 @@
+#!/bin/bash
+
+########################################################################
+if [[ -z "$script_dir" ]]
+then
+  echo 'do not run this script directly !'
+  echo 'this script is part of run.sh'
+  exit -1
+fi
+########################################################################
+
+
+########################################################################
+BACKUP_FILE="${script_dir:?}/backup.tar.xz"
+BACKUP_TRANSFORM=s/^/$(date +%Y-%m-%dT%H_%M_%S)-pxe-server\\//
+
+do_backup() {
+    tar -ravf "${BACKUP_FILE:?}" --transform="${BACKUP_TRANSFORM:?}" -C / "${1:?}" &>/dev/null
+}
+
+
+########################################################################
+echo -e "\e[36msetup variables\e[0m";
+
+
+########################################################################
+########################################################################
+. "${script_dir:?}/p2-include-var.sh"
+. "${script_dir:?}/c2-custom-var.sh"
+
+
+echo
+echo -e "${KERNEL_MAJOR}.${KERNEL_MINOR} \e[36mis kernel version\e[0m";
+echo -e "${INTERFACE_ETH0} \e[36mis used as primary networkadapter for PXE\e[0m";
+echo -e "${IP_ETH0} \e[36mis used as primary IP address for PXE\e[0m";
+echo -e "${RPI_SN0} \e[36mis used as SN for RPi3 network booting\e[0m";
+echo
+
+if [[ -z "${IP_ETH0}" ]]; then
+    echo -e "\e[1;31mIP address not found. please check your ethernet cable.\e[0m";
+    exit 1
+fi
+
+if [[ -z "${IP_ETH0_ROUTER}" ]]; then
+    echo -e "\e[1;31mrouter IP address not found. please check your router settings.\e[0m";
+    exit 1
+fi
+
+[[ -z "${SRC_MOUNT}" ]] && sudo umount -f "${SRC_MOUNT}" &>/dev/null;
+[[ -z "${SRC_MOUNT}" ]] && sudo mount "${SRC_MOUNT}" &>/dev/null;
+
+
+########################################################################
+handle_chrony() {
+    ####################################################################
+    ## chrony
+    grep -q mod_install_server /etc/chrony/chrony.conf 2> /dev/null || {
+        echo -e "\e[36m    setup chrony\e[0m";
+        do_backup etc/chrony/chrony.conf
+        cat << EOF | sudo tee /etc/chrony/chrony.conf &>/dev/null
+########################################
+## mod_install_server
+allow
+
+server  ptbtime1.ptb.de  iburst
+server  ptbtime2.ptb.de  iburst
+server  ptbtime3.ptb.de  iburst
+server  ntp1.oma.be  iburst
+server  ntp2.oma.be  iburst
+
+pool  ${CUSTOM_LANGUAGE:?}.pool.ntp.org  iburst
+
+keyfile /etc/chrony/chrony.keys
+driftfile /var/lib/chrony/chrony.drift
+logdir /var/log/chrony
+maxupdateskew 100.0
+hwclockfile /etc/adjtime
+rtcsync
+makestep 1 5
+EOF
+        sudo systemctl restart chronyd.service;
+    }
+}
+
+
+########################################################################
+handle_dhcpcd() {
+    echo -e "\e[32mhandle_dhcpcd()\e[0m";
+
+    ####################################################################
+    grep -q mod_install_server /etc/dhcpcd.conf || {
+        echo -e "\e[36m    setup dhcpcd.conf\e[0m";
+        do_backup etc/dhcpcd.conf
+        cat << EOF | sudo tee -a /etc/dhcpcd.conf &>/dev/null
+
+########################################
+## mod_install_server
+interface ${INTERFACE_ETH0:?}
+    slaac private
+    static ip_address=${IP_ETH0:?}/24
+    static ip6_address=fd80::${IP_ETH0:?}/120
+    static routers=${IP_ETH0_ROUTER}
+    static domain_name_servers=${IP_ETH0_ROUTER} 1.1.1.1 2606:4700:4700::1111
+EOF
+    sudo systemctl daemon-reload;
+    sudo systemctl restart dhcpcd.service;
+    }
+}
+
+
+########################################################################
+handle_dnsmasq() {
+    echo -e "\e[32mhandle_dnsmasq()\e[0m";
+
+    ####################################################################
+    [[ -f /etc/dnsmasq.d/10-pxe-server ]] || {
+        echo -e "\e[36m    setup dnsmasq for pxe\e[0m";
+        do_backup etc/dnsmasq.d/10-pxe-server
+        cat << EOF | sudo tee /etc/dnsmasq.d/10-pxe-server &>/dev/null
+########################################
+#/etc/dnsmasq.d/pxeboot
+## mod_install_server
+
+log-dhcp
+#log-queries
+
+# for local resolve
+interface=lo
+
+# interface selection
+interface=${INTERFACE_ETH0:?}
+
+#
+bind-dynamic
+
+##########
+# TFTP_ETH0 (enabled)
+enable-tftp=${INTERFACE_ETH0:?}
+#tftp-lowercase
+tftp-root=${DST_TFTP_ETH0:?}/, ${INTERFACE_ETH0:?}
+dhcp-option=tag:${INTERFACE_ETH0:?}, option:tftp-server, 0.0.0.0
+
+##########
+# Time Server
+dhcp-option=tag:${INTERFACE_ETH0:?},  option:ntp-server,  0.0.0.0
+dhcp-option=tag:${INTERFACE_ETH0:?},  option6:ntp-server, [::]
+
+##########
+# DHCP
+log-dhcp
+#enable-ra
+
+# block NETGEAR managed switch
+dhcp-mac=set:block, 28:c6:8e:*:*:*
+
+# static IP
+#dhcp-host=set:known_128,  08:08:08:08:08:08, 192.168.1.128,  [fd80::192.168.1.128],  infinite
+#dhcp-host=set:known_129,  client_acb,        192.168.1.129,  [fd80::192.168.1.129],  infinite
+
+# dynamic IP
+dhcp-range=tag:${INTERFACE_ETH0:?},  tag:!block,  fd80::${IP_ETH0_START:?}, fd80::${IP_ETH0_END:?}, 120, 1h
+dhcp-range=tag:${INTERFACE_ETH0:?},  tag:!block,  ${IP_ETH0_START:?}, ${IP_ETH0_END:?}, 255.255.255.0, 1h
+
+##########
+# DNS (enabled)
+port=53
+#log-queries
+dns-loop-detect
+stop-dns-rebind
+bogus-priv
+domain-needed
+dhcp-option=tag:${INTERFACE_ETH0:?}, option:netbios-ns, 0.0.0.0
+dhcp-option=tag:${INTERFACE_ETH0:?}, option:netbios-dd, 0.0.0.0
+
+# PXE (enabled)
+# warning: unfortunately, a RPi3 identifies itself as of architecture x86PC (x86PC=0)
+dhcp-mac=set:IS_RPI3,B8:27:EB:*:*:*
+dhcp-mac=set:IS_RPI4,DC:A6:32:*:*:*
+dhcp-match=set:ARCH_0, option:client-arch, 0
+
+# test if it is a RPi or a regular x86PC
+tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI3
+tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI4
+
+##########
+# RPi 3
+pxe-service=tag:IS_RPI3,0, "Raspberry Pi Boot   ", bootcode.bin
+dhcp-boot=tag:IS_RPI3, bootcode.bin
+
+
+##########
+# iPXE
+dhcp-match=set:iPXE, option:user-class, iPXE
+dhcp-match=set:ipxe.priority,         175, 1   #= signed integer 8;
+dhcp-match=set:ipxe.keep-san,         175, 8   #= unsigned integer 8;
+dhcp-match=set:ipxe.skip-san-boot,    175, 9   #= unsigned integer 8;
+dhcp-match=set:ipxe.syslogs,          175, 85  #= string;
+dhcp-match=set:ipxe.cert,             175, 91  #= string;
+dhcp-match=set:ipxe.privkey,          175, 92  #= string;
+dhcp-match=set:ipxe.crosscert,        175, 93  #= string;
+dhcp-match=set:ipxe.no-pxedhcp,       175, 176 #= unsigned integer 8;
+dhcp-match=set:ipxe.bus-id,           175, 177 #= string;
+dhcp-match=set:ipxe.san-filename,     175, 188 #= string;
+dhcp-match=set:ipxe.bios-drive,       175, 189 #= unsigned integer 8;
+dhcp-match=set:ipxe.username,         175, 190 #= string;
+dhcp-match=set:ipxe.password,         175, 191 #= string;
+dhcp-match=set:ipxe.reverse-username, 175, 192 #= string;
+dhcp-match=set:ipxe.reverse-password, 175, 193 #= string;
+dhcp-match=set:ipxe.version,          175, 235 #= string;
+dhcp-match=set:iscsi-initiator-iqn,   175, 203 #= string;
+# Feature indicators
+dhcp-match=set:ipxe.pxeext,           175, 16  #= unsigned integer 8;
+dhcp-match=set:ipxe.iscsi,            175, 17  #= unsigned integer 8;
+dhcp-match=set:ipxe.aoe,              175, 18  #= unsigned integer 8;
+dhcp-match=set:ipxe.http,             175, 19  #= unsigned integer 8;
+dhcp-match=set:ipxe.https,            175, 20  #= unsigned integer 8;
+dhcp-match=set:ipxe.tftp,             175, 21  #= unsigned integer 8;
+dhcp-match=set:ipxe.ftp,              175, 22  #= unsigned integer 8;
+dhcp-match=set:ipxe.dns,              175, 23  #= unsigned integer 8;
+dhcp-match=set:ipxe.bzimage,          175, 24  #= unsigned integer 8;
+dhcp-match=set:ipxe.multiboot,        175, 25  #= unsigned integer 8;
+dhcp-match=set:ipxe.slam,             175, 26  #= unsigned integer 8;
+dhcp-match=set:ipxe.srp,              175, 27  #= unsigned integer 8;
+dhcp-match=set:ipxe.nbi,              175, 32  #= unsigned integer 8;
+dhcp-match=set:ipxe.pxe,              175, 33  #= unsigned integer 8;
+dhcp-match=set:ipxe.elf,              175, 34  #= unsigned integer 8;
+dhcp-match=set:ipxe.comboot,          175, 35  #= unsigned integer 8;
+dhcp-match=set:ipxe.efi,              175, 36  #= unsigned integer 8;
+dhcp-match=set:ipxe.fcoe,             175, 37  #= unsigned integer 8;
+dhcp-match=set:ipxe.vlan,             175, 38  #= unsigned integer 8;
+dhcp-match=set:ipxe.menu,             175, 39  #= unsigned integer 8;
+dhcp-match=set:ipxe.sdi,              175, 40  #= unsigned integer 8;
+dhcp-match=set:ipxe.nfs,              175, 41  #= unsigned integer 8;
+
+
+##########
+# PXE Linux
+dhcp-match=set:x86_UEFI, option:client-arch, 6
+dhcp-match=set:x64_UEFI, option:client-arch, 7
+dhcp-match=set:x64_UEFI, option:client-arch, 9
+tag-if=set:x86_BIOS, tag:ARCH_0, tag:!ARM_RPI
+
+#pxe-service=tag:x86_BIOS,x86PC, "PXE Boot Menu (BIOS 00:00)", ${DST_PXE_BIOS:?}/lpxelinux
+#pxe-service=6, "PXE Boot Menu (UEFI 00:06)", ${DST_PXE_EFI32:?}/bootia32.efi
+#pxe-service=tag:x86-64_EFI, "PXE Boot Menu (UEFI 00:07)", ${DST_PXE_EFI64:?}/bootx64.efi
+#pxe-service=9, "PXE Boot Menu (UEFI 00:09)", ${DST_PXE_EFI64:?}/bootx64.efi
+
+tag-if=set:ipxe_feature_rich, tag:iPXE,tag:ipxe.priority,tag:ipxe.bus-id,tag:ipxe.version,tag:ipxe.pxeext,tag:ipxe.iscsi,tag:ipxe.aoe,tag:ipxe.http,tag:ipxe.tftp,tag:ipxe.dns,tag:ipxe.bzimage,tag:ipxe.multiboot,tag:ipxe.pxe,tag:ipxe.elf,tag:ipxe.menu
+dhcp-boot=tag:iPXE,tag:ipxe_feature_rich,                menu-ipxe/menu.ipxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  menu-ipxe/undionly.kpxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, menu-ipxe/ipxe.efi
+dhcp-boot=tag:iPXE,tag:ipxe_feature_rich,                option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/menu.ipxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/undionly.kpxe
+dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/ipxe.efi
+
+dhcp-boot=tag:!iPXE,tag:x86_BIOS, ${DST_PXE_BIOS:?}/lpxelinux.0
+dhcp-boot=tag:!iPXE,tag:x86_UEFI, ${DST_PXE_EFI32:?}/bootia32.efi
+dhcp-boot=tag:!iPXE,tag:x64_UEFI, ${DST_PXE_EFI64:?}/bootx64.efi
+dhcp-option=tag:!iPXE,tag:x86_BIOS, option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/${DST_PXE_BIOS:?}/lpxelinux.0
+dhcp-option=tag:!iPXE,tag:x86_UEFI, option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/${DST_PXE_EFI32:?}/bootia32.efi
+dhcp-option=tag:!iPXE,tag:x64_UEFI, option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/${DST_PXE_EFI64:?}/bootx64.efi
+
+EOF
+        sudo systemctl restart dnsmasq.service;
+    }
+}
+
+
+########################################################################
+handle_hostapd() {
+    echo -e "\e[32mhandle_hostapd()\e[0m";
+
+    ####################################################################
+    grep -q mod_install_server /etc/hostapd/hostapd.conf || {
+        echo -e "\e[36m    setup hostapd.conf for wlan access point\e[0m";
+        do_backup etc/hostapd/hostapd.conf
+        cat << EOF | sudo tee /etc/hostapd/hostapd.conf &>/dev/null
+########################################
+#/etc/hostapd/hostapd.conf
+## mod_install_server
+interface=${INTERFACE_WLAN0:?}
+driver=${DRIVER_WLAN0:?}
+
+
+##### IEEE 802.11 related configuration #######################################
+country_code=${COUNTRY_WLAN0:?}
+ieee80211d=1
+
+##### 802.11b
+#hw_mode=b
+#channel=1
+#channel=6
+#channel=11
+
+##### 802.11g
+hw_mode=g
+channel=1
+#channel=5
+#channel=9
+#channel=13
+
+#channel=1
+#channel=6
+#channel=11
+
+##### 802.11n (hw_mode=g + ieee80211n=1)
+#channel=3
+#channel=11
+
+##### 802.11a
+#hw_mode=a
+#channel=36
+
+#macaddr_acl=1
+#accept_mac_file=/etc/hostapd.accept
+
+ignore_broadcast_ssid=0
+
+# QoS support (gives different packages different priority)
+#wmm_enabled=1
+
+
+##### IEEE 802.11n related configuration ######################################
+ieee80211n=1
+
+
+##### WPA/IEEE 802.11i configuration ##########################################
+# bit 0 (1) = WPA; bit 1 (2) = WEP; (3) = WPA + WEP
+auth_algs=1
+# bit 0 (1) = WPA; bit 1 (2) = WPA2 (IEEE822.11i/RSN); (3) = WPA + WPA2
+wpa=2
+wpa_key_mgmt=WPA-PSK
+# WPA2 encryption algorithm
+rsn_pairwise=CCMP
+
+#wpa_passphrase=${PASSWORD_WLAN0:?}
+wpa_psk=$(wpa_passphrase ${SSID_WLAN0:?} ${PASSWORD_WLAN0:?} | grep '[[:blank:]]psk' | cut -d = -f2)
+ssid=${SSID_WLAN0:?}
+
+
+## optional: create virtual wlan adapter
+#auth_algs=1
+#wpa=2
+#wpa_key_mgmt=WPA-PSK
+#rsn_pairwise=CCMP
+##wpa_passphrase=${PASSWORD_WLAN0X:?}
+#wpa_psk=$(wpa_passphrase ${SSID_WLAN0X:?} ${PASSWORD_WLAN0X:?} | grep '[[:blank:]]psk' | cut -d = -f2)
+#ssid=${SSID_WLAN0X:?}
+#bss=${INTERFACE_WLAN0X:?}
+EOF
+
+		################################################################
+		grep -q mod_install_server /etc/default/hostapd || {
+			echo -e "\e[36m    setup hostapd for wlan access point\e[0m";
+			do_backup etc/default/hostapd
+			cat << EOF | sudo tee /etc/default/hostapd &>/dev/null
+########################################
+#/etc/default/hostapd
+## mod_install_server
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
+EOF
+        }
+
+        sudo systemctl stop wpa_supplicant;
+        sudo systemctl disable wpa_supplicant;
+        sudo rfkill unblock wlan;
+
+        sudo systemctl unmask hostapd;
+        sudo systemctl enable hostapd;
+        sudo systemctl restart hostapd;
+    }
+}
+
+
+########################################################################
+handle_optional() {
+    echo -e "\e[32mhandle_optional()\e[0m";
+
+    ####################################################################
+    ## network nat
+    grep -q mod_install_server /etc/sysctl.conf 2> /dev/null || {
+        echo -e "\e[36m    setup sysctrl for nat\e[0m";
+        do_backup etc/sysctl.conf
+        cat << EOF | sudo tee -a /etc/sysctl.conf &>/dev/null
+########################################
+## mod_install_server
+net.ipv4.ip_forward=1
+net.ipv6.conf.all.forwarding=1
+net.ipv6.conf.${INTERFACE_ETH0:?}.accept_ra=2
+EOF
+        sudo sysctl -p &>/dev/null
+        sudo sysctl --system &>/dev/null
+    }
+
+
+    ####################################################################
+    ## network nat
+    sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
+        echo -e "\e[36m    setup iptables for nat\e[0m";
+        sudo iptables -t nat -A POSTROUTING -o "${INTERFACE_ETH0:?}" -j MASQUERADE -m comment --comment "NAT: masquerade traffic going out over ${INTERFACE_ETH0:?}"
+        sudo dpkg-reconfigure --unseen-only iptables-persistent
+    }
+}
+
+
+########################################################################
+handle_samba() {
+    echo -e "\e[32mhandle_samba()\e[0m";
+
+    ####################################################################
+    grep -q mod_install_server /etc/samba/smb.conf 2> /dev/null || ( \
+        echo -e "\e[36m    setup samba\e[0m";
+        do_backup etc/samba/smb.conf
+        #sudo sed -i /etc/samba/smb.conf -n -e "1,/#======================= Share Definitions =======================/p";
+        cat << EOF | sudo tee /etc/samba/smb.conf &>/dev/null
+########################################
+## mod_install_server
+#======================= Global Settings =======================
+[global]
+
+## Browsing/Identification ###
+   workgroup = WORKGROUP
+dns proxy = yes
+enhanced browsing = no
+
+#### Networking ####
+interfaces = ${IP_ETH0_0:?} ${INTERFACE_ETH0:?}
+bind interfaces only = yes
+
+#### Debugging/Accounting ####
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   syslog = 0
+   panic action = /usr/share/samba/panic-action %d
+
+####### Authentication #######
+   server role = standalone server
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+   pam password change = yes
+   map to guest = bad user
+
+########## Domains ###########
+
+############ Misc ############
+   usershare allow guests = yes
+
+#======================= Share Definitions =======================
+[srv]
+    path = ${DST_ROOT:?}
+    comment = /srv folder of pxe-server
+    guest ok = yes
+    guest only = yes
+    browseable = no
+    read only = no
+    create mask = 0644
+    directory mask = 0755
+    force create mode = 0644
+    force directory mode = 0755
+    force user = root
+    force group = root
+    hide dot files = no
+
+[media]
+    path = /media/
+    comment = /media folder of pxe-server
+    guest ok = yes
+    guest only = yes
+    browseable = no
+    read only = no
+    create mask = 0644
+    directory mask = 0755
+    force create mode = 0644
+    force directory mode = 0755
+    force user = root
+    force group = root
+    hide dot files = no
+EOF
+        sudo systemctl restart smbd.service;
+    )
+}
+
+
+########################################################################
+sudo mkdir -p "${DST_ISO:?}";
+sudo mkdir -p "${DST_IMG:?}";
+sudo mkdir -p "${DST_TFTP_ETH0:?}";
+sudo mkdir -p "${DST_NFS_ETH0:?}";
+
+
+########################################################################
+if [[ -d "/var/www/html" ]]; then
+    [[ -d "/var/www/html/srv" ]] || sudo mkdir -p /var/www/html/srv
+    [[ -h "/var/www/html/srv${ISO:?}" ]]      || sudo ln -s "${DST_ISO:?}"      "/var/www/html/srv${ISO:?}";
+    [[ -h "/var/www/html/srv${IMG:?}" ]]      || sudo ln -s "${DST_IMG:?}"      "/var/www/html/srv${IMG:?}";
+    [[ -h "/var/www/html/srv${NFS_ETH0:?}" ]] || sudo ln -s "${DST_NFS_ETH0:?}" "/var/www/html/srv${NFS_ETH0:?}";
+fi
+
+
+########################################################################
+#handle_hostapd;
+handle_dhcpcd;
+handle_dnsmasq;
+handle_samba;
+#handle_optional;
+handle_chrony;
+
+
+########################################################################
+. "${script_dir:?}/p2-update.sh"
+
+
+########################################################################
+#sync
+#echo -e "\e[32mDone.\e[0m";
+#echo -e "\e[1;31mPlease reboot\e[0m";
