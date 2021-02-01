@@ -59,15 +59,15 @@ esac
 echo "Available actions:"
 echo
 echo "'install'"
-echo "    This will run script 'p0-install.sh'"
+echo "    This will run script 'p0-install'"
 echo "    to install required packages"
 echo
 echo "'setup'"
-echo "    This will run script 'p1-setup.sh'"
+echo "    This will run script 'p1-setup'"
 echo "    to setup / configure services"
 echo
 echo "'update'"
-echo "    This will run script 'p2-update.sh'"
+echo "    This will run script 'p2-update'"
 echo "    to download and mount images"
 echo "    or unmount and remove images"
 echo "    and update menue items"
@@ -85,7 +85,7 @@ esac
 
 
 ########################################################################
-. "${script_dir:?}/${PASS:?}-${RUN:?}.sh"
+. "${script_dir:?}/${PASS:?}-${RUN:?}"
 
 
 ########################################################################

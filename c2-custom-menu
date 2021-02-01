@@ -25,7 +25,7 @@ fi
 #    LABEL $CUSTOM_ENTRY                                                 # This is best to use your $CUSTOM_ENTRY name, but can be any unique name with no whitespace
 #        MENU LABEL My Customized Linux x64                              # This can be anything. This is what will be displayed on the Menu
 #        KERNEL $FILE_BASE$NFS_ETH0/$CUSTOM_ENTRY/live/vmlinuz-5.7.7     # This entry and <unknown> entries below are what loads the OS. You'll have to determine these yourself
-#        INITRD $FILE_BASE$NFS_ETH0/$CUSTOM_ENTRY/live/initrd-5.7.7.lz   # Look at other entries in the main p2-include-menu.sh for a similar distro and try those/similar settings
+#        INITRD $FILE_BASE$NFS_ETH0/$CUSTOM_ENTRY/live/initrd-5.7.7.lz   # Look at other entries in the main p2-include-menu for a similar distro and try those/similar settings
 #        APPEND nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CUSTOM_ENTRY ro netboot=nfs ip=dhcp boot=live union=overlay livecd-installer console=tty splash --
 #        TEXT HELP
 #            Boot into My Custom Linux version x64      # This can be anything. This is what will be displayed when the menu entry is selected

@@ -91,16 +91,16 @@ replace **<mount_point>** with the path, where you mounted your USB stick.
 done.
 
 ## update:
-to update your images, update the url in the **p2-include-url.sh** and **c2-custom-url.sh** file<br />
+to update your images, update the url in the **p2-include-url** and **c2-custom-url** file<br />
 and re-run `bash run.sh`.
 this will download all updated iso files and menu entries.
 
 ## modifying the script:
-### p2-include-var.sh / c2-custom-var.sh
+### p2-include-var / c2-custom-var
 includes all important variables like source and destination directories, ip-addresses, and so on.
 e.g.: by changing '**DST_ROOT=/srv**' you can tell the script to download and store all iso to an external storage, instead of storing to the internal SD card.
 
-### p2-include-url.sh / c2-custom-url.sh
+### p2-include-url / c2-custom-url
 includes all url and name of images
 ```
 e.g.
@@ -108,7 +108,7 @@ DEBIAN_X64=debian-x64
 DEBIAN_X64_URL=https://...
 ```
 
-### p2-include-menu.sh / c2-custom-menu.sh
+### p2-include-menu / c2-custom-menu
 includes all pxe-menu entries and kernel parameters
 in the script, for each image there is a pxe-menu entry enclosed by<br />
 `#========== BEGIN ==========`<br />
@@ -116,7 +116,7 @@ and<br />
 `#=========== END ===========`<br />
 comments.
 
-### p2-include-handle.sh / c2-custom-handle.sh
+### p2-include-handle / c2-custom-handle
 includes all handler to control what image to download and expose to the pxe-server<br />
 if you don't want some iso images getting downloaded and mounted, you can disable images from handling '#'.<br />
 or '-' to uninstall the previous downloaded image and undo all mounting stuff for that image to free disk space.<br />
@@ -202,7 +202,7 @@ the root for HTML is defined in the **_lighttpd_** configuration file `/etc/ligh
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with German language (keyboard layout).
 if you don't like or want, remove those additional parameters just behind the ' --' in the menu entries
 
-to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var.sh** script or use **c2-custom-var.sh** to override those variables with your values.
+to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var** script or use **c2-custom-var** to override those variables with your values.
 ```
 CUSTOM_COUNTRY=DE
 CUSTOM_KEYMAP=de-latin1-nodeadkeys
@@ -221,7 +221,7 @@ but tested with an other computer it wont work - it depends on the UEFI firmware
 
 ## note4: NETWORK BOOTING for Raspberry Pi 3 client
 the server is prepared for to boot a Raspberry Pi 3 client via network.
-in the script ```p2-include-var.sh```, there is a ```RPI_SN0=--------``` line, change the ```--------``` to the serial number of the RPi3-**client**, that will boot from network later on.<br />
+in the script ```p2-include-var```, there is a ```RPI_SN0=--------``` line, change the ```--------``` to the serial number of the RPi3-**client**, that will boot from network later on.<br />
 skip the leading '00000000'. take only the last 8 digits!<br />
 e.g.
 ```
