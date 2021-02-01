@@ -59,11 +59,11 @@ esac
 echo "Available actions:"
 echo
 echo "'install'"
-echo "    This will run script 'p2-install.sh'"
+echo "    This will run script 'p0-install.sh'"
 echo "    to install required packages"
 echo
 echo "'setup'"
-echo "    This will run script 'p2-setup.sh'"
+echo "    This will run script 'p1-setup.sh'"
 echo "    to setup / configure services"
 echo
 echo "'update'"
