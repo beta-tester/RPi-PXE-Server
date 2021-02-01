@@ -18,7 +18,7 @@ fi
 #   handle_item  '+'  iso   CUSTOM_ENTRY2;
 #
 # Ensure your CUSTOM_ENTRY name is unique
-# and the same name as in c2-custom-url.sh and c2-custom-menu.sh
+# and the same name as in c2-custom-url and c2-custom-menu
 
 
 ########################################################################

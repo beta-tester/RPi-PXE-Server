@@ -24,14 +24,14 @@ echo -e "\e[36msetup variables\e[0m";
 
 ########################################################################
 ########################################################################
-. "${script_dir:?}/p2-include-var.sh"
-. "${script_dir:?}/c2-custom-var.sh"
+. "${script_dir:?}/p2-include-var"
+. "${script_dir:?}/c2-custom-var"
 
 
 ########################################################################
 ########################################################################
-. "${script_dir:?}/p2-include-url.sh"
-. "${script_dir:?}/c2-custom-url.sh"
+. "${script_dir:?}/p2-include-url"
+. "${script_dir:?}/c2-custom-url"
 
 
 echo
@@ -882,7 +882,7 @@ handle_ipxe() {
     fi
 
     sudo touch "${FILE_MENU:?}"
-    . "${script_dir:?}/p2-include-menu.sh" ipxe
+    . "${script_dir:?}/p2-include-menu" ipxe
 }
 
 
@@ -948,8 +948,8 @@ EOF
 
     ####################################################################
     ####################################################################
-    . "${script_dir:?}/p2-include-menu.sh"
-    . "${script_dir:?}/c2-custom-menu.sh"
+    . "${script_dir:?}/p2-include-menu"
+    . "${script_dir:?}/c2-custom-menu"
 }
 
 
@@ -1447,8 +1447,8 @@ fi
 
 ########################################################################
 ########################################################################
-. "${script_dir:?}/p2-include-handle.sh"
-. "${script_dir:?}/c2-custom-handle.sh"
+. "${script_dir:?}/p2-include-handle"
+. "${script_dir:?}/c2-custom-handle"
 
 
 ########################################################################

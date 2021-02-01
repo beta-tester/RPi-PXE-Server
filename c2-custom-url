@@ -31,4 +31,4 @@ fi
 #   ..._SUM_TYPE=  Optional. Hash function used to calculate the hash value of the image file
 #
 # Ensure your CUSTOM_ENTRY name is unique
-# and the same name as in c2-custom-handle.sh and c2-custom-menu.sh
+# and the same name as in c2-custom-handle and c2-custom-menu
