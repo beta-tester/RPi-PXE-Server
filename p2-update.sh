@@ -655,11 +655,11 @@ handle_zip_img() {
         sudo rm -f "${DST_IMG:?}/${FILE_URL:?}";
     fi
 
-    if [[ -s "${DST_IMG:?}/${FILE_IMG:?}" ]]; then
-        local OFFSET_BOOT=$((512*$(sfdisk -d "${DST_IMG:?}/${FILE_IMG:?}" | grep "${DST_IMG:?}/${FILE_IMG:?}"\1 | awk '{print $4}' | sed 's/,//')))
-        local SIZE_BOOT=$((512*$(sfdisk -d "${DST_IMG:?}/${FILE_IMG:?}" | grep "${DST_IMG:?}/${FILE_IMG:?}"\1 | awk '{print $6}' | sed 's/,//')))
-        local OFFSET_ROOT=$((512*$(sfdisk -d "${DST_IMG:?}/${FILE_IMG:?}" | grep "${DST_IMG:?}/${FILE_IMG:?}"\2 | awk '{print $4}' | sed 's/,//')))
-        local SIZE_ROOT=$((512*$(sfdisk -d "${DST_IMG:?}/${FILE_IMG:?}" | grep "${DST_IMG:?}/${FILE_IMG:?}"\2 | awk '{print $6}' | sed 's/,//')))
+    if [[ -s "${DST_IMG:?}/${FILE_IMG:?}" ]] && [[ $(sfdisk -d ${DST_IMG:?}/${FILE_IMG:?}) ]]; then
+        local OFFSET_BOOT=$((512*$(sfdisk -d ${DST_IMG:?}/${FILE_IMG:?} | grep ${DST_IMG:?}/${FILE_IMG:?}\1 | awk '{print $4}' | sed 's/,//')))
+        local SIZE_BOOT=$((512*$(sfdisk -d ${DST_IMG:?}/${FILE_IMG:?} | grep ${DST_IMG:?}/${FILE_IMG:?}\1 | awk '{print $6}' | sed 's/,//')))
+        local OFFSET_ROOT=$((512*$(sfdisk -d ${DST_IMG:?}/${FILE_IMG:?} | grep ${DST_IMG:?}/${FILE_IMG:?}\2 | awk '{print $4}' | sed 's/,//')))
+        local SIZE_ROOT=$((512*$(sfdisk -d ${DST_IMG:?}/${FILE_IMG:?} | grep ${DST_IMG:?}/${FILE_IMG:?}\2 | awk '{print $6}' | sed 's/,//')))
         #sfdisk -d "${DST_IMG:?}/${FILE_IMG:?}"
 
         sudo sed /etc/fstab   -i -e "/${NAME_BOOT:?}/d"
@@ -1469,4 +1469,4 @@ fi
 ########################################################################
 sync
 echo -e "\e[32mDone.\e[0m";
-echo -e "\e[1;31mPlease reboot\e[0m";
+#echo -e "\e[1;31mPlease reboot\e[0m";

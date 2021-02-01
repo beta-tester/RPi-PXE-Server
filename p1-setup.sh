@@ -568,4 +568,4 @@ handle_chrony;
 ########################################################################
 #sync
 #echo -e "\e[32mDone.\e[0m";
-#echo -e "\e[1;31mPlease reboot\e[0m";
+echo -e "\e[1;31mPlease reboot\e[0m";
