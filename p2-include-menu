@@ -1118,6 +1118,40 @@ fi
 #========== END ==========
 
 
+
+
+
+########################################################################
+#broken#
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]]; then
+	if [[ "${MENU_PXE}" == "${DST_PXE_BIOS}" ]]; then
+		echo  -e "\e[36m    add chainload-ipxe-bios\e[0m";
+		cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL chainload-ipxe-bios
+        MENU LABEL iPXE-Menu ->
+        PXE  ::/menu-ipxe/undionly.kpxe
+        TEXT HELP
+            Boot to iPXE (via chainload)
+        ENDTEXT
+EOF
+	else
+		echo  -e "\e[36m    add chainload-ipxe-efi\e[0m";
+		cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL chainload-ipxe-efi
+        MENU LABEL iPXE-Menu ->
+        PXE  ::/menu-ipxe/ipxe.efi
+        TEXT HELP
+            Boot to iPXE (via chainload)
+        ENDTEXT
+EOF
+	fi
+fi
+#=========== END ========
+
 else
 
 
@@ -1221,7 +1255,7 @@ item windows-wim-x86        Boot Windows PE x86 (WIM via http)
 item --gap --               ------------------------- Broken systems ----------------------------------
 item tails-x64              Boot Tails x64
 item --gap --               ------------------------- Tools and utilities ----------------------------
-item --key p pxelinux       Boot PXE Linux
+item --key p pxelinux       Boot PXE-Linux ->
 item --gap --               ------------------------- Advanced options -------------------------------
 item --key c config         Configure settings
 item shell                  Drop to iPXE shell
@@ -1564,7 +1598,7 @@ goto start
 :pxelinux
 set 209:string /pxelinux.cfg/default
 set 210:string \${pxe_menu}
-imgselect  \${210:string}/lpxelinux.0  || goto failed
+imgselect  /\${210:string}/lpxelinux.0  || goto failed
 imgexec                               || goto failed
 goto start
 

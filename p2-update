@@ -830,8 +830,10 @@ handle_ipxe() {
 handle_pxe_menu() {
     # $1 : menu short name
     # $2 : menu file name
+    local MENU_PXE="${1}"
+    local FILE_NAME="${2}"
     ####################################################################
-    local FILE_MENU="${DST_TFTP_ETH0:?}/${1:?}/pxelinux.cfg/${2:?}"
+    local FILE_MENU="${DST_TFTP_ETH0:?}/${MENU_PXE:?}/pxelinux.cfg/${FILE_NAME:?}"
     local FILE_BASE="http://${IP_ETH0:?}/srv"
     ####################################################################
     ## INFO:
@@ -846,17 +848,18 @@ handle_pxe_menu() {
     ## https://manpages.debian.org/stretch/live-config-doc/live-config.7.en.html
     ## http://manpages.ubuntu.com/manpages/precise/man7/live-config.7.html
     ####################################################################
-    echo -e "\e[32mhandle_pxe_menu(\e[0m${1:?}\e[32m)\e[0m";
+    echo -e "\e[32mhandle_pxe_menu(\e[0m${MENU_PXE:?}\e[32m)\e[0m";
     echo -e "\e[36m    setup sys menu for pxe\e[0m";
-    if ! [[ -d "${DST_TFTP_ETH0:?}/${1:?}/pxelinux.cfg" ]]; then sudo mkdir -p "${DST_TFTP_ETH0:?}/${1:?}/pxelinux.cfg"; fi
-    if [[ -d "${DST_TFTP_ETH0:?}/${1:?}/pxelinux.cfg" ]]; then
+    if ! [[ -d "${DST_TFTP_ETH0:?}/${MENU_PXE:?}/pxelinux.cfg" ]]; then sudo mkdir -p "${DST_TFTP_ETH0:?}/${MENU_PXE:?}/pxelinux.cfg"; fi
+    if [[ -d "${DST_TFTP_ETH0:?}/${MENU_PXE:?}/pxelinux.cfg" ]]; then
         cat << EOF | sudo tee "${FILE_MENU:?}" &>/dev/null
 ########################################
 # ${FILE_MENU:?}
 
 # http://www.syslinux.org/wiki/index.php?title=Menu
 
-DEFAULT vesamenu.c32
+DEFAULT menu.c32
+#DEFAULT vesamenu.c32
 #TIMEOUT 600
 #ONTIMEOUT localboot
 PROMPT 0
@@ -864,7 +867,7 @@ NOESCAPE 1
 ALLOWOPTIONS 1
 
 menu color title * #FFFFFFFF *
-menu title PXE Boot Menu (${1:?})
+menu title PXE-Linux Boot Menu (${MENU_PXE:?})
 menu rows 20
 menu tabmsgrow 24
 menu tabmsg [Enter]=boot, [Tab]=edit, [Esc]=return
@@ -912,14 +915,15 @@ handle_pxe() {
     [[ -d "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}" ]]              || sudo mkdir -p "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/lpxelinux.0" ]]  || sudo ln -s /usr/lib/PXELINUX/lpxelinux.0                "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/ldlinux.c32" ]]  || sudo ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32   "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/menu.c32" ]]     || sudo ln -s /usr/lib/syslinux/modules/bios/menu.c32      "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/vesamenu.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/bios/vesamenu.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/libcom32.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/bios/libcom32.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/libutil.c32" ]]  || sudo ln -s /usr/lib/syslinux/modules/bios/libutil.c32   "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/reboot.c32" ]]   || sudo ln -s /usr/lib/syslinux/modules/bios/reboot.c32    "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/poweroff.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/bios/poweroff.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/memdisk" ]]      || sudo ln -s /usr/lib/syslinux/memdisk                    "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/nfs" ]]          || sudo ln -s "${DST_NFS_ETH0:?}/"                               "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/nfs";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/iso" ]]          || sudo ln -s "${DST_ISO:?}/"                                    "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/iso";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/nfs" ]]          || sudo ln -s "${DST_NFS_ETH0:?}/"                         "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/nfs";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/iso" ]]          || sudo ln -s "${DST_ISO:?}/"                              "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/iso";
 
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/linux.c32" ]]    || sudo ln -s /usr/lib/syslinux/modules/bios/linux.c32     "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/";
     [[ -f "${DST_TFTP_ETH0:?}/${DST_PXE_BIOS:?}/wimboot" ]]  || ( \
@@ -933,13 +937,14 @@ handle_pxe() {
     [[ -d "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}" ]]              || sudo mkdir -p "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/bootia32.efi" ]] || sudo ln -s /usr/lib/SYSLINUX.EFI/efi32/syslinux.efi      "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/bootia32.efi";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/ldlinux.e32" ]]  || sudo ln -s /usr/lib/syslinux/modules/efi32/ldlinux.e32   "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/menu.c32" ]]     || sudo ln -s /usr/lib/syslinux/modules/efi32/menu.c32      "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/vesamenu.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/efi32/vesamenu.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/libcom32.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/efi32/libcom32.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/libutil.c32" ]]  || sudo ln -s /usr/lib/syslinux/modules/efi32/libutil.c32   "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/reboot.c32" ]]   || sudo ln -s /usr/lib/syslinux/modules/efi32/reboot.c32    "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/poweroff.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/efi32/poweroff.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/nfs" ]]          || sudo ln -s "${DST_NFS_ETH0:?}/"                                "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/nfs";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/iso" ]]          || sudo ln -s "${DST_ISO:?}/"                                     "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/iso";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/nfs" ]]          || sudo ln -s "${DST_NFS_ETH0:?}/"                          "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/nfs";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/iso" ]]          || sudo ln -s "${DST_ISO:?}/"                               "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/iso";
 
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/linux.c32" ]]    || sudo ln -s /usr/lib/syslinux/modules/efi32/linux.c32     "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/";
     [[ -f "${DST_TFTP_ETH0:?}/${DST_PXE_EFI32:?}/wimboot" ]] || ( \
@@ -951,15 +956,16 @@ handle_pxe() {
     ####################################################################
     echo -e "\e[36m    setup sys menu files for pxe efi64\e[0m";
     [[ -d "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}" ]]              || sudo mkdir -p "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/bootx64.efi" ]] || sudo ln -s /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi      "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/bootx64.efi";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/bootx64.efi" ]]  || sudo ln -s /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi      "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/bootx64.efi";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/ldlinux.e64" ]]  || sudo ln -s /usr/lib/syslinux/modules/efi64/ldlinux.e64   "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/menu.c32" ]]     || sudo ln -s /usr/lib/syslinux/modules/efi64/menu.c32      "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/vesamenu.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/efi64/vesamenu.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/libcom32.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/efi64/libcom32.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/libutil.c32" ]]  || sudo ln -s /usr/lib/syslinux/modules/efi64/libutil.c32   "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/reboot.c32" ]]   || sudo ln -s /usr/lib/syslinux/modules/efi64/reboot.c32    "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/poweroff.c32" ]] || sudo ln -s /usr/lib/syslinux/modules/efi64/poweroff.c32  "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/nfs" ]]          || sudo ln -s "${DST_NFS_ETH0:?}/"                                "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/nfs";
-    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/iso" ]]          || sudo ln -s "${DST_ISO:?}/"                                     "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/iso";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/nfs" ]]          || sudo ln -s "${DST_NFS_ETH0:?}/"                          "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/nfs";
+    [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/iso" ]]          || sudo ln -s "${DST_ISO:?}/"                               "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/iso";
 
     [[ -h "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/linux.c32" ]]    || sudo ln -s /usr/lib/syslinux/modules/efi64/linux.c32     "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/";
     [[ -f "${DST_TFTP_ETH0:?}/${DST_PXE_EFI64:?}/wimboot" ]] || (\
