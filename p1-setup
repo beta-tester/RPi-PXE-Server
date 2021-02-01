@@ -287,9 +287,9 @@ tag-if=set:ipxe_feature_rich, tag:iPXE,tag:ipxe.priority,tag:ipxe.bus-id,tag:ipx
 dhcp-boot=tag:iPXE,tag:ipxe_feature_rich,                menu-ipxe/menu.ipxe
 dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  menu-ipxe/undionly.kpxe
 dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, menu-ipxe/ipxe.efi
-dhcp-boot=tag:iPXE,tag:ipxe_feature_rich,                option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/menu.ipxe
-dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/undionly.kpxe
-dhcp-boot=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/ipxe.efi
+dhcp-option=tag:iPXE,tag:ipxe_feature_rich,                option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/menu.ipxe
+dhcp-option=tag:iPXE,tag:!ipxe_feature_rich,tag:x86_BIOS,  option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/undionly.kpxe
+dhcp-option=tag:iPXE,tag:!ipxe_feature_rich,tag:!x86_BIOS, option6:bootfile-url, tftp://[fd80::${IP_ETH0:?}]/menu-ipxe/ipxe.efi
 
 dhcp-boot=tag:!iPXE,tag:x86_BIOS, ${DST_PXE_BIOS:?}/lpxelinux.0
 dhcp-boot=tag:!iPXE,tag:x86_UEFI, ${DST_PXE_EFI32:?}/bootia32.efi
