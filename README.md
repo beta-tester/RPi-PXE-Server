@@ -127,30 +127,32 @@ handle_item  '-'  iso   UBUNTU_LTS_X64;
 handle_item  '#'  iso   UBUNTU_DAILY_X64         timestamping;
 ...
 ```
-action:
-   '+' = add image to PXE service
+**_action:_**
+
+   **'+'** = add image to PXE service
          download if not there
          update if new version is available
 
-   '-' = remove image from PXE service
+   **'-'** = remove image from PXE service
          free resources on server
          if backup exist, keep updating backup
 
-   '#' = skip image handling
+   **'#'** = skip image handling
          keep everything untouched
          does not updating backup
          good, when timestamping option is set but want to keep the current version and you don't want to download each daily update
 
-type:
-   iso     = iso image (ISO, UDF, ISO_HYBRID)
+**_type:_**
 
-   img     = hard drive image (MPT, GPT)
+   **iso**     = iso image (ISO, UDF, ISO_HYBRID)
 
-   kernel  = kernel
+   **img**     = hard drive image (MPT, GPT)
 
-   zip_img = zip file containing a hard drive image (zip -> img -> MTP/GPT)
+   **kernel**  = kernel
 
-   rpi_pxe = only if you want to pxe boot a RPi3.
+   **zip_img** = zip file containing a hard drive image (zip -> img -> MTP/GPT)
+
+   **rpi_pxe** = only if you want to pxe boot a RPi3.
                copies files from its selected image boot & root partition to PXE server directories
                requires an already mounted hard drive image (img or zip_img)
                note: Action '-' does nothing for rpi_pxe. It is not implemented.
@@ -255,7 +257,7 @@ and another issue is, overlayfs can't handle **vfat** partitions as source (lowe
 some of the PXE-menu entries has additional parameters, that lets the Live systems boot with German language (keyboard layout).
 if you don't like or want, remove those additional parameters just behind the ' --' in the menu entries
 
-to easily change the language to your favorite ones, there are variables on the top part of the **p2-include-var** script or use **c2-custom-var** to override those variables with your values.
+to easily change the language to your favorite ones, there are variables in the **c2-custom-var** file to set those variables with your values.
 ```
 CUSTOM_COUNTRY=DE
 CUSTOM_KEYMAP=de-latin1-nodeadkeys
