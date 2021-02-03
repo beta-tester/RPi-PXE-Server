@@ -68,7 +68,7 @@ server  ptbtime3.ptb.de  iburst
 server  ntp1.oma.be  iburst
 server  ntp2.oma.be  iburst
 
-pool  ${CUSTOM_LANGUAGE:?}.pool.ntp.org  iburst
+pool  pool.ntp.org  iburst
 
 keyfile /etc/chrony/chrony.keys
 driftfile /var/lib/chrony/chrony.drift
