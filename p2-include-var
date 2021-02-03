@@ -19,15 +19,6 @@ fi
 ##  and other variables...
 ########################################################################
 ########################################################################
-CUSTOM_COUNTRY=DE
-CUSTOM_KEYMAP=de-latin1-nodeadkeys
-CUSTOM_KMAP=qwertz/de-latin1
-CUSTOM_LANGUAGE=de
-CUSTOM_LAYOUTCODE=de
-CUSTOM_LOCALE=de_DE.UTF-8
-CUSTOM_TIMEZONE=Europe/Berlin
-CUSTOM_VARIANT=German
-########################################################################
 RPI_SN0=--------
 RPI_SN1=--------
 RPI_SN2=--------
