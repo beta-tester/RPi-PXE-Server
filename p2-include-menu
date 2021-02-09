@@ -888,6 +888,38 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
+&& [[ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]]; then
+    if ! [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
+        #echo  -e "\e[36m    download patch for $TAILS_X64\e[0m";
+        #sudo wget --quiet -O $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz https://github.com/beta-tester/RPi-PXE-Server/files/?/$TAILS_X64-hotfix-pxe.cpio.xz
+        :
+    fi
+    if [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
+        echo  -e "\e[36m    add $TAILS_X64\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+    ##       see:
+    ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
+    ########################################
+    LABEL $TAILS_X64
+        MENU LABEL Tails x64
+        KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+        APPEND ip=dhcp fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC systemd.mask=tails-shutdown-on-media-removal.service -- keyboard-layouts=$CUSTOM_LAYOUTCODE
+        TEXT HELP
+            Boot to Tails x64 Live
+        ENDTEXT
+EOF
+    else
+        echo  -e "\e[1;31m    failed $TAILS_X64,\e[0m"
+        echo  -e "\e[1;31m        please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/31\e[0m";
+    fi
+fi
+#========== END ==========
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]] \
 && [[ -f "$DST_NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz" ]]; then
     echo  -e "\e[36m    add $UBUNTU_FWTS\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
@@ -1074,38 +1106,6 @@ LABEL -
 	MENU DISABLE
 EOF
 fi
-
-#========== BEGIN ==========
-if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]]; then
-    if ! [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
-        #echo  -e "\e[36m    download patch for $TAILS_X64\e[0m";
-        #sudo wget --quiet -O $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz https://github.com/beta-tester/RPi-PXE-Server/files/?/$TAILS_X64-hotfix-pxe.cpio.xz
-        :
-    fi
-    if [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
-        echo  -e "\e[36m    add $TAILS_X64\e[0m";
-        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
-    ########################################
-    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-    ##       see:
-    ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
-    ########################################
-    LABEL $TAILS_X64
-        MENU LABEL Tails x64
-        KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-        APPEND ip=dhcp fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC -- keyboard-layouts=$CUSTOM_LAYOUTCODE
-        TEXT HELP
-            Boot to Tails x64 Live
-        ENDTEXT
-EOF
-    else
-        echo  -e "\e[1;31m    failed $TAILS_X64,\e[0m"
-        echo  -e "\e[1;31m        please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/31\e[0m";
-    fi
-fi
-#========== END ==========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
@@ -1383,6 +1383,7 @@ item knoppix-x86            Boot Knoppix x86
 item opensuse-rescue-x64    Boot openSUSE Rescue x64
 item rpdesktop-x86          Boot Raspberry Pi Desktop
 item systemrescue-x64       Boot System Rescue x64
+item tails-x64              Boot Tails x64
 item ubuntu-studio-x64      Boot Ubuntu Studio x64
 item --gap --               ------------------------- Windows systems ----------------------------------
 item windows-iso-x64        Boot Windows PE x64 (ISO via http)
@@ -1392,7 +1393,6 @@ item windows-pxe-x86        Boot Windows PE x86 (PXE via tftp)
 item windows-wim-x64        Boot Windows PE x64 (WIM via http)
 item windows-wim-x86        Boot Windows PE x86 (WIM via http)
 item --gap --               ------------------------- Broken systems ----------------------------------
-item tails-x64              Boot Tails x64
 item --gap --               ------------------------- Tools and utilities ----------------------------
 item --key p pxelinux       Boot PXE-Linux ->
 item --gap --               ------------------------- Advanced options -------------------------------
@@ -1668,7 +1668,7 @@ goto start
 ###
 :tails-x64
 set custom   -- keyboard-layouts=\${lasyoutcode}
-set options  ip=dhcp BOOTIF=\${hwaddr} fetch=\${base}/\${os}/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC debug ignore_loglevel log_buf_len=10M print_fatal_signals=1 LOGLEVEL=8 earlyprintk=vga,keep sched_debug
+set options  ip=dhcp BOOTIF=\${hwaddr} fetch=\${base}/\${os}/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC systemd.mask=tails-shutdown-on-media-removal.service
 imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
 imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
 imgfetch   \${base}/\${os}-hotfix-pxe.cpio.xz                   || goto failed
