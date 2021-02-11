@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-02-08
+# v 2021-02-11
 
 # check for broken url
 #   for i in $(grep "[A-Z0-9_]_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -33,6 +33,7 @@ fi
 #                      https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/
 # devuan               https://files.devuan.org/devuan_beowulf/desktop-live/
 # dragon os            https://sourceforge.net/projects/dragonos-focal/files/
+# finnix               https://linode-london.mirrors.finnix.org/pub/mirrors/finnix/releases/current/
 # gnuradio             https://wiki.gnuradio.org/index.php/GNU_Radio_Live_SDR_Environment
 #                      http://eu2-dist.gnuradio.org/
 # parrotsec            https://cdimage.parrotsec.org/parrot/iso/
@@ -134,6 +135,12 @@ FEDORA_X64=fedora-x64
 FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/33/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-33-1.2.iso
 FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/33/Workstation/x86_64/iso/Fedora-Workstation-33-1.2-x86_64-CHECKSUM
 FEDORA_X64_SUM_TYPE=sha256
+
+
+FINNIX_X64=finnix-x64
+FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-122.iso
+FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-122.iso.gpg
+FINNIX_X64_SUM_TYPE=gpg
 
 
 GNURADIO_X64=gnuradio-x64
