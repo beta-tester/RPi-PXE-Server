@@ -769,7 +769,7 @@ if [[ -f "$FILE_MENU" ]] \
         MENU LABEL DragonOS x64
         KERNEL $FILE_BASE$NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DRAGONOS_X64/casper/initrd.gz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DRAGONOS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DRAGONOS_X64 ro netboot=nfs file=/cdrom/preseed/custom.seed boot=casper -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
         TEXT HELP
             Boot to DragonOS x64 Live
             User: live
@@ -1446,6 +1446,7 @@ goto start
 ### ubuntu based
 :dragonos-x64
 set ext2 .gz
+set seed custom.seed
 goto ubuntu
 
 :eset-rescue-x86
@@ -1454,29 +1455,35 @@ goto ubuntu
 :desinfect-x64
 :desinfect-x86
 set ext2 .lz
+set seed ubuntu.seed
 goto ubuntu
 
 :gnuradio-x64
 set ext1 .efi
 set ext2 .lz
+set seed ubuntu.seed
 goto ubuntu
 
-:kubuntu-daily-x64
-:kubuntu-x64
 :lubuntu-daily-x64
 :lubuntu-x64
+set seed lubuntu.seed
+goto ubuntu
+
 :ubuntu-daily-x64
 :ubuntu-studio-daily-x64
 :ubuntu-studio-x64
 :ubuntu-x64
+:kubuntu-daily-x64
+:kubuntu-x64
 :xubuntu-daily-x64
 :xubuntu-x64
+set seed ubuntu.seed
 goto ubuntu
 
 :ubuntu
 #set custom   -- debian-installer/locale=\${locale} debian-installer/language=\${language} console-setup/layoutcode=\${layoutcode} keyboard-configuration/layoutcode=\${layoutcode} keyboard-configuration/variant=\${variant}
 set custom   -- debian-installer/locale=\${locale} console-setup/layoutcode=\${layoutcode} keyboard-configuration/layoutcode=\${layoutcode} keyboard-configuration/variant=\${variant}
-set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper memtest=4 rmdns
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs file=/cdrom/preseed/\${seed} boot=casper memtest=4 rmdns
 imgselect  \${base}/\${os}/casper/vmlinuz\${ext1}  \${options}  \${custom}  || goto failed
 imgfetch   \${base}/\${os}/casper/initrd\${ext2}                          || goto failed
 imgexec                                                                || goto failed
