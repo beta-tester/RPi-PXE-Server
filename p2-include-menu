@@ -23,8 +23,8 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Live operating systems ---\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Live operating systems ------------------------------
-	MENU DISABLE
+    MENU LABEL --- Live operating systems ------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -463,8 +463,8 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Pentesting systems -------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Pentesting systems ----------------------------------
-	MENU DISABLE
+    MENU LABEL --- Pentesting systems ----------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -629,8 +629,8 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Virus scanner systems ----\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Virus scanner systems -------------------------------
-	MENU DISABLE
+    MENU LABEL --- Virus scanner systems -------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -716,8 +716,8 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Other systems ------------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Other systems ---------------------------------------
-	MENU DISABLE
+    MENU LABEL --- Other systems ---------------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -773,6 +773,24 @@ if [[ -f "$FILE_MENU" ]] \
         TEXT HELP
             Boot to DragonOS x64 Live
             User: live
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]] \
+&& [[ -f "$DST_NFS_ETH0/$FINNIX_X64/live/vmlinuz" ]]; then
+    echo  -e "\e[36m    add $FINNIX_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $FINNIX_X64
+        MENU LABEL Finnix x64
+        KERNEL $FILE_BASE$NFS_ETH0/$FINNIX_X64/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$FINNIX_X64/live/initrd.img
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$FINNIX_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        TEXT HELP
+            Boot to Finnix x64 Live
         ENDTEXT
 EOF
 fi
@@ -986,8 +1004,8 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Windows systems ----------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Windows systems -------------------------------------
-	MENU DISABLE
+    MENU LABEL --- Windows systems -------------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -1102,8 +1120,8 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Broken systems -----------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Broken systems --------------------------------------
-	MENU DISABLE
+    MENU LABEL --- Broken systems --------------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -1173,16 +1191,16 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Tools and utilities ------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Tools and utilities ---------------------------------
-	MENU DISABLE
+    MENU LABEL --- Tools and utilities ---------------------------------
+    MENU DISABLE
 EOF
 fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]]; then
-	if [[ "${MENU_PXE}" == "${DST_PXE_BIOS}" ]]; then
-		echo  -e "\e[36m    add chainload-ipxe-bios\e[0m";
-		cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    if [[ "${MENU_PXE}" == "${DST_PXE_BIOS}" ]]; then
+        echo  -e "\e[36m    add chainload-ipxe-bios\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL chainload-ipxe-bios
         MENU LABEL iPXE-Menu ->
@@ -1191,9 +1209,9 @@ if [[ -f "$FILE_MENU" ]]; then
             Boot to iPXE (via chainload)
         ENDTEXT
 EOF
-	else
-		echo  -e "\e[36m    add chainload-ipxe-efi\e[0m";
-		cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    else
+        echo  -e "\e[36m    add chainload-ipxe-efi\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL chainload-ipxe-efi
         MENU HIDE
@@ -1205,7 +1223,7 @@ EOF
             Boot to iPXE (via chainload)
         ENDTEXT
 EOF
-	fi
+    fi
 fi
 #=========== END ========
 
@@ -1217,15 +1235,15 @@ if [[ -f "$FILE_MENU" ]]; then
     echo  -e "\e[36m    add section --- Tools and utilities ------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
-	MENU LABEL --- Advanced options ------------------------------------
-	MENU DISABLE
+    MENU LABEL --- Advanced options ------------------------------------
+    MENU DISABLE
 EOF
 fi
 
 if [[ -f "$FILE_MENU" ]]; then
-	if [[ "${MENU_PXE}" == "${DST_PXE_BIOS}" ]]; then
-		echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
-		cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    if [[ "${MENU_PXE}" == "${DST_PXE_BIOS}" ]]; then
+        echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 ########################################
 LABEL reboot
     MENU LABEL Reboot
@@ -1237,25 +1255,25 @@ LABEL poweroff
 
 
 EOF
-	else
-		echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
-		cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    else
+        echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
+        cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 ########################################
 LABEL reboot
-	MENU HIDE
-	# not working under UEFI / SecureBoot
+    MENU HIDE
+    # not working under UEFI / SecureBoot
     MENU LABEL Reboot
     COM32 reboot.c32
 ########################################
 LABEL poweroff
-	MENU HIDE
-	# not working under UEFI / SecureBoot
+    MENU HIDE
+    # not working under UEFI / SecureBoot
     MENU LABEL Power Off
     COM32 poweroff.c32
 
 
 EOF
-	fi
+    fi
 fi
 
 
@@ -1266,8 +1284,8 @@ if [[ -f "$FILE_MENU" ]]; then
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 ########################################################################
 LABEL -
-	MENU LABEL --- Custom systems --------------------------------------
-	MENU DISABLE
+    MENU LABEL --- Custom systems --------------------------------------
+    MENU DISABLE
 EOF
 fi
 
@@ -1302,7 +1320,7 @@ if [[ -f "$FILE_MENU" ]]; then
     cat << EOF | sudo tee $FILE_MENU &>/dev/null
 #!ipxe
 
-# 2021-01-30
+# 2021-02-11
 # made by https://github.com/beta-tester
 # for project https://github.com/beta-tester/RPi-PXE-Server
 
@@ -1378,6 +1396,7 @@ item kaspersky-rescue-x86   Boot Kaspersky Rescue Disk x86
 item --gap --               ------------------------- Other systems ----------------------------------
 item clonezilla-x64         Boot Clonezilla x64
 item dragonos-x64           Boot DragonOS x64
+item finnix-x64             Boot Finnix x64
 item gnuradio-x64           Boot GNU Radio x64
 item knoppix-x86            Boot Knoppix x86
 item opensuse-rescue-x64    Boot openSUSE Rescue x64
@@ -1507,6 +1526,9 @@ goto start
 :debian-x64
 :debian-x86
 set version  $DEBIAN_KVER
+goto debian
+
+:debian
 set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
 set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
 imgselect  \${base}/\${os}/live/vmlinuz-\${version}-\${arch}  \${options}  \${custom}  || goto failed
@@ -1654,6 +1676,17 @@ goto start
 :clonezilla-x86
 set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} utc=no timezone=\${timezone}
 set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt
+imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
+imgexec                                                       || goto failed
+goto start
+
+
+########################################################################
+###
+:finnix-x64
+set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
+set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
 imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
 imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
 imgexec                                                       || goto failed
