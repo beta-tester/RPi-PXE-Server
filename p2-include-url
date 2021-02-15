@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-02-11
+# v 2021-02-15
 
 # check for broken url
 #   for i in $(grep "[A-Z0-9_]_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -111,12 +111,12 @@ DEFTZ_X64_SUM_TYPE=md5
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.0.0_amd64_desktop-live.iso
+DEVUAN_X64_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.1.0_amd64_desktop-live.iso
 DEVUAN_X64_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.txt
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
-DEVUAN_X86_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.0.0_i386_desktop-live.iso
+DEVUAN_X86_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.1.0_i386_desktop-live.iso
 DEVUAN_X86_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.txt
 DEVUAN_X86_SUM_TYPE=sha256
 
