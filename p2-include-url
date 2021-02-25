@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-02-15
+# v 2021-02-25
 
 # check for broken url
 #   for i in $(grep "[A-Z0-9_]_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -148,7 +148,7 @@ GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnura
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2020.4-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2021.1-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -229,19 +229,19 @@ SYSTEMRESCUE_X64=systemrescue-x64
 SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/7.01/systemrescue-7.01-amd64.iso
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.15.1/tails-amd64-4.15.1.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.15.1/tails-amd64-4.15.1.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.16/tails-amd64-4.16.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.16/tails-amd64-4.16.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
 TINYCORE_X64=tinycore-x64
-TINYCORE_X64_URL=http://tinycorelinux.net/11.x/x86_64/release/TinyCorePure64-current.iso
-TINYCORE_X64_SUM=http://tinycorelinux.net/11.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
+TINYCORE_X64_URL=http://tinycorelinux.net/12.x/x86_64/release/TinyCorePure64-current.iso
+TINYCORE_X64_SUM=http://tinycorelinux.net/12.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
 TINYCORE_X64_SUM_TYPE=md5
 
 TINYCORE_X86=tinycore-x86
-TINYCORE_X86_URL=http://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso
-TINYCORE_X86_SUM=http://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso.md5.txt
+TINYCORE_X86_URL=http://tinycorelinux.net/12.x/x86/release/TinyCore-current.iso
+TINYCORE_X86_SUM=http://tinycorelinux.net/12.x/x86/release/TinyCore-current.iso.md5.txt
 TINYCORE_X86_SUM_TYPE=md5
 
 
