@@ -166,6 +166,44 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
+&& [[ -f "$DST_NFS_ETH0/$EMMABUNTUS_X64/live/vmlinuz" ]]; then
+    echo  -e "\e[36m    add $EMMABUNTUS_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $EMMABUNTUS_X64
+        MENU LABEL EmmaDE x64
+        KERNEL $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X64/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X64/live/initrd.img
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$EMMABUNTUS_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        TEXT HELP
+            Boot to EmmaDE x64 Live LXDE
+            User: user, Password: live
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]] \
+&& [[ -f "$DST_NFS_ETH0/$EMMABUNTUS_X86/live/vmlinuz" ]]; then
+    echo  -e "\e[36m    add $EMMABUNTUS_X86\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $EMMABUNTUS_X86
+        MENU LABEL EmmaDE x86
+        KERNEL $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X86/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X86/live/initrd.img
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$EMMABUNTUS_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        TEXT HELP
+            Boot to EmmaDE x86 Live LXDE
+            User: user, Password: live
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]] \
 && [[ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]]; then
     echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
@@ -818,11 +856,11 @@ fi
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
 && [[ -f "$DST_NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux" ]]; then
-    if ! [[ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz" ]]; then
+    if ! [[ -f "$DST_NFS_ETH0/$KNOPPIX_X86_EXTRA_INITRD" ]]; then
         echo  -e "\e[36m    download patch for $KNOPPIX_X86\e[0m";
-        sudo wget --quiet -O $DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz https://github.com/beta-tester/RPi-PXE-Server/files/3932135/$KNOPPIX_X86-miniroot-8.6.1.gz
+        sudo wget --quiet -O $DST_NFS_ETH0/$KNOPPIX_X86_EXTRA_INITRD $KNOPPIX_X86_EXTRA_INITRD_URL
     fi
-    if [[ -f "$DST_NFS_ETH0/$KNOPPIX_X86-miniroot-8.6.1.gz" ]]; then
+    if [[ -f "$DST_NFS_ETH0/$KNOPPIX_X86_EXTRA_INITRD" ]]; then
         echo  -e "\e[36m    add $KNOPPIX_X86\e[0m";
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
@@ -832,7 +870,7 @@ if [[ -f "$FILE_MENU" ]] \
     LABEL $KNOPPIX_X86
         MENU LABEL Knoppix x86
         KERNEL $FILE_BASE$NFS_ETH0/$KNOPPIX_X86/boot/isolinux/linux
-        INITRD $FILE_BASE$NFS_ETH0/knoppix-x86-miniroot-8.6.1.gz
+        INITRD $FILE_BASE$NFS_ETH0/$KNOPPIX_X86_EXTRA_INITRD
         APPEND ip=dhcp nfsdir=$IP_ETH0:$DST_NFS_ETH0/$KNOPPIX_X86 nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix -- lang=de
         TEXT HELP
             Boot to Knoppix x86 Live
@@ -1379,6 +1417,7 @@ item arch-netboot-x64       Boot Arch netboot x64
 item debian-x64             Boot Debian x64
 item devuan-x64             Boot Devuan x64
 item fedora-x64             Boot Fedora x64
+item emmabuntus-x64         Boot EmmaDE x64
 item mint-x64               Boot Linux Mint x64
 item opensuse-x64           Boot openSUSE x64
 item tinycore-x64           Boot Tiny Core x64
@@ -1526,33 +1565,38 @@ goto start
 :debian-x64
 :debian-x86
 set version  $DEBIAN_KVER
+set file1    vmlinuz-\${version}-\${arch}
+set file2    initrd.img-\${version}-\${arch}
+set extra
+goto debian
+
+:devuan-x64
+:devuan-x86
+set file1  vmlinuz
+set file2  initrd.img
+set extra  username=devuan
+goto debian
+
+:emmabuntus-x64
+:emmabuntus-x86
+set file1  vmlinuz
+set file2  initrd.img
+set extra
+goto debian
+
+:rpdesktop-x64
+:rpdesktop-x86
+set file1  vmlinuz2
+set file2  initrd2.img
+set extra
 goto debian
 
 :debian
 set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
 set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
-imgselect  \${base}/\${os}/live/vmlinuz-\${version}-\${arch}  \${options}  \${custom}  || goto failed
-imgfetch   \${base}/\${os}/live/initrd.img-\${version}-\${arch}                      || goto failed
+imgselect   \${base}/\${os}/live/\${file1}  \${options} \${extra}  \${custom}  || goto failed
+imgfetch    \${base}/\${os}/live/\${file2}                     || goto failed
 imgexec                                                                          || goto failed
-goto start
-
-
-:devuan-x64
-:devuan-x86
-set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
-set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live username=devuan config
-imgselect  \${base}/\${os}/live/vmlinuz  \${options}  \${custom}  || goto failed
-imgfetch   \${base}/\${os}/live/initrd.img                      || goto failed
-imgexec                                                       || goto failed
-goto start
-
-
-:rpdesktop-x86
-set custom   -- locales=\${locale} keyboard-layouts=\${layoutcode} timezone=\${timezone} utc=no
-set options  ip=dhcp nfsroot=\${nfsroot}/\${os} ro netboot=nfs boot=live config
-imgselect  \${base}/\${os}/live/vmlinuz2  \${options}  \${custom}  || goto failed
-imgfetch   \${base}/\${os}/live/initrd2.img                      || goto failed
-imgexec                                                        || goto failed
 goto start
 
 
@@ -1699,7 +1743,7 @@ goto start
 set custom   -- lang=de
 set options  ip=dhcp nfsdir=\${nfsroot}/\${os} nodhcp ramdisk_size=100000 init=/sbin/init apm=power-off nomce loglevel=1 libata.force=noncq tz=localtime hpsa.hpsa_allow_any=1 BOOT_IMAGE=knoppix
 imgselect  \${base}/\${os}/boot/isolinux/linux  \${options}  \${custom}  || goto failed
-imgfetch   \${base}/\${os}-miniroot-8.6.1.gz                           || goto failed
+imgfetch   \${base}/$KNOPPIX_X86_EXTRA_INITRD                           || goto failed
 imgexec                                                              || goto failed
 goto start
 

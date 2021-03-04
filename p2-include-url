@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-03-01
+# v 2021-03-03
 
 # check for broken url
 #   for i in $(grep "[A-Z0-9_]_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -65,6 +65,8 @@ fi
 # rpi-raspbian         https://downloads.raspberrypi.org/raspios_armhf/images/
 # piCore               http://tinycorelinux.net/9.x/armv6/releases/RPi/
 #                      http://tinycorelinux.net/9.x/armv7/releases/RPi/
+# emmabuntus           https://emmabuntus.org/
+#                      https://sourceforge.net/projects/emmabuntus/files/
 
 
 ########################################################################
@@ -127,6 +129,17 @@ DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/Dragon
 DRAGONOS_X64_SUM_TYPE=md5
 
 
+EMMABUNTUS_X64=emmabuntus-x64
+EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus%20DE3/Images/1.04/emmabuntus-de3-amd64-10.8-1.04.iso
+EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus%20DE3/Images/1.04/emmabuntus-de3-amd64-10.8-1.04.iso.sha256
+EMMABUNTUS_X64_SUM_TYPE=sha256
+
+EMMABUNTUS_X86=emmabuntus-x86
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus%20DE3/Images/1.04/emmabuntus-de3-i686-10.8-1.04.iso
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus%20DE3/Images/1.04/emmabuntus-de3-i686-10.8-1.04.iso.sha256
+EMMABUNTUS_X86_SUM_TYPE=sha256
+
+
 ESET_SYSRESCUE_X86=eset-rescue-x86
 ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_cd/latest/eset_sysrescue_live_enu.iso
 
@@ -161,6 +174,8 @@ KNOPPIX_X86=knoppix-x86
 KNOPPIX_X86_URL=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V9.1DVD-2021-01-25-DE.iso
 KNOPPIX_X86_SUM=https://ftp.gwdg.de/pub/linux/knoppix/dvd/KNOPPIX_V9.1DVD-2021-01-25-DE.iso.sha256
 KNOPPIX_X86_SUM_TYPE=sha256
+KNOPPIX_X86_EXTRA_INITRD=knoppix-x86-miniroot-9.1.gz
+KNOPPIX_X86_EXTRA_INITRD_URL=https://github.com/beta-tester/RPi-PXE-Server/files/6081579/knoppix-x86-miniroot-9.1.gz
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
