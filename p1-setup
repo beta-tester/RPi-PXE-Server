@@ -474,8 +474,8 @@ bind interfaces only = yes
     directory mask = 0755
     force create mode = 0644
     force directory mode = 0755
-    force user = root
-    force group = root
+    force user = $USER
+    force group = $USER
     hide dot files = no
 EOF
         sudo systemctl restart smbd.service;
