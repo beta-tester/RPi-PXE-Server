@@ -97,10 +97,10 @@ handle_item  '+'  iso   WIN_PE_X64;
 
 #broken#
 handle_item  '-'  iso   ANDROID_X86;
-handle_item  '-'  iso   CENTOS_X64;
 
-#discontinued# handle_item  '#'  iso    DEFT_X64;
-#discontinued# handle_item  '#'  iso    DEFTZ_X64  ,gid=root,uid=root,norock,mode=292;
+#discontinued# handle_item  '#'  iso   CENTOS_X64;
+#discontinued# handle_item  '#'  iso   DEFT_X64;
+#discontinued# handle_item  '#'  iso   DEFTZ_X64  ,gid=root,uid=root,norock,mode=292;
 
 
 ########################################################################
