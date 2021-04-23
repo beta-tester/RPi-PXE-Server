@@ -102,14 +102,14 @@ DEBIAN_X86_SUM_TYPE=sha256
 
 
 DEFT_X64=deft-x64
-DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/iso/deft-8.2.iso
-DEFT_X64_SUM=https://na.mirror.garr.it/mirrors/deft/md5.txt
-DEFT_X64_SUM_TYPE=md5
+#DEFT_X64_URL=https://na.mirror.garr.it/mirrors/deft/iso/deft-8.2.iso
+#DEFT_X64_SUM=https://na.mirror.garr.it/mirrors/deft/md5.txt
+#DEFT_X64_SUM_TYPE=md5
 
 DEFTZ_X64=deftz-x64
-DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
-DEFTZ_X64_SUM=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso.md5
-DEFTZ_X64_SUM_TYPE=md5
+#DEFTZ_X64_URL=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso
+#DEFTZ_X64_SUM=https://na.mirror.garr.it/mirrors/deft/zero/deftZ-2018-2.iso.md5
+#DEFTZ_X64_SUM_TYPE=md5
 
 
 DEVUAN_X64=devuan-x64
@@ -217,7 +217,7 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/current/Parrot-security-4.11_amd64.iso
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/current/Parrot-security-4.11.1_amd64.iso
 PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/current/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
@@ -321,9 +321,9 @@ ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64
 
 
 CENTOS_X64=centos-x64
-CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-2003.iso
-CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.txt
-CENTOS_X64_SUM_TYPE=sha256
+#CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-2003.iso
+#CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.txt
+#CENTOS_X64_SUM_TYPE=sha256
 
 
 ########################################################################
