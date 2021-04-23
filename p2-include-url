@@ -222,7 +222,7 @@ PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/current/signed-hash
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/current/Parrot-home-4.11_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/current/Parrot-home-4.11.1_amd64.iso
 PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/current/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
@@ -286,8 +286,8 @@ UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/21.04/rel
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/20.10/ubuntu-21.04-desktop-amd64.iso
-UBUNTU_X64_SUM=https://releases.ubuntu.com/20.10/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/21.04/ubuntu-21.04-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/21.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
