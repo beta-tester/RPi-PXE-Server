@@ -124,8 +124,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR13.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR13.iso.md5
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR14-Preview.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Focal_PublicR14-Preview.iso.md5
 DRAGONOS_X64_SUM_TYPE=md5
 
 
