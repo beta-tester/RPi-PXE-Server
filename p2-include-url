@@ -222,7 +222,7 @@ PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.11.2/signed-hashe
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.11.2/Parrot-home-4.11.2_amd64.iso
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.11.2/Parrot-kde-home-4.11.2_amd64.iso
 PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.11.2/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
