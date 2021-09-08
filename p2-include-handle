@@ -78,7 +78,7 @@ handle_item  '#'  iso   PENTOO_BETA_X64          timestamping;
 handle_item  '#'  iso   PENTOO_X64               timestamping;
 handle_item  '#'  iso   RPDESKTOP_X86            timestamping;
 handle_item  '-'  iso   SYSTEMRESCUE_X64;
-handle_item  '-'  iso   TAILS_X64;
+handle_item  '-'  img   TAILS_X64;
 handle_item  '+'  iso   TINYCORE_X64             timestamping;
 handle_item  '#'  iso   TINYCORE_X86             timestamping;
 handle_item  '#'  iso   UBUNTU_DAILY_X64         timestamping;
