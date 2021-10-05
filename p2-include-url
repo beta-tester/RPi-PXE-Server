@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-09-21
+# v 2021-10-05
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -241,7 +241,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/8.04/systemrescue-8.04-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/8.05/systemrescue-8.05-amd64.iso
+
 
 TAILS_X64=tails-x64
 TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.22/tails-amd64-4.22.img
