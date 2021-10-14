@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-10-12
+# v 2021-10-14
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -113,8 +113,8 @@ DEFTZ_X64=deftz-x64
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.1.1_amd64_desktop-live.iso
-DEVUAN_X64_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.txt
+DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.0_amd64_desktop-live.iso
+DEVUAN_X64_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.0_amd64_desktop-live.iso.sha256
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
@@ -282,13 +282,13 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/21.04/release/ubuntustudio-21.04-dvd-amd64.iso
-UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/21.04/release/SHA256SUMS
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/21.10/release/ubuntustudio-21.10-dvd-amd64.iso
+UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/21.10/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/21.04/ubuntu-21.04-desktop-amd64.iso
-UBUNTU_X64_SUM=https://releases.ubuntu.com/21.04/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/21.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
