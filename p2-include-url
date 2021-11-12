@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-11-05
+# v 2021-11-12
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -217,13 +217,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.11.2/Parrot-kde-security-4.11.2_amd64.iso
-PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.11.2/signed-hashes.txt
+PARROT_FULL_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.11.3/Parrot-kde-security-4.11.3_amd64.iso
+PARROT_FULL_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.11.3/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.11.2/Parrot-kde-home-4.11.2_amd64.iso
-PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.11.2/signed-hashes.txt
+PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/4.11.3/Parrot-kde-home-4.11.3_amd64.iso
+PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/4.11.3/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
