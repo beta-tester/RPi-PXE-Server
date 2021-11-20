@@ -67,7 +67,7 @@ IP_WLAN0_END=192.168.251.110
 IP_WLAN0_MASK=255.255.255.0
 ########################################################################
 DRIVER_WLAN0=nl80211
-COUNTRY_WLAN0=$CUSTOM_COUNTRY
+COUNTRY_WLAN0=US
 PASSWORD_WLAN0=p@ssw0rd
 SSID_WLAN0=wlan0@domain.local
 INTERFACE_WLAN0X=wlan0x
