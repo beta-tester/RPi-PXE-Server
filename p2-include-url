@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2021-12-29
+# v 2022-01-06
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo Ok = $i || echo failed $? = $i; done
@@ -200,8 +200,8 @@ LUBUNTU_LTS_X86_SUM_TYPE=sha256
 
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/20.2/linuxmint-20.2-cinnamon-64bit.iso
-MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/20.2/sha256sum.txt
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/20.3/linuxmint-20.3-cinnamon-64bit.iso
+MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/20.3/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
 
 
