@@ -435,24 +435,120 @@ EOF
 
     ####################################################################
     ## network nat
-    sudo iptables -t nat --list | grep -q MASQUERADE 2> /dev/null || {
-        echo -e "\e[36m    setup iptables for nat\e[0m";
-        sudo iptables -t nat -A POSTROUTING -o "${INTERFACE_ETH0:?}" -j MASQUERADE -m comment --comment "NAT: masquerade traffic going out over ${INTERFACE_ETH0:?}"
-        sudo dpkg-reconfigure --unseen-only iptables-persistent
+    do_backup etc/nftables.conf
+    cat << EOF | sudo tee /etc/nftables.conf &> /dev/null
+#!/usr/sbin/nft -f
+
+# https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_home_router
+# /etc/nftables.conf
+# sudo nft -f my_file
+# sudo nft list ruleset
+# sudo nft -j list ruleset
+
+flush ruleset
+
+define DEV_PRIVATE = ${INTERFACE_ETH0:?}
+define DEV_WORLD = ${INTERFACE_WLAN0:?}
+define NET_PRIVATE = ${IP_ETH0_0:?}
+define NET6_PRIVATE = { fd80::0/96, }
+
+table ip global {
+
+    chain inbound_world {
+        #icmp type echo-request limit rate 1/second burst 2 packets accept
+
+        #ip protocol . th dport vmap {
+        #    udp . 53 : accept, tcp . 53 : accept, # DNS
+        #    udp . 5353 : accept, tcp . 5353 : accept, # mDNS
+        #    udp . 853 : accept, tcp . 853 : accept, # DNS over TLS
+        #    udp . 67 : accept, # DHCP
+        #    tcp . ntp : accept,
+        #}
     }
 
-    ####################################################################
-    ## network nat limit access of eth1 and wlan0
-    sudo iptables-save | grep -q LIMIT-ACCESS 2> /dev/null || {
-        echo -e "\e[36m    setup iptables for limiting traffic of ${INTERFACE_ETH1:?}\e[0m";
-        sudo iptables -t filter -A INPUT -s "${IP_ETH1_0:?}" ! -d "${IP_ETH1_0:?}" -j REJECT --reject-with icmp-host-unreachable -m comment --comment "LIMIT-ACCESS: reject all traffic from (eth1) going to outside own subnet"
-        sudo iptables -t filter -A INPUT -s "${IP_WLAN0_0:?}" ! -d "${IP_WLAN0_0:?}" -j REJECT --reject-with icmp-host-unreachable -m comment --comment "LIMIT-ACCESS: reject all traffic from (wlan0) going to outside own subnet"
-        sudo iptables -t filter -A FORWARD -s "${IP_WLAN0_0:?}" -j REJECT --reject-with icmp-host-unreachable -m comment --comment "LIMIT-ACCESS: reject all traffic from (wlan0) going to internet"
-        sudo iptables -t nat -A PREROUTING ! -i "${INTERFACE_ETH0:?}" -p udp -m multiport --dports 53,135,853,5353 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all (udp) DNS traffic from all but ${INTERFACE_ETH0:?} to local DNS server"
-        sudo iptables -t nat -A PREROUTING ! -i "${INTERFACE_ETH0:?}" -p tcp -m multiport --dports 53,135,853,5353 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all (tcp) DNS traffic from all but ${INTERFACE_ETH0:?} to local DNS server"
-        sudo iptables -t nat -A PREROUTING ! -i "${INTERFACE_ETH0:?}" -p udp -m multiport --dports 123 -j REDIRECT -m comment --comment "LIMIT-ACCESS: redirect all NTP traffic from all but ${INTERFACE_ETH0:?} to local NTP server"
-        sudo dpkg-reconfigure --unseen-only iptables-persistent
+    chain inbound_private {
+        icmp type echo-request limit rate 1/second burst 2 packets accept
+
+        ip protocol . th dport vmap {
+            udp . 53 : accept, tcp . 53 : accept, # DNS
+            udp . 5353 : accept, tcp . 5353 : accept, # mDNS
+            udp . 853 : accept, tcp . 853 : accept, # DNS over TLS
+            udp . 67 : accept, # DHCP
+            tcp . ssh : accept,
+            tcp . 5900 : accept, # VNC
+            tcp . 139 : accept, tcp . 445 : accept, # SMB
+            tcp . http : accept,
+            tcp . tftp : accept,
+            tcp . nfs : accept,
+            tcp . ntp : accept,
+            tcp . gpsd : accept,
+        }
     }
+
+    chain inbound {
+        type filter hook input priority 0; policy drop;
+
+        # Allow traffic from established and related packets, drop invalid
+        ct state vmap {
+            established : accept,
+            related : accept,
+            invalid : drop
+        }
+
+        # allow loopback traffic, anything else jump to chain for further evaluation
+        iifname vmap {
+            lo : accept,
+            \$DEV_PRIVATE : jump inbound_private,
+            \$DEV_WORLD : jump inbound_world,
+        }
+
+        # the rest is dropped by the above policy
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+
+        # Allow traffic from established and related packets, drop invalid
+        ct state vmap {
+            established : accept,
+            related : accept,
+            invalid : drop
+        }
+
+        # connections from the internal net to the internet or to other
+        # internal nets are allowed
+        iifname \$DEV_PRIVATE accept
+
+        # the rest is dropped by the above policy
+    }
+
+    chain postrouting {
+        type nat hook postrouting priority 100; policy accept;
+
+        # masquerade private IP addresses
+        #ip saddr \$NET_PRIVATE oifname \$DEV_WORLD masquerade
+
+        # masquerade traffic from private interface
+        #iifname \$DEV_PRIVATE oifname \$DEV_WORLD masquerade
+
+        # masquerade all traffic to world interface
+        oifname \$DEV_WORLD masquerade
+    }
+}
+
+# TODO
+table ip6 global {
+    chain inbound {
+        type filter hook input priority 0; policy drop;
+    }
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+    }
+    chain postrouting {
+        type filter hook postrouting priority 0; policy drop;
+    }
+}
+EOF
 }
 
 
