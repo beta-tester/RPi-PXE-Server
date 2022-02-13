@@ -109,6 +109,7 @@ interface ${INTERFACE_ETH1:?}
     static ip6_address=fd80::${IP_ETH1:?}/120
     static routers=${IP_ETH1_ROUTER}
     static domain_name_servers=${IP_ETH1_ROUTER}
+    vendorclassid
 
 ########################################
 interface ${INTERFACE_WLAN0:?}
@@ -117,6 +118,7 @@ interface ${INTERFACE_WLAN0:?}
     static ip6_address=fd80::${IP_WLAN0:?}/120
     static routers=${IP_WLAN0_ROUTER}
     static domain_name_servers=${IP_WLAN0_ROUTER}
+    vendorclassid
 EOF
     sudo systemctl daemon-reload;
     sudo systemctl restart dhcpcd.service;
