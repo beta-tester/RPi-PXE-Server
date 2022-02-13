@@ -137,13 +137,6 @@ sudo apt install -y --no-install-recommends hostapd
 
 
 ########################################################################
-echo -e "\e[32minstall iptables for network address translation (NAT)\e[0m";
-echo "iptables-persistent     iptables-persistent/autosave_v4 boolean true" | sudo debconf-set-selections;
-echo "iptables-persistent     iptables-persistent/autosave_v6 boolean true" | sudo debconf-set-selections;
-sudo apt install -y --no-install-recommends iptables iptables-persistent
-
-
-########################################################################
 $(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
     echo -e "\e[32minstall chrony as ntp client and ntp server\e[0m";
     sudo apt install -y --no-install-recommends chrony;
