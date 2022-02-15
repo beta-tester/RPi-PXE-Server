@@ -462,28 +462,25 @@ table ip global {
         #ip protocol . th dport vmap {
         #    udp . 53 : accept, tcp . 53 : accept, # DNS
         #    udp . 5353 : accept, tcp . 5353 : accept, # mDNS
-        #    udp . 853 : accept, tcp . 853 : accept, # DNS over TLS
-        #    udp . 67 : accept, # DHCP
-        #    tcp . ntp : accept,
+        #    udp . 67 : accept, udp . 68 : accept, # DHCP
+        #    udp . 123 : accept, # NTP
         #}
     }
 
     chain inbound_private {
         icmp type echo-request limit rate 1/second burst 2 packets accept
 
+        # TODO: fedora can nfsboot, ubuntu & debian can't! why?
         ip protocol . th dport vmap {
             udp . 53 : accept, tcp . 53 : accept, # DNS
             udp . 5353 : accept, tcp . 5353 : accept, # mDNS
-            udp . 853 : accept, tcp . 853 : accept, # DNS over TLS
-            udp . 67 : accept, # DHCP
-            tcp . ssh : accept,
-            tcp . 5900 : accept, # VNC
+            udp . 67 : accept, udp . 68 : accept, # DHCP
+            udp . 123 : accept, # NTP
             tcp . 139 : accept, tcp . 445 : accept, # SMB
-            tcp . http : accept,
-            tcp . tftp : accept,
-            tcp . nfs : accept,
-            tcp . ntp : accept,
-            tcp . gpsd : accept,
+            tcp . 80 : accept, # HTTP
+            udp . 69 : accept, # TFTP
+            udp . 111 : accept, tcp . 111 : accept, # RPC
+            udp . 2049 : accept, tcp . 2049 : accept, # NFS
         }
     }
 
