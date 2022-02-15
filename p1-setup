@@ -441,7 +441,9 @@ EOF
     cat << EOF | sudo tee /etc/nftables.conf &> /dev/null
 #!/usr/sbin/nft -f
 
+# https://wiki.nftables.org/wiki-nftables/index.php/Main_Page
 # https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_home_router
+# https://www.netfilter.org/projects/nftables/manpage.html
 # /etc/nftables.conf
 # sudo nft -f my_file
 # sudo nft list ruleset
