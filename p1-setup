@@ -444,7 +444,7 @@ EOF
 	echo '# mod_install_server' | sudo tee -a /etc/default/nfs-kernel-server &>/dev/null
     }
     grep -q mod_install_server /etc/nftables.conf 2> /dev/null || {
-        echo -e "\e[36m    setup nfs-kernel-server for firewall\e[0m";
+        echo -e "\e[36m    setup nftables for firewall\e[0m";
         do_backup etc/nftables.conf
         cat << EOF | sudo tee /etc/nftables.conf &> /dev/null
 #!/usr/sbin/nft -f
