@@ -436,10 +436,21 @@ EOF
 
 
     ####################################################################
-    ## network nat
-    do_backup etc/nftables.conf
-    cat << EOF | sudo tee /etc/nftables.conf &> /dev/null
+    ## network firewall
+    grep -q mod_install_server /etc/default/nfs-kernel-server 2> /dev/null || {
+        echo -e "\e[36m    setup nfs-kernel-server for firewall\e[0m";
+        do_backup etc/default/nfs-kernel-server
+        sudo sed /etc/default/nfs-kernel-server -i -e 's/RPCMOUNTDOPTS=.*$/RPCMOUNTDOPTS=\"--manage-gids -p 20048\"/'
+	echo '# mod_install_server' | sudo tee -a /etc/default/nfs-kernel-server &>/dev/null
+    }
+    grep -q mod_install_server /etc/nftables.conf 2> /dev/null || {
+        echo -e "\e[36m    setup nfs-kernel-server for firewall\e[0m";
+        do_backup etc/nftables.conf
+        cat << EOF | sudo tee /etc/nftables.conf &> /dev/null
 #!/usr/sbin/nft -f
+
+## mod_install_server
+## mod_install_stratum_one
 
 # https://wiki.nftables.org/wiki-nftables/index.php/Main_Page
 # https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_home_router
@@ -453,6 +464,7 @@ flush ruleset
 
 define DEV_PRIVATE = ${INTERFACE_ETH0:?}
 define DEV_WORLD = ${INTERFACE_WLAN0:?}
+define DEV_WORLD2 = ${INTERFACE_ETH1:?}
 define NET_PRIVATE = ${IP_ETH0_0:?}
 define NET6_PRIVATE = { fd80::0/96, }
 
@@ -463,8 +475,8 @@ table ip global {
 
         #ip protocol . th dport vmap {
         #    udp . 53 : accept, tcp . 53 : accept, # DNS
-        #    udp . 5353 : accept, tcp . 5353 : accept, # mDNS
-        #    udp . 67 : accept, udp . 68 : accept, # DHCP
+        #    udp . 5353 : accept, # mDNS
+        #    udp . 67 : accept, # DHCP
         #    udp . 123 : accept, # NTP
         #}
     }
@@ -472,17 +484,20 @@ table ip global {
     chain inbound_private {
         icmp type echo-request limit rate 1/second burst 2 packets accept
 
-        # TODO: fedora can nfsboot, ubuntu & debian can't! why?
         ip protocol . th dport vmap {
             udp . 53 : accept, tcp . 53 : accept, # DNS
-            udp . 5353 : accept, tcp . 5353 : accept, # mDNS
-            udp . 67 : accept, udp . 68 : accept, # DHCP
+            udp . 5353 : accept, # mDNS
+            udp . 67 : accept, # DHCP
             udp . 123 : accept, # NTP
             tcp . 139 : accept, tcp . 445 : accept, # SMB
             tcp . 80 : accept, # HTTP
             udp . 69 : accept, # TFTP
-            udp . 111 : accept, tcp . 111 : accept, # RPC
+            udp . 111 : accept, tcp . 111 : accept, # RPC-BIND
             udp . 2049 : accept, tcp . 2049 : accept, # NFS
+            udp . 20048 : accept, tcp . 20048 : accept, # RPC-MOUNTD
+            tcp . 22 : accept, # SSH
+            tcp . 5900 : accept, # VNC
+            tcp . 2947 : accept, # GPSD
         }
     }
 
@@ -501,6 +516,7 @@ table ip global {
             lo : accept,
             \$DEV_PRIVATE : jump inbound_private,
             \$DEV_WORLD : jump inbound_world,
+            \$DEV_WORLD2 : jump inbound_world,
         }
 
         # the rest is dropped by the above policy
