@@ -46,7 +46,7 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
 
 ### software:
-- **Raspberry Pi OS Buster** or **Raspberry Pi OS Buster Lite** (2021-01-11), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspberry Pi OS Bullseye** or **Raspberry Pi OS Bullseye Lite**, https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
