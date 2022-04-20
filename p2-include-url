@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2022-04-12
+# v 2022-04-20
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -336,7 +336,7 @@ CENTOS_X64=centos-x64
 #  update the url, if disk image is outdated
 ########################################################################
 PI_CORE=pi-core
-PI_CORE_URL=http://tinycorelinux.net/9.x/armv7/releases/RPi/piCore-9.0.3.zip
+PI_CORE_URL=http://tinycorelinux.net/13.x/armv7/releases/RPi/piCore-13.1.0.zip
 
 
 RPD_BASIC=rpi-raspbian-basic
