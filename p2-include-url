@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2022-04-20
+# v 2022-04-21
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -185,13 +185,13 @@ LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA2
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/lubuntu-20.04.4-desktop-amd64.iso
-LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/20.04/release/SHA256SUMS
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/lubuntu-22.04-desktop-amd64.iso
+LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/21.10/release/lubuntu-21.10-desktop-amd64.iso
-LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/21.10/release/SHA256SUMS
+LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/lubuntu-22.04-desktop-amd64.iso
+LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X86=lubuntu-lts-x86
@@ -268,13 +268,13 @@ UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-22.01.00-x86_64.img.xz
+UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-22.03.00-x86_64.img.xz
 UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/20.04/ubuntu-20.04.4-desktop-amd64.iso
-UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/20.04/SHA256SUMS
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04/ubuntu-22.04-desktop-amd64.iso
+UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
@@ -283,13 +283,13 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/21.10/release/ubuntustudio-21.10-dvd-amd64.iso
-UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/21.10/release/SHA256SUMS
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/22.04/release/ubuntustudio-22.04-dvd-amd64.iso
+UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/22.04/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso
-UBUNTU_X64_SUM=https://releases.ubuntu.com/21.10/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/22.04/ubuntu-22.04-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
