@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2022-05-11
+# v 2022-05-18
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -162,7 +162,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2022.1-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2022.2-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -180,7 +180,7 @@ KNOPPIX_X86_EXTRA_INITRD_URL=https://github.com/beta-tester/RPi-PXE-Server/files
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/jammy-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/kinetic-desktop-amd64.iso
 LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
@@ -263,7 +263,7 @@ TINYCORE_X86_SUM_TYPE=md5
 
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/jammy-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/kinetic-desktop-amd64.iso
 UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
@@ -278,7 +278,7 @@ UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/jammy-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/kinetic-dvd-amd64.iso
 UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/SHA256SUMS
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
