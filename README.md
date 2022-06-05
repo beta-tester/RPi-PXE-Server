@@ -46,11 +46,11 @@ WAN───╢DSL router╟───╢ s ║       ║RPi-  ╠╣USB-stick║
 optional, if your SD card is too small or you don't want to have all the server content on the SD card, you can use the USB memory stick to hold all content. for that you have to do small tiny changes on the '**p2-include-var-sh**' script, by changing '**DST_ROOT=/srv**' to something else.
 
 ### software:
-- **Raspberry Pi OS Buster** or **Raspberry Pi OS Buster Lite** (2021-01-11), https://www.raspberrypi.org/downloads/raspbian/)
+- **Raspberry Pi OS Bullseye** or **Raspberry Pi OS Bullseye Lite**, https://www.raspberrypi.org/downloads/raspbian/)
 
 ## installation:
 assuming,
-- your Raspberry Pi is running Raspberry Pi OS Buster (or Lite) from 2021-01-11,
+- your Raspberry Pi is running Raspberry Pi OS Bullseye (or Lite),
 - and has a proper connection to the internet via LAN (eth0).
 - and your SD card can hold all the iso images (16GB when you use unmodified script)
 
@@ -286,7 +286,7 @@ Serial          : 0000000087654321
 then take ```RPI_SN0=87654321```.<br />
 if you have more than one RPi3-client for network booting you have to add them by hand to the ```/srv/tftp``` folder on the PXE-server.
 
-the script will download Raspberry Pi OS Buster Lite and prepare it for the RPi3-client with the given serial number.
+the script will download Raspberry Pi OS Lite and prepare it for the RPi3-client with the given serial number.
 
 by default, a RPi3-client is not enabled for network booting. you have to enable it once.
 
