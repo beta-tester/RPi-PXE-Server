@@ -201,7 +201,7 @@ LUBUNTU_LTS_X86_SUM_TYPE=sha256
 
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/21/linuxmint-21-cinnamon-64bit.iso.iso
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/21/linuxmint-21-cinnamon-64bit.iso
 MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/21/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
 
