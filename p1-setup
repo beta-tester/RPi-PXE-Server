@@ -180,7 +180,7 @@ dhcp-match=set:ARCH_0, option:client-arch, 0
 
 # test if it is a RPi or a regular x86PC
 tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI3
-tag-if=set:ARM_RPI, tag:ARCH_0, tag:IS_RPI4
+tag-if=set:ARM_RPI, tag:tag:IS_RPI4
 
 ##########
 # RPi 3
