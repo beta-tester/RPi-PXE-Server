@@ -114,8 +114,8 @@ DEFTZ_X64=deftz-x64
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.0_amd64_desktop-live.iso
-DEVUAN_X64_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.0_amd64_desktop-live.iso.sha256
+DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.1_amd64_desktop-live.iso
+DEVUAN_X64_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.1_amd64_desktop-live.iso.sha256
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
@@ -223,8 +223,8 @@ PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/5.0.1/signed-hashes.tx
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://cdimage.parrotsec.org/parrot/iso/5.0.1/Parrot-home-5.0.1_amd64.iso
-PARROT_LITE_X64_SUM=https://cdimage.parrotsec.org/parrot/iso/5.0.1/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/5.0.1/Parrot-home-5.0.1_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/5.0.1/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
