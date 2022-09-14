@@ -114,13 +114,13 @@ DEFTZ_X64=deftz-x64
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.1_amd64_desktop-live.iso
-DEVUAN_X64_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.1_amd64_desktop-live.iso.sha256
+DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.2_amd64_desktop-live.iso
+DEVUAN_X64_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/SHA256SUMS.txt
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
-DEVUAN_X86_URL=https://files.devuan.org/devuan_beowulf/desktop-live/devuan_beowulf_3.1.1_i386_desktop-live.iso
-DEVUAN_X86_SUM=https://files.devuan.org/devuan_beowulf/desktop-live/SHA256SUMS.txt
+DEVUAN_X86_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.2_i386_desktop-live.iso
+DEVUAN_X86_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/SHA256SUMS.txt
 DEVUAN_X86_SUM_TYPE=sha256
 
 
