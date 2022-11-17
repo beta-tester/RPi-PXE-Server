@@ -240,6 +240,12 @@ RPDESKTOP_X86_SUM=https://www.raspberrypi.org/downloads/raspberry-pi-desktop/
 RPDESKTOP_X86_SUM_TYPE=sha256
 
 
+RESCUEZILLA_X64=rescuezilla-x64
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.4.1/rescuezilla-2.4.1-64bit.jammy.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/
+RESCUEZILLA_X64_SUM_TYPE=sha256
+
+
 SYSTEMRESCUE_X64=systemrescue-x64
 SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/9.05/systemrescue-9.05-amd64.iso
 
