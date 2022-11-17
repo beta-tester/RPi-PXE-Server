@@ -761,6 +761,25 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
+&& [[ -f "$DST_NFS_ETH0/$RESCUEZILLA_X64/casper/vmlinuz" ]]; then
+    echo  -e "\e[36m    add $RESCUEZILLA_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $RESCUEZILLA_X64
+        MENU LABEL Rescuezilla x64
+        KERNEL $FILE_BASE$NFS_ETH0/$RESCUEZILLA_X64/casper/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$RESCUEZILLA_X64/casper/initrd.lz
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RESCUEZILLA_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        TEXT HELP
+            Boot to Rescuezilla x64 Live
+            User:
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]] \
 && [[ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]]; then
     echo  -e "\e[36m    add $CLONEZILLA_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
@@ -1440,6 +1459,7 @@ item gnuradio-x64           Boot GNU Radio x64
 item knoppix-x86            Boot Knoppix x86
 item opensuse-rescue-x64    Boot openSUSE Rescue x64
 item rpdesktop-x86          Boot Raspberry Pi Desktop
+item rescuezilla-x64        Boot Rescuezilla x64
 item systemrescue-x64       Boot System Rescue x64
 item tails-x64              Boot Tails x64
 item ubuntu-studio-x64      Boot Ubuntu Studio x64
@@ -1509,6 +1529,7 @@ goto ubuntu
 
 :eset-rescue-x86
 :mint-x64
+:rescuezilla-x64
 :ubuntu-x86
 :desinfect-x64
 :desinfect-x86
