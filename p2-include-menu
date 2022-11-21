@@ -1289,7 +1289,7 @@ fi
 
 ########################################################################
 if [[ -f "$FILE_MENU" ]]; then
-    echo  -e "\e[36m    add section --- Tools and utilities ------\e[0m";
+    echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 LABEL -
     MENU LABEL --- Advanced options ------------------------------------
