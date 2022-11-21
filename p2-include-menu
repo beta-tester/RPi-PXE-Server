@@ -1299,7 +1299,7 @@ fi
 
 if [[ -f "$FILE_MENU" ]]; then
     if [[ "${MENU_PXE}" == "${DST_PXE_BIOS}" ]]; then
-        echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
+        echo  -e "\e[36m    add reboot, power off (bios)\e[0m";
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 ########################################
 LABEL reboot
@@ -1313,7 +1313,7 @@ LABEL poweroff
 
 EOF
     else
-        echo  -e "\e[36m    add section --- Advanced options ---------\e[0m";
+        echo  -e "\e[36m    add reboot, power off (efi)\e[0m";
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
 ########################################
 LABEL reboot
