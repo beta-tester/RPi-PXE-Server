@@ -49,6 +49,25 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
+&& [[ -f "$DST_NFS_ETH0/$BUNSEN_X64/live/vmlinuz" ]]; then
+    echo  -e "\e[36m    add $BUNSEN_X64\e[0m";
+    cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
+    ########################################
+    LABEL $BUNSEN_X64
+        MENU LABEL Bunsen x64
+        KERNEL $FILE_BASE$NFS_ETH0/$BUNSEN_X64/live/vmlinuz
+        INITRD $FILE_BASE$NFS_ETH0/$BUNSEN_X64/live/initrd.img
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$BUNSEN_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        TEXT HELP
+            Boot to Bunsen x64 Live LXDE
+            User: user, Password: live
+        ENDTEXT
+EOF
+fi
+#=========== END ===========
+
+#========== BEGIN ==========
+if [[ -f "$FILE_MENU" ]] \
 && [[ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64" ]]; then
     echo  -e "\e[36m    add $DEBIAN_TESTING_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null

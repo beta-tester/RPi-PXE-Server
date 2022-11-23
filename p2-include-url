@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2022-11-21
+# v 2022-11-23
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -82,6 +82,13 @@ ARCH_NETBOOT_X64_URL=https://archlinux.org/static/netboot/ipxe.lkrn
 
 BLACKARCH_X64=blackarch-x64
 BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-linux-full-2021.09.01-x86_64.iso
+
+
+BUNSEN_X64=bunsen-x64
+BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/lithium-3-amd64.hybrid.iso
+BUNSEN_X64_SUM=https://ddl.bunsenlabs.org/ddl/release.sha256.txt
+BUNSEN_X64_SUM_TYPE=sha256
+
 
 
 CLONEZILLA_X64=clonezilla-x64
