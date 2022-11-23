@@ -1452,6 +1452,7 @@ imgfree
 menu iPXE \${version}, \${platform}, \${archx}, \${next-server}, \${pxe_menu}
 item --gap --               ------------------------- Live Operating systems -------------------------
 item arch-netboot-x64       Boot Arch netboot x64
+item bunsen-x64             Boot Bunsen x64
 item debian-x64             Boot Debian x64
 item devuan-x64             Boot Devuan x64
 item fedora-x64             Boot Fedora x64
@@ -1617,6 +1618,7 @@ set file2  initrd.img
 set extra  username=devuan
 goto debian
 
+:bunsen-x64
 :emmabuntus-x64
 :emmabuntus-x86
 set file1  vmlinuz
