@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-02-14
+# v 2023-02-22
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -53,7 +53,7 @@ fi
 # opensuse             https://download.opensuse.org/distribution/openSUSE-current/live/
 #                      https://download.opensuse.org/tumbleweed/iso/?C=M;O=D
 # centos               https://www.centos.org/download/
-# tail                 https://tails.boum.org/install/download/
+# tails                https://tails.boum.org/install/download/
 # knoppix              https://www.knopper.net/knoppix-mirrors/index-en.html
 # kaspersky            https://www.kaspersky.com/downloads/thank-you/free-rescue-disk
 # bitdefender          https://download.bitdefender.com/rescue_cd/latest/
@@ -258,8 +258,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.9/tails-amd64-5.9.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.9/tails-amd64-5.9.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.10/tails-amd64-5.10.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.10/tails-amd64-5.10.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
