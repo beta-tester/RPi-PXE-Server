@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-02-22
+# v 2023-02-23
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -92,9 +92,9 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.0.2-21/clonezilla-live-3.0.2-21-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.0.3-22/clonezilla-live-3.0.3-22-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.0.2-21/clonezilla-live-3.0.2-21-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.0.3-22/clonezilla-live-3.0.3-22-i686.iso
 
 
 DEBIAN_KVER=5.10.0-20
@@ -132,8 +132,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R28.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R28.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R29.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R29.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -191,7 +191,7 @@ LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA2
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/lubuntu-22.04.1-desktop-amd64.iso
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/lubuntu-22.04.2-desktop-amd64.iso
 LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
@@ -280,12 +280,12 @@ UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-22.03.00-x86_64.img.xz
+UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-23.01.00-x86_64.img.xz
 UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04/ubuntu-22.04.1-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso
 UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
