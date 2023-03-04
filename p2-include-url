@@ -138,13 +138,13 @@ DRAGONOS_X64_SUM_TYPE=sha256
 
 
 EMMABUNTUS_X64=emmabuntus-x64
-EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.02/emmabuntus-de4-amd64-11.4-1.03.iso
-EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.02/emmabuntus-de4-amd64-11.4-1.03.iso.sha256
+EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.03/emmabuntus-de4-amd64-11.4-1.03.iso
+EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.03/emmabuntus-de4-amd64-11.4-1.03.iso.sha256
 EMMABUNTUS_X64_SUM_TYPE=sha256
 
 EMMABUNTUS_X86=emmabuntus-x86
-EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.02/emmabuntus-de4-i686-11.4-1.03.iso
-EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.02/emmabuntus-de4-i686-11.4-1.03.iso.sha256
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.03/emmabuntus-de4-i686-11.4-1.03.iso
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE4/Images/1.03/emmabuntus-de4-i686-11.4-1.03.iso.sha256
 EMMABUNTUS_X86_SUM_TYPE=sha256
 
 ESET_SYSRESCUE_X86=eset-rescue-x86
