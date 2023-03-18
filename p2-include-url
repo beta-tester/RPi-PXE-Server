@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-03-04
+# v 2023-03-18
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -168,7 +168,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2022.4-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2023.1-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -224,13 +224,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/5.2/Parrot-security-5.2_amd64.iso
-PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/5.2/signed-hashes.txt
+PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/5.2-1/Parrot-security-5.2_amd64.iso
+PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/5.2-1/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/5.2/Parrot-home-5.2_amd64.iso
-PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/5.2/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/5.2-1/Parrot-home-5.2_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/5.2-1/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
@@ -248,7 +248,7 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.4.1/rescuezilla-2.4.1-64bit.jammy.iso
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.4.2/rescuezilla-2.4.2-64bit.jammy.iso
 RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
