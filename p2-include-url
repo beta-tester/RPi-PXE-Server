@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-03-18
+# v 2023-03-26
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -158,8 +158,8 @@ FEDORA_X64_SUM_TYPE=sha256
 
 
 FINNIX_X64=finnix-x64
-FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-124.iso
-FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-124.iso.gpg
+FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-125.iso
+FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-125.iso.gpg
 FINNIX_X64_SUM_TYPE=gpg
 
 
@@ -254,12 +254,12 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/9.06/systemrescue-9.06-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/10.00/systemrescue-10.00-amd64.iso
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.10/tails-amd64-5.10.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.10/tails-amd64-5.10.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.11/tails-amd64-5.11.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.11/tails-amd64-5.11.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
