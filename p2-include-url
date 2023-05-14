@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-04-28
+# v 2023-05-14
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -85,7 +85,7 @@ BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-lin
 
 
 BUNSEN_X64=bunsen-x64
-BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/lithium-3-amd64.hybrid.iso
+BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/beryllium-1-amd64.hybrid.iso
 BUNSEN_X64_SUM=https://ddl.bunsenlabs.org/ddl/release.sha256.txt
 BUNSEN_X64_SUM_TYPE=sha256
 
@@ -97,14 +97,14 @@ CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.0-22/clonezilla-live-3.1.0-22-i686.iso
 
 
-DEBIAN_KVER=5.10.0-20
+DEBIAN_KVER=5.10.0-22
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-11.6.0-amd64-cinnamon.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-11.7.0-amd64-cinnamon.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-11.6.0-i386-cinnamon.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-11.7.0-i386-cinnamon.iso
 DEBIAN_X86_SUM=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/SHA256SUMS
 DEBIAN_X86_SUM_TYPE=sha256
 
@@ -132,8 +132,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R30.1.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R30.1.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R30.2.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R30.2.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -229,13 +229,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/5.2-1/Parrot-security-5.2_amd64.iso
-PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/5.2-1/signed-hashes.txt
+PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/5.3/Parrot-security-5.3_amd64.iso
+PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/5.3/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/5.2-1/Parrot-home-5.2_amd64.iso
-PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/5.2-1/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/5.3/Parrot-home-5.3_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/5.3/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
