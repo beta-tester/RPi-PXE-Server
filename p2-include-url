@@ -81,7 +81,7 @@ ARCH_NETBOOT_X64_URL=https://archlinux.org/static/netboot/ipxe.lkrn
 
 
 BLACKARCH_X64=blackarch-x64
-BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-linux-slim-2023.04.01-x86_64.iso
+BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-linux-slim-2023.05.01-x86_64.iso
 
 
 BUNSEN_X64=bunsen-x64
@@ -121,12 +121,12 @@ DEFTZ_X64=deftz-x64
 
 
 DEVUAN_X64=devuan-x64
-DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.2_amd64_desktop-live.iso
+DEVUAN_X64_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.3_amd64_desktop-live.iso
 DEVUAN_X64_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/SHA256SUMS.txt
 DEVUAN_X64_SUM_TYPE=sha256
 
 DEVUAN_X86=devuan-x86
-DEVUAN_X86_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.2_i386_desktop-live.iso
+DEVUAN_X86_URL=https://files.devuan.org/devuan_chimaera/desktop-live/devuan_chimaera_4.0.3_i386_desktop-live.iso
 DEVUAN_X86_SUM=https://files.devuan.org/devuan_chimaera/desktop-live/SHA256SUMS.txt
 DEVUAN_X86_SUM_TYPE=sha256
 
@@ -191,7 +191,7 @@ KNOPPIX_X86_EXTRA_INITRD_URL=https://github.com/beta-tester/RPi-PXE-Server/files
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/lunar-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/mantic-desktop-amd64.iso
 LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
@@ -280,7 +280,7 @@ TINYCORE_X86_SUM_TYPE=md5
 
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/lunar-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/mantic-desktop-amd64.iso
 UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
@@ -295,7 +295,7 @@ UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/lunar-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/mantic-dvd-amd64.iso
 UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/SHA256SUMS
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
