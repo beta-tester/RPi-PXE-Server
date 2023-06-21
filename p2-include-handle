@@ -72,7 +72,7 @@ handle_item  '-'  iso   LUBUNTU_X64;
 handle_item  '-'  iso   LUBUNTU_X86;
 handle_item  '-'  iso   MINT_X64;
 handle_item  '#'  iso   OPENSUSE_RESCUE_X64      timestamping  ,gid=root,uid=root,norock,mode=292  vbladed 0 1;
-handle_item  '+'  iso   OPENSUSE_X64             timestamping  ,gid=root,uid=root,norock,mode=292  vbladed 1 1;
+handle_item  '#'  iso   OPENSUSE_X64             timestamping  ,gid=root,uid=root,norock,mode=292  vbladed 1 1;
 handle_item  '-'  iso   PARROT_FULL_X64;
 handle_item  '-'  iso   PARROT_LITE_X64;
 handle_item  '#'  iso   PENTOO_BETA_X64          timestamping;
