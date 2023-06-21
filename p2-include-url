@@ -102,7 +102,7 @@ DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybri
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
-DEBIAN_KVER_X86=5.10.178-3
+DEBIAN_KVER_X86=5.10.0-22
 DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.7.0-i386-cinnamon.iso
 DEBIAN_X86_SUM=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/SHA256SUMS
@@ -173,7 +173,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2023.2a-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2023.2-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
