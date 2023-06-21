@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-06-13
+# v 2023-06-21
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -102,10 +102,11 @@ DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybri
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
+DEBIAN_KVER_X86=5.10.0-22
 DEBIAN_X86=debian-x86
-#DEBIAN_X86_URL=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/debian-live-12.0.0-i386-cinnamon.iso
-#DEBIAN_X86_SUM=https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/SHA256SUMS
-#DEBIAN_X86_SUM_TYPE=sha256
+DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.7.0-i386-cinnamon.iso
+DEBIAN_X86_SUM=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/SHA256SUMS
+DEBIAN_X86_SUM_TYPE=sha256
 
 
 DEFT_X64=deft-x64
