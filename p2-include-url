@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-06-21
+# v 2023-07-13
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -263,8 +263,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.14/tails-amd64-5.14.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.14/tails-amd64-5.14.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.15.1/tails-amd64-5.15.1.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.15.1/tails-amd64-5.15.1.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -290,7 +290,7 @@ UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04.2/ubuntu-22.04-latest-desktop-amd64.iso
 UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
@@ -353,7 +353,7 @@ CENTOS_X64=centos-x64
 #  update the url, if disk image is outdated
 ########################################################################
 PI_CORE=pi-core
-PI_CORE_URL=http://tinycorelinux.net/13.x/armv7/releases/RPi/piCore-13.1.0.zip
+PI_CORE_URL=http://tinycorelinux.net/14.x/armv7/releases/RPi/piCore-14.0.zip
 
 
 RPD_BASIC=rpi-raspbian-basic
