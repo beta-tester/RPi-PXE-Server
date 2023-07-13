@@ -263,8 +263,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.14.1/tails-amd64-5.14.1.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.14.1/tails-amd64-5.14.1.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.15.1/tails-amd64-5.15.1.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.15.1/tails-amd64-5.15.1.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -353,7 +353,7 @@ CENTOS_X64=centos-x64
 #  update the url, if disk image is outdated
 ########################################################################
 PI_CORE=pi-core
-PI_CORE_URL=http://tinycorelinux.net/13.x/armv7/releases/RPi/piCore-13.1.0.zip
+PI_CORE_URL=http://tinycorelinux.net/14.x/armv7/releases/RPi/piCore-14.0.zip
 
 
 RPD_BASIC=rpi-raspbian-basic
