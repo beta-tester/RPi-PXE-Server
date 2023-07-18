@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-07-13
+# v 2023-07-18
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -212,8 +212,8 @@ LUBUNTU_LTS_X86_SUM_TYPE=sha256
 
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/21.1/linuxmint-21.1-cinnamon-64bit.iso
-MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/21.1/sha256sum.txt
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/21.2/linuxmint-21.2-cinnamon-64bit.iso
+MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/21.2/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
 
 
@@ -290,7 +290,7 @@ UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04.2/ubuntu-22.04-latest-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso
 UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
