@@ -265,8 +265,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.18/tails-amd64-5.19.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.18/tails-amd64-5.19.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.19/tails-amd64-5.19.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.19/tails-amd64-5.19.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -282,7 +282,7 @@ TINYCORE_X86_SUM_TYPE=md5
 
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/mantic-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/noble-desktop-amd64.iso
 UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
