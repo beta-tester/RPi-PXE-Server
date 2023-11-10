@@ -193,7 +193,7 @@ KNOPPIX_X86_EXTRA_INITRD_URL=https://github.com/beta-tester/RPi-PXE-Server/files
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/mantic-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/noble-desktop-amd64.iso
 LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
