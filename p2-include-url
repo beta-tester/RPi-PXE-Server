@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2023-11-2
+# v 2023-11-10
 
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -92,9 +92,9 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.0-22/clonezilla-live-3.1.0-22-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.1-27/clonezilla-live-3.1.1-27-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.0-22/clonezilla-live-3.1.0-22-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.1-27/clonezilla-live-3.1.1-27-i686.iso
 
 
 DEBIAN_KVER=-6.1.0-13
@@ -154,8 +154,8 @@ ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_
 
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/38/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-38-1.6.iso
-FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/38/Workstation/x86_64/iso/Fedora-Workstation-38-1.6-x86_64-CHECKSUM
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/39/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-39-1.5.iso
+FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/39/Workstation/x86_64/iso/Fedora-Workstation-39-1.5-x86_64-CHECKSUM
 FEDORA_X64_SUM_TYPE=sha256
 
 FEDORA_SL_X64=fedora-sec-x64
