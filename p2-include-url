@@ -59,7 +59,8 @@ fi
 # bitdefender          https://download.bitdefender.com/rescue_cd/latest/
 #                      Bitdefender Rescue CD reached End of Life on 2019-08-01
 #                        https://www.bitdefender.com/consumer/support/answer/10131/
-# ESET SysRescue Live  https://www.eset.com/int/download-utilities/#content-c10295
+# ESET SysRescue Live  free public version - end of life (2023-11) ?
+#                        https://www.eset.com/int/download-utilities/#content-c10295
 # linuxmint            https://www.linuxmint.com/download.php
 #                      https://mirrors.edge.kernel.org/linuxmint/stable/
 # android x86          https://osdn.net/projects/android-x86/
@@ -150,7 +151,7 @@ EMMABUNTUS_X86_SUM_TYPE=sha256
 
 
 ESET_SYSRESCUE_X86=eset-rescue-x86
-ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_cd/latest/eset_sysrescue_live_enu.iso
+#ESET_SYSRESCUE_X86_URL=https://download.eset.com/com/eset/tools/recovery/rescue_cd/latest/eset_sysrescue_live_enu.iso
 
 
 FEDORA_X64=fedora-x64
@@ -297,7 +298,7 @@ UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/mantic-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/noble-dvd-amd64.iso
 UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/SHA256SUMS
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
