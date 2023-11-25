@@ -566,6 +566,7 @@ table ip6 global {
     }
 }
 EOF
+    }
 }
 
 
