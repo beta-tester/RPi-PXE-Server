@@ -294,3 +294,13 @@ for more information,
 
 see: [Network Booting](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md)<br/>
 see: [Network Boot Your Raspberry Pi](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md)
+
+## note4:
+optional use alterative wifi firmware: `sudo update-alternatives --config cyfmac43455-sdio.bin`
+
+The file cyfmac43455-sdio-minimal.bin is an alternative firmware that has been
+tuned to maximise the number of clients in AP mode while still supporting STA
+mode.
+
+see: [cyfmac43455-sdio-minimal.bin, Bullseye](https://github.com/RPi-Distro/firmware-nonfree/tree/bullseye/debian/config/brcm80211/cypress)<br/>
+see: [cyfmac43455-sdio-minimal.bin, Bookworm](https://github.com/RPi-Distro/firmware-nonfree/tree/bookworm/debian/config/brcm80211/cypress)
