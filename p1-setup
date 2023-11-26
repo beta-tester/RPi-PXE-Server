@@ -307,6 +307,15 @@ EOF
 
 
 ########################################################################
+# https://github.com/RPi-Distro/firmware-nonfree/tree/bullseye/debian/config/brcm80211/cypress
+# https://github.com/RPi-Distro/firmware-nonfree/tree/bookworm/debian/config/brcm80211/cypress
+#
+# The file cyfmac43455-sdio-minimal.bin is an alternative firmware that has been
+# tuned to maximise the number of clients in AP mode while still supporting STA
+# mode.
+#
+# sudo update-alternatives --config cyfmac43455-sdio.bin
+#
 handle_hostapd() {
     echo -e "\e[32mhandle_hostapd()\e[0m";
 
