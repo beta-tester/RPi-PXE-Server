@@ -147,9 +147,10 @@ $(dpkg --get-selections | grep -q -E "^(ntp|ntpd)[[:blank:]]*install$") || {
 ########################################################################
 ########################################################################
 echo -e "\e[32minstall real-vnc-server\e[0m";
-sudo apt install -y --no-install-recommends realvnc-vnc-server realvnc-vnc-viewer
-sudo systemctl enable vncserver-x11-serviced.service;
-sudo systemctl restart vncserver-x11-serviced.service;
+#sudo apt install -y --no-install-recommends realvnc-vnc-server realvnc-vnc-viewer
+sudo apt install -y --no-install-recommends realvnc-vnc-viewer
+#sudo systemctl enable vncserver-x11-serviced.service;
+#sudo systemctl restart vncserver-x11-serviced.service;
 
 
 ########################################################################
@@ -176,21 +177,21 @@ sudo apt install -y --no-install-recommends squashfs-tools initramfs-tools xz-ut
 #bridge#sudo apt install -y --no-install-recommends bridge-utils
 
 
-########################################################################
-## optional
-echo -e "\e[32minstall wireshark\e[0m";
-echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
-sudo apt install -y --no-install-recommends tshark wireshark
-sudo usermod -a -G wireshark "${USER:?}"
-
-echo -e "\e[32minstall other useful stuff\e[0m";
-sudo apt install -y --no-install-recommends xterm transmission-gtk
-
-echo -e "\e[32mreduce annoying networktraffic\e[0m";
-sudo systemctl stop avahi-daemon.service
-sudo systemctl disable avahi-daemon.service
-sudo systemctl stop minissdpd.service
-sudo systemctl disable minissdpd.service
+#########################################################################
+### optional
+#echo -e "\e[32minstall wireshark\e[0m";
+#echo "wireshark-common        wireshark-common/install-setuid boolean true" | sudo debconf-set-selections;
+#sudo apt install -y --no-install-recommends tshark wireshark
+#sudo usermod -a -G wireshark "${USER:?}"
+#
+#echo -e "\e[32minstall other useful stuff\e[0m";
+#sudo apt install -y --no-install-recommends xterm transmission-gtk
+#
+#echo -e "\e[32mreduce annoying networktraffic\e[0m";
+#sudo systemctl stop avahi-daemon.service
+#sudo systemctl disable avahi-daemon.service
+#sudo systemctl stop minissdpd.service
+#sudo systemctl disable minissdpd.service
 
 
 ########################################################################
@@ -201,13 +202,13 @@ sudo sed -i '1 s/$/ logo.nologo/' /boot/cmdline.txt;
 }
 
 
-########################################################################
-## optional
-echo -e "\e[32mchange hostname\e[0m";
-do_backup etc/hostname
-echo pxe-server | sudo tee /etc/hostname &>/dev/null
-do_backup etc/hosts
-sudo sed -i "s/127.0.1.1.*$(hostname)/127.0.1.1\tpxe-server/g" /etc/hosts
+#########################################################################
+### optional
+#echo -e "\e[32mchange hostname\e[0m";
+#do_backup etc/hostname
+#echo pxe-server | sudo tee /etc/hostname &>/dev/null
+#do_backup etc/hosts
+#sudo sed -i "s/127.0.1.1.*$(hostname)/127.0.1.1\tpxe-server/g" /etc/hosts
 
 
 ########################################################################
