@@ -10,8 +10,10 @@ fi
 ########################################################################
 
 
-# v 2023-12-20
+# v 2023-12-22
 
+# pull updates
+#   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
 # check for broken url
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do wget --quiet --timeout=5 --tries=1 --spider $i && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
 #   for i in $(grep -E "^[A-Z0-9_]+_URL=" ~/git/RPi-PXE-Server/p2-include-url | sed s/^.*=//g); do curl --connect-timeout 5 --retry 0 -s -I -o /dev/null -w "%{response_code}" $i | grep -qE "(200|30.)" && echo -e "\e[32mOK\e[0m = $i" || echo -e "\e[97;41;5mFAILED\e[0m = $i"; done
@@ -266,8 +268,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.20/tails-amd64-5.20.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.20/tails-amd64-5.20.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.21/tails-amd64-5.21.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.21/tails-amd64-5.21.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
