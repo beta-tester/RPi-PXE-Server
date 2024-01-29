@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-01-15
+# v 2024-01-29
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -89,7 +89,7 @@ BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-lin
 
 
 BUNSEN_X64=bunsen-x64
-BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/beryllium-1-amd64.hybrid.iso
+BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/boron-1-240123-amd64.hybrid.iso
 BUNSEN_X64_SUM=https://ddl.bunsenlabs.org/ddl/release.sha256.txt
 BUNSEN_X64_SUM_TYPE=sha256
 
@@ -264,12 +264,12 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/10.02/systemrescue-10.02-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/11.00/systemrescue-11.00-amd64.iso
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.21/tails-amd64-5.21.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.21/tails-amd64-5.21.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.22/tails-amd64-5.22.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.22/tails-amd64-5.22.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
