@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-01-29
+# v 2024-02-06
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -245,10 +245,10 @@ PARROT_LITE_X64_SUM_TYPE=sha256
 
 
 PENTOO_BETA_X64=pentoo-beta-x64
-PENTOO_BETA_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-daily-amd64-hardened-latest.iso
+PENTOO_BETA_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-full-daily-amd64-hardened-latest.iso
 
 PENTOO_X64=pentoo-x64
-PENTOO_X64_URL=https://pentoo.ch/isos/latest-iso-symlinks/Daily/pentoo-full-daily-amd64-hardened-latest.iso
+PENTOO_X64_URL=https://www.pentoo.ch/isos/latest-iso-symlinks/pentoo-full-daily-amd64-hardened-latest.iso
 
 
 RPDESKTOP_X86=rpdesktop-x86
