@@ -106,9 +106,9 @@ DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybri
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
-DEBIAN_KVER_X86=5.10.0-26
+DEBIAN_KVER_X86=5.10.0-28
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.8.0-i386-cinnamon.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.9.0-i386-cinnamon.iso
 DEBIAN_X86_SUM=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/SHA256SUMS
 DEBIAN_X86_SUM_TYPE=sha256
 
