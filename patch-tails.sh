@@ -115,6 +115,7 @@ do_patch_bottom() {
 [[ -e "${TMP:?}/scripts/init-bottom/" ]] || sudo mkdir -p "${TMP:?}/scripts/init-bottom/"
 cat << EOF | sudo tee "${TMP:?}/scripts/init-bottom/zzzz-hotfix-pxe" &>/dev/null
 #!/usr/bin/sh
+
 patch_bottom()
 {
     if ! [ -n "\$break" ]; then
