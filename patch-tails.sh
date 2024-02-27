@@ -74,32 +74,37 @@ do_patch_top() {
 cat << EOF | sudo tee "${TMP:?}/conf/conf.d/zzzz-hotfix-pxe" &>/dev/null
 #!/usr/bin/sh
 
-# check if we dealing with same kernel version
-if [ "\$(uname -r)" != "${KVER:?}" ]; then
-    . /scripts/functions
-    log_failure_msg "wrong kernel version. '\$(uname -r)'!='${KVER:?}'"
-    panic "please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/31"
-fi
+patch_top()
+{
+    # check if we dealing with same kernel version
+    if [ "\$(uname -r)" != "${KVER:?}" ]; then
+        . /scripts/functions
+        log_failure_msg "wrong kernel version. '\$(uname -r)'!='${KVER:?}'"
+        panic "please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/31"
+    fi
 
-# comment out all blacklist entries
-sed "s/^install/# install/g" -i /etc/modprobe.d/all-net-blocklist.conf
+    # comment out all blacklist entries
+    sed "s/^install/# install/g" -i /etc/modprobe.d/all-net-blocklist.conf
 
-# replace wget script by busybox, for normal behavior
-mv /usr/bin/wget /usr/bin/wget.bak
-ln -sf /usr/bin/busybox /usr/bin/wget
+    # replace wget script by busybox, for normal behavior
+    mv /usr/bin/wget /usr/bin/wget.bak
+    ln -sf /usr/bin/busybox /usr/bin/wget
 
-# replace depmod, for normal behavior
-mv /usr/sbin/depmod /usr/sbin/depmod.bak
-ln -sf /usr/bin/kmod /usr/sbin/depmod
+    # replace depmod, for normal behavior
+    mv /usr/sbin/depmod /usr/sbin/depmod.bak
+    ln -sf /usr/bin/kmod /usr/sbin/depmod
 
-# excract the compressed drivers in place
-tar -xf "/conf/net_drivers.tar.xz" -C /
+    # excract the compressed drivers in place
+    tar -xf "/conf/net_drivers.tar.xz" -C /
 
-# rebulid dependencies for added network kernel drivers modules
-depmod -b /usr
+    # rebulid dependencies for added network kernel drivers modules
+    depmod -b /usr
 
-# 
-echo '/scripts/init-bottom/zzzz-hotfix-pxe' | tee -a /scripts/init-bottom/ORDER
+    # enqueue hot fix for patch_bottom
+    echo '/scripts/init-bottom/zzzz-hotfix-pxe' | tee -a /scripts/init-bottom/ORDER
+}
+
+patch_top
 EOF
 (( $? != 0 )) && return -4
 sudo chmod +x "${TMP:?}/conf/conf.d/zzzz-hotfix-pxe"
