@@ -162,8 +162,8 @@ FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/40/W
 FEDORA_X64_SUM_TYPE=sha256
 
 FEDORA_SL_X64=fedora-sec-x64
-FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/38/Labs/x86_64/iso/Fedora-Security-Live-x86_64-38-1.6.iso
-FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/38/Labs/x86_64/iso/Fedora-Labs-38-1.6-x86_64-CHECKSUM
+FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/40/Labs/x86_64/iso/Fedora-Security-Live-x86_64-40-1.14.iso
+FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/40/Labs/x86_64/iso/Fedora-Labs-40-1.14-x86_64-CHECKSUM
 FEDORA_SL_X64_SUM_TYPE=sha256
 
 
