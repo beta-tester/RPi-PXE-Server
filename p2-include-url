@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-04-25
+# v 2024-05-06
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -264,7 +264,7 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/11.00/systemrescue-11.00-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/11.01/systemrescue-11.01-amd64.iso
 
 
 TAILS_X64=tails-x64
