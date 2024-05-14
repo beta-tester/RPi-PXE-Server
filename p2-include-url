@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-05-06
+# v 2024-05-14
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -196,7 +196,7 @@ KNOPPIX_X86_EXTRA_INITRD_URL=https://github.com/beta-tester/RPi-PXE-Server/files
 
 
 LUBUNTU_DAILY_X64=lubuntu-daily-x64
-LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/noble-desktop-amd64.iso
+LUBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/oracular-desktop-amd64.iso
 LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/daily-live/pending/SHA256SUMS
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
@@ -258,8 +258,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/rolling-release.2023-11-26/rescuezilla-rolling-release.2023-11-26-64bit.jammy.iso
-RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/rolling-release.2023-11-26/SHA256SUM
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.5/rescuezilla-2.5-64bit.noble.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.5/SHA256SUM
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
@@ -285,12 +285,12 @@ TINYCORE_X86_SUM_TYPE=md5
 
 
 UBUNTU_DAILY_X64=ubuntu-daily-x64
-UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/noble-desktop-amd64.iso
+UBUNTU_DAILY_X64_URL=https://cdimage.ubuntu.com/daily-live/pending/oracular-desktop-amd64.iso
 UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/daily-live/pending/SHA256SUMS
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-23.09.00-x86_64.img.xz
+UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-24.03.00-x86_64.img.xz
 UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
@@ -300,7 +300,7 @@ UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/22.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
-UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/noble-dvd-amd64.iso
+UBUNTU_STUDIO_DAILY_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/oracular-dvd-amd64.iso
 UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/SHA256SUMS
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
