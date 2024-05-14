@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-05-06
+# v 2024-05-14
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -258,8 +258,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/rolling-release.2023-11-26/rescuezilla-rolling-release.2023-11-26-64bit.jammy.iso
-RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/rolling-release.2023-11-26/SHA256SUM
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.5/rescuezilla-2.5-64bit.noble.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.5/SHA256SUM
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
