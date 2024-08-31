@@ -147,8 +147,8 @@ EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabunt
 EMMABUNTUS_X64_SUM_TYPE=sha256
 
 EMMABUNTUS_X86=emmabuntus-x86
-EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-i686-12.6-1.02.iso/download
-EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-i686-12.6-1.02.iso/download.sum.txt
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-i686-12.6-1.02.iso
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-i686-12.6-1.02.iso.sum.txt
 EMMABUNTUS_X86_SUM_TYPE=sha256
 
 
@@ -206,7 +206,7 @@ LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/SH
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.01-desktop-amd64.iso
+LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.1-desktop-amd64.iso
 LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
@@ -223,13 +223,13 @@ MINT_X64_SUM_TYPE=sha256
 
 
 OPENSUSE_RESCUE_X64=opensuse-rescue-x64
-OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.5-Rescue-CD-x86_64-Media.iso
-OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.5-Rescue-CD-x86_64-Media.iso.sha256
+OPENSUSE_RESCUE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.6-Rescue-CD-x86_64-Media.iso
+OPENSUSE_RESCUE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.6-Rescue-CD-x86_64-Media.iso.sha256
 OPENSUSE_RESCUE_X64_SUM_TYPE=sha256
 
 OPENSUSE_X64=opensuse-x64
-OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.5-KDE-Live-x86_64-Media.iso
-OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.5-KDE-Live-x86_64-Media.iso.sha256
+OPENSUSE_X64_URL=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.6-KDE-Live-x86_64-Media.iso
+OPENSUSE_X64_SUM=https://download.opensuse.org/distribution/openSUSE-current/live/openSUSE-Leap-15.6-KDE-Live-x86_64-Media.iso.sha256
 OPENSUSE_X64_SUM_TYPE=sha256
 
 
@@ -305,12 +305,12 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/24.04/release/ubuntustudio-24.04.01-dvd-amd64.iso
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/24.04/release/ubuntustudio-24.04.1-dvd-amd64.iso
 UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/24.04/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.01-desktop-amd64.iso
+UBUNTU_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.1-desktop-amd64.iso
 UBUNTU_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
