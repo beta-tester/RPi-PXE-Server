@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-06-03
+# v 2024-08-31
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -95,20 +95,20 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.2-22/clonezilla-live-3.1.2-22-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.3-16/clonezilla-live-3.1.3-16-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.1.2-22/clonezilla-live-3.1.2-22-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.1.3-16/clonezilla-live-3.1.3-16-i686.iso
 
 
-DEBIAN_KVER=6.1.0-18
+DEBIAN_KVER=6.1.0-25
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-12.5.0-amd64-cinnamon.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-12.7.0-amd64-cinnamon.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
-DEBIAN_KVER_X86=5.10.0-28
+DEBIAN_KVER_X86=5.10.0-32
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.9.0-i386-cinnamon.iso
+DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.11.0-i386-cinnamon.iso
 DEBIAN_X86_SUM=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/SHA256SUMS
 DEBIAN_X86_SUM_TYPE=sha256
 
@@ -136,19 +136,19 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R35.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R35.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R36.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R36.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
 EMMABUNTUS_X64=emmabuntus-x64
-EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.01/emmabuntus-de5-amd64-12.4-1.01.iso
-EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.01/emmabuntus-de5-amd64-12.4-1.01.iso.sum.txt
+EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-amd64-12.6-1.02.iso
+EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-amd64-12.6-1.02.iso.sum.txt
 EMMABUNTUS_X64_SUM_TYPE=sha256
 
 EMMABUNTUS_X86=emmabuntus-x86
-EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.01/emmabuntus-de5-i686-12.4-1.01.iso
-EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.01/emmabuntus-de5-i686-12.4-1.01.iso.sum.txt
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-i686-12.6-1.02.iso/download
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.02/emmabuntus-de5-i686-12.6-1.02.iso/download.sum.txt
 EMMABUNTUS_X86_SUM_TYPE=sha256
 
 
@@ -168,8 +168,8 @@ FEDORA_SL_X64_SUM_TYPE=sha256
 
 
 FINNIX_X64=finnix-x64
-FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-125.iso
-FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-125.iso.gpg
+FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-126.iso
+FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-126.iso.gpg
 FINNIX_X64_SUM_TYPE=gpg
 
 
@@ -178,7 +178,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2024.1-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2024.2-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -206,7 +206,7 @@ LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/22.04/release/SH
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04-desktop-amd64.iso
+LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.01-desktop-amd64.iso
 LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
@@ -217,8 +217,8 @@ LUBUNTU_LTS_X86_SUM_TYPE=sha256
 
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
-MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/21.3/sha256sum.txt
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/22/linuxmint-22-cinnamon-64bit.iso
+MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/22/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
 
 
@@ -264,12 +264,12 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/11.01/systemrescue-11.01-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/11.02/systemrescue-11.02-amd64.iso
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.3/tails-amd64-6.3.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.3/tails-amd64-6.3.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.6/tails-amd64-6.6.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.6/tails-amd64-6.6.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -305,12 +305,12 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/24.04/release/ubuntustudio-24.04-dvd-amd64.iso
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/24.04/release/ubuntustudio-24.04.01-dvd-amd64.iso
 UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/24.04/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04-desktop-amd64.iso
+UBUNTU_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.01-desktop-amd64.iso
 UBUNTU_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
