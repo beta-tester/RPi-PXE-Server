@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-08-31
+# v 2024-09-12
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -178,7 +178,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2024.2-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2024.3-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -258,8 +258,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.5/rescuezilla-2.5-64bit.noble.iso
-RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.5/SHA256SUM
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.5.1/rescuezilla-2.5.1-64bit.noble.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.5.1/SHA256SUM
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
@@ -268,8 +268,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.6/tails-amd64-6.6.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.6/tails-amd64-6.6.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.7/tails-amd64-6.7.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.7/tails-amd64-6.7.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
