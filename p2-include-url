@@ -305,7 +305,7 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/dvd/pending/
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/24.10/release/ubuntustudio-24.10-dvd-amd64.iso
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/24.10/release/ubuntustudio-24.10-desktop-amd64.iso
 UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/24.10/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
