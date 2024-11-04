@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-10-11
+# v 2024-11-04
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -95,9 +95,9 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.1.3-16/clonezilla-live-3.1.3-16-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.2.0-5/clonezilla-live-3.2.0-5-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.1.3-16/clonezilla-live-3.1.3-16-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.0-5/clonezilla-live-3.2.0-5-i686.iso
 
 
 DEBIAN_KVER=6.1.0-25
@@ -157,13 +157,13 @@ ESET_SYSRESCUE_X86=eset-rescue-x86
 
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/40/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-40-1.14.iso
-FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/40/Workstation/x86_64/iso/Fedora-Workstation-40-1.14-x86_64-CHECKSUM
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/41/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-41-1.4.iso
+FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/41/Workstation/x86_64/iso/Fedora-Workstation-41-1.4-x86_64-CHECKSUM
 FEDORA_X64_SUM_TYPE=sha256
 
 FEDORA_SL_X64=fedora-sec-x64
-FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/40/Labs/x86_64/iso/Fedora-Security-Live-x86_64-40-1.14.iso
-FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/40/Labs/x86_64/iso/Fedora-Labs-40-1.14-x86_64-CHECKSUM
+FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/41/Labs/x86_64/iso/Fedora-Security-Live-x86_64-41-1.4.iso
+FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/41/Labs/x86_64/iso/Fedora-Labs-41-1.4-x86_64-CHECKSUM
 FEDORA_SL_X64_SUM_TYPE=sha256
 
 
@@ -268,8 +268,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.8.1/tails-amd64-6.8.1.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.8.1/tails-amd64-6.8.1.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.9/tails-amd64-6.9.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.9/tails-amd64-6.9.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
