@@ -68,14 +68,14 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz$DEBIAN_TESTING_KVER" ]]; then
     echo  -e "\e[36m    add $DEBIAN_TESTING_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_TESTING_X64
         MENU LABEL Debian x64 (testing)
-        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz-$DEBIAN_TESTING_KVER-amd64
-        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/initrd.img-$DEBIAN_TESTING_KVER-amd64
+        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz$DEBIAN_TESTING_KVER
+        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/initrd.img$DEBIAN_TESTING_KVER
         APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_TESTING_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Debian x64 Live (testing)
@@ -87,14 +87,14 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz-$DEBIAN_KVER-amd64" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz$DEBIAN_KVER" ]]; then
     echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_X64
         MENU LABEL Debian x64
-        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/vmlinuz-$DEBIAN_KVER-amd64
-        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/initrd.img-$DEBIAN_KVER-amd64
+        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/vmlinuz$DEBIAN_KVER
+        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/initrd.img$DEBIAN_KVER
         APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Debian x64 Live LXDE
@@ -106,14 +106,14 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz-$DEBIAN_KVER_X86-686" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz$DEBIAN_KVER_X86" ]]; then
     echo  -e "\e[36m    add $DEBIAN_X86\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_X86
         MENU LABEL Debian x86
-        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/vmlinuz-$DEBIAN_KVER_X86-686
-        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/initrd.img-$DEBIAN_KVER_X86-686
+        KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/vmlinuz$DEBIAN_KVER_X86
+        INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/initrd.img$DEBIAN_KVER_X86
         APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
         TEXT HELP
             Boot to Debian x86 Live LXDE
@@ -1592,22 +1592,28 @@ goto start
 ########################################################################
 ### debian based
 :debian-cinnamon-x64
-:debian-cinnamon-x86
 :debian-gnome-x64
-:debian-gnome-x86
 :debian-kde-x64
-:debian-kde-x86
 :debian-lxde-x64
-:debian-lxde-x86
 :debian-lxqt-x64
-:debian-lxqt-x86
 :debian-mate-x64
-:debian-mate-x86
 :debian-x64
-:debian-x86
 set version  $DEBIAN_KVER
-set file1    vmlinuz-\${version}-\${arch}
-set file2    initrd.img-\${version}-\${arch}
+set file1    vmlinuz\${version}
+set file2    initrd.img\${version}
+set extra
+goto debian
+
+:debian-cinnamon-x86
+:debian-gnome-x86
+:debian-kde-x86
+:debian-lxde-x86
+:debian-lxqt-x86
+:debian-mate-x86
+:debian-x86
+set version  $DEBIAN_KVER_X86
+set file1    vmlinuz\${version}
+set file2    initrd.img\${version}
 set extra
 goto debian
 
