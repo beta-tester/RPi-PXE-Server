@@ -304,7 +304,7 @@ UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
-UBUNTU_LTS_X86_URL=https://releases.ubuntu.com/16.04/ubuntu-16.04.7-desktop-i386.iso
+UBUNTU_LTS_X86_URL=https://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-i386.iso
 UBUNTU_LTS_X86_SUM=https://releases.ubuntu.com/16.04/SHA256SUMS
 UBUNTU_LTS_X86_SUM_TYPE=sha256
 
