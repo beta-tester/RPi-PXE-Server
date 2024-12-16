@@ -294,18 +294,18 @@ UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntu/daily-live/pending/SHA256
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/ubuntu/24.10/ubuntu-24.10-desktop-amd64.iso
-UBUNTU_X64_SUM=https://releases.ubuntu.com/ubuntu/24.10/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/24.10/ubuntu-24.10-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/24.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/ubuntu/24.04/ubuntu-24.04.1-desktop-amd64.iso
-UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/ubuntu/24.04/SHA256SUMS
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.1-desktop-amd64.iso
+UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
-UBUNTU_LTS_X86_URL=https://releases.ubuntu.com/ubuntu/16.04/ubuntu-16.04.7-desktop-i386.iso
-UBUNTU_LTS_X86_SUM=https://releases.ubuntu.com/ubuntu/16.04/SHA256SUMS
+UBUNTU_LTS_X86_URL=https://releases.ubuntu.com/16.04/ubuntu-16.04.7-desktop-i386.iso
+UBUNTU_LTS_X86_SUM=https://releases.ubuntu.com/16.04/SHA256SUMS
 UBUNTU_LTS_X86_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_DAILY_X64=ubuntu-studio-daily-x64
