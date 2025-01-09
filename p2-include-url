@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2024-12-16
+# v 2025-01-09
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -272,8 +272,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.10/tails-amd64-6.10.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.10/tails-amd64-6.10.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.11/tails-amd64-6.11.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.11/tails-amd64-6.11.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
