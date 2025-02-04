@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-01-26
+# v 2025-02-ß4
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -238,13 +238,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/6.3.1/Parrot-security-6.3.1_amd64.iso
-PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/6.3.1/signed-hashes.txt
+PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/6.3.2/Parrot-security-6.3.2_amd64.iso
+PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/6.3.2/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/6.3.1/Parrot-home-6.3.1_amd64.iso
-PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/6.3.1/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/6.3.2/Parrot-home-6.3.2_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/6.3.2/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
