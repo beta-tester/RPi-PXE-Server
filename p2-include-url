@@ -101,7 +101,7 @@ BUNSEN_X64_SUM_TYPE=sha256
 CLONEZILLA_X64=clonezilla-x64
 CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.2.1-9/clonezilla-live-3.2.1-9-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
-CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.1-9/clonezilla-live-3.2.1-9-i686.iso
+CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.0-5/clonezilla-live-3.2.0-5-i686.iso
 
 
 DEBIAN_KVER=
@@ -210,7 +210,7 @@ LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.10/release/SHA256
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.1-desktop-amd64.iso
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.2-desktop-amd64.iso
 LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
