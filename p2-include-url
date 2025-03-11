@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-02-10
+# v 2025-03-11
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -99,7 +99,7 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.2.0-5/clonezilla-live-3.2.0-5-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.2.1-9/clonezilla-live-3.2.1-9-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.0-5/clonezilla-live-3.2.0-5-i686.iso
 
@@ -182,7 +182,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2024.4-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.1a-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -210,7 +210,7 @@ LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.10/release/SHA256
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.1-desktop-amd64.iso
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.2-desktop-amd64.iso
 LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
@@ -272,8 +272,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.12/tails-amd64-6.12.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.12/tails-amd64-6.12.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.13/tails-amd64-6.13.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.13/tails-amd64-6.13.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -299,7 +299,7 @@ UBUNTU_X64_SUM=https://releases.ubuntu.com/24.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.1-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.2-desktop-amd64.iso
 UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
