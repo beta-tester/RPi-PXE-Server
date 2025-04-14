@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-03-18
+# v 2025-04-14
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -140,19 +140,19 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R37.1.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_FocalX_R37.1.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R1.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R1.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
 EMMABUNTUS_X64=emmabuntus-x64
-EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.03/emmabuntus-de5-amd64-12.8-1.03.iso
-EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.03/emmabuntus-de5-amd64-12.8-1.03.iso.sum.txt
+EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.04/emmabuntus-de5-amd64-12.10-1.04.iso
+EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.04/emmabuntus-de5-amd64-12.10-1.04.iso.sum.txt
 EMMABUNTUS_X64_SUM_TYPE=sha256
 
 EMMABUNTUS_X86=emmabuntus-x86
-EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.03/emmabuntus-de5-i686-12.8-1.03.iso
-EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.03/emmabuntus-de5-i686-12.8-1.03.iso.sum.txt
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.04/emmabuntus-de5-i686-12.10-1.04.iso
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.04/emmabuntus-de5-i686-12.10-1.04.iso.sum.txt
 EMMABUNTUS_X86_SUM_TYPE=sha256
 
 
@@ -172,8 +172,8 @@ FEDORA_SL_X64_SUM_TYPE=sha256
 
 
 FINNIX_X64=finnix-x64
-FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-126.iso
-FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-126.iso.gpg
+FINNIX_X64_URL=https://www.finnix.org/releases/current/finnix-250.iso
+FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-250.iso.gpg
 FINNIX_X64_SUM_TYPE=gpg
 
 
@@ -262,8 +262,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.5.1/rescuezilla-2.5.1-64bit.noble.iso
-RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.5.1/SHA256SUM
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.6/rescuezilla-2.6-64bit.oracular.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.6/SHA256SUM
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
@@ -272,14 +272,14 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.13/tails-amd64-6.13.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.13/tails-amd64-6.13.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.14.1/tails-amd64-6.14.1.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.14.1/tails-amd64-6.14.1.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
 TINYCORE_X64=tinycore-x64
-TINYCORE_X64_URL=http://tinycorelinux.net/15.x/x86_64/release/TinyCorePure64-current.iso
-TINYCORE_X64_SUM=http://tinycorelinux.net/15.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
+TINYCORE_X64_URL=http://tinycorelinux.net/16.x/x86_64/release/TinyCorePure64-current.iso
+TINYCORE_X64_SUM=http://tinycorelinux.net/16.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
 TINYCORE_X64_SUM_TYPE=md5
 
 TINYCORE_X86=tinycore-x86
