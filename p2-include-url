@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-05-18
+# v 2025-05-26
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -140,8 +140,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R3.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R3.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R3.1.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R3.1.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -166,8 +166,8 @@ FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/42/W
 FEDORA_X64_SUM_TYPE=sha256
 
 FEDORA_SL_X64=fedora-sec-x64
-FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/41/Labs/x86_64/iso/Fedora-Security-Live-x86_64-41-1.4.iso
-FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/41/Labs/x86_64/iso/Fedora-Labs-41-1.4-x86_64-CHECKSUM
+FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/42/Labs/x86_64/iso/Fedora-Security-Live-x86_64-42-1.1.iso
+FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/42/Labs/x86_64/iso/Fedora-Labs-42-1.1-x86_64-CHECKSUM
 FEDORA_SL_X64_SUM_TYPE=sha256
 
 
@@ -268,12 +268,12 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/12.00/systemrescue-12.00-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/12.01/systemrescue-12.01-amd64.iso
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.15/tails-amd64-6.15.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.15/tails-amd64-6.15.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.15.1/tails-amd64-6.15.1.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.15.1/tails-amd64-6.15.1.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
