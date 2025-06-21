@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-06-01
+# v 2025-06-20
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -140,8 +140,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R3.1.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R3.1.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R4.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R4.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -182,7 +182,7 @@ GNURADIO_X64=gnuradio-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.1c-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.2-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
