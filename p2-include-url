@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-06-20
+# v 2025-06-25
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -99,7 +99,7 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.2.2-5/clonezilla-live-3.2.2-5-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.2.2-15/clonezilla-live-3.2.2-15-amd64.iso
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.0-5/clonezilla-live-3.2.0-5-i686.iso
 
@@ -272,8 +272,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.16/tails-amd64-6.16.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.16/tails-amd64-6.16.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.16/tails-amd64-6.17.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.16/tails-amd64-6.17.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
