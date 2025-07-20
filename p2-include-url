@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-06-25
+# v 2025-07-19
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -140,8 +140,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R4.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R4.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R5.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R5.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -238,13 +238,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/6.3.2/Parrot-security-6.3.2_amd64.iso
-PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/6.3.2/signed-hashes.txt
+PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/6.4/Parrot-security-6.4_amd64.iso
+PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/6.4/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/6.3.2/Parrot-home-6.3.2_amd64.iso
-PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/6.3.2/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/6.4/Parrot-home-6.4_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/6.4/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
@@ -262,8 +262,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.6/rescuezilla-2.6-64bit.oracular.iso
-RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.6/SHA256SUM
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.6.1/rescuezilla-2.6.1-64bit.oracular.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.6.1/SHA256SUM
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
