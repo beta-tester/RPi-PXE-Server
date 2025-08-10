@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-07-25
+# v 2025-08-10
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -106,14 +106,14 @@ CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 
 DEBIAN_KVER=
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-12.11.0-amd64-cinnamon.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.0.0-amd64-cinnamon.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
 DEBIAN_KVER_X86=-5.10.0-32-686
 DEBIAN_X86=debian-x86
-DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/debian-live-11.11.0-i386-cinnamon.iso
-DEBIAN_X86_SUM=https://cdimage.debian.org/cdimage/archive/latest-oldstable-live/i386/iso-hybrid/SHA256SUMS
+DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldoldstable-live/i386/iso-hybrid/debian-live-11.11.0-i386-cinnamon.iso
+DEBIAN_X86_SUM=https://cdimage.debian.org/cdimage/archive/latest-oldoldstable-live/i386/iso-hybrid/SHA256SUMS
 DEBIAN_X86_SUM_TYPE=sha256
 
 
@@ -140,8 +140,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R5.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R5.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R7.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R7.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -210,7 +210,7 @@ LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/25.04/release/SHA256
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.2-desktop-amd64.iso
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.3-desktop-amd64.iso
 LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
@@ -299,7 +299,7 @@ UBUNTU_X64_SUM=https://releases.ubuntu.com/25.04/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.2-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.3-desktop-amd64.iso
 UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
@@ -319,7 +319,7 @@ UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/25.04/rel
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-24.11.00-x86_64.img.xz
+UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-25.07.00-x86_64.img.xz
 UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
 UBUNTU_FWTS_SUM_TYPE=sha256
 
