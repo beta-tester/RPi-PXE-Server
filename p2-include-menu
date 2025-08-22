@@ -684,7 +684,6 @@ if [[ -f "$FILE_MENU" ]] \
     [[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
     [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" pkeys=$CUSTOM_KMAP"
     [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" setxkbmap=$CUSTOM_KMAP"
-    [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" setxkbmap=$CUSTOM_KMAP"
     [[ -n "$CUSTOM_TIMEZONE" ]]   && BOOT_OPTS+=" timezone=$CUSTOM_TIMEZONE"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
@@ -710,7 +709,6 @@ if [[ -f "$FILE_MENU" ]] \
     [[ -n "$CUSTOM_LOCALE" ]]     && BOOT_OPTS+=" locales=$CUSTOM_LOCALE"
     [[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
     [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" pkeys=$CUSTOM_KMAP"
-    [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" setxkbmap=$CUSTOM_KMAP"
     [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" setxkbmap=$CUSTOM_KMAP"
     [[ -n "$CUSTOM_TIMEZONE" ]]   && BOOT_OPTS+=" timezone=$CUSTOM_TIMEZONE"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
