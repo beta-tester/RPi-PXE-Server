@@ -16,6 +16,17 @@ then
 ## lpxelinux
 
 
+########################################################################
+BOOT_OPTS_DEBIAN=" utc=no"
+[[ -n "$CUSTOM_LOCALE" ]]     && BOOT_OPTS_DEBIAN+=" locales=$CUSTOM_LOCALE"
+[[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS_DEBIAN+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
+[[ -n "$CUSTOM_TIMEZONE" ]]   && BOOT_OPTS_DEBIAN+=" timezone=$CUSTOM_TIMEZONE"
+
+BOOT_OPTS_UBUNTU=""
+[[ -n "$CUSTOM_LOCALE" ]]     && BOOT_OPTS_UBUNTU+=" debian-installer/locale=$CUSTOM_LOCALE"
+[[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS_UBUNTU+=" console-setup/layoutcode=$CUSTOM_LAYOUTCODE"
+[[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS_UBUNTU+=" keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE"
+[[ -n "$CUSTOM_VARIANT" ]]    && BOOT_OPTS_UBUNTU+=" keyboard-configuration/variant=$CUSTOM_VARIANT"
 
 
 ########################################################################
@@ -49,122 +60,137 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$BUNSEN_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$BUNSEN_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $BUNSEN_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $BUNSEN_X64
         MENU LABEL Bunsen x64
         KERNEL $FILE_BASE$NFS_ETH0/$BUNSEN_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$BUNSEN_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$BUNSEN_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$BUNSEN_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to Bunsen x64 Live LXDE
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz$DEBIAN_TESTING_KVER" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz$DEBIAN_TESTING_KVER" ]]; then (
     echo  -e "\e[36m    add $DEBIAN_TESTING_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_TESTING_X64
         MENU LABEL Debian x64 (testing)
         KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/vmlinuz$DEBIAN_TESTING_KVER
         INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_TESTING_X64/live/initrd.img$DEBIAN_TESTING_KVER
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_TESTING_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_TESTING_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to Debian x64 Live (testing)
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz$DEBIAN_KVER" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X64/live/vmlinuz$DEBIAN_KVER" ]]; then (
     echo  -e "\e[36m    add $DEBIAN_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_X64
         MENU LABEL Debian x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/vmlinuz$DEBIAN_KVER
         INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X64/live/initrd.img$DEBIAN_KVER
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
-            Boot to Debian x64 Live LXDE
+            Boot to Debian x64 Live
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz$DEBIAN_KVER_X86" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEBIAN_X86/live/vmlinuz$DEBIAN_KVER_X86" ]]; then (
     echo  -e "\e[36m    add $DEBIAN_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEBIAN_X86
         MENU LABEL Debian x86
         KERNEL $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/vmlinuz$DEBIAN_KVER_X86
         INITRD $FILE_BASE$NFS_ETH0/$DEBIAN_X86/live/initrd.img$DEBIAN_KVER_X86
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEBIAN_X86 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
-            Boot to Debian x86 Live LXDE
+            Boot to Debian x86 Live
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEVUAN_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEVUAN_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DEVUAN_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEVUAN_X64
         MENU LABEL Devuan x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X64 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X64 ro netboot=nfs boot=live username=devuan config -- $BOOT_OPTS
         TEXT HELP
             Boot to Devuan x64 Live
             User: devuan
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEVUAN_X86/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEVUAN_X86/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DEVUAN_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEVUAN_X86
         MENU LABEL Devuan x86
         KERNEL $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEVUAN_X86/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X86 ro netboot=nfs boot=live username=devuan config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEVUAN_X86 ro netboot=nfs boot=live username=devuan config -- $BOOT_OPTS
         TEXT HELP
             Boot to Devuan x86 Live
             User: devuan
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$FEDORA_X64/images/pxeboot/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$FEDORA_X64/images/pxeboot/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $FEDORA_X64\e[0m";
+    BOOT_OPTS="vconsole.font=latarcyrheb-sun16"
+    [[ -n "$CUSTOM_LOCALE" ]] && BOOT_OPTS+=" locale.LANG=$CUSTOM_LOCALE"
+    [[ -n "$CUSTOM_KEYMAP" ]] && BOOT_OPTS+=" vconsole.keymap=$CUSTOM_KEYMAP"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## INFO: http://people.redhat.com/harald/dracut.html#dracut.kernel
@@ -174,190 +200,213 @@ if [[ -f "$FILE_MENU" ]] \
         MENU LABEL Fedora x64
         KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/images/pxeboot/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/images/pxeboot/initrd.img
-        APPEND ip=dhcp root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 fsck.mode=skip -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=$CUSTOM_KEYMAP locale.LANG=$CUSTOM_LOCALE
+        APPEND ip=dhcp root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Fedora Workstation Live
             User: liveuser
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$EMMABUNTUS_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$EMMABUNTUS_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $EMMABUNTUS_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $EMMABUNTUS_X64
         MENU LABEL EmmaDE x64
         KERNEL $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$EMMABUNTUS_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$EMMABUNTUS_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to EmmaDE x64 Live LXDE
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$EMMABUNTUS_X86/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$EMMABUNTUS_X86/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $EMMABUNTUS_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $EMMABUNTUS_X86
         MENU LABEL EmmaDE x86
         KERNEL $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X86/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$EMMABUNTUS_X86/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$EMMABUNTUS_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$EMMABUNTUS_X86 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to EmmaDE x86 Live LXDE
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $LUBUNTU_DAILY_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_DAILY_X64
         MENU LABEL lubuntu x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_DAILY_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to lubuntu x64 Daily-Live
             User: lubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $LUBUNTU_LTS_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_LTS_X64
         MENU LABEL lubuntu LTS x64
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- $BOOT_OPTS
         TEXT HELP
             Boot to lubuntu LTS x64 Live
             User: lubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $LUBUNTU_LTS_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_LTS_X86
         MENU LABEL lubuntu LTS x86
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_LTS_X86/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- $BOOT_OPTS
         TEXT HELP
             Boot to lubuntu LTS x86 Live
             User: lubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $LUBUNTU_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_X64
         MENU LABEL lubuntu x64
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to lubuntu x64 Live
             User: lubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $LUBUNTU_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $LUBUNTU_X86
         MENU LABEL lubuntu x86
         KERNEL $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$LUBUNTU_X86/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$LUBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/lubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- $BOOT_OPTS
         TEXT HELP
             Boot to lubuntu x86 Live
             User: lubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$MINT_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$MINT_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $MINT_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $MINT_X64
         MENU LABEL linux-mint x64
         KERNEL $FILE_BASE$NFS_ETH0/$MINT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$MINT_X64/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs file=/cdrom/preseed/linuxmint.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$MINT_X64 ro netboot=nfs file=/cdrom/preseed/linuxmint.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- $BOOT_OPTS
         TEXT HELP
             Boot to linux-mint x64 Live
             User:
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux" ]]; then (
     echo  -e "\e[36m    add $OPENSUSE_X64\e[0m";
+    BOOT_OPTS=""
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $OPENSUSE_X64
         MENU LABEL openSUSE Leap x64
         KERNEL $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/linux
         INITRD $FILE_BASE$NFS_ETH0/$OPENSUSE_X64/boot/x86_64/loader/initrd
-        APPEND ip=dhcp root=live:AOEINTERFACE=e1.1 rd.kiwi.live.pxe --
+        APPEND ip=dhcp root=live:AOEINTERFACE=e1.1 rd.kiwi.live.pxe -- $BOOT_OPTS
         TEXT HELP
             Boot to openSUSE Leap Live
             User: liveuser
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]]; then (
     echo  -e "\e[36m    add $TINYCORE_X64\e[0m";
+    BOOT_OPTS=" noswap norestore settime showapps pause"
+    [[ -n "$CUSTOM_LANGUAGE" ]] && BOOT_OPTS+=" lang=$CUSTOM_LANGUAGE"
+    [[ -n "$CUSTOM_KMAP" ]]     && BOOT_OPTS+=" kmap=$CUSTOM_KMAP"
+    [[ -n "$CUSTOM_TIMEZONE" ]] && BOOT_OPTS+=" tz=$CUSTOM_TIMEZONE"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
@@ -367,18 +416,19 @@ if [[ -f "$FILE_MENU" ]] \
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X64/boot/corepure64.gz
         APPEND ip=dhcp nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=$CUSTOM_LANGUAGE kmap=$CUSTOM_KMAP noswap norestore
         #APPEND ip=dhcp nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X64.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=$CUSTOM_LANGUAGE kmap=$CUSTOM_KMAP noswap norestore
-        #APPEND ip=dhcp httplist=$IP_ETH0$DST_NFS_ETH0/tinycore-x64.xbase.lst vga=791 loglevel=3 -- lang=$CUSTOM_LANGUAGE kmap=$CUSTOM_KMAP tz=$CUSTOM_TIMEZONE noswap norestore settime showapps pause
+        #APPEND ip=dhcp httplist=$IP_ETH0$DST_NFS_ETH0/tinycore-x64.xbase.lst vga=791 loglevel=3 -- $BOOT_OPTS
         TEXT HELP
             Boot to tiny core x64
             User: tc
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$TINYCORE_X64/boot/vmlinuz64" ]]; then (
     echo  -e "\e[36m    add $TINYCORE_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
@@ -393,13 +443,18 @@ if [[ -f "$FILE_MENU" ]] \
             User: tc
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$TINYCORE_X86/boot/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$TINYCORE_X86/boot/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $TINYCORE_X86\e[0m";
+    BOOT_OPTS=" noswap norestore settime showapps pause"
+    [[ -n "$CUSTOM_LANGUAGE" ]] && BOOT_OPTS+=" lang=$CUSTOM_LANGUAGE"
+    [[ -n "$CUSTOM_KMAP" ]]     && BOOT_OPTS+=" kmap=$CUSTOM_KMAP"
+    [[ -n "$CUSTOM_TIMEZONE" ]] && BOOT_OPTS+=" tz=$CUSTOM_TIMEZONE"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     # INFO: http://wiki.tinycorelinux.net/wiki:boot_options
@@ -408,107 +463,118 @@ if [[ -f "$FILE_MENU" ]] \
         KERNEL $FILE_BASE$NFS_ETH0/$TINYCORE_X86/boot/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$TINYCORE_X86/boot/core.gz
         APPEND nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86 tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=en kmap=qwertz/de-latin1 noswap norestore
-        #APPEND ip=dhcp nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- lang=$CUSTOM_LANGUAGE kmap=$CUSTOM_KMAP noswap norestore
+        #APPEND ip=dhcp nfsmount=$IP_ETH0:$DST_NFS_ETH0/$TINYCORE_X86.rw tce=/mnt/nfs/cde waitusb=5 vga=791 loglevel=3 -- $BOOT_OPTS
         TEXT HELP
             Boot to tiny core x86
             User: tc
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_DAILY_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_DAILY_X64
         MENU LABEL Ubuntu x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_DAILY_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu x64 Daily-Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_LTS_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_LTS_X64
         MENU LABEL Ubuntu LTS x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip systemd.mask=tmp.mount -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu LTS x64 Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_LTS_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_LTS_X86
         MENU LABEL Ubuntu LTS x86
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_LTS_X86/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_LTS_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu LTS x86 Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_X64
         MENU LABEL Ubuntu x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu x64 Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_X86/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_X86/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_X86
         MENU LABEL Ubuntu x86
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_X86/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu x86 Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
@@ -527,7 +593,7 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$BLACKARCH_X64/blackarch/boot/x86_64/vmlinuz-linux" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$BLACKARCH_X64/blackarch/boot/x86_64/vmlinuz-linux" ]]; then (
     echo  -e "\e[36m    add $BLACKARCH_X64\e[0m";
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
@@ -542,139 +608,164 @@ if [[ -f "$FILE_MENU" ]] \
             User:  root, Password: blackarch
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEFT_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEFT_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DEFT_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEFT_X64
         MENU LABEL DEFT x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEFT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEFT_X64/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 -- $BOOT_OPTS
         TEXT HELP
             Boot to DEFT x64 Live
             User: root, Password: toor
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DEFTZ_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DEFTZ_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DEFTZ_X64
         MENU LABEL DEFT Zero x64
         KERNEL $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DEFTZ_X64/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DEFTZ_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 -- $BOOT_OPTS
         TEXT HELP
             Boot to DEFT Zero x64 Live
             User: root, Password: toor
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$KALI_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$KALI_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $KALI_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $KALI_X64
         MENU LABEL Kali x64
         KERNEL $FILE_BASE$NFS_ETH0/$KALI_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$KALI_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64 ro netboot=nfs boot=live noconfig=sudo username=kali hostname=kali -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$KALI_X64 ro netboot=nfs boot=live noconfig=sudo username=kali hostname=kali -- $BOOT_OPTS
         TEXT HELP
             Boot to Kali x64 Live
             User: kali, Password: kali
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $PARROT_FULL_X64\e[0m";
+    BOOT_OPTS=" utc=no"
+    [[ -n "$CUSTOM_LOCALE" ]]     && BOOT_OPTS+=" locales=$CUSTOM_LOCALE"
+    [[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
+    [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" pkeys=$CUSTOM_KMAP"
+    [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" setxkbmap=$CUSTOM_KMAP"
+    [[ -n "$CUSTOM_TIMEZONE" ]]   && BOOT_OPTS+=" timezone=$CUSTOM_TIMEZONE"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PARROT_FULL_X64
         MENU LABEL Parrot Full x64
         KERNEL $FILE_BASE$NFS_ETH0/$PARROT_FULL_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$PARROT_FULL_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE pkeys=$CUSTOM_KMAP setxkbmap=$CUSTOM_KMAP utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_FULL_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to Parrot Full x64 Live (Security)
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $PARROT_LITE_X64\e[0m";
+    BOOT_OPTS=" utc=no"
+    [[ -n "$CUSTOM_LOCALE" ]]     && BOOT_OPTS+=" locales=$CUSTOM_LOCALE"
+    [[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
+    [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" pkeys=$CUSTOM_KMAP"
+    [[ -n "$CUSTOM_KMAP" ]]       && BOOT_OPTS+=" setxkbmap=$CUSTOM_KMAP"
+    [[ -n "$CUSTOM_TIMEZONE" ]]   && BOOT_OPTS+=" timezone=$CUSTOM_TIMEZONE"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PARROT_LITE_X64
         MENU LABEL Parrot Lite x64
         KERNEL $FILE_BASE$NFS_ETH0/$PARROT_LITE_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$PARROT_LITE_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE pkeys=$CUSTOM_KMAP setxkbmap=$CUSTOM_KMAP utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PARROT_LITE_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to Parrot Lite x64 Live (Home/Workstation)
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo" ]]; then (
     echo  -e "\e[36m    add $PENTOO_BETA_X64\e[0m";
+    BOOT_OPTS=""
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PENTOO_BETA_X64
         MENU LABEL Pentoo Beta x64
         KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo
         INITRD $FILE_BASE$NFS_ETH0/$PENTOO_BETA_X64/boot/pentoo.igz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_BETA_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 --
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_BETA_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 -- $BOOT_OPTS
         TEXT HELP
             Boot to Pentoo Beta x64 Live
             User: pentoo
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$PENTOO_X64/boot/pentoo" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$PENTOO_X64/boot/pentoo" ]]; then (
     echo  -e "\e[36m    add $PENTOO_X64\e[0m";
+    BOOT_OPTS=""
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $PENTOO_X64
         MENU LABEL Pentoo x64
         KERNEL $FILE_BASE$NFS_ETH0/$PENTOO_X64/boot/pentoo
         INITRD $FILE_BASE$NFS_ETH0/$PENTOO_X64/boot/pentoo.igz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 --
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$PENTOO_X64 ro real_root=/dev/nfs root=/dev/ram0 init=/linuxrc overlayfs looptype=squashfs loop=/image.squashfs cdroot nox secureconsole max_loop=256 dokeymap video=uvesafb:mtrr:3,ywrap,1024x768-16 console=tty0 scsi_mod.use_blk_mq=1 net.ifnames=0 ipv6.autoconf=0 -- $BOOT_OPTS
         TEXT HELP
             Boot to Pentoo x64 Live
             User: pentoo
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
@@ -693,75 +784,83 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DESINFECT_X86/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DESINFECT_X86/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DESINFECT_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DESINFECT_X86
         MENU LABEL desinfect x86
         KERNEL $FILE_BASE$NFS_ETH0/$DESINFECT_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DESINFECT_X86/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 rmdns -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 rmdns -- $BOOT_OPTS
         TEXT HELP
             Boot to ct desinfect x86
             User: desinfect
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DESINFECT_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DESINFECT_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DESINFECT_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DESINFECT_X64
         MENU LABEL desinfect x64
         KERNEL $FILE_BASE$NFS_ETH0/$DESINFECT_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DESINFECT_X64/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 rmdns -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DESINFECT_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip memtest=4 rmdns -- $BOOT_OPTS
         TEXT HELP
             Boot to ct desinfect x64
             User: desinfect
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $ESET_SYSRESCUE_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $ESET_SYSRESCUE_X86
         MENU LABEL ESET SysRescue Live
         KERNEL $FILE_BASE$NFS_ETH0/$ESET_SYSRESCUE_X86/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$ESET_SYSRESCUE_X86/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$ESET_SYSRESCUE_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$ESET_SYSRESCUE_X86 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to ESET SysRescue Live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86_64" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86_64" ]]; then (
     echo  -e "\e[36m    add $KASPERSKY_RESCUE_X86\e[0m";
+    BOOT_OPTS=" lang=us setkmap=us"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $KASPERSKY_RESCUE_X86
         MENU LABEL Kaspersky Rescue Disk
         KERNEL $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/k-x86
         INITRD $FILE_BASE$NFS_ETH0/$KASPERSKY_RESCUE_X86/boot/grub/initrd.xz
-        APPEND ip=dhcp netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86 ro dostartx -- lang=us setkmap=us
+        APPEND ip=dhcp netboot=nfs://$IP_ETH0:$DST_NFS_ETH0/$KASPERSKY_RESCUE_X86 ro dostartx -- $BOOT_OPTS
         TEXT HELP
             Boot to Kaspersky Rescue Disk
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
@@ -780,114 +879,126 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$RESCUEZILLA_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$RESCUEZILLA_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $RESCUEZILLA_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $RESCUEZILLA_X64
         MENU LABEL Rescuezilla x64
         KERNEL $FILE_BASE$NFS_ETH0/$RESCUEZILLA_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$RESCUEZILLA_X64/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RESCUEZILLA_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RESCUEZILLA_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Rescuezilla x64 Live
             User:
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $CLONEZILLA_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $CLONEZILLA_X64
         MENU LABEL Clonezilla x64
         KERNEL $FILE_BASE$NFS_ETH0/$CLONEZILLA_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$CLONEZILLA_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X64 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X64 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- $BOOT_OPTS
         TEXT HELP
             Boot to Clonezilla x64
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $CLONEZILLA_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $CLONEZILLA_X86
         MENU LABEL Clonezilla x86
         KERNEL $FILE_BASE$NFS_ETH0/$CLONEZILLA_X86/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$CLONEZILLA_X86/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X86 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$CLONEZILLA_X86 ro netboot=nfs boot=live config username=user hostname=clonezilla union=overlay components noswap edd=on nomodeset nodmraid ocs_live_run=ocs-live-general ocs_live_extra_param= ocs_live_batch=no net.ifnames=0 nosplash noprompt -- $BOOT_OPTS
         TEXT HELP
             Boot to Clonezilla x86
             User: user, Password: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $DRAGONOS_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $DRAGONOS_X64
         MENU LABEL DragonOS x64
         KERNEL $FILE_BASE$NFS_ETH0/$DRAGONOS_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$DRAGONOS_X64/casper/initrd.gz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DRAGONOS_X64 ro netboot=nfs file=/cdrom/preseed/custom.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$DRAGONOS_X64 ro netboot=nfs file=/cdrom/preseed/custom.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to DragonOS x64 Live
             User: live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$FINNIX_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$FINNIX_X64/live/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $FINNIX_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $FINNIX_X64
         MENU LABEL Finnix x64
         KERNEL $FILE_BASE$NFS_ETH0/$FINNIX_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$FINNIX_X64/live/initrd.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$FINNIX_X64 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$FINNIX_X64 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to Finnix x64 Live
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi" ]]; then (
     echo  -e "\e[36m    add $GNURADIO_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $GNURADIO_X64
         MENU LABEL GNU Radio x64
         KERNEL $FILE_BASE$NFS_ETH0/$GNURADIO_X64/casper/vmlinuz.efi
         INITRD $FILE_BASE$NFS_ETH0/$GNURADIO_X64/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$GNURADIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$GNURADIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to GNU Radio x64 Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
@@ -942,20 +1053,22 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2" ]]; then (
     echo  -e "\e[36m    add $RPDESKTOP_X86\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_DEBIAN"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $RPDESKTOP_X86
         MENU LABEL Raspberry Pi Desktop
         KERNEL $FILE_BASE$NFS_ETH0/$RPDESKTOP_X86/live/vmlinuz2
         INITRD $FILE_BASE$NFS_ETH0/$RPDESKTOP_X86/live/initrd2.img
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPDESKTOP_X86 ro netboot=nfs boot=live config -- locales=$CUSTOM_LOCALE keyboard-layouts=$CUSTOM_LAYOUTCODE utc=no timezone=$CUSTOM_TIMEZONE
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$RPDESKTOP_X86 ro netboot=nfs boot=live config -- $BOOT_OPTS
         TEXT HELP
             Boot to Raspberry Pi Desktop
             User: pi, Password: raspberry
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
@@ -982,7 +1095,7 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]]; then (
     if ! [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
         #echo  -e "\e[36m    download patch for $TAILS_X64\e[0m";
         #sudo wget --quiet -O $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz https://github.com/beta-tester/RPi-PXE-Server/files/?/$TAILS_X64-hotfix-pxe.cpio.xz
@@ -990,6 +1103,8 @@ if [[ -f "$FILE_MENU" ]] \
     fi
     if [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
         echo  -e "\e[36m    add $TAILS_X64\e[0m";
+        BOOT_OPTS=""
+        [[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
@@ -1000,7 +1115,7 @@ if [[ -f "$FILE_MENU" ]] \
         MENU LABEL Tails x64
         KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-        APPEND ip=dhcp fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC systemd.mask=tails-shutdown-on-media-removal.service fsck.mode=skip -- keyboard-layouts=$CUSTOM_LAYOUTCODE
+        APPEND ip=dhcp fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC systemd.mask=tails-shutdown-on-media-removal.service fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Tails x64 Live
         ENDTEXT
@@ -1009,13 +1124,15 @@ EOF
         echo  -e "\e[1;31m    failed $TAILS_X64,\e[0m"
         echo  -e "\e[1;31m        please visit: https://github.com/beta-tester/RPi-PXE-Server/issues/31\e[0m";
     fi
+)
 fi
 #========== END ==========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_FWTS\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     ## INFO: https://wiki.ubuntu.com/FirmwareTestSuite/
@@ -1025,50 +1142,55 @@ if [[ -f "$FILE_MENU" ]] \
         MENU LABEL Ubuntu Live FirmwareTestSuite
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_FWTS/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_FWTS/casper/initrd.lz
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_FWTS ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip toram --
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_FWTS ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip toram -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu Live FirmwareTestSuite
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_STUDIO_DAILY_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_STUDIO_DAILY_X64
         MENU LABEL Ubuntu Studio x64 Daily-Live
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_DAILY_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu Studio x64 Daily-Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz" ]]; then
+&& [[ -f "$DST_NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz" ]]; then (
     echo  -e "\e[36m    add $UBUNTU_STUDIO_X64\e[0m";
+    BOOT_OPTS=" $BOOT_OPTS_UBUNTU"
     cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
     LABEL $UBUNTU_STUDIO_X64
         MENU LABEL Ubuntu Studio x64
         KERNEL $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/vmlinuz
         INITRD $FILE_BASE$NFS_ETH0/$UBUNTU_STUDIO_X64/casper/initrd
-        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- debian-installer/locale=$CUSTOM_LOCALE console-setup/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/layoutcode=$CUSTOM_LAYOUTCODE keyboard-configuration/variant=$CUSTOM_VARIANT
+        APPEND ip=dhcp nfsroot=$IP_ETH0:$DST_NFS_ETH0/$UBUNTU_STUDIO_X64 ro netboot=nfs file=/cdrom/preseed/ubuntu.seed boot=casper fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Ubuntu Studio x64 Live
             User: ubuntu
         ENDTEXT
 EOF
+)
 fi
 #=========== END ===========
 
