@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-08-10
+# v 2025-08-24
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -85,7 +85,7 @@ fi
 
 
 ARCH_NETBOOT_X64=arch-netboot-x64
-ARCH_NETBOOT_X64_URL=https://archlinux.org/static/netboot/ipxe.lkrn
+ARCH_NETBOOT_X64_URL=https://archlinux.org/static/netboot/ipxe-arch.lkrn
 
 
 BLACKARCH_X64=blackarch-x64
@@ -268,12 +268,12 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/12.01/systemrescue-12.01-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/12.02/systemrescue-12.02-amd64.iso
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.18/tails-amd64-6.18.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.18/tails-amd64-6.18.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.19/tails-amd64-6.19.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.19/tails-amd64-6.19.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
