@@ -85,7 +85,7 @@ fi
 
 
 ARCH_NETBOOT_X64=arch-netboot-x64
-ARCH_NETBOOT_X64_URL=https://archlinux.org/static/netboot/ipxe.lkrn
+ARCH_NETBOOT_X64_URL=https://archlinux.org/static/netboot/ipxe-arch.lkrn
 
 
 BLACKARCH_X64=blackarch-x64
