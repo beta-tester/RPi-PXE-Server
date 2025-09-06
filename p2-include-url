@@ -178,10 +178,6 @@ FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-250.iso.gpg
 FINNIX_X64_SUM_TYPE=gpg
 
 
-GNURADIO_X64=gnuradio-x64
-#GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
-
-
 GPARTED_X64=gparted-x64
 GPARTED_X64_URL=https://downloads.sourceforge.net/project/gparted/gparted-live-stable/1.7.0-8/gparted-live-1.7.0-8-amd64.iso
 GPARTED_X64_SUM=https://sourceforge.net/projects/gparted/files/gparted-live-stable/1.7.0-8/
@@ -352,13 +348,17 @@ WIN_PE_X64_URL=
 
 #broken#
 ANDROID_X86=android-x86
-ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64-9.0-r2.iso
+#ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64-9.0-r2.iso
 
 
 CENTOS_X64=centos-x64
 #CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-2003.iso
 #CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.txt
 #CENTOS_X64_SUM_TYPE=sha256
+
+
+GNURADIO_X64=gnuradio-x64
+#GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 
 ########################################################################
