@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-08-24
+# v 2025-09-05
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -75,6 +75,7 @@ fi
 #                      http://tinycorelinux.net/9.x/armv7/releases/RPi/
 # emmabuntus           https://emmabuntus.org/
 #                      https://sourceforge.net/projects/emmabuntus/files/
+# gparted              https://sourceforge.net/projects/gparted/files/gparted-live-stable/
 
 
 ########################################################################
@@ -181,6 +182,12 @@ GNURADIO_X64=gnuradio-x64
 #GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 
+GPARTED_X64=gparted-x64
+GPARTED_X64_URL=https://downloads.sourceforge.net/project/gparted/gparted-live-stable/1.7.0-8/gparted-live-1.7.0-8-amd64.iso
+GPARTED_X64_SUM=https://sourceforge.net/projects/gparted/files/gparted-live-stable/1.7.0-8/
+GPARTED_X64_SUM_TYPE=sha256
+
+
 KALI_X64=kali-x64
 KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.2-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
@@ -221,8 +228,8 @@ LUBUNTU_LTS_X86_SUM_TYPE=sha256
 
 
 MINT_X64=mint-x64
-MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/22.1/linuxmint-22.1-cinnamon-64bit.iso
-MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/22.1/sha256sum.txt
+MINT_X64_URL=https://mirrors.edge.kernel.org/linuxmint/stable/22.2/linuxmint-22.2-cinnamon-64bit.iso
+MINT_X64_SUM=https://mirrors.edge.kernel.org/linuxmint/stable/22.2/sha256sum.txt
 MINT_X64_SUM_TYPE=sha256
 
 
@@ -345,7 +352,7 @@ WIN_PE_X64_URL=
 
 #broken#
 ANDROID_X86=android-x86
-ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64-9.0-r2.iso
+#ANDROID_X86_URL=https://dotsrc.dl.osdn.net/osdn/android-x86/71931/android-x86_64-9.0-r2.iso
 
 
 CENTOS_X64=centos-x64
