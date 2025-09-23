@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-09-05
+# v 2025-09-23
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -107,7 +107,7 @@ CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 
 DEBIAN_KVER=
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.0.0-amd64-cinnamon.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.1.0-amd64-cinnamon.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
@@ -178,10 +178,6 @@ FINNIX_X64_SUM=https://www.finnix.org/releases/current/finnix-250.iso.gpg
 FINNIX_X64_SUM_TYPE=gpg
 
 
-GNURADIO_X64=gnuradio-x64
-#GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
-
-
 GPARTED_X64=gparted-x64
 GPARTED_X64_URL=https://downloads.sourceforge.net/project/gparted/gparted-live-stable/1.7.0-8/gparted-live-1.7.0-8-amd64.iso
 GPARTED_X64_SUM=https://sourceforge.net/projects/gparted/files/gparted-live-stable/1.7.0-8/
@@ -189,7 +185,7 @@ GPARTED_X64_SUM_TYPE=sha256
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.2-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.3-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -279,8 +275,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.19/tails-amd64-6.19.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-6.19/tails-amd64-6.19.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.0/tails-amd64-7.0.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.0/tails-amd64-7.0.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -359,6 +355,10 @@ CENTOS_X64=centos-x64
 #CENTOS_X64_URL=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveGNOME-2003.iso
 #CENTOS_X64_SUM=https://mirrors.edge.kernel.org/centos/7/isos/x86_64/sha256sum.txt
 #CENTOS_X64_SUM_TYPE=sha256
+
+
+GNURADIO_X64=gnuradio-x64
+#GNURADIO_X64_URL=http://eu2-dist.gnuradio.org/ubuntu-16.04.2-desktop-amd64-gnuradio-3.7.11.iso
 
 
 ########################################################################
