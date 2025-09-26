@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# ... break=top
+# ... break=...
 # ... break=premount
 # ... break=init
 # ... debug
@@ -8,6 +10,7 @@
 # $ ls  /tmp/test/bin/live-*
 # $ ls -r /tmp/test/lib/live/*
 
+# 2025-09-26 for tails 7.0, add missing lib for kmod
 # 2024-02-27 for tails 6.0, renamed to all-net-blocklist.conf
 # 2024-02-27 for tails 6.0, updated path from /lib/modules/ to /usr/lib/modules/
 # 2023-09-11 skip network de-init on boot option "break=init" to keep network alive for debugging
@@ -15,8 +18,9 @@
 
 # requires:
 #   squashfs-tools  (unsquashfs)
-#   initramfs-tools (cpio)
+#   initramfs-tools (cpio, unmkinitramfs)
 #   xz-utils        (xz)
+#   zstd            (zstd)
 
 # location, where to store temporary files
 TMP=/tmp/tails-net
@@ -25,7 +29,7 @@ TMP=/tmp/tails-net
 SRC=/srv/nfs/tails-x64/live/filesystem.squashfs
 
 # full filename of the hotfix-pxe image
-DST=/srv/nfs/tails-x64-hotfix-pxe.cpio.xz
+DST=/srv/nfs/tails-x64-hotfix
 
 
 if [[ -z "${TMP}" ]] || [[ -z "${SRC}" ]] || [[ -z "${DST}" ]]; then
@@ -58,13 +62,10 @@ sudo unsquashfs \
     -f "${SRC:?}" \
     -e "/usr/lib/modules/${KVER:?}/kernel/drivers/net/phy" \
     -e "/usr/lib/modules/${KVER:?}/kernel/drivers/net/ethernet" \
+    -e "/usr/bin/kmod" \
+    -e "/usr/lib/x86_64-linux-gnu/liblzma.so.*" \
     ;
 (( $? != 0 )) && exit -4
-
-# compress missing network kernel drivers modules to file
-[[ -e "${TMP:?}/conf/" ]] || sudo mkdir -p "${TMP:?}/conf/"
-sudo tar -ravf "${TMP:?}/conf/net_drivers.tar.xz" -C "${TMP:?}"  "usr/lib"
-sudo rm -rf "${TMP:?}/usr/lib"
 }
 
 
@@ -86,16 +87,9 @@ patch_top()
     # comment out all blacklist entries
     sed "s/^install/# install/g" -i /etc/modprobe.d/all-net-blocklist.conf
 
-    # replace wget script by busybox, for normal behavior
-    mv /usr/bin/wget /usr/bin/wget.bak
-    ln -sf /usr/bin/busybox /usr/bin/wget
-
     # replace depmod, for normal behavior
     mv /usr/sbin/depmod /usr/sbin/depmod.bak
     ln -sf /usr/bin/kmod /usr/sbin/depmod
-
-    # excract the compressed drivers in place
-    tar -xf "/conf/net_drivers.tar.xz" -C /
 
     # rebulid dependencies for added network kernel drivers modules
     depmod -b /usr
@@ -154,8 +148,8 @@ do_initrd() {
 sudo rm "${DST:?}"
 cd "${TMP:?}"
 (( $? != 0 )) && return -4
-find . -type f -print0 | cpio --null --create --verbose --format=newc \
-    | xz --compress --extreme --check=crc32 | sudo tee "${DST:?}" &>/dev/null
+find . -mindepth 1 -print0 | cpio --null --create --verbose --format=newc \
+    | sudo tee "${DST:?}" &>/dev/null
 (( $? != 0 )) && return -4
 cd -
 }

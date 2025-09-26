@@ -1096,26 +1096,30 @@ fi
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
 && [[ -f "$DST_NFS_ETH0/$TAILS_X64/live/vmlinuz" ]]; then (
-    if ! [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
+    if ! [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix" ]]; then
         #echo  -e "\e[36m    download patch for $TAILS_X64\e[0m";
-        #sudo wget --quiet -O $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz https://github.com/beta-tester/RPi-PXE-Server/files/?/$TAILS_X64-hotfix-pxe.cpio.xz
+        #sudo wget --quiet -O $DST_NFS_ETH0/$TAILS_X64-hotfix https://github.com/beta-tester/RPi-PXE-Server/files/?/$TAILS_X64-hotfix
         :
     fi
-    if [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz" ]]; then
+    if [[ -f "$DST_NFS_ETH0/$TAILS_X64-hotfix" ]]; then
         echo  -e "\e[36m    add $TAILS_X64\e[0m";
         BOOT_OPTS=""
         [[ -n "$CUSTOM_LAYOUTCODE" ]] && BOOT_OPTS+=" keyboard-layouts=$CUSTOM_LAYOUTCODE"
         cat << EOF | sudo tee -a $FILE_MENU &>/dev/null
     ########################################
-    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
+    ## INFO: how to create $DST_NFS_ETH0/$TAILS_X64-hotfix
     ##       see:
     ##         https://github.com/beta-tester/RPi-PXE-Server/issues/31
+    ## break=top
+    ## ...
+    ## break=init
     ########################################
     LABEL $TAILS_X64
         MENU LABEL Tails x64
         KERNEL $FILE_BASE$NFS_ETH0/$TAILS_X64/live/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix-pxe.cpio.xz
-        APPEND ip=dhcp fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable ipv6.disable=1 nopersistence noprompt block.events_dfl_poll_msecs=1000 noautologin module=Tails slab_nomerge slub_debug=FZP mce=0 vsyscall=none page_poison=1 init_on_alloc=1 init_on_free=1 mds=full,nosmt timezone=Etc/UTC systemd.mask=tails-shutdown-on-media-removal.service fsck.mode=skip -- $BOOT_OPTS
+        INITRD $FILE_BASE$NFS_ETH0/$TAILS_X64/live/initrd.img,$FILE_BASE$NFS_ETH0/$TAILS_X64-hotfix
+        APPEND ip=dhcp fetch=$FILE_BASE$NFS_ETH0/$TAILS_X64/live/filesystem.squashfs ro boot=live config live-media=removable  ipv6.disable=1 nopersistence noprompt noautologin module=Tails slab_nomerge slub_debug=FZ  mce=0 vsyscall=none init_on_free=1 mds=full,nosmt timezone=Etc/UTC  page_alloc.shuffle=1 randomize_kstack_offset=on efi_pstore.pstore_disable=1 erst_disable spec_store_bypass_disable=on systemd.condition_needs_update=no  noapic noapm nodma nomce nolapic nosmp  systemd.mask=tails-shutdown-on-media-removal.service fsck.mode=skip -- $BOOT_OPTS
+        sysappend 0x40000
         TEXT HELP
             Boot to Tails x64 Live
         ENDTEXT
