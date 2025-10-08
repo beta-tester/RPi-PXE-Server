@@ -186,7 +186,7 @@ fi
 
 #========== BEGIN ==========
 if [[ -f "$FILE_MENU" ]] \
-&& [[ -f "$DST_NFS_ETH0/$FEDORA_X64/images/pxeboot/vmlinuz" ]]; then (
+&& [[ -f "$DST_NFS_ETH0/$FEDORA_X64/boot/x86_64/loader/linux" ]]; then (
     echo  -e "\e[36m    add $FEDORA_X64\e[0m";
     BOOT_OPTS="vconsole.font=latarcyrheb-sun16"
     [[ -n "$CUSTOM_LOCALE" ]] && BOOT_OPTS+=" locale.LANG=$CUSTOM_LOCALE"
@@ -198,9 +198,9 @@ if [[ -f "$FILE_MENU" ]] \
     ##       https://lukas.zapletalovi.com/2016/08/hidden-feature-of-fedora-24-live-pxe-boot.html
     LABEL $FEDORA_X64
         MENU LABEL Fedora x64
-        KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/images/pxeboot/vmlinuz
-        INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/images/pxeboot/initrd.img
-        APPEND ip=dhcp root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 fsck.mode=skip -- $BOOT_OPTS
+        KERNEL $FILE_BASE$NFS_ETH0/$FEDORA_X64/boot/x86_64/loader/linux
+        INITRD $FILE_BASE$NFS_ETH0/$FEDORA_X64/boot/x86_64/loader/initrd
+        APPEND ip=dhcp root=live:nfs://$IP_ETH0$DST_NFS_ETH0/$FEDORA_X64/LiveOS/squashfs.img ro rhgb rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 nomodeset vga=794 fsck.mode=skip -- $BOOT_OPTS
         TEXT HELP
             Boot to Fedora Workstation Live
             User: liveuser
@@ -1778,9 +1778,9 @@ goto start
 ###
 :fedora-x64
 set custom   -- vconsole.font=latarcyrheb-sun16 vconsole.keymap=\${keymap} locale.LANG=\${locale}
-set options  ip=dhcp root=live:nfs://\${next-server}/srv/nfs/\${os}/LiveOS/squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 vga=794 fsck.mode=skip
-imgselect  \${base}/\${os}/images/pxeboot/vmlinuz  \${options}  \${custom}  || goto failed
-imgfetch   \${base}/\${os}/images/pxeboot/initrd.img                      || goto failed
+set options  ip=dhcp root=live:nfs://\${next-server}/srv/nfs/\${os}/LiveOS/squashfs.img ro rhgb rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 nomodeset vga=794 fsck.mode=skip
+imgselect  \${base}/\${os}/boot/x86_64/loader/linux  \${options}  \${custom}  || goto failed
+imgfetch   \${base}/\${os}/boot/x86_64/loader/initrd                      || goto failed
 imgexec                                                           || goto failed
 goto start
 
