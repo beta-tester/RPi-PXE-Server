@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-11-19
+# v 2025-12-16
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -185,7 +185,7 @@ GPARTED_X64=gparted-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2025.3-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/kali-2025.3/kali-linux-2025.3-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -271,12 +271,12 @@ RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
 SYSTEMRESCUE_X64=systemrescue-x64
-SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/12.02/systemrescue-12.02-amd64.iso
+SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sysresccd-x86/12.03/systemrescue-12.03-amd64.iso
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.2/tails-amd64-7.2.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.2/tails-amd64-7.2.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.3.1/tails-amd64-7.3.1.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.3.1/tails-amd64-7.3.1.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
