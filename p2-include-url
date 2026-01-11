@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2025-01-10
+# v 2026-01-10
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -185,7 +185,7 @@ GPARTED_X64=gparted-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/kali-2025.4/kali-linux-2025.4-live-amd64.iso
+KALI_X64_URL=https://cdimage.kali.org/kali-2025.3/kali-linux-2025.3-live-amd64.iso
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
