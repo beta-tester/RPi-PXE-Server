@@ -147,13 +147,13 @@ DRAGONOS_X64_SUM_TYPE=sha256
 
 
 EMMABUNTUS_X64=emmabuntus-x64
-EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-amd64-12.10-1.05.iso
-EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-amd64-12.10-1.05.iso.sum.txt
+EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-amd64-12.13-1.05.iso
+EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-amd64-12.13-1.05.iso.sum.txt
 EMMABUNTUS_X64_SUM_TYPE=sha256
 
 EMMABUNTUS_X86=emmabuntus-x86
-EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-i686-12.10-1.05.iso
-EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-i686-12.10-1.05.iso.sum.txt
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-i686-12.13-1.05.iso
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-i686-12.13-1.05.iso.sum.txt
 EMMABUNTUS_X86_SUM_TYPE=sha256
 
 
