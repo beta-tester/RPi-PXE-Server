@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-01-28
+# v 2026-02-16
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -213,7 +213,7 @@ LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/25.10/release/SHA256
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.3-desktop-amd64.iso
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.4-desktop-amd64.iso
 LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
@@ -275,8 +275,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.4/tails-amd64-7.4.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.4/tails-amd64-7.4.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.4.2/tails-amd64-7.4.2.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.4.2/tails-amd64-7.4.2.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -302,7 +302,7 @@ UBUNTU_X64_SUM=https://releases.ubuntu.com/25.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.3-desktop-amd64.iso
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.4-desktop-amd64.iso
 UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
