@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-02-16
+# v 2026-02-28
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -94,13 +94,14 @@ BLACKARCH_X64_URL=https://ftp.halifax.rwth-aachen.de/blackarch/iso/blackarch-lin
 
 
 BUNSEN_X64=bunsen-x64
-BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/boron-1-240123-amd64.hybrid.iso
+BUNSEN_X64_URL=https://ddl.bunsenlabs.org/ddl/carbon-1-260211-amd64.hybrid.iso
 BUNSEN_X64_SUM=https://ddl.bunsenlabs.org/ddl/release.sha256.txt
 BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.3.0-33/clonezilla-live-3.3.0-33-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.3.1-35/clonezilla-live-3.3.1-35-amd64.iso
+
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.0-5/clonezilla-live-3.2.0-5-i686.iso
 
@@ -275,14 +276,14 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.4.2/tails-amd64-7.4.2.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.4.2/tails-amd64-7.4.2.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.5/tails-amd64-7.5.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.5/tails-amd64-7.5.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
 TINYCORE_X64=tinycore-x64
-TINYCORE_X64_URL=http://tinycorelinux.net/16.x/x86_64/release/TinyCorePure64-current.iso
-TINYCORE_X64_SUM=http://tinycorelinux.net/16.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
+TINYCORE_X64_URL=http://tinycorelinux.net/17.x/x86_64/release/TinyCorePure64-current.iso
+TINYCORE_X64_SUM=http://tinycorelinux.net/17.x/x86_64/release/TinyCorePure64-current.iso.md5.txt
 TINYCORE_X64_SUM_TYPE=md5
 
 TINYCORE_X86=tinycore-x86
