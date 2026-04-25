@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-04-12
+# v 2026-04-24
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -214,8 +214,8 @@ LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/25.10/release/SHA256
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
-LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.4-desktop-amd64.iso
-LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/SHA256SUMS
+LUBUNTU_LTS_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/26.04/release/lubuntu-26.04-desktop-amd64.iso
+LUBUNTU_LTS_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/26.04/release/SHA256SUMS
 LUBUNTU_LTS_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X86=lubuntu-lts-x86
@@ -276,8 +276,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.6.1/tails-amd64-7.6.1.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.6.1/tails-amd64-7.6.1.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.6.2/tails-amd64-7.6.2.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.6.2/tails-amd64-7.6.2.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -303,8 +303,8 @@ UBUNTU_X64_SUM=https://releases.ubuntu.com/25.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
-UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/24.04/ubuntu-24.04.4-desktop-amd64.iso
-UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/24.04/SHA256SUMS
+UBUNTU_LTS_X64_URL=https://releases.ubuntu.com/26.04/ubuntu-26.04-desktop-amd64.iso
+UBUNTU_LTS_X64_SUM=https://releases.ubuntu.com/26.04/SHA256SUMS
 UBUNTU_LTS_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X86=ubuntu-lts-x86
@@ -318,8 +318,8 @@ UBUNTU_STUDIO_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/daily-live/p
 UBUNTU_STUDIO_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_STUDIO_X64=ubuntu-studio-x64
-UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/25.10/release/ubuntustudio-25.10-desktop-amd64.iso
-UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/25.10/release/SHA256SUMS
+UBUNTU_STUDIO_X64_URL=https://cdimage.ubuntu.com/ubuntustudio/releases/26.04/release/ubuntustudio-26.04-desktop-amd64.iso
+UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/26.04/release/SHA256SUMS
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
