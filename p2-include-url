@@ -323,9 +323,9 @@ UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/26.04/rel
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-25.07.00-x86_64.img.xz
-UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
-UBUNTU_FWTS_SUM_TYPE=sha256
+#UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-25.07.00-x86_64.img.xz
+#UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
+#UBUNTU_FWTS_SUM_TYPE=sha256
 
 
 #custom#
