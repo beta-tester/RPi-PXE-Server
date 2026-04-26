@@ -50,6 +50,11 @@ echo -e "\e[32msync...\e[0m" && sudo sync \
 
 
 ########################################################################
+echo -e "\e[32minstall aria2\e[0m";
+sudo apt install -y --no-install-recommends aria2;
+
+
+########################################################################
 echo -e "\e[32minstall uuid\e[0m";
 sudo apt install -y --no-install-recommends uuid;
 
