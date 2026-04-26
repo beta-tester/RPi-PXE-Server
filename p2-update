@@ -517,13 +517,14 @@ handle_iso() {
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f "${DST_ISO:?}/${FILE_URL:?}";
             sudo rm -f "${DST_ISO:?}/${FILE_ISO:?}";
-            sudo wget -O "${DST_ISO:?}/${FILE_ISO:?}"  "${URL:?}";
+            #sudo wget -O "${DST_ISO:?}/${FILE_ISO:?}"  "${URL:?}";
+            sudo aria2c ${OPT_ARIA} --dir="${DST_ISO:?}"  --out="${FILE_ISO:?}"   "${URL:?}";
 
             if [[ "$URL" == *.torrent ]]; then
                 #FILE_TORRENT="${DST_ISO:?}/${FILE_ISO:?}.torrent"
                 #sudo mv -f "${DST_ISO:?}/${FILE_ISO:?}" "${FILE_TORRENT:?}";
                 #sudo aria2c ${OPT_ARIA} --dir="${DST_ISO:?}" "${FILE_TORRENT:?}";
-                FILE_DL=$(basename $(aria2c --show-files "${FILE_ISO:?}" | grep -E '^[[:space:]]*1\|' | cut -d'|' -f2))
+                FILE_DL=$(basename $(aria2c --show-files "${DST_ISO:?}/${FILE_ISO:?}" | grep -E '^[[:space:]]*1\|' | cut -d'|' -f2))
                 #echo FILE_DL = \'"${DST_ISO:?}/${FILE_DL:?}"\'
                 sudo mv -f "${DST_ISO:?}/${FILE_DL:?}" "${DST_ISO:?}/${FILE_ISO:?}";
             fi
