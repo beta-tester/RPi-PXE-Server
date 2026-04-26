@@ -56,6 +56,19 @@ fi
 
 
 ########################################################################
+########################################################################
+#OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --max-connection-per-server=8 --split=8  --remote-time  --max-upload-limit=0 --seed-time=0 --bt-hash-check-seed=false --bt-max-peers=1 --enable-dht=false --bt-enable-lpd=false  --follow-torrent=true"
+#OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --summary-interval=0  --remote-time  --max-connection-per-server=8 --split=8 --seed-time=0  --follow-torrent=true"
+OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --summary-interval=0  --remote-time  --max-connection-per-server=8 --split=8 --seed-time=0"
+# ensure aria2c is installed
+if ! command -v aria2c &>/dev/null; then
+    echo -e "\e[33maria2c not found – install aria2...\e[0m";
+    sudo apt-get update -y;
+    sudo apt-get install -y aria2;
+fi
+
+
+########################################################################
 compare_last_modification_time() {
     python3 - << EOF "${1:?}" "${2:?}"
 import sys
@@ -504,6 +517,16 @@ handle_iso() {
             sudo rm -f "${DST_ISO:?}/${FILE_URL:?}";
             sudo rm -f "${DST_ISO:?}/${FILE_ISO:?}";
             sudo wget -O "${DST_ISO:?}/${FILE_ISO:?}"  "${URL:?}";
+
+            if [[ "$URL" == *.torrent ]]; then
+                FILE_TORRENT="${DST_ISO:?}/${FILE_ISO:?}.torrent"
+                sudo mv -f "${DST_ISO:?}/${FILE_ISO:?}" "${FILE_TORRENT:?}";
+                sudo aria2c ${OPT_ARIA} --dir="${DST_ISO:?}" "${FILE_TORRENT:?}";
+                FILE_DL=$(basename $(aria2c --show-files "${FILE_TORRENT:?}" | grep -E '^[[:space:]]*1\|' | cut -d'|' -f2))
+                #echo FILE_DL = \'"${DST_ISO:?}/${FILE_DL:?}"\'
+                sudo mv "${DST_ISO:?}/${FILE_DL:?}" "${DST_ISO:?}/${FILE_ISO:?}";
+            fi
+
             sudo sh -c "echo '${URL}' > ${DST_ISO:?}/${FILE_URL:?}";
             sudo touch -r "${DST_ISO:?}/${FILE_ISO:?}"  "${DST_ISO:?}/${FILE_URL:?}";
         fi
