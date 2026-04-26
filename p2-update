@@ -59,7 +59,8 @@ fi
 ########################################################################
 #OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --max-connection-per-server=8 --split=8  --remote-time  --max-upload-limit=0 --seed-time=0 --bt-hash-check-seed=false --bt-max-peers=1 --enable-dht=false --bt-enable-lpd=false  --follow-torrent=true"
 #OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --summary-interval=0  --remote-time  --max-connection-per-server=8 --split=8 --seed-time=0  --follow-torrent=true"
-OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --summary-interval=0  --remote-time  --max-connection-per-server=8 --split=8 --seed-time=0"
+#OPT_ARIA="--connect-timeout=10 --max-tries=3  --allow-overwrite=true  --summary-interval=0  --remote-time  --max-connection-per-server=8 --split=8 --seed-time=0"
+OPT_ARIA="--allow-overwrite=true  --summary-interval=0  --remote-time --seed-time=0  --follow-torrent=true"
 # ensure aria2c is installed
 if ! command -v aria2c &>/dev/null; then
     echo -e "\e[33maria2c not found – install aria2...\e[0m";
@@ -519,12 +520,12 @@ handle_iso() {
             sudo wget -O "${DST_ISO:?}/${FILE_ISO:?}"  "${URL:?}";
 
             if [[ "$URL" == *.torrent ]]; then
-                FILE_TORRENT="${DST_ISO:?}/${FILE_ISO:?}.torrent"
-                sudo mv -f "${DST_ISO:?}/${FILE_ISO:?}" "${FILE_TORRENT:?}";
-                sudo aria2c ${OPT_ARIA} --dir="${DST_ISO:?}" "${FILE_TORRENT:?}";
-                FILE_DL=$(basename $(aria2c --show-files "${FILE_TORRENT:?}" | grep -E '^[[:space:]]*1\|' | cut -d'|' -f2))
+                #FILE_TORRENT="${DST_ISO:?}/${FILE_ISO:?}.torrent"
+                #sudo mv -f "${DST_ISO:?}/${FILE_ISO:?}" "${FILE_TORRENT:?}";
+                #sudo aria2c ${OPT_ARIA} --dir="${DST_ISO:?}" "${FILE_TORRENT:?}";
+                FILE_DL=$(basename $(aria2c --show-files "${FILE_ISO:?}" | grep -E '^[[:space:]]*1\|' | cut -d'|' -f2))
                 #echo FILE_DL = \'"${DST_ISO:?}/${FILE_DL:?}"\'
-                sudo mv "${DST_ISO:?}/${FILE_DL:?}" "${DST_ISO:?}/${FILE_ISO:?}";
+                sudo mv -f "${DST_ISO:?}/${FILE_DL:?}" "${DST_ISO:?}/${FILE_ISO:?}";
             fi
 
             sudo sh -c "echo '${URL}' > ${DST_ISO:?}/${FILE_URL:?}";
