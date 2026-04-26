@@ -48,6 +48,17 @@ fi
 
 
 ########################################################################
+########################################################################
+OPT_ARIA="--allow-overwrite=true  --summary-interval=0  --remote-time --seed-time=0  --follow-torrent=true"
+# ensure aria2c is installed
+if ! command -v aria2c &>/dev/null; then
+    echo -e "\e[33maria2c not found – install aria2...\e[0m";
+    sudo apt-get update -y;
+    sudo apt-get install -y aria2;
+fi
+
+
+########################################################################
 compare_last_modification_time() {
     python3 - << EOF "${1:?}" "${2:?}"
 import sys
@@ -456,7 +467,15 @@ handle_iso() {
             echo -e "\e[36m    download iso image\e[0m";
             sudo rm -f "${DST_ISO:?}/${FILE_URL:?}";
             sudo rm -f "${DST_ISO:?}/${FILE_ISO:?}";
-            sudo wget -O "${DST_ISO:?}/${FILE_ISO:?}"  "${URL:?}";
+            #sudo wget -O "${DST_ISO:?}/${FILE_ISO:?}"  "${URL:?}";
+            sudo aria2c ${OPT_ARIA} --dir="${DST_ISO:?}"  --out="${FILE_ISO:?}"   "${URL:?}";
+
+            if [[ "$URL" == *.torrent ]]; then
+                FILE_DL=$(basename $(aria2c --show-files "${DST_ISO:?}/${FILE_ISO:?}" | grep -E '^[[:space:]]*1\|' | cut -d'|' -f2))
+                #echo FILE_DL = \'"${DST_ISO:?}/${FILE_DL:?}"\'
+                sudo mv -f "${DST_ISO:?}/${FILE_DL:?}" "${DST_ISO:?}/${FILE_ISO:?}";
+            fi
+
             sudo sh -c "echo '${URL}' > ${DST_ISO:?}/${FILE_URL:?}";
             sudo touch -r "${DST_ISO:?}/${FILE_ISO:?}"  "${DST_ISO:?}/${FILE_URL:?}";
         fi
