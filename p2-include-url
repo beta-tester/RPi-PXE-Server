@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-04-24
+# v 2026-05-02
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -163,13 +163,13 @@ ESET_SYSRESCUE_X86=eset-rescue-x86
 
 
 FEDORA_X64=fedora-x64
-FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/43/Workstation/x86_64/iso/Fedora-Workstation-Live-43-1.6.x86_64.iso
-FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/43/Workstation/x86_64/iso/Fedora-Workstation-43-1.6-x86_64-CHECKSUM
+FEDORA_X64_URL=https://download.fedoraproject.org/pub/fedora/linux/releases/44/Workstation/x86_64/iso/Fedora-Workstation-Live-44-1.7.x86_64.iso
+FEDORA_X64_SUM=https://download.fedoraproject.org/pub/fedora/linux/releases/44/Workstation/x86_64/iso/Fedora-Workstation-44-1.7-x86_64-CHECKSUM
 FEDORA_X64_SUM_TYPE=sha256
 
 FEDORA_SL_X64=fedora-sec-x64
-FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/43/Labs/x86_64/iso/Fedora-Security-Live-x86_64-43-1.6.iso
-FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/43/Labs/x86_64/iso/Fedora-Labs-43-1.6-x86_64-CHECKSUM
+FEDORA_SL_X64_URL=https://download.fedoraproject.org/pub/alt/releases/44/Labs/x86_64/iso/Fedora-Security-Live-44-1.7.x86_64.iso
+FEDORA_SL_X64_SUM=https://download.fedoraproject.org/pub/alt/releases/44/Labs/x86_64/iso/Fedora-Labs-44-1.7-x86_64-CHECKSUM
 FEDORA_SL_X64_SUM_TYPE=sha256
 
 
@@ -276,8 +276,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.6.2/tails-amd64-7.6.2.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.6.2/tails-amd64-7.6.2.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.7.2/tails-amd64-7.7.2.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.7.2/tails-amd64-7.7.2.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
@@ -323,9 +323,9 @@ UBUNTU_STUDIO_X64_SUM=https://cdimage.ubuntu.com/ubuntustudio/releases/26.04/rel
 UBUNTU_STUDIO_X64_SUM_TYPE=sha256
 
 UBUNTU_FWTS=ubuntu-fwts
-UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-25.07.00-x86_64.img.xz
-UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
-UBUNTU_FWTS_SUM_TYPE=sha256
+#UBUNTU_FWTS_URL=https://fwts.ubuntu.com/fwts-live/fwts-live-25.07.00-x86_64.img.xz
+#UBUNTU_FWTS_SUM=https://fwts.ubuntu.com/fwts-live/SHA256SUM
+#UBUNTU_FWTS_SUM_TYPE=sha256
 
 
 #custom#
