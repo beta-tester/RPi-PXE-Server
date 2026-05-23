@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-05-02
+# v 2026-05-23
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -108,7 +108,7 @@ CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezil
 
 DEBIAN_KVER=
 DEBIAN_X64=debian-x64
-DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.4.0-amd64-cinnamon.iso
+DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.5.0-amd64-cinnamon.iso
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
@@ -242,13 +242,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/7.1/Parrot-security-7.1_amd64.iso
-PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/7.1/signed-hashes.txt
+PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/7.2/Parrot-security-7.2_amd64.iso
+PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/7.2/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/7.1/Parrot-home-7.1_amd64.iso
-PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/7.1/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/7.2/Parrot-home-7.2_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/7.2/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
@@ -266,8 +266,8 @@ RPDESKTOP_X86_SUM_TYPE=sha256
 
 
 RESCUEZILLA_X64=rescuezilla-x64
-RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.6.1/rescuezilla-2.6.1-64bit.oracular.iso
-RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.6.1/SHA256SUM
+RESCUEZILLA_X64_URL=https://github.com/rescuezilla/rescuezilla/releases/download/2.6.2/rescuezilla-2.6.2-64bit.resolute.iso
+RESCUEZILLA_X64_SUM=https://github.com/rescuezilla/rescuezilla/releases/download/2.6.2/SHA256SUM
 RESCUEZILLA_X64_SUM_TYPE=sha256
 
 
@@ -276,8 +276,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.7.2/tails-amd64-7.7.2.iso
-TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.7.2/tails-amd64-7.7.2.iso.sig
+TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.8/tails-amd64-7.8.iso
+TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.8/tails-amd64-7.8.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
