@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-06-04
+# v 2026-06-20
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -276,10 +276,10 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-#TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.8.1/tails-amd64-7.8.1.iso
-#TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.8.1/tails-amd64-7.8.1.iso.sig
-TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.8.1/tails-amd64-7.8.1.iso
-TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.8.1/tails-amd64-7.8.1.iso.sig
+#TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.9/tails-amd64-7.9.iso
+#TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.9/tails-amd64-7.9.iso.sig
+TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.9/tails-amd64-7.9.iso
+TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.9/tails-amd64-7.9.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
