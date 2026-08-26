@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-08-07
+# v 2026-08-25
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -142,8 +142,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R9.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Noble_R9.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Resolute_R1.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Resolute_R1.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -278,10 +278,10 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-#TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.10.1/tails-amd64-7.10.1.iso
-#TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.10.1/tails-amd64-7.10.1.iso.sig
-TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.10.1/tails-amd64-7.10.1.iso
-TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.10.1/tails-amd64-7.10.1.iso.sig
+#TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.11/tails-amd64-7.11.iso
+#TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.11/tails-amd64-7.11.iso.sig
+TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.11/tails-amd64-7.11.iso
+TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.11/tails-amd64-7.11.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
