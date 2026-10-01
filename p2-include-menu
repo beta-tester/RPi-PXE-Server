@@ -1724,9 +1724,9 @@ goto start
 :debian-lxqt-x64
 :debian-mate-x64
 :debian-x64
-set version  $DEBIAN_KVER
-set file1    vmlinuz\${version}
-set file2    initrd.img\${version}
+set deb_version  $DEBIAN_KVER
+set file1    vmlinuz\${deb_version}
+set file2    initrd.img\${deb_version}
 set extra
 goto debian
 
@@ -1737,9 +1737,9 @@ goto debian
 :debian-lxqt-x86
 :debian-mate-x86
 :debian-x86
-set version  $DEBIAN_KVER_X86
-set file1    vmlinuz\${version}
-set file2    initrd.img\${version}
+set deb_version  $DEBIAN_KVER_X86
+set file1    vmlinuz\${deb_version}
+set file2    initrd.img\${deb_version}
 set extra
 goto debian
 
