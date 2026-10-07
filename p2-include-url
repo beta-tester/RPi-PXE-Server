@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-09-17
+# v 2026-10-07
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -100,7 +100,7 @@ BUNSEN_X64_SUM_TYPE=sha256
 
 
 CLONEZILLA_X64=clonezilla-x64
-CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.3.3-15/clonezilla-live-3.3.3-15-amd64.iso
+CLONEZILLA_X64_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/3.3.3-37/clonezilla-live-3.3.3-37-amd64.iso
 
 CLONEZILLA_X86=clonezilla-x86
 CLONEZILLA_X86_URL=https://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable//3.2.0-5/clonezilla-live-3.2.0-5-i686.iso
@@ -148,13 +148,13 @@ DRAGONOS_X64_SUM_TYPE=sha256
 
 
 EMMABUNTUS_X64=emmabuntus-x64
-EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-amd64-12.13-1.05.iso
-EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-amd64-12.13-1.05.iso.sum.txt
+EMMABUNTUS_X64_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.06/emmabuntus-de5-amd64-12.15-1.06.iso
+EMMABUNTUS_X64_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.06/emmabuntus-de5-amd64-12.15-1.06.iso.sum.txt
 EMMABUNTUS_X64_SUM_TYPE=sha256
 
 EMMABUNTUS_X86=emmabuntus-x86
-EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-i686-12.13-1.05.iso
-EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.05/emmabuntus-de5-i686-12.13-1.05.iso.sum.txt
+EMMABUNTUS_X86_URL=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.06/emmabuntus-de5-i686-12.15-1.06.iso
+EMMABUNTUS_X86_SUM=https://downloads.sourceforge.net/project/emmabuntus/Emmabuntus_DE5/Images/1.06/emmabuntus-de5-i686-12.15-1.06.iso.sum.txt
 EMMABUNTUS_X86_SUM_TYPE=sha256
 
 
@@ -221,13 +221,13 @@ OPENSUSE_X64_SUM_TYPE=sha256
 
 
 PARROT_FULL_X64=parrot-full-x64
-PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/7.3/Parrot-security-7.3_amd64.iso
-PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/7.3/signed-hashes.txt
+PARROT_FULL_X64_URL=https://download.parrot.sh/parrot/iso/7.4/Parrot-security-7.4_amd64.iso
+PARROT_FULL_X64_SUM=https://download.parrot.sh/parrot/iso/7.4/signed-hashes.txt
 PARROT_FULL_X64_SUM_TYPE=sha256
 
 PARROT_LITE_X64=parrot-lite-x64
-PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/7.3/Parrot-home-7.3_amd64.iso
-PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/7.3/signed-hashes.txt
+PARROT_LITE_X64_URL=https://download.parrot.sh/parrot/iso/7.4/Parrot-home-7.4_amd64.iso
+PARROT_LITE_X64_SUM=https://download.parrot.sh/parrot/iso/7.4/signed-hashes.txt
 PARROT_LITE_X64_SUM_TYPE=sha256
 
 
@@ -255,10 +255,10 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-#TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.13/tails-amd64-7.13.iso
-#TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.13/tails-amd64-7.13.iso.sig
-TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.13/tails-amd64-7.13.iso
-TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.13/tails-amd64-7.13.iso.sig
+#TAILS_X64_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.14/tails-amd64-7.14.iso
+#TAILS_X64_SUM=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-7.14/tails-amd64-7.14.iso.sig
+TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.14/tails-amd64-7.14.iso
+TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.14/tails-amd64-7.14.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
