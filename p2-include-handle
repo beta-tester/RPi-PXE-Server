@@ -51,6 +51,7 @@ handle_item  '-'  iso   BLACKARCH_X64;
 handle_item  '-'  iso   BUNSEN_X64;
 handle_item  '-'  iso   CLONEZILLA_X64;
 handle_item  '-'  iso   CLONEZILLA_X86;
+handle_item  '+'  iso   DEBIAN_TESTING_X64;
 handle_item  '+'  iso   DEBIAN_X64;
 handle_item  '-'  iso   DEBIAN_X86;
 handle_item  '-'  iso   DEVUAN_X64;
