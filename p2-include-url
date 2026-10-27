@@ -10,7 +10,7 @@ fi
 ########################################################################
 
 
-# v 2026-10-07
+# v 2026-10-26
 
 # pull updates
 #   cd ~/git/RPi-PXE-Server/ && git pull --no-rebase && cd - || git diff;
@@ -112,6 +112,12 @@ DEBIAN_X64_URL=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybri
 DEBIAN_X64_SUM=https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/SHA256SUMS
 DEBIAN_X64_SUM_TYPE=sha256
 
+DEBIAN_TESTING_KVER=
+DEBIAN_TESTING_X64=debian-testing-x64
+DEBIAN_TESTING_X64_URL=https://cdimage.debian.org/cdimage/weekly-live-builds/amd64/iso-hybrid/debian-live-testing-amd64-cinnamon.iso
+DEBIAN_TESTING_X64_SUM=https://cdimage.debian.org/cdimage/weekly-live-builds/amd64/iso-hybrid/SHA256SUMS
+DEBIAN_TESTING_X64_SUM_TYPE=sha256
+
 DEBIAN_KVER_X86=-5.10.0-32-686
 DEBIAN_X86=debian-x86
 DEBIAN_X86_URL=https://cdimage.debian.org/cdimage/archive/latest-oldoldstable-live/i386/iso-hybrid/debian-live-11.11.0-i386-cinnamon.iso
@@ -142,8 +148,8 @@ DEVUAN_X86_SUM_TYPE=sha256
 
 
 DRAGONOS_X64=dragonos-x64
-DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Resolute_R1.iso
-DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Resolute_R1.iso.sha256
+DRAGONOS_X64_URL=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Resolute_R2.1.iso
+DRAGONOS_X64_SUM=https://downloads.sourceforge.net/project/dragonos-focal/DragonOS_Resolute_R2.1.iso.sha256
 DRAGONOS_X64_SUM_TYPE=sha256
 
 
@@ -186,7 +192,7 @@ GPARTED_X64=gparted-x64
 
 
 KALI_X64=kali-x64
-KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2026.2-live-amd64.iso.torrent
+KALI_X64_URL=https://cdimage.kali.org/current/kali-linux-2026.3-live-amd64.iso.torrent
 KALI_X64_SUM=https://cdimage.kali.org/current/SHA256SUMS
 KALI_X64_SUM_TYPE=sha256
 
@@ -281,8 +287,8 @@ LUBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/lubuntu/stonking/daily-live/pen
 LUBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 LUBUNTU_X64=lubuntu-x64
-LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/25.10/release/lubuntu-25.10-desktop-amd64.iso
-LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/25.10/release/SHA256SUMS
+LUBUNTU_X64_URL=https://cdimage.ubuntu.com/lubuntu/releases/26.10/release/lubuntu-26.10-desktop-amd64.iso
+LUBUNTU_X64_SUM=https://cdimage.ubuntu.com/lubuntu/releases/26.10/release/SHA256SUMS
 LUBUNTU_X64_SUM_TYPE=sha256
 
 LUBUNTU_LTS_X64=lubuntu-lts-x64
@@ -304,8 +310,8 @@ UBUNTU_DAILY_X64_SUM=https://cdimage.ubuntu.com/ubuntu/stonking/daily-live/pendi
 UBUNTU_DAILY_X64_SUM_TYPE=sha256
 
 UBUNTU_X64=ubuntu-x64
-UBUNTU_X64_URL=https://releases.ubuntu.com/25.10/ubuntu-25.10-desktop-amd64.iso
-UBUNTU_X64_SUM=https://releases.ubuntu.com/25.10/SHA256SUMS
+UBUNTU_X64_URL=https://releases.ubuntu.com/26.10/ubuntu-26.10-desktop-amd64.iso
+UBUNTU_X64_SUM=https://releases.ubuntu.com/26.10/SHA256SUMS
 UBUNTU_X64_SUM_TYPE=sha256
 
 UBUNTU_LTS_X64=ubuntu-lts-x64
