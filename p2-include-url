@@ -261,8 +261,8 @@ SYSTEMRESCUE_X64_URL=https://downloads.sourceforge.net/project/systemrescuecd/sy
 
 
 TAILS_X64=tails-x64
-TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.15.1/tails-amd64-7.15.1.iso
-TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.15.1/tails-amd64-7.15.1.iso.sig
+TAILS_X64_URL=https://download.tails.net/tails/stable/tails-amd64-7.16/tails-amd64-7.16.iso
+TAILS_X64_SUM=https://download.tails.net/tails/stable/tails-amd64-7.16/tails-amd64-7.16.iso.sig
 TAILS_X64_SUM_TYPE=pgp
 
 
